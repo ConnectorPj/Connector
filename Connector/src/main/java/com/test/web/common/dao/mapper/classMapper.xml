@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.web.common.dao.ClassDAO">
+
+	<sql id="classColumns">
+		study_id AS studyId,
+		teacher_id AS teacherId,
+		study_name AS
+		studyName,
+		study_info AS studyInfo,
+		study_job AS studyJob,
+		study_price AS studyPrice,
+		study_progressName AS studyProgressName,
+		study_programLanguage AS studyProgramLanguage,
+		study_week AS studyWeek,
+		study_time AS studyTime,
+		study_schedule AS studySchedule,
+		study_location AS studyLocation,
+		study_amount AS studyAmount,
+		study_reference AS studyReference,
+		study_check AS studyCheck,
+		study_regdate AS studyRegdate
+	</sql>
+
+	<!-- Class List 조회 -->
+	<select id="selectClassList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		order by study_regdate DESC;
+	</select>
+
+	<!-- 특정 Class 조회 -->
+	<select id="selectClass" resultType="classBean" parameterType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_id = #{studyId}
+		order by study_regdate DESC
+	</select>
+
+	<insert id="insertClass" parameterType="classBean">
+		INSERT INTO study
+		(
+		study_id,
+		teacher_id,
+		study_name,
+		study_info,
+		study_job,
+		study_price,
+		study_progressName,
+		study_programLanguage,
+		study_week,
+		study_time,
+		study_schedule,
+		study_location,
+		study_amount,
+		study_reference,
+		study_check
+		)
+		VALUES
+		(
+		#{studyId},
+		#{teacherId},
+		#{studyName},
+		#{studyInfo},
+		#{studyJob},
+		#{studyPrice},
+		#{studyProgressName},
+		#{studyProgramLanguage},
+		#{studyWeek},
+		#{studyTime},
+		#{studySchedule},
+		#{studyLocation},
+		#{studyAmount},
+		#{studyReference},
+		#{studyCheck}
+		)
+
+	</insert>
+
+	<update id="updateClass" parameterType="classBean">
+		UPDATE study SET
+		study_id = #{studyId},
+		teacher_id = #{teacherId},
+		study_name = #{studyName},
+		study_info = #{studyInfo},
+		study_job = #{studyJob},
+		study_price = #{studyPrice},
+		study_progressName = #{studyProgressName},
+		study_programLanguage = #{studyProgramLanguage},
+		study_week = #{studyWeek},
+		study_time = #{studyTime},
+		study_schedule = #{studySchedule},
+		study_location = #{studyLocation},
+		study_amount = #{studyAmount},
+		study_reference = #{studyReference},
+		study_check = #{studyCheck}
+	</update>
+
+	<delete id="deleteClass" parameterType="classBean">
+		DELETE FROM
+		study
+		WHERE
+		study_id = #{studyId}
+	</delete>
+
+
+</mapper>

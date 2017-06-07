@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content/Box */
+.modal-content-review {
+	background-color: #fff;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 70%;
+}
+/* The Close Button */
+.closeReview {
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+}
+
+.closeReview:hover, .closeReview:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+}
+
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+.inputReview{
+	
+	font-size:1em;
+	border:1px solid #ddd;
+	border-radius:10px;
+	width: 100%;
+	padding: 20px;
+	height: 150px;
+	resize:none;
+	
+}
+
+.inputReview:FOCUS{
+	
+	box-shadow: 0 0 10px #ccc;
+	
+}
+
+
+
+.btnReview{
+	float:right;
+	border:0px;
+	width:100px;
+	height: 40px;
+	padding:10px;
+	background-color: #2c3d46;
+	color:#fff;
+	font-size: 1em;
+	
+}

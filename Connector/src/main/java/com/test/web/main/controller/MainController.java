@@ -1,0 +1,164 @@
+﻿package com.test.web.main.controller;
+
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.test.web.common.Constants;
+import com.test.web.common.bean.ClassBean;
+import com.test.web.common.bean.TeacherBean;
+import com.test.web.common.dao.ClassDAO;
+import com.test.web.common.dao.TeacherDAO;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class MainController {
+
+	@Autowired
+	private TeacherDAO teacherDao;
+	
+	@Autowired
+	private ClassDAO classDao;
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping("/main")
+	public String main(Model model) {
+
+		
+		List<ClassBean> classList = classDao.selectClassList();
+
+		model.addAttribute("classList", classList);
+
+		return "main";
+	}
+
+	@RequestMapping("/payorder")
+	public String payorder(Locale locale, Model model) {
+		return "payorder";
+	}
+
+	@RequestMapping("/classlist")
+	public String classlist(Locale locale, Model model) {
+		return "classlist";
+	}
+
+	@RequestMapping("/application")
+	public String application(Locale locale, Model model){
+		return "application";
+	}
+	@RequestMapping("/payment")
+	public String payment(Locale locale, Model model){
+		return "payment";
+	}
+
+	/** 회원가입 처리를 한다. **/
+	@RequestMapping("/insertTeacherProc")
+	public String insertTeacherProc(TeacherBean teacherBean) {
+
+		// DB insert
+		int res = teacherDao.insertTeacher(teacherBean);
+
+		System.out.println(res);
+
+		return "redirect:/main.do";
+
+	}
+
+	@RequestMapping("/selectTeacher")
+	public String selectMember(TeacherBean teacherBean, Model model) {
+		// DB로부터 데이터를 가져온다.
+		TeacherBean mBean = teacherDao.selectTeacher(teacherBean);
+		// JSP로 보내기 위해서 데이터를 적재한다.
+		model.addAttribute("teacherBean", mBean);
+
+		return "/main";
+	}
+
+	/** 회원 수정화면 **/
+	@RequestMapping("/personalInfoTeacher")
+	public String personalInfoTeacher(TeacherBean teacherBean, Model model) {
+
+		TeacherBean resBean = teacherDao.selectTeacher(teacherBean);
+
+		model.addAttribute("teacherBean", resBean);
+
+		return "/personalInfoTeacher";
+	}
+
+	/** 회원정보 수정 처리를 한다. **/
+	@RequestMapping("/updateTeacherProc")
+	public String updateTeacherProc(TeacherBean teacherBean, Model model) {
+
+		model.addAttribute(Constants.RESULT, Constants.RESULT_FAIL);
+		model.addAttribute("teacherBean", teacherBean);
+
+		// DB update
+		int res = teacherDao.updateTeacher(teacherBean);
+
+		if (res > 0) {
+			model.addAttribute(Constants.RESULT, Constants.RESULT_OK);
+		}
+
+		return "/personalInfoTeacher";
+	}
+
+	@RequestMapping("/deleteTeacher")
+	public String deleteTeacher(TeacherBean teacherBean) {
+
+		// DB insert
+		int res = 0;
+
+		try {
+			res = teacherDao.deleteTeacher(teacherBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(res);
+
+		return "redirect:/main.do";
+
+	}
+
+	@RequestMapping("/errorpage")
+	public String error404() {
+		return "errorpage";
+	}
+
+@RequestMapping("/adminRegTeacher")
+	public String adminRegTeacher(){
+		return "adminRegTeacher";
+	}
+	
+	@RequestMapping("/adminPage")
+	public String adminPage(){
+		return "adminPage";
+	}
+
+	
+	@RequestMapping("/adminRegClass")
+	public String adminRegClass(){
+		return "adminRegClass";
+	}
+	@RequestMapping("/adminTeacherList")
+	public String adminTeacherList(){
+		return "adminTeacherList";
+	}
+	@RequestMapping("/adminStudentList")
+	public String adminStudentList(){
+		return "adminStudentList";
+	}
+	@RequestMapping("/adminStudyList")
+	public String adminStudyList(){
+		return "adminStudyList";
+	}
+
+}

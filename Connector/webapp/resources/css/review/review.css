@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+
+
+body {
+	background: #f2f2f2;
+}
+
+.reviewList {
+	list-style: none;
+	margin-left: 20px;
+}
+
+.review {
+	display: flex;
+}
+
+.writerPhoto {
+	flex: 1;
+}
+
+.reviewContentWrap {
+	flex: 6;
+}
+
+.writerPhoto img {
+	width: 100px;
+	height: 100px;
+	float: left;
+	border-radius: 50%;
+	margin-right: 30px;
+}
+
+.writerName {
+	font-size: 20px;
+}
+
+.writtenAt {
+	font-size: 15px;
+	margin-left: 20px;
+}
+
+.star {
+	display: inline-block;
+	margin-right: 3px;
+	width: 14px;
+	height: 14px;
+	background: transparent
+		url(https://cdn.studysearch.co.kr/static/images/desktop-assets.3254c7dd548f.png);
+	background-position-y: -206px;
+}
+
+.reviewLevel {
+	color: red;
+}

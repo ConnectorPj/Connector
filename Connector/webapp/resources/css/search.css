@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+
+
+.total {
+	margin: 80px auto 0
+}
+#test1 {
+	margin-top: 25px;
+	float: left;
+	width: 56%;
+	height: 800px;
+	text-align: left;
+	overflow: auto;
+	background: white;	
+}
+#test2 {
+	width: 44%;
+	height: 800px;
+	background-size: 100%;
+	text-align: center;
+}
+.searchPlace {
+	display: flex;
+}
+.textPlace {
+	flex: 1;
+	display: inline-block;
+	width: 150px;
+	padding-left: 20px;
+}
+.searchText {
+	flex: 3;
+}
+.stylish-input-group .input-group-addon {
+    background: white !important; 
+}
+.stylish-input-group .form-control {
+	border-right:0;
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button {
+    border:0;
+    background:transparent;
+}
+.stylish-input-group {
+	width: 300px;
+}
+.form-control {
+	height: 35px;
+}
+.mySearchPlace {
+	flex: 5;
+}
+#mySearchPlaceBtn {
+	width: 170px; 
+	height: 35px;
+}
+.searchCategory {
+	display: flex;
+}
+.textCategory {
+	flex: 1;
+	display: inline-block;
+	width: 150px;
+	padding-left: 20px;
+}
+.bigCategory {
+	flex: 3;
+}
+#bigCategorySelect {
+	width: 300px; 
+	height: 35px;
+	padding-left: 10px;
+}
+.smallCategory {
+	flex: 5;
+}
+#smallCategorySelect {
+	width: 300px; 
+	height: 35px; 
+	background: #ddd;
+	padding-left: 10px;
+}

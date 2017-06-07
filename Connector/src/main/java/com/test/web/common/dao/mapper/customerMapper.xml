@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.web.common.dao.CustomerDAO">
+
+	<sql id="memberColumns">
+		customer_id AS customerId,
+		customer_pw AS customerPw,
+		customer_name AS customerName,
+		customer_cellphone AS customerCellphone,
+		customer_profile AS customerProfile,
+		customer_gender AS customerGender,
+		customer_regdate as customerRegdate
+	</sql>
+
+
+	<!-- 회원정보 1건 조회 -->
+	<select id="selectCustomer" resultType="customerBean"
+		parameterType="customerBean">
+		SELECT
+		<include refid="memberColumns" />
+		FROM
+		customer
+		WHERE
+		customer_id = #{customerId}
+		<if test="customerPw != null and customerPw != ''">
+			AND customer_pw=PASSWORD(#{customerPw})
+		</if>
+	</select>
+
+	<!-- 회원정보 List 조회 -->
+	<select id="selectCustomerList" resultType="customerBean"
+		parameterType="customerBean">
+		SELECT
+		<include refid="memberColumns" />
+		FROM
+		customer
+	</select>
+
+
+	<insert id="insertCustomer" parameterType="customerBean">
+		INSERT INTO customer
+		(
+		customer_id,
+		customer_pw,
+		customer_name
+		)
+		VALUES
+		(
+		#{customerId},
+		PASSWORD(#{customerPw}),
+		#{customerName}
+		)
+
+	</insert>
+
+	<!-- 회원정보 수정 -->
+	<update id="updateCustomer" parameterType="customerBean">
+		UPDATE customer SET
+		customer_id=#{customerId}
+		<if test="customerPw != null and customerPw != ''">
+			,customer_pw = PASSWORD(#{customerPw})
+		</if>
+
+		<if test="customerName != null and customerName != ''">
+			,customer_name = #{customerName}
+		</if>
+
+		<if test="customerCellphone != null and customerCellphone != ''">
+			,customer_cellphone = #{customerCellphone}
+		</if>
+
+		<if test="customerGender != null and customerGender != ''">
+			,customer_gender = #{customerGender}
+		</if>
+
+
+		<!-- <if test="token != null and token != ''"> ,token = #{token} </if> -->
+		WHERE
+		customer_id = #{customerId}
+	</update>
+
+	<!-- 회원정보 삭제 -->
+	<delete id="deleteCustomer" parameterType="customerBean">
+		DELETE FROM
+		customer
+		WHERE
+		customer_id = #{customerId}
+	</delete>
+
+
+</mapper>

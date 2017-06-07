@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.web.common.dao.PurchaseDAO">
+    
+<!--     <sql id="purchaseColumns"> -->
+<!--         purchase_no AS purchadeNo,  -->
+<!--         customer_id AS customerId, -->
+<!-- 	    study_id AS studyId,  -->
+<!-- 	    purchase_date AS purchaseDate, -->
+<!-- 	    purchase_sort AS purchaseSort  -->
+<!--     </sql> -->
+    
+	<select id="selectPurchase" resultType="purchaseBean" parameterType="purchaseBean">
+	    SELECT
+	    	purchase_no AS purchadeNo, 
+        	customer_id AS customerId,
+	    	study_id AS studyId, 
+	    	purchase_date AS purchaseDate,
+	    	purchase_sort AS purchaseSort 
+	    FROM
+	    	purchase_study
+	    WHERE
+  			customer_id = #{customerId} 
+	</select>
+	
+	<!-- ȸ������ List ��ȸ -->
+	<select id="selectPurchaseList" resultType="purchaseBean"
+		parameterType="purchaseBean">
+		SELECT
+			purchase_no AS purchadeNo, 
+   	 	    customer_id AS customerId,
+		    study_id AS studyId, 
+		    purchase_date AS purchaseDate,
+		    purchase_sort AS purchaseSort 
+		FROM
+		purchase_study
+	</select>
+    
+	<!-- ȸ������ 1�� ���� -->
+    <insert id="insertPurchase" parameterType="purchaseBean">
+        INSERT INTO purchase_study
+		(
+		  customer_id,
+		  study_id,
+		  purchase_sort
+		
+		)
+		VALUES
+		(
+		  #{customerId}, 
+ 		  #{studyId},
+		  #{purchaseSort}
+		)
+	</insert>
+    
+    <!-- ȸ������ ���� -->
+	<update id="updatePurchase" parameterType="purchaseBean">
+		UPDATE purchase_study SET
+		customer_id = #{customerId}
+			<if test="studyId != null and studyId != ''">
+			    ,study_id = #{studyId}
+			</if>
+			<if test="purchaseSort != null and purchaseSort != ''">
+			    ,purchase_sort = #{purchaseSort}
+			</if>
+		WHERE
+			customer_id = #{customerId}
+	</update>
+	
+	<!-- ȸ������ ���� -->
+	<delete id="deletePurchase" parameterType="purchaseBean">
+	    DELETE FROM 
+	    	purchase_study
+	    WHERE
+	    	customer_id = #{customerId}
+	</delete>
+
+</mapper>
