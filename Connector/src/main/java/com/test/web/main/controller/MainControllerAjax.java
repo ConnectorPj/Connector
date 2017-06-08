@@ -19,7 +19,7 @@ import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.TeacherDAO;
-import com.test.web.main.service.BoardService;
+import com.test.web.common.service.TeacherService;
 
 @Controller
 public class MainControllerAjax {
@@ -35,7 +35,7 @@ public class MainControllerAjax {
 	private PhotoDAO photoDao;
 
 	@Autowired
-	private BoardService boardService;
+	private TeacherService teacherService;
 
 	@RequestMapping("/adminRegTeacherAjax")
 	public String adminRegTeacher(TeacherBean teacherBean, PhotoBean photoBean, Model model) {
@@ -59,7 +59,7 @@ public class MainControllerAjax {
 		resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
 
 		try {
-			int res = boardService.insertBoardAttach(tBean, pBean, FILE_UPLOAD_PATH + "/upFile");
+			int res = teacherService.insertBoardAttach(tBean, pBean, FILE_UPLOAD_PATH + "/upFile");
 
 			if (res > 0) {
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);
@@ -82,12 +82,12 @@ public class MainControllerAjax {
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			 int totRecord = boardService.selectTeacherListTotalCount(pagingBean);
+			 int totRecord = teacherService.selectTeacherListTotalCount(pagingBean);
 			 
 			 //페이징 계산
 			 pagingBean.calcPage(totRecord);
 
-			List<TeacherBean> list = boardService.selectTeacherList(bean, pagingBean);
+			List<TeacherBean> list = teacherService.selectTeacherList(bean, pagingBean);
 
 			resMap.put("teacherBean", bean);
 			resMap.put("TeacherList", list);

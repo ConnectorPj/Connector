@@ -34,7 +34,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	@Override
-	public int selectTeacherListTotalCount() {
+	public int selectTeacherListTotalCount(PagingBean pBean) {
 		return teacherDao.selectTeacherListTotalCount();
 	}
 	

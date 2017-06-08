@@ -13,7 +13,7 @@ public interface TeacherService {
 	
 
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
-	public int selectTeacherListTotalCount();
+	public int selectTeacherListTotalCount(PagingBean pBean);
 	
 	/** 회원정보를 삽입한다. **/
 	public int insertTeacher(TeacherBean bean) throws Exception;
