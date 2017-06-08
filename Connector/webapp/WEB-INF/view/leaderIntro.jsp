@@ -80,6 +80,59 @@
     border-radius: 5px;
     }
 
+
+
+	/* 구글 버튼*/
+#customBtn, #customBtn2, #customBtn3, #customBtn4 {
+	display: inline-block;
+	background: white;
+	color: #444;
+	margin: 1% 0;
+	width: 100%;
+	border-radius: 5px;
+	border: thin solid #888;
+	white-space: nowrap;
+}
+
+#customBtn:hover, #customBtn2:hover, #customBtn3:hover, #customBtn4:hover
+	{
+	cursor: pointer;
+	box-shadow: 1px 1px 1px black;
+}
+
+span.label {
+	font-family: serif;
+	font-weight: normal;
+}
+
+span.icon {
+	margin-left: 3%;
+	background: url('/resources/images/g-logo.png') transparent 50% 50%/100%
+		100% no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+	width: 42px;
+	height: 42px;
+	background: url('/resources/images/g-logo.png') transparent 50% 50%/100%
+		100% no-repeat;
+}
+
+span.buttonText {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	padding-left: 31%;
+	padding-right: 42px;
+	font-size: 14px;
+	font-weight: bold;
+	/* Use the Roboto font that is loaded in the <head> */
+	font-family: 'Roboto', sans-serif;
+}
+
+#naver_id_login img {
+	width: 100%;
+}
+
 </style>
 
 <body>
@@ -95,7 +148,7 @@
     <div class="to">
     	<div class="ma">
 	         <h2>지금바로<br/>'더카니의 코딩세상'의<br/>리더가 되세요!</h2><br/>
-	         <button class="btn_study2">Apply Now</button>
+	         <button class="btn_study2" id="btn2" >Apply Now</button>
 	         <h6>호스트 지원 페이지로 이동합니다.</h6>
 	    </div>
     </div>
@@ -154,23 +207,105 @@
 	                    <div class="ri">
 	                        <div class="ri_ri">
 	                            <h2>지금 바로 리더 신청하기</h2><br/>
-	                            <button class="btn_study3">APPLY NOW</button>
+	                            <button class="btn_study3" id="btn3" >APPLY NOW</button>
 	                            <h6>호스트 지원 페이지로 이동합니다.</h6>
 	                        </div>
 	                            <div class="ri_ri2">
 	                                <img src="/resources/images/img.jpg" alt="sercive05"/>
 	                            </div>
 	                    </div>
-	                
-	            
 	        </div>
-	        
-	    
-    
     </div>
-
+    
    
     </section>
+    		<div id="myJoinModal2" class="modal">
+    
+    <div class="modal-content">
+				<span class="closeJoin2">&times;</span>
+				<div>
+					<br />
+					<!-- 구글 연동 2 -->
+					<div id="customBtn2" class="customGPlusSignIn"
+						onclick="secondApp();">
+						<span class="icon"></span> <span class="buttonText">Google</span>
+					</div>
+					<!-- 네이버 로그인 API -->
+					<div id="naver_id_login"></div>
+					<h6 style="text-align: center;">
+						<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
+							──────────────── </small>
+					</h6>
+					<form>
+						<div>
+							<input type="text" class="form-control" id="inputJoinName"
+								placeholder="이름" /><br/>
+							<input type="email" class="form-control"
+								id="inputJoinEmail" placeholder="이메일" /><br/>
+							<input type="password"
+								name="password" id="inputJoinpassword"
+								class="form-control input-sm" placeholder="비밀번호" tabindex="5">
+							<input type="password" name="password_confirmation"
+								id="inputJoinpasswordconfirm" class="form-control input-sm"
+								placeholder="비밀번호 확인" tabindex="6"><br/><br/><br/>
+							<input type="text"
+								class="form-control" id="inputJoinCareer" placeholder="경력" /><br/>
+							<input type="text"
+								class="form-control" id="inputJoinRegistration"
+								placeholder="주민등록번호 앞자리" /><br/>
+							<input type="text"
+								class="form-control" id="inputJoinPhone" placeholder="핸드폰번호" /><br/>
+							<input type="text"
+								class="form-control" id="inputJoinIntroduction" placeholder="강사소개" /><br/>
+							<input type="radio" name="gender" value="F" >여자 
+							<input type="radio" name="gender" value="M" >남자 
+						</div>
+				
+
+
+					</form>
+					<h6 style="text-align: center;">
+						<small>더코세의 이용약관과 개인정보 보호정책에 동의합니다.</small>
+					</h6>
+
+					<button type="button" class="button button-orange">가입 완료</button>
+				</div>
+
+			</div>
+			</div>
+			<script type="text/javascript"
+		src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Login Modal Script -->
+	<script type="text/javascript">
+		// Get the modal
+		var modalJoin2 = document.getElementById("myJoinModal2");
+
+		// Get the button that opens the modal
+		var btnJoin2 = document.getElementById("btn2");
+		var btnJoin3 = document.getElementById("btn3");
+
+		// Get the <span> element that closes the modal
+		var spanJoin2 = document.getElementsByClassName("closeJoin2")[0];
+
+		// When the user clicks on the button, open the modal 
+		btnJoin2.onclick = function() {
+			modalJoin2.style.display = "block";
+		}
+		btnJoin3.onclick = function() {
+			modalJoin2.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		spanJoin2.onclick = function() {
+			modalJoin2.style.display = "none";
+		}
+	</script>
 
 
 </body>
