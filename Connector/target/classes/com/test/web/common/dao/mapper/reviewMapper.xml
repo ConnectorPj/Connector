@@ -2,21 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.web.common.dao.reviewDAO">
-     <sql id="reviewColumns">
+    <sql id="reviewColumns">
         review_no AS reviewNo, 
         customer_id AS customerId,
-	    teacher_id AS teacherId,
-	    customer_name AS customerName,
-	    teacher_name AS teacherName,
-	    customer_picture AS customerPicture,
-	    teacher_picture AS teacherPicture,
-	    study_progressname AS studyProgressname,
-	    study_programlanguage AS studyProgramlanguage,
+	    study_id AS studyId, 
 	    review_content AS reviewContent,
 	    review_rating AS reviewRating, 
 	    review_regdate AS reviewRegdate
     </sql>
-	    
+    
     <!-- 회원정보 1건 조회 -->
 	<select id="selectReview" resultType="reviewBean" parameterType="reviewBean">
 	    SELECT
@@ -24,43 +18,21 @@
 	    FROM
 	    	review
 	    WHERE
-  			customer_id = #{customerId}
+  			customer_id = #{customerId} 
 	</select>
-	
-	<!-- 리뷰 List 조회 -->
-	<select id="selectReviewList" resultType="reviewBean" parameterType="reviewBean">
-	    SELECT
-	    	<include refid="reviewColumns"/>
-	    FROM
-	    	review
-	    where 
-	    	study_progressname = #{studyProgressname}
-	</select>
-	
+
 	<insert id="insertReview" parameterType="reviewBean">
 	    INSERT INTO review
  		( 
- 			customer_id,
- 			teacher_id,
- 			customer_name,
- 			teacher_name,
- 			customer_picture,
- 			teacher_picture,
- 			study_progressname,
- 			study_programlanguage,
+ 			customer_id, 
+ 			study_id, 
  			review_content,
  			review_rating
  		)
 		VALUES
  		(
- 			#{customerId},
- 			#{teacherId}, 
- 			#{customerName},
- 			#{teacherName},
- 			#{customerPicture},
- 			#{teacherPicture},
- 			#{studyProgressname},
- 			#{studyProgramlanguage},
+ 			#{customerId}, 
+ 			#{studyId}, 
  			#{reviewContent},
  			#{reviewRating}
  		)
@@ -80,7 +52,7 @@
 	    	review
 	    WHERE
 	    	customer_id = #{customerId} and
-	    	study_progressname = #{studyProgressname}
+	    	study_id = #{studyId}
 	</delete>
     
 

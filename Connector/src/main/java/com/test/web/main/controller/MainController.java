@@ -31,12 +31,10 @@ public class MainController {
 	 */
 	@RequestMapping("/main")
 	public String main(Model model) {
-
-		
 		List<ClassBean> classList = classDao.selectClassList();
-
+		
 		model.addAttribute("classList", classList);
-
+		
 		return "main";
 	}
 

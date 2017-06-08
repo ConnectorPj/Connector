@@ -10,13 +10,53 @@ public class ClassBean {
 	private String studyProgressName;
 	private String studyProgramLanguage;
 	private String studyWeek; // int
-	private String studyTime; // int
-	private String studySchedule;
+	
+	private String studyStartTime;
+	private String studyEndTime;
+	
+	private String studyStartDate;
+	private String studyEndDate;
+	
+	
 	private String studyLocation;
 	private String studyAmount;
 	private String studyReference;
 	private String studyCheck;
 	private String studyRegdate;
+	
+	
+
+	public String getStudyStartTime() {
+		return studyStartTime;
+	}
+
+	public void setStudyStartTime(String studyStartTime) {
+		this.studyStartTime = studyStartTime;
+	}
+
+	public String getStudyEndTime() {
+		return studyEndTime;
+	}
+
+	public void setStudyEndTime(String studyEndTime) {
+		this.studyEndTime = studyEndTime;
+	}
+
+	public String getStudyStartDate() {
+		return studyStartDate;
+	}
+
+	public void setStudyStartDate(String studyStartDate) {
+		this.studyStartDate = studyStartDate;
+	}
+
+	public String getStudyEndDate() {
+		return studyEndDate;
+	}
+
+	public void setStudyEndDate(String studyEndDate) {
+		this.studyEndDate = studyEndDate;
+	}
 
 	public String getStudyRegdate() {
 		return studyRegdate;
@@ -50,14 +90,6 @@ public class ClassBean {
 		this.studyWeek = studyWeek;
 	}
 
-	public String getStudySchedule() {
-		return studySchedule;
-	}
-
-	public void setStudySchedule(String studySchedule) {
-		this.studySchedule = studySchedule;
-	}
-
 	public String getStudyAmount() {
 		return studyAmount;
 	}
@@ -88,14 +120,6 @@ public class ClassBean {
 
 	public void setStudyLocation(String studyLocation) {
 		this.studyLocation = studyLocation;
-	}
-
-	public String getStudyTime() {
-		return studyTime;
-	}
-
-	public void setStudyTime(String studyTime) {
-		this.studyTime = studyTime;
 	}
 
 	public String getStudyId() {

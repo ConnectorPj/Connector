@@ -6,16 +6,20 @@
 	<sql id="classColumns">
 		study_id AS studyId,
 		teacher_id AS teacherId,
-		study_name AS
-		studyName,
+		study_name AS studyName,
 		study_info AS studyInfo,
 		study_job AS studyJob,
 		study_price AS studyPrice,
 		study_progressName AS studyProgressName,
 		study_programLanguage AS studyProgramLanguage,
 		study_week AS studyWeek,
-		study_time AS studyTime,
-		study_schedule AS studySchedule,
+		
+		study_startTime AS studyStartTime,
+		study_endTime AS studyEndTime,
+		
+		study_startDate AS studyStartDate,
+		study_endDate AS studyEndDate,
+		
 		study_location AS studyLocation,
 		study_amount AS studyAmount,
 		study_reference AS studyReference,
@@ -55,8 +59,12 @@
 		study_progressName,
 		study_programLanguage,
 		study_week,
-		study_time,
-		study_schedule,
+
+		study_startTime,
+		study_endTime,
+		study_startDate,
+		study_endDate,
+
 		study_location,
 		study_amount,
 		study_reference,
@@ -73,8 +81,13 @@
 		#{studyProgressName},
 		#{studyProgramLanguage},
 		#{studyWeek},
-		#{studyTime},
-		#{studySchedule},
+		
+		#{studyStartTime},
+		#{studyEndTime},
+		
+		#{studyStartDate},
+		#{studyEndDate},
+		
 		#{studyLocation},
 		#{studyAmount},
 		#{studyReference},
@@ -94,8 +107,12 @@
 		study_progressName = #{studyProgressName},
 		study_programLanguage = #{studyProgramLanguage},
 		study_week = #{studyWeek},
-		study_time = #{studyTime},
-		study_schedule = #{studySchedule},
+		
+		study_startTime = #{studyStartTime},
+		study_endTime = #{studyEndTime},
+		study_startDate = #{studyStartDate},
+		study_endDate = #{studyEndDate},
+		
 		study_location = #{studyLocation},
 		study_amount = #{studyAmount},
 		study_reference = #{studyReference},

@@ -42,6 +42,8 @@
 	margin: 0;
 }
 
+
+
 .choiceBtn {
 	display: none;
 	outline: 0;
@@ -89,7 +91,7 @@
 }
 
 .titleLevel{
-	width: 50pt;
+	width: 60pt;
     height: 50pt;
     overflow: hidden;
     text-align: center;
@@ -180,22 +182,23 @@
 }
 
 #studyintro {
-	height: 40%;
 }
 
 .studyTitle{
-	width: 25%;
+	width: 22%;
 	font-size: 20px;
 	padding: 20px;
 	float: left;
 }
 
 .StudyContent {
-	margin-left: 28%;
+	margin-left: 23%;
+	margin-right : 5%;
 	margin-top: 5%;
 	height: 100%;
 	font-size: 20px;
 }
+
 
 #detail {
 	height: 6%;

@@ -31,21 +31,19 @@ public class SearchController {
 		return "/search";
 	}
 
-	//게시글 상세보기 AJAX
 	@RequestMapping("/searchAjax")
 	@ResponseBody
 	public Map<String, Object> searchAjax(ClassBean cBean) {
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
-		resMap.put(Constants.RESULT_MSG, "class 정보 출력 실패");
+		resMap.put(Constants.RESULT_MSG, "class 실패");
 
 		try {
-			//게시글 통합조회(댓글 목록까지 조회)
 			List<ClassBean> classList = classDao.selectClassList();
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
-			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
+			resMap.put(Constants.RESULT_MSG, "성공");
 			resMap.put("classList", classList);
 			
 			

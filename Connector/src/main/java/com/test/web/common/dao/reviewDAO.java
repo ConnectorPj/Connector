@@ -5,7 +5,7 @@ import java.util.List;
 import com.test.web.common.bean.ReviewBean;
 
 public interface reviewDAO {
-public ReviewBean selectReview(ReviewBean bean);
+	public ReviewBean selectReview(ReviewBean bean);
 	
 	public List<ReviewBean> selectReviewList(ReviewBean bean);
 	

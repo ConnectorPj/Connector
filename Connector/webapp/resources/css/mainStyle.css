@@ -90,6 +90,7 @@ section .main_visual .visual03 {
 	display: block;
 	background-color: #000;
 	position: relative;
+	
 }
 
 .classType .classType_box a:hover img {

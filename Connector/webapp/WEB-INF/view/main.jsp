@@ -1,5 +1,4 @@
-﻿
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <html>
 <head>
@@ -64,6 +63,17 @@ a:active {
 a:hover {
 	color: #666666;
 	text-decoration: none
+}
+
+.close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
 }
 </style>
 
@@ -168,7 +178,6 @@ a:hover {
 		</div>
 		<!-- PICK -->
 		<div class="pick">
-
 			<h2 class="title">PICK</h2>
 			<div class="title_hr"></div>
 
@@ -179,7 +188,7 @@ a:hover {
 					begin="0" end="8">
 
 					<div class="card hovercard"
-						OnClick="location.href='/detail.do?studyNo=${classBean.studyNo}'">
+						OnClick="location.href='/detail.do?studyId=${classBean.studyId}'">
 						<div class="cardheader"
 							style="background-image: url('../resources/images/image.jpg')"></div>
 						<div class="avatar">
@@ -188,15 +197,51 @@ a:hover {
 						<div class="info">
 							<div class="title">${classBean.studyName}</div>
 							<div class="desc">${classBean.studyPrice}</div>
-							<div class="desc">${classBean.studyStartDate}~</div>
+							<div class="desc">${classBean.studyStartDate}</div>
 							<div class="desc">${classBean.studyEndDate}</div>
 						</div>
 					</div>
-					
 				</c:forEach>
 			</div>
-
 		</div>
+		
+		<!-- CHATTING -->
+		<div class="chatBefore"  id="chatBefore" style="position:fixed; right:0; bottom:0; z-index:10000; background-color: gray;">
+			<span style="font-size: 20px; text-align: center; color: white;"> 채팅을 시작해 보세요!</span>
+		</div>
+		
+		<div class="chatBefore" id="chatAfter" style=" visibility:hidden; position:fixed; right:0; bottom:0; z-index:10000; background-color: gray; width:300px; height:400px;">
+			<div class="chatTitle" id="chatTitle" style= "width:100%; height:10%; background: gray;">
+			<span style="font-size: 20px; color: white;"> Let's chat! </span>
+					 <div class="close" onclick="closeChat()" title="닫기"></div>
+			</div>
+			
+			<div class="content" id="content" style= "width:100%; height:60%; background-color: blue;">
+			
+			</div>
+			
+			<div class="message" id="message" style= "width:100%; line-height:40%; height:40%; background-color: yellow;">
+				<input type="text" placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]" style="width: 100%; height: 100px;">
+			</div>
+			<span style="font-size: 20px; text-align: center; "> 채팅을 시작해 보세요!</span>
+		</div>
+		
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$("#chatBefore").click(function () { 	
+				
+				document.getElementById("chatBefore").style.visibility = "hidden";
+				document.getElementById("chatAfter").style.visibility = "visible";
+			});
+			
+			function closeChat() {
+				document.getElementById("chatBefore").style.visibility = "visible";
+				document.getElementById("chatAfter").style.visibility = "hidden";
+			}
+		});
+
+		</script>
+		
 
 	</section>
 
