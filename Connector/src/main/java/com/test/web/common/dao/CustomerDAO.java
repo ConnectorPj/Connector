@@ -24,4 +24,9 @@ public interface CustomerDAO {
 	public int deleteCustomer(CustomerBean bean) throws Exception;
 
 	public int selectCustomerListTotalCount();
+	
+	 public int customerCheckId ( CustomerBean bean); 
+
+
+
 }

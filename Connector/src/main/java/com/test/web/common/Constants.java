@@ -11,6 +11,7 @@ public class Constants {
 	/** 로그인한 사용자 정보를 저장한다. **/
 	public static final String MEMBER_LOGIN_BEAN = "memberLoginBean";
 
+	public static final String RESULT_CODE = "code";
 	public static final String RESULT = "result";
 	public static final String RESULT_MSG = "resultMsg";
 	public static final String RESULT_OK = "ok";

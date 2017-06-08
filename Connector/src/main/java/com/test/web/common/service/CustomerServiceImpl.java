@@ -47,4 +47,12 @@ public class CustomerServiceImpl implements CustomerService {
 	public int deleteCustomer(CustomerBean bean) throws Exception {
 		return customerDao.deleteCustomer(bean);
 	}
+	
+	 /** 회원 아이디 중복 체크 */
+	 public int customerCheckId(CustomerBean bean) throws Exception {
+	  return customerDao.customerCheckId(bean);
+	 }
+
+
+
 }

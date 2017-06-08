@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.CustomerBean;
+import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.CustomerDAO;
+import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.service.CustomerService;
+import com.test.web.common.service.TeacherService;
 
 @Controller
 public class CustomerController {
@@ -22,9 +25,14 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private TeacherService teacherService;
 
 	@Autowired
 	private CustomerDAO customerDao;
+	@Autowired
+	private TeacherDAO teacherDao;
 
 	@RequestMapping("/join")
 	public String join() {
@@ -62,10 +70,10 @@ public class CustomerController {
 	}
 	
 	
-	/** 로그인 처리 */
-	@RequestMapping("/loginProc")
+	/** 회원로그인 처리 */
+	@RequestMapping("/CustomerloginProc")
 	@ResponseBody
-	public Map<String, Object> loginProcAjax(CustomerBean bean, 
+	public Map<String, Object> CustomerloginProcAjax(CustomerBean bean, 
 			HttpServletRequest req) 
 	{
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -79,10 +87,10 @@ public class CustomerController {
 			CustomerBean customerBean = customerService.selectCustomer(bean);
 			if( customerBean != null 
 					&& customerBean.getCustomerId().equals(bean.getCustomerId()) ) {
-				System.out.println("11111111");
 				//로그인 성공 - 세션에 저장
 				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, customerBean);
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);
+				req.getSession().setAttribute(Constants.RESULT_CODE, "C");
 				return resMap;
 			}
 		} catch(Exception e) {
@@ -91,6 +99,72 @@ public class CustomerController {
 		
 		return resMap;
 	}
+	/** 강사로그인 처리 */
+	@RequestMapping("/TeacherloginProc")
+	@ResponseBody
+	public Map<String, Object> TeacherloginProcAjax(TeacherBean bean, 
+			HttpServletRequest req) 
+	{
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		//로그인 실패
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put("mBean", bean);
+		System.out.println(bean.getTeacherId() );
+		System.out.println(bean.getTeacherPw() );
+		
+		try {
+			TeacherBean teacherBean = teacherService.selectTeacher(bean);
+			if( teacherBean != null 
+					&& teacherBean.getTeacherId().equals(bean.getTeacherId()) ) {
+				//로그인 성공 - 세션에 저장
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, teacherBean);
+				req.getSession().setAttribute(Constants.RESULT_CODE, "T");
+				resMap.put(Constants.RESULT, Constants.RESULT_OK);
+
+				return resMap;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+	}
+
+	
+	/** 로그아웃 **/
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req){
+		
+		req.getSession().invalidate();
+
+		return "main";
+	}
+	
+	
+	
+	 /** ID 중복체크 **/
+	   @RequestMapping("/customerCheckId")
+	   @ResponseBody
+	   public Map<String, Object> customerCheckId(CustomerBean customerBean) {
+	      Map<String, Object> resMap = new HashMap<String, Object>();
+	      
+	      resMap.put(Constants.RESULT_MSG, "이미 사용중인 ID 입니다.");
+	      resMap.put(Constants.RESULT, "success");
+	   
+	      try {
+	         int res = customerService.customerCheckId(customerBean);
+	         if(res == 0) {
+	            resMap.put(Constants.RESULT_MSG, "사용할 수 있는 ID 입니다.");
+	         }
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return resMap;
+	   }
+
+
+
 	
 	/** 회원정보 수정 처리를 한다. **/
 	@RequestMapping("/updateCustomerProc")
@@ -174,34 +248,37 @@ public class CustomerController {
 	public String studyIntro() {
 		return "studyIntro";
 	}
+	
+	/** 회원정보 리스트 AJAX **/
+    @RequestMapping("/selectCustomerListAjax")
+    @ResponseBody
+    public Map<String, Object> selectCustomerListAjax(CustomerBean bean, PagingBean pagingBean, Model model) {
+        Map<String, Object> resMap = new HashMap<String, Object>();
+        resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+        resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
 
-/** 회원정보 리스트 AJAX **/
-	@RequestMapping("/selectCustomerListAjax")
-	@ResponseBody
-	public Map<String, Object> selectCustomerListAjax(CustomerBean bean, PagingBean pagingBean, Model model) {
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
-		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+        try {
+            // 전체 회원 리스트 갯수 조회
+            // int totRecord = memberService.selectMemberListTotalCount();
+            // 페이징 계산
+            // pagingBean.calcPage(totRecord);
 
-		try {
-			// 전체 회원 리스트 갯수 조회
-			// int totRecord = memberService.selectMemberListTotalCount();
-			// 페이징 계산
-			// pagingBean.calcPage(totRecord);
+            List<CustomerBean> list = customerService.selectCustomerList(bean, pagingBean);
 
-			List<CustomerBean> list = customerService.selectCustomerList(bean, pagingBean);
+            resMap.put("customerBean", bean);
+            resMap.put("CustomerList", list);
+            resMap.put("pagingBean", pagingBean);
 
-			resMap.put("customerBean", bean);
-			resMap.put("CustomerList", list);
-			resMap.put("pagingBean", pagingBean);
+            resMap.put(Constants.RESULT, Constants.RESULT_OK);
+            resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-			resMap.put(Constants.RESULT, Constants.RESULT_OK);
-			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        return resMap;
+    }
 
-		return resMap;
-	}
+	
+	
 
 }

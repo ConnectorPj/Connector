@@ -33,54 +33,60 @@
 </style>
 	<script type="text/javascript">
 		
-		$(document).ready(function() {
-			
-			$("#btnLogin").click(function() {
-				
-				
-				$.ajax({
-					type: "post",
-					url: "/loginProc.do",
-					data: {
-						customerId: $("#customerId").val(),
-						customerPw: $("#customerPw").val()
-					},
-					dataType: "json",
-					success: function(data) {
-						console.log(data);
-						
-						if(data.result == "ok") {
-							
-							//android 호출
-							try {
-								var cusId = $("#customerId").val();
-								window.JSInterface.updateAndToken(cusId);
-							} catch(e) {
-								console.log(e);
-							}
-							
-							//로그인 성공
-							location.replace("/main.do");
-							return;
-						} else {
-							alert("로그인을 실패하였습니다.");
-							$("#customerPw").focus();
-						}
-						
-					},
-					error: function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " 
-								+ status + ", error : " + error);      
-					}
-				});
-				
-			});
-			
-		});
-		
+	$(document).ready(
 
-	
+			function() {
+
+				$("#btnLogin").click(
+						function() {
+
+
+
+								$.ajax({
+									type : "post",
+									url : "/CustomerloginProc.do",
+									data : {
+										customerId : $("#customerId").val(),
+										customerPw : $("#customerPw").val()
+									},
+									dataType : "json",
+									success : function(data) {
+										console.log(data);
+
+										if (data.result == "ok") {
+
+											//android 호출
+											try {
+												var cusId = $("#customerId")
+														.val();
+												window.JSInterface
+														.updateAndToken(cusId);
+											} catch (e) {
+												console.log(e);
+											}
+
+											//로그인 성공
+											location.replace("/main.do");
+											return;
+										} else {
+											alert("로그인을 실패하였습니다.");
+											$("#customerPw").focus();
+										}
+
+									},
+									error : function(xhr, status, error) {
+										console.log(xhr);
+										alert("error\nxhr : " + xhr
+												+ ", status : " + status
+												+ ", error : " + error);
+									}
+								});
+
+							
+
+						});
+
+			});
 	</script>
 	
 
@@ -105,14 +111,11 @@
 
 	<div class="formDiv">
 		<form >
-			<div class="form-group">
-				<input type="email" class="form-control"
+				<input type="email" class="inputLogin"
 					id="customerId" placeholder="이메일을 입력하세요" required>
-			</div>
-			<div class="form-group">
-				<input type="password" class="form-control"
+				<input type="password" class="inputLogin"
 						id="customerPw"  placeholder="암호"required>
-			</div>
+		</form>
 
 			<button class="button button-navy"  id="btnLogin">로그인</button>
 			<a href="/join"><button class="button">회원가입</button></a>
@@ -122,7 +125,6 @@
 			</div>
 			<!-- 네이버 로그인 API -->
 			<div id="naver_id_login"></div>
-		</form>
 	</div>
 
 </body>

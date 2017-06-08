@@ -23,4 +23,8 @@ public interface CustomerService {
 	public int updateCustomer(CustomerBean bean) throws Exception;
 	
 	public int deleteCustomer(CustomerBean bean) throws Exception;
+	/** 회원 아이디 중복 체크 */
+	 public int customerCheckId(CustomerBean bean) throws Exception; 
+
+
 }

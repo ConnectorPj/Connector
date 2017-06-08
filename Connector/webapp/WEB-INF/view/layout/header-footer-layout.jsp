@@ -13,8 +13,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:import url="/WEB-INF/view/layout/header.jsp"></c:import>
 
-	
-	
+
+
 <title><decorator:title default="Spring 테스트웹" /></title>
 
 <style type="text/css">
@@ -103,10 +103,10 @@ span.buttonText {
 	/* Use the Roboto font that is loaded in the <head> */
 	font-family: 'Roboto', sans-serif;
 }
-#naver_id_login img{
-	width:100%;
-}
 
+#naver_id_login img {
+	width: 100%;
+}
 </style>
 
 
@@ -126,76 +126,332 @@ span.buttonText {
 <!--  구글 로그인 테스트  -->
 <!--  참고 사이트 :  google developer -->
 <!--  https://developers.google.com/identity/sign-in/web/devconsole-project -->
+
+<script type="text/javascript">
+	// Modal Function
+	function checkPassword() {
+
+		var password = document.getElementById("password").value;
+		var exptext = /^.*(?=.{6,15})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+		if (exptext.test(password) == false) {
+
+			document.getElementById("resultPass").textContent = "비밀번호 형식이 올바르지 않습니다.";
+			document.getElementById("password").focus();
+			return false;
+
+		} else {
+			document.getElementById("resultPass").textContent = "";
+
+		}
+		document.getElementById("password2").disabled = false;
+
+		return true;
+	};
+
+	function checkPasswordConfirm() {
+		if ($("#password").val() == $("#password2").val()) {
+			document.getElementById("resultPass2").textContent = "비밀번호가 일치합니다.";
+
+			return true;
+
+		} else {
+			document.getElementById("resultPass2").textContent = "비밀번호가 일치하지 않습니다.";
+
+			return false;
+		}
+	};
+
+	function checkEmail() {
+		var email = document.getElementById("email").value;
+		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		if (exptext.test(email) == false) {
+			//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
+			document.getElementById("resultEmail").textContent = "메일형식이 올바르지 않습니다.";
+			document.getElementById("email").focus();
+			return false;
+		} else {
+			document.getElementById("resultEmail").textContent = "";
+			return true;
+		}
+	};
+
+    function customerCheckId(){
+        
+        $.ajax({
+           url : '/customerCheckId.do',
+           type : 'post',
+           data : {
+              "customerId": $("#email").val()   
+           },
+           success : function(data) {
+              $("#resultEmail").html(data.resultMsg);
+           },
+           error : function(error) {
+              alert(error.statusText);
+           }
+        });
+     };
+
+	function insertCustomer() {
+
+		if ($("#name").val() == null || $("#name").val() == "") {
+
+			document.getElementById("name").focus();
+
+			$('#name').attr('placeholder', '이름을 입력하지 않으셨습니다.');
+
+			return;
+
+		} else if ($("#email").val() == null || $("#email").val() == ""
+				|| !checkEmail()) {
+			document.getElementById("email").focus();
+			$('#email').attr('placeholder', '메일을 올바르게 작성해주세요.');
+
+			return;
+		} else if ($("#password").val() == null || $("#password").val() == ""
+				|| !checkPasswordConfirm()) {
+			document.getElementById("password").focus();
+			$('#password').attr('placeholder', '비밀번호을 입력하지 않으셨습니다.');
+
+			return;
+		} else if ($(":input:radio[id='agree']:checked").val() != "1") {
+			alert("개인정보 활용 제공에 동의해주세요.");
+			return;
+
+		} else {
+
+			$.ajax({
+				type : "post",
+				url : "/insertCustomerProc.do",
+				data : $("#customerForm").serialize(),
+				async : false,
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+
+					if (data.result == "ok") {
+						alert(data.resultMsg);
+						location.replace("/login.do");
+
+						return;
+					} else {
+						alert(data.resultMsg);
+					}
+
+				},
+				error : function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " + status
+							+ ", error : " + error);
+				}
+			});
+
+		}
+	};
+</script>
+
+<script type="text/javascript">
+	$(window).scroll(function() {
+		var scrollValue = $(document).scrollTop();
+		console.log(scrollValue);
+	});
+
+	$(document).ready(
+
+			function() {
+
+				$("#btnLoginM").click(
+						function() {
+
+							var st = $(":input:radio[name=customer]:checked")
+									.val();
+
+							if (st == 1) {
+
+								$.ajax({
+									type : "post",
+									url : "/CustomerloginProc.do",
+									data : {
+										customerId : $("#customerIdM").val(),
+										customerPw : $("#customerPwM").val()
+									},
+									dataType : "json",
+									success : function(data) {
+										console.log(data);
+
+										if (data.result == "ok") {
+
+											//android 호출
+											try {
+												var cusId = $("#customerIdM")
+														.val();
+												window.JSInterface
+														.updateAndToken(cusId);
+											} catch (e) {
+												console.log(e);
+											}
+
+											//로그인 성공
+											location.replace("/main.do");
+											return;
+										} else {
+											alert("로그인을 실패하였습니다.");
+											$("#customerPwM").focus();
+										}
+
+									},
+									error : function(xhr, status, error) {
+										console.log(xhr);
+										alert("error\nxhr : " + xhr
+												+ ", status : " + status
+												+ ", error : " + error);
+									}
+								});
+
+							} else if (st == 2) {
+
+								$.ajax({
+									type : "post",
+									url : "/TeacherloginProc.do",
+									data : {
+										teacherId : $("#customerIdM").val(),
+										teacherPw : $("#customerPwM").val()
+									},
+									dataType : "json",
+									success : function(data) {
+										console.log(data);
+										if (data.result == "ok") {
+
+											//android 호출
+											try {
+												var teaId = $("#customerIdM")
+														.val();
+												window.JSInterface
+														.updateAndToken(teaId);
+											} catch (e) {
+												console.log(e);
+											}
+
+											//로그인 성공
+											location.replace("/main.do");
+											return;
+										} else {
+											alert("로그인을 실패하였습니다.");
+											$("#customerPwM").focus();
+										}
+
+									},
+									error : function(xhr, status, error) {
+										console.log(xhr);
+										alert("error\nxhr : " + xhr
+
+										+ ", status : " + status + ", error : "
+												+ error);
+									}
+								});
+
+							}
+
+						});
+
+			});
+</script>
+
+
 <script type="text/javascript">
 	var auth2;
 	function startApp() {
-		gapi.load('auth2', function() {
-			// 구글 로그인 기능
-			auth2 = gapi.auth2.init({
-				// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
-				client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
-				// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
-						// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
-				cookiepolicy : 'single_host_origin',
-				// 필요시 scope에서 다른걸로 가능
-				// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
-				scope: 'profile'
-			});
-			// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
-			auth2.attachClickHandler(document.getElementById('customBtn'), {}, onSuccess, onFailure);
-		});
+		gapi
+				.load(
+						'auth2',
+						function() {
+							// 구글 로그인 기능
+							auth2 = gapi.auth2
+									.init({
+										// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
+										client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
+										// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
+										// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
+										cookiepolicy : 'single_host_origin',
+										// 필요시 scope에서 다른걸로 가능
+										// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
+										scope : 'profile'
+									});
+							// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
+							auth2.attachClickHandler(document
+									.getElementById('customBtn'), {},
+									onSuccess, onFailure);
+						});
 	};
-	
+
 	function secondApp() {
-		gapi.load('auth2', function() {
-			auth2 = gapi.auth2.init({
-				// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
-				client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
-				// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
-				// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
-				cookiepolicy : 'single_host_origin',
-				// 필요시 scope에서 다른걸로 가능
-				// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
-				scope: 'profile'
-			});
-			// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
-			auth2.attachClickHandler(document.getElementById('customBtn2'), {}, onSuccess, onFailure);
-		});
+		gapi
+				.load(
+						'auth2',
+						function() {
+							auth2 = gapi.auth2
+									.init({
+										// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
+										client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
+										// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
+										// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
+										cookiepolicy : 'single_host_origin',
+										// 필요시 scope에서 다른걸로 가능
+										// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
+										scope : 'profile'
+									});
+							// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
+							auth2.attachClickHandler(document
+									.getElementById('customBtn2'), {},
+									onSuccess, onFailure);
+						});
 	};
 	function thirdApp() {
-		gapi.load('auth2', function() {
-			auth2 = gapi.auth2.init({
-				// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
-				client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
-				// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
-				// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
-				cookiepolicy : 'single_host_origin',
-				// 필요시 scope에서 다른걸로 가능
-				// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
-				scope: 'profile'
-			});
-			// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
-			auth2.attachClickHandler(document.getElementById('customBtn3'), {}, onSuccess, onFailure);
-		});
+		gapi
+				.load(
+						'auth2',
+						function() {
+							auth2 = gapi.auth2
+									.init({
+										// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
+										client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
+										// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
+										// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
+										cookiepolicy : 'single_host_origin',
+										// 필요시 scope에서 다른걸로 가능
+										// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
+										scope : 'profile'
+									});
+							// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
+							auth2.attachClickHandler(document
+									.getElementById('customBtn3'), {},
+									onSuccess, onFailure);
+						});
 	};
 	function forthApp() {
-		gapi.load('auth2', function() {
-			auth2 = gapi.auth2.init({
-				// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
-				client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
-				// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
-				// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
-				cookiepolicy : 'single_host_origin',
-				// 필요시 scope에서 다른걸로 가능
-				// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
-				scope: 'profile'
-			});
-			// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
-			auth2.attachClickHandler(document.getElementById('customBtn4'), {}, onSuccess, onFailure);
-		});
+		gapi
+				.load(
+						'auth2',
+						function() {
+							auth2 = gapi.auth2
+									.init({
+										// client_id 는 ~~.apps.google~ 전까지 구글 개발자 콘솔의 개별 아이디!
+										client_id : '559372757938-d5eg9qmoefkbp8sispf7c6fjg2lfnk6c.apps.googleusercontent.com',
+										// 아마도 single_host_origin은 싱글톤 패턴이기 때문에 한페이지에 한번밖에 사용 불가능 한가?
+										// -> 안되서 밑에 secondApp()에 똑같은 함수 구현
+										cookiepolicy : 'single_host_origin',
+										// 필요시 scope에서 다른걸로 가능
+										// 참고 : https://developers.google.com/identity/sign-in/web/incremental-auth
+										scope : 'profile'
+									});
+							// attachClickHandler 에서 성공시 onSuccess로 실피시 onFailure로 이동.
+							auth2.attachClickHandler(document
+									.getElementById('customBtn4'), {},
+									onSuccess, onFailure);
+						});
 	};
 	// 로그인 성공시
-	var onSuccess = function(user){
+	var onSuccess = function(user) {
 		// user에 구글로 로그인한 사용자가 들어옴.
 		// getBasicProfile() 메소드로 .getName(), getEmail() 등 접근 가능
 		var profile = user.getBasicProfile();
@@ -203,12 +459,16 @@ span.buttonText {
 		console.log('Singed in as ' + user.getBasicProfile().getName());
 	}
 	// 로그인 실패시
-	var onFailure = function(error){
+	var onFailure = function(error) {
 		// 실패 시 오류페이지로 가는건 어떨까?
 		console.log(error);
 	}
-	
 </script>
+
+
+
+
+
 
 <decorator:head />
 
@@ -226,7 +486,7 @@ span.buttonText {
 	<header style="height: 71px;">
 		<div class="head">
 			<h1 class="logo">
-				<a href="/main.do"><img src="/resources/images/logo.png"
+				<a href="/main.do"><img src="/resources/images/logoWork3.png"
 					alt="로고" /></a>
 			</h1>
 
@@ -275,9 +535,44 @@ span.buttonText {
 
 				<div class="menu">
 					<ul class="menu_reg">
-						<li><a id="loginLink" href="#myLoginModal"> 로그인</a></li>
-						<li><a id="joinLink" href="#myJoinModal"> 회원가입</a></li>
-						<li style="width: 150px;"><a href="#">리더로 시작하기</a></li>
+
+
+						<c:choose>
+							<c:when test="${sessionScope.memberLoginBean==null}">
+								<li><a id="loginLink"> 로그인</a></li>
+								<li><a id="joinLink"> 회원가입</a></li>
+								<li style="width: 150px;"><a href="#">리더로 시작하기</a></li>
+							</c:when>
+							<c:otherwise>
+
+
+								<c:if test="${sessionScope.code eq 'T'}">
+									<li style="width: 150px;"><a
+										href="personalInfoTeacher.do?teacherId=${sessionScope.memberLoginBean.teacherId}">
+											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" id="loginLink" />
+									<input type="hidden" id="joinLink" />
+
+								</c:if>
+
+
+								<c:if test="${sessionScope.code eq 'C' }">
+									<li style="width: 150px;"><a
+										href="personalInfoCustomer.do?customerId=${sessionScope.memberLoginBean.customerId}">
+											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" id="loginLink" />
+									<input type="hidden" id="joinLink" />
+
+
+
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+
+
+
 					</ul>
 				</div>
 			</div>
@@ -288,17 +583,16 @@ span.buttonText {
 				<div class="modal-content">
 					<span class="closeLogin">&times;</span> <br />
 					<form>
-						<div class="form-group">
-							<label for="loginInputEmail">이메일 주소</label> <input type="email"
-								class="form-control" id="loginInputEmail"
+						<div style="text-align: center; font-size: 1em; margin: 10px 0;">
+							<input type="radio" name="customer" value="1">학생 <input
+								type="radio" name="customer" value="2">리더
+						</div>
+							<input type="email" class="inputLogin" id="customerIdM"
 								placeholder="이메일을 입력하세요">
-						</div>
-						<div class="form-group">
-							<label for="loginInputPassword">암호</label> <input type="password"
-								class="form-control" id="loginInputPassword" placeholder="암호">
-						</div>
+							<input type="password" class="inputLogin" id="customerPwM"
+								placeholder="암호">
 
-						<button class="button button-navy">로그인</button>
+						<button class="button button-navy" id="btnLoginM">로그인</button>
 						<button class="button ">회원가입</button>
 						<!-- 구글 로그인 연동1 -->
 						<div id="customBtn" class="customGPlusSignIn"
@@ -309,13 +603,15 @@ span.buttonText {
 						<div id="naver_id_login"></div>
 						<!--  2017.05.26 네이버 로그인 추가 - 정홍의 -->
 						<script type="text/javascript">
-							var naver_id_login = new naver_id_login("FIZpO6PTmY_KCqzmdq8c", "http://localhost:8181/naver_callback.jsp");
+							var naver_id_login = new naver_id_login(
+									"FIZpO6PTmY_KCqzmdq8c",
+									"http://localhost:8181/naver_callback.jsp");
 							var state = naver_id_login.getUniqState();
-								naver_id_login.setButton("white", 2,40);
-								naver_id_login.setDomain("http://localhost:8181");
-								naver_id_login.setState(state);
-								naver_id_login.setPopup();
-								naver_id_login.init_naver_id_login();
+							naver_id_login.setButton("white", 2, 40);
+							naver_id_login.setDomain("http://localhost:8181");
+							naver_id_login.setState(state);
+							naver_id_login.setPopup();
+							naver_id_login.init_naver_id_login();
 						</script>
 					</form>
 				</div>
@@ -341,41 +637,36 @@ span.buttonText {
 							<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
 								──────────────── </small>
 						</h6>
-						<form>
+						<form id="customerForm">
+							<input type="text" class="inputLogin" placeholder="이름 입력"
+								name="customerName" id="name" />
+							<p style="font-size: 0.4em; color: #aaa;"></p>
+							<input type="text" class=" inputLogin" placeholder="e-mail"
+								name="customerId" id="email" onkeyup="checkEmail();"
+								onblur="customerCheckId();" />
+							<p id="resultEmail" style="font-size: 0.4em; color: #aaa;"></p>
 
-							<div class="form-group">
-								<input type="text" class="form-control" id="inputJoinName"
-									placeholder="이름" />
-							</div>
-							<div class="form-group">
-								<input type="email" class="form-control" id="inputJoinEmail"
-									placeholder="이메일" />
-							</div>
-							<div class="row">
-								<div class="col-xs-12 col-sm-6 col-md-6">
-									<div class="form-group">
-										<input type="password" name="password" id="inputJoinpassword"
-											class="form-control input-sm" placeholder="비밀번호" tabindex="5">
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-6 col-md-6">
-									<div class="form-group">
-										<input type="password" name="password_confirmation"
-											id="inputJoinpasswordconfirm" class="form-control input-sm"
-											placeholder="비밀번호 확인" tabindex="6">
-									</div>
-								</div>
-							</div>
+							<input type="password" class=" inputLogin" placeholder="비밀번호 입력 "
+								name="customerPw" id="password" onkeyup="checkPassword();" />
+							<p id="resultPass" style="font-size: 0.4em; color: #aaa;"></p>
+
+							<input type="password" class=" inputLogin" id="password2"
+								name="customerPw2" placeholder="비밀번호 확인"
+								onkeyup="checkPasswordConfirm();" disabled />
+							<p id="resultPass2" style="font-size: 0.4em; color: #aaa;"></p>
+
+							<h5>
+								<small>코:넥터의 이용약관과 개인정보 보호정책에 동의합니다.&nbsp; <input
+									type="radio" name="check" value="1" id="agree" />동의
+								</small>
+							</h5>
+							<button type="button" class="button button-orange"
+								onclick="insertCustomer();return false;">가입완료</button>
+							<h6>
+								이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a href="/login.do">로그인</a>
+							</h6>
 						</form>
-						<h6 style="text-align: center;">
-							<small>더코세의 이용약관과 개인정보 보호정책에 동의합니다.</small>
-						</h6>
 
-						<button type="button" class="button button-orange">가입 완료</button>
-						<h5 style="text-align: center;">
-							<small>이미 더카니의 코딩세상의 회원이십니까?&nbsp;&nbsp;&nbsp;</small> <small><a
-								href="#">로그인</a></small>
-						</h5>
 					</div>
 
 				</div>
@@ -442,26 +733,25 @@ span.buttonText {
 
 	<!-- Login Modal Script -->
 	<script type="text/javascript">
-	
 		// Get the modal
 		var modalLogin = document.getElementById("myLoginModal");
-	
+
 		// Get the button that opens the modal
 		var btnLogin = document.getElementById("loginLink");
-	
+
 		// Get the <span> element that closes the modal
 		var spanLogin = document.getElementsByClassName("closeLogin")[0];
-	
+
 		// When the user clicks on the button, open the modal 
 		btnLogin.onclick = function() {
 			modalLogin.style.display = "block";
 		}
-	
+
 		// When the user clicks on <span> (x), close the modal
 		spanLogin.onclick = function() {
 			modalLogin.style.display = "none";
 		}
-	
+
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
 			if (event.target == modalLogin) {
@@ -470,9 +760,9 @@ span.buttonText {
 			if (event.target == modalJoin) {
 				modalJoin.style.display = "none";
 			}
-			if (event.target == modalReview) {
-	            modalReview.style.display = "none";
-	         }
+			// 			if (event.target == modalReview) {
+			// 				modalReview.style.display = "none";
+			// 			}
 		}
 	</script>
 
@@ -480,27 +770,24 @@ span.buttonText {
 
 	<!-- Join Modal Script -->
 	<script type="text/javascript">
-	
-	
 		// Get the modal
 		var modalJoin = document.getElementById("myJoinModal");
-	
+
 		// Get the button that opens the modal
 		var btnJoin = document.getElementById("joinLink");
-	
+
 		// Get the <span> element that closes the modal
 		var spanJoin = document.getElementsByClassName("closeJoin")[0];
-	
+
 		// When the user clicks on the button, open the modal 
 		btnJoin.onclick = function() {
 			modalJoin.style.display = "block";
 		}
-	
+
 		// When the user clicks on <span> (x), close the modal
 		spanJoin.onclick = function() {
 			modalJoin.style.display = "none";
 		}
-	
 	</script>
 
 </body>
