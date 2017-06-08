@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html >
 <html>
 
@@ -17,6 +19,51 @@
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
 <title>수업 진행 내역</title>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+					type : "post",
+					url : "/selectTeacherListAjax.do",
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+
+						if (data.result == "ok") {
+							var num = 1;
+							//리스트 출력
+							$
+									.each(
+											data.TeacherList,
+											function(i, teacherBean) {
+												var str = "";
+												str += "<tr>";
+												str += "<td>" + num++ + "</td>";
+												str += "<td>"
+														+ teacherBean.teacherName
+														+ "</td>";
+												str += "<td><a href='adminRegTeacherAjax.do?teacherId="
+														+ teacherBean.teacherId
+														+ '&memberId='
+														+ teacherBean.teacherId
+														+ "'><input type='button' value='등록하기'/></a></td>";
+												str += "</tr>";
+
+												$("#memberListBody")
+														.append(str);
+											});
+						} else {
+							alert(data.resultMsg);
+						}
+					},
+					error : function(xhr, status, error) {
+						console.log(xhr);
+						alert("error\nxhr : " + xhr + ", status : " + status
+								+ ", error : " + error);
+					}
+				});
+	});
+</script>
 </head>
 <body>
 
@@ -29,7 +76,7 @@
 					<ul>
 						<li><a href="adminPage.do">관리자 홈</a></li>
 						<li><a href="adminTeacherList.do" class="on">강사 목록</a></li>
-						<li><a href="adminRegTeacher.do">강사 등록</a></li>
+						<li><a href="adminRegTeacherAjax.do">강사 등록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -52,45 +99,21 @@
 								<col width="10%">
 								<col width="10%">
 							</colgroup>
-							<tr>
-								<th>No.</th>
-								<th>강사 Name</th>
-								<th>수정</th>
-							</tr>
-
-							<tr>
-								<td>5</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기"
-									onclick="location.href='adminRegTeacher.do' " /></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>강사 Name</th>
+									<th>등록하기</th>
+								</tr>
+							</thead>
+							<tbody id="memberListBody">
+							</tbody>
 						</table>
 					</div>
 
-
 					<div class="page">
 						<ul>
-							<li><a href="#" class="on">1</a></li>
+							<li><a href="adminTeacherList.do?pageNo=1" class="on">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
 							<li><a href="#">4</a></li>

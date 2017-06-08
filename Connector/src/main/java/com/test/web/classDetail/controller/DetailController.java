@@ -11,15 +11,19 @@ package com.test.web.classDetail.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.web.common.Constants;
 import com.test.web.common.bean.ClassBean;
-import com.test.web.common.bean.TeacherBean;
-import com.test.web.common.bean.ReviewBean;
+import com.test.web.common.bean.PagingBean;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.dao.reviewDAO;
@@ -35,13 +39,6 @@ public class DetailController {
 	@Autowired
 	reviewDAO reviewDao;
 
-	//	@Autowired
-	//	TeacherDAO teacherDao;
-	//	
-	//	@Autowired
-	//	reviewDAO reviewDao;
-
-
 
 	@RequestMapping("/detail")
 	public String detail(Model model, ClassBean cBean) {
@@ -52,19 +49,19 @@ public class DetailController {
 		model.addAttribute("Alt",location[0]);
 		model.addAttribute("Att",location[1]);
 		
-		// ³¯Â¥ °è»ê
+		// ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½
 		int diff = dayCal(selBean.getStudyStartDate(), selBean.getStudyEndDate());
 		model.addAttribute("diff",diff);
 		
 		
-		/*// °­»ç Á¤º¸
+		/*// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		TeacherBean bean = new TeacherBean();
 		bean.setTeacherId(selBean.getTeacherId());
 		
 		bean = teacherDao.selectTeacher(bean);
 		model.addAttribute("teacher",bean);
 		
-		// ÈÄ±â ¸®½ºÆ® ¹İÈ¯
+		// ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯
 		reviewBean rBean = new reviewBean();
 		rBean.setStudyId(selBean.getStudyId());
 		
@@ -78,7 +75,7 @@ public class DetailController {
 	        Date beginDate = formatter.parse(str);
 	        Date endDate = formatter.parse(str1);
 	         
-	        // ½Ã°£Â÷ÀÌ¸¦ ½Ã°£,ºĞ,ÃÊ¸¦ °öÇÑ °ªÀ¸·Î ³ª´©¸é ÇÏ·ç ´ÜÀ§°¡ ³ª¿È
+	        // ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã°ï¿½,ï¿½ï¿½,ï¿½Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	        long diff = endDate.getTime() - beginDate.getTime();
 	        long diffDays = diff / (24 * 60 * 60 * 1000);
 	        
@@ -89,6 +86,35 @@ public class DetailController {
 	    }
 
 		return 0;
+	}
+	
+	/** í´ë˜ìŠ¤ ë¦¬ìŠ¤íŠ¸ AJAX **/
+	@RequestMapping("/selectClassListAjax")
+	@ResponseBody
+	public Map<String, Object> selectClassListAjax(ClassBean bean, PagingBean pagingBean, Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "íšŒì› ë¦¬ìŠ¤íŠ¸ ì¡°íšŒì— ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.");
+
+		try {
+			// ì „ì²´ íšŒì› ë¦¬ìŠ¤íŠ¸ ê°¯ìˆ˜ ì¡°íšŒ
+			// int totRecord = memberService.selectMemberListTotalCount();
+			// í˜ì´ì§• ê³„ì‚°
+			// pagingBean.calcPage(totRecord);
+
+			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
+
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+			resMap.put("pagingBean", pagingBean);
+
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "íšŒì› ë¦¬ìŠ¤íŠ¸ ì¡°íšŒì— ì„±ê³µ í•˜ì˜€ìŠµë‹ˆë‹¤.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
 	}
 }
 

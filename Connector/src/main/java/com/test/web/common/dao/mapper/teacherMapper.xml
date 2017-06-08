@@ -67,7 +67,6 @@
 		#{teacherCareer},
 		#{teacherCheck},
 		#{teacherInfo}
-
 		)
 	</insert>
 
@@ -98,6 +97,12 @@
 		<if test="teacherCareer != null and teacherCareer != ''">
 			,teacher_career = #{teacherCareer}
 		</if>
+		<if test="teacherCheck != null and teacherCheck != ''">
+			,teacher_check = #{teacherCheck}
+		</if>
+		<if test="teacherInfo != null and teacherInfo != ''">
+			,teacher_info = #{teacherInfo}
+		</if>
 
 		<!-- <if test="token != null and token != ''"> ,token = #{token} </if> -->
 		WHERE
@@ -112,6 +117,10 @@
 		teacher_id = #{teacherId}
 	</delete>
 
-	
+	<!-- 회원정보 리스트 전체 갯수 조회 -->
+	<select id="selectTeacherListTotalCount" resultType="int" parameterType="pagingBean">
+	    SELECT COUNT(*) 
+	    FROM teacher
+	</select>
 
 </mapper>

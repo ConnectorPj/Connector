@@ -4,6 +4,7 @@
 import java.util.List;
 
 import com.test.web.common.bean.ClassBean;
+import com.test.web.common.bean.PagingBean;
 
 public interface ClassDAO {
 
@@ -14,5 +15,5 @@ public interface ClassDAO {
 	
 	/** 수엽 내용를 조회해서 리스트로 가져온다. **/
 	public List<ClassBean> selectClassList();
-
+	public List<ClassBean> selectClassListAll(ClassBean bean, PagingBean pBean) throws Exception;
 }

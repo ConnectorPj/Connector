@@ -20,6 +20,7 @@
 <head>
 <title>관리자 강사 등록 페이지</title>
 <script>
+
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -30,49 +31,23 @@
 		}
 	}
 
-	//회원정보 수정
-	function updateTeacher() {
-
-		var teacherForm = document.getElementById("teacherForm");
-		teacherForm.action = "/updateTeacherProc.do";
-		console.log(teacherForm.method);
-		teacherForm.method = "post";
-		console.log(teacherForm.method);
-
-		teacherForm.submit();
-	};
-
 	//회원정보 삭제
 	function deleteTeacher() {
+
+		alert("삭제하시겠습니까?");
 
 		var memberForm = document.getElementById("teacherForm");
 		memberForm.action = "/deleteTeacher.do";
 		memberForm.method = "post";
 
 		memberForm.submit();
-
-	}
-
-	function insertTeacher() {
-
-		var memberForm = document.getElementById("teacherForm");
-		memberForm.action = "/insertTeacherProc.do";
-		memberForm.method = "post";
-
-		memberForm.submit();
-
 	}
 
 	function writePhoto() {
-		/* insertTeacher(); */
+
 		var formData = new FormData();
 
 		formData.append("teacherId", $("#teacherId").val());
-		formData.append("teacherName", $("#teacherName").val());
-		formData.append("teacherGender", $("#teacherGender").val());
-		formData.append("teacherCellphone", $("#teacherCellphone").val());
-		formData.append("teacherInfo", $("#teacherInfo").val());
-
 		formData.append("upFile", $("input[name=upFile]")[0].files[0]);
 
 		$.ajax({
@@ -87,11 +62,10 @@
 
 				if (data.result == "ok") {
 					//화면이동 처리
+					location.href = 'adminTeacherList.do'
 				}
-
 			}
 		});
-
 	};
 </script>
 
@@ -99,7 +73,7 @@
 	<c:when test="${result eq 'ok'}">
 		<script type="text/javascript">
 			alert("회원정보 수정에 성공 하였습니다.");
-			location.href = "selectTeacher.do?teacherId=${teacherBean.teacherId}";
+			location.href = "main.do?teacherId=${teacherBean.teacherId}";
 		</script>
 	</c:when>
 	<c:when test="${result eq 'fail'}">
@@ -143,9 +117,9 @@
 						<div class="profile_form">
 
 							<div class="profilePhoto">
-								<img id="profileImg" src="/resources/images/noImage.png"
+							<img id="profileImg" src="${photoBean.photoFileName}"
 									alt="your image" />
-
+									
 								<div class="profile_text">
 									회원님의 정면 사진을 올려주세요!<br /> 상대방이 신뢰를 갖고 연락할 확률이 높아질 거예요!<br />
 								</div>
@@ -165,40 +139,46 @@
 								<tr>
 									<td class="table_att">아이디</td>
 									<td class="table_att2"><input id="teacherId"
-										name="teacherId" type="text" placeholder=" 아이디를 입력하세요"></td>
+										name="teacherId" type="text" value="${teacherBean.teacherId}" /></td>
 								</tr>
 								<tr>
 									<td class="table_att">이름</td>
-									<td class="table_att2"><input id="teacherName"
-										name="teacherName" type="text" placeholder=" 이름을 입력하세요"></td>
+									<td class="table_att2">${teacherBean.teacherName}</td>
+								</tr>
+								<tr>
+									<td class="table_att">생일</td>
+									<td class="table_att2">${teacherBean.teacherBirthnum}</td>
+								</tr>
+								<tr>
+									<td class="table_att">경력</td>
+									<td class="table_att2">${teacherBean.teacherCareer}년</td>
 								</tr>
 								<tr>
 									<td class="table_att">성별</td>
-									<td class="table_att2"><select id="teacherGender"
-										name="teacherGender">
-											<option>남</option>
-											<option>여</option>
-									</select></td>
+									<td class="table_att2">
+
+									<input type="radio"	id="teacherGender" name="teacherGender" value="M" >남자
+									&nbsp; 
+									<input type="radio" id="teacherGender" name="teacherGender" value="F"> 여자
+									</td>
 								</tr>
 								<tr>
 									<td class="table_att">휴대폰 번호</td>
-									<td class="table_att2"><input id="teacherCellphone"
-										name="teacherCellphone" type="text"
-										placeholder=" 휴대폰 번호를 입력하세요"></td>
+									<td class="table_att2">${teacherBean.teacherCellphone}</td>
 								</tr>
 								<tr>
 									<td class="table_att">소개</td>
 									<td class="table_att2"><textarea id="teacherInfo"
-											name="teacherInfo" cols="50" rows="10" style="resize: none;"></textarea></td>
+											name="teacherInfo" cols="50" rows="10" style="resize: none;">${teacherBean.teacherInfo}</textarea></td>
 								</tr>
-
-
+							
 							</table>
 
 							<div class="Reg1">
 								<input type="button" class="table_btnRegIn1" value="등록하기"
 									onclick="writePhoto(); return false;" />
 							</div>
+
 							<div class="Reg1">
 								<input type="button" class="table_btnRegDe1" value="삭제하기"
 									onclick="deleteTeacher(); return false;" />

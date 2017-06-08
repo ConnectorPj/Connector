@@ -175,4 +175,33 @@ public class CustomerController {
 		return "studyIntro";
 	}
 
+/** 회원정보 리스트 AJAX **/
+	@RequestMapping("/selectCustomerListAjax")
+	@ResponseBody
+	public Map<String, Object> selectCustomerListAjax(CustomerBean bean, PagingBean pagingBean, Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+
+		try {
+			// 전체 회원 리스트 갯수 조회
+			// int totRecord = memberService.selectMemberListTotalCount();
+			// 페이징 계산
+			// pagingBean.calcPage(totRecord);
+
+			List<CustomerBean> list = customerService.selectCustomerList(bean, pagingBean);
+
+			resMap.put("customerBean", bean);
+			resMap.put("CustomerList", list);
+			resMap.put("pagingBean", pagingBean);
+
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+	}
+
 }

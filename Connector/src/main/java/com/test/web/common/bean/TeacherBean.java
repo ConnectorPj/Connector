@@ -13,7 +13,7 @@ public class TeacherBean {
 	private String teacherCellphone;
 	private String teacherCareer;
 	private String teacherInfo;
-	private int teacherCheck;
+	private String teacherCheck;
 
 	public String getTeacherId() {
 		return teacherId;
@@ -87,12 +87,14 @@ public class TeacherBean {
 		this.teacherInfo = teacherInfo;
 	}
 
-	public int getTeacherCheck() {
+	public String getTeacherCheck() {
 		return teacherCheck;
 	}
 
-	public void setTeacherCheck(int teacherCheck) {
+	public void setTeacherCheck(String teacherCheck) {
 		this.teacherCheck = teacherCheck;
 	}
+
+	
 
 }

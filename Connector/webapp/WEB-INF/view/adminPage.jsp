@@ -28,7 +28,7 @@
 			<div class="sub_nav">
 				<div class="sub_menu">
 					<ul>
-						<li><a href="adminPage2.do" class="on">관리자 홈</a></li>
+						<li><a href="adminPage.do" class="on">관리자 홈</a></li>
 						<li><a href="adminTeacherList.do">강사 관리</a></li>
 						<li><a href="adminStudentList.do">회원 관리</a></li>
 						<li><a href="adminRegClass.do">스터디 관리</a></li>

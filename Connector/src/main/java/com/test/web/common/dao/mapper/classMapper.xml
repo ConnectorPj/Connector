@@ -35,6 +35,16 @@
 		study
 		order by study_regdate DESC;
 	</select>
+	
+	<!-- Class List 조회 -->
+	<select id="selectClassListAll" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		order by study_regdate DESC;
+	</select>
+	
 
 	<!-- 특정 Class 조회 -->
 	<select id="selectClass" resultType="classBean" parameterType="classBean">

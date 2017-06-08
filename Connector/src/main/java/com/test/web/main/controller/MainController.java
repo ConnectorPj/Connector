@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.ClassBean;
+import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.ClassDAO;
+import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.TeacherDAO;
 
 /**
@@ -19,10 +22,17 @@ import com.test.web.common.dao.TeacherDAO;
  */
 @Controller
 public class MainController {
+	
+	// 파일 업로드 저장경로
+	@Value("#{config['file.upload.path']}")
+	private String FILE_UPLOAD_PATH;
 
 	@Autowired
 	private TeacherDAO teacherDao;
-	
+
+	@Autowired
+	private PhotoDAO photoDao;
+
 	@Autowired
 	private ClassDAO classDao;
 
@@ -32,9 +42,9 @@ public class MainController {
 	@RequestMapping("/main")
 	public String main(Model model) {
 		List<ClassBean> classList = classDao.selectClassList();
-		
+
 		model.addAttribute("classList", classList);
-		
+
 		return "main";
 	}
 
@@ -49,11 +59,12 @@ public class MainController {
 	}
 
 	@RequestMapping("/application")
-	public String application(Locale locale, Model model){
+	public String application(Locale locale, Model model) {
 		return "application";
 	}
+
 	@RequestMapping("/payment")
-	public String payment(Locale locale, Model model){
+	public String payment(Locale locale, Model model) {
 		return "payment";
 	}
 
@@ -82,11 +93,15 @@ public class MainController {
 
 	/** 회원 수정화면 **/
 	@RequestMapping("/personalInfoTeacher")
-	public String personalInfoTeacher(TeacherBean teacherBean, Model model) {
+	public String personalInfoTeacher(TeacherBean teacherBean, PhotoBean photoBean, Model model) {
 
 		TeacherBean resBean = teacherDao.selectTeacher(teacherBean);
-
 		model.addAttribute("teacherBean", resBean);
+
+		PhotoBean poBean = photoDao.selectPhoto(photoBean);
+		model.addAttribute("photoBean", poBean);
+
+		model.addAttribute("filepath", FILE_UPLOAD_PATH);
 
 		return "/personalInfoTeacher";
 	}
@@ -109,21 +124,34 @@ public class MainController {
 	}
 
 	@RequestMapping("/deleteTeacher")
-	public String deleteTeacher(TeacherBean teacherBean) {
+	public String deleteTeacher(TeacherBean teacherBean, Model model) {
 
-		// DB insert
+		model.addAttribute(Constants.RESULT, Constants.RESULT_FAIL);
+		model.addAttribute("teacherBean", teacherBean);
+
+		// DB delete
 		int res = 0;
 
+		PhotoBean inBean = new PhotoBean();
+		inBean.setMemberId(teacherBean.getTeacherId());
+
 		try {
-			res = teacherDao.deleteTeacher(teacherBean);
+			photoDao.deletePhoto(inBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println(res);
+		try {
+			res = teacherDao.deleteTeacher(teacherBean);
 
-		return "redirect:/main.do";
+			if (res > 0) {
+				model.addAttribute(Constants.RESULT, Constants.RESULT_OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return "redirect:/adminTeacherList.do";
 	}
 
 	@RequestMapping("/errorpage")
@@ -131,31 +159,33 @@ public class MainController {
 		return "errorpage";
 	}
 
-@RequestMapping("/adminRegTeacher")
-	public String adminRegTeacher(){
+	@RequestMapping("/adminRegTeacher")
+	public String adminRegTeacher() {
 		return "adminRegTeacher";
 	}
-	
+
 	@RequestMapping("/adminPage")
-	public String adminPage(){
+	public String adminPage() {
 		return "adminPage";
 	}
 
-	
 	@RequestMapping("/adminRegClass")
-	public String adminRegClass(){
+	public String adminRegClass() {
 		return "adminRegClass";
 	}
+
 	@RequestMapping("/adminTeacherList")
-	public String adminTeacherList(){
+	public String adminTeacherList() {
 		return "adminTeacherList";
 	}
+
 	@RequestMapping("/adminStudentList")
-	public String adminStudentList(){
+	public String adminStudentList() {
 		return "adminStudentList";
 	}
+
 	@RequestMapping("/adminStudyList")
-	public String adminStudyList(){
+	public String adminStudyList() {
 		return "adminStudyList";
 	}
 

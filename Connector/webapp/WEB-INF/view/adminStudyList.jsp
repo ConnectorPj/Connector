@@ -17,6 +17,44 @@
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
 <title>수업 진행 내역</title>
+
+<script type="text/javascript">
+$(function() {
+			$.ajax({
+				type: "post",
+				url: "/selectClassListAjax.do",
+				dataType: "json",
+				success: function(data) {
+					console.log(data);
+					
+					
+					if(data.result == "ok") {
+						var num=1;
+						//리스트 출력
+						$.each(data.ClassList, function(i, classBean) {
+							var str = "";
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>" + classBean.studyName + "</td>";
+							str += "<td><a href='adminRegClass.do?studyId=" + classBean.studyId + "'><input type='button' value='등록하기'/></a></td>";
+							str += "</tr>";
+
+							$("#memberListBody").append(str);
+						});
+						
+					} else {
+						alert(data.resultMsg);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " 
+							+ status + ", error : " + error);      
+				}
+			});
+		});
+	
+	</script>
 </head>
 <body>
 
@@ -29,7 +67,7 @@
 					<ul>
 						<li><a href="adminPage.do">관리자 홈</a></li>
 						<li><a href="adminStudyList.do" class="on">스터디 목록 </a></li>
-						<li><a href="adminRegClass.do">스터디 등록</a></li>
+						<li><a href="">스터디 등록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -52,38 +90,16 @@
 								<col width="10%">
 								<col width="10%">
 							</colgroup>
-							<tr>
-								<th>No.</th>
-								<th>회원 Name</th>
-								<th>수정</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>강의목록</th>
+									<th>등록하기</th>
+								</tr>
+							</thead>
+							<tbody id="memberListBody">
 
-							<tr>
-								<td>5</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기"
-									onclick="location.href='adminRegClass.do' " /></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="등록하기" /></td>
-							</tr>
+							</tbody>
 						</table>
 					</div>
 

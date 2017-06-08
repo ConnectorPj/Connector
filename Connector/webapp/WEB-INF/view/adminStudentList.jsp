@@ -15,8 +15,79 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/payorderStyle.css"
 	rel="stylesheet">
-
+<head>
 <title>수업 진행 내역</title>
+<script type="text/javascript">
+//회원정보 삭제
+function delCustomer(customerId) {
+	
+	if( confirm("회원정보를 삭제 하시겠습니까?") ) {
+		
+		
+		$.ajax({
+			type: "post",
+			url: "/deleteCustomer.do",
+			data: { 
+				customerId: customerId
+			},
+			dataType: "json",
+			success: function(data) {
+				console.log(data);
+				
+				if(data.result == "ok") {
+					location.reload(); //새로고침
+				} else {
+					alert(data.resultMsg);
+				}
+				
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " 
+						+ status + ", error : " + error);      
+			}
+		});
+	}
+	
+};
+	
+	$(function() {
+		$.ajax({
+			type: "post",
+			url: "/selectCustomerListAjax.do",
+			dataType: "json",
+			success: function(data) {
+				console.log(data);
+				
+				
+				if(data.result == "ok") {
+					var num=1;
+					//리스트 출력
+					$.each(data.CustomerList, function(i, customerBean) {
+						var str = "";
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + customerBean.customerName + "</td>";
+						str += "<td><button type='button' onclick=delCustomer('" 
+							+ customerBean.customerId + "')>삭제</button></td>";
+						str += "</tr>";
+
+						$("#memberListBody").append(str);
+					});
+					
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " 
+						+ status + ", error : " + error);      
+			}
+		});
+	});
+	
+</script>
 </head>
 <body>
 
@@ -51,41 +122,18 @@
 								<col width="10%">
 								<col width="10%">
 							</colgroup>
-							<tr>
-								<th>No.</th>
-								<th>회원 Name</th>
-								<th>수정</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>회원 Name</th>
+									<th>수정</th>
+								</tr>
+							</thead>
+							<tbody id="memberListBody">
 
-							<tr>
-								<td>5</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="삭제하기"
-									onclick="location.href='#' " /></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="삭제하기" /></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="삭제하기" /></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="삭제하기" /></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>홍길동</td>
-								<td><input type="button" class="table_btn2" value="삭제하기" /></td>
-							</tr>
+							</tbody>
 						</table>
 					</div>
-
 
 					<div class="page">
 						<ul>
