@@ -25,8 +25,8 @@ import com.test.web.common.Constants;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.dao.ClassDAO;
+import com.test.web.common.dao.ReviewDAO;
 import com.test.web.common.dao.TeacherDAO;
-import com.test.web.common.dao.reviewDAO;
 
 
 @Controller
@@ -37,7 +37,7 @@ public class DetailController {
 	@Autowired
 	TeacherDAO teacherDao;
 	@Autowired
-	reviewDAO reviewDao;
+	ReviewDAO reviewDao;
 
 
 	@RequestMapping("/detail")

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.test.web.common.dao.reviewDAO">
+<mapper namespace="com.test.web.common.dao.ReviewDAO">
     <sql id="reviewColumns">
         review_no AS reviewNo, 
         customer_id AS customerId,
-	    study_id AS studyId, 
+	    teacher_id AS teacherId,
+	    customer_name AS customerName,
+	    teacher_name AS teacherName,
+	    customer_picture AS customerPicture,
+	    teacher_picture AS teacherPicture,
+	    study_progressname AS studyProgressname,
+	    study_programlanguage AS studyProgramlanguage,
 	    review_content AS reviewContent,
 	    review_rating AS reviewRating, 
 	    review_regdate AS reviewRegdate
     </sql>
-    
+	    
     <!-- 회원정보 1건 조회 -->
 	<select id="selectReview" resultType="reviewBean" parameterType="reviewBean">
 	    SELECT
@@ -18,28 +24,62 @@
 	    FROM
 	    	review
 	    WHERE
-  			customer_id = #{customerId} 
+  			customer_id = #{customerId}
 	</select>
-
+	
+	<!-- 리뷰 List 조회 -->
+	<select id="selectReviewListAll" resultType="reviewBean" parameterType="reviewBean">
+	    SELECT
+	    	<include refid="reviewColumns"/>
+	    FROM
+	    	review
+	    where 
+	    	study_progressname = #{studyProgressname}
+	</select>
+	
+	<!-- 리뷰 List 조회 -->
+	<select id="selectReviewList" resultType="reviewBean" parameterType="reviewBean">
+	    SELECT
+	    	<include refid="reviewColumns"/>
+	    FROM
+	    	review
+	    where 
+	    	study_progressname = #{studyProgressname}
+	    LIMIT
+			#{startRow}, 10
+	</select>
+	
 	<insert id="insertReview" parameterType="reviewBean">
 	    INSERT INTO review
  		( 
- 			customer_id, 
- 			study_id, 
+ 			customer_id,
+ 			teacher_id,
+ 			customer_name,
+ 			teacher_name,
+ 			customer_picture,
+ 			teacher_picture,
+ 			study_progressname,
+ 			study_programlanguage,
  			review_content,
  			review_rating
  		)
 		VALUES
  		(
- 			#{customerId}, 
- 			#{studyId}, 
+ 			#{customerId},
+ 			#{teacherId}, 
+ 			#{customerName},
+ 			#{teacherName},
+ 			#{customerPicture},
+ 			#{teacherPicture},
+ 			#{studyProgressname},
+ 			#{studyProgramlanguage},
  			#{reviewContent},
  			#{reviewRating}
  		)
  		
 	</insert>
 	
-	<update id="updateReview" parameterType="ReviewBean">
+	<update id="updateReview" parameterType="reviewBean">
 		UPDATE review SET
  			review_content = #{reviewContent},
  			review_rating = #{reviewRating}
@@ -47,12 +87,12 @@
 			customer_id = #{customerId}
 	</update>
 	
-	<delete id="deleteReview" parameterType="ReviewBean">
+	<delete id="deleteReview" parameterType="reviewBean">
 	    DELETE FROM 
 	    	review
 	    WHERE
 	    	customer_id = #{customerId} and
-	    	study_id = #{studyId}
+	    	study_progressname = #{studyProgressname}
 	</delete>
     
 

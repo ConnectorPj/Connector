@@ -20,6 +20,7 @@ body {
 
 .reviewContentWrap {
 	flex: 6;
+	margin-right: 20px;
 }
 
 .writerPhoto img {
@@ -44,11 +45,16 @@ body {
 	margin-right: 3px;
 	width: 14px;
 	height: 14px;
-	background: transparent
-		url(https://cdn.studysearch.co.kr/static/images/desktop-assets.3254c7dd548f.png);
-	background-position-y: -206px;
+}
+
+.score img {
+	display: inline-block;
+	margin-right: 3px;
+	width: 14px;
+	height: 14px;
 }
 
 .reviewLevel {
 	color: red;
+	margin-right: 10px;
 }

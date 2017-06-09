@@ -1,6 +1,7 @@
-﻿package com.test.web.customer.controller;
+package com.test.web.customer.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.CustomerBean;
+import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.TeacherDAO;

@@ -112,6 +112,16 @@
 		teacher_id = #{teacherId}
 	</delete>
 
+   <!-- 회원 가입시 ID 중복 체크 -->
+   <select id="teacherCheckId" resultType="java.lang.Integer" parameterType="teacherBean">
+      SELECT
+         count(*)
+      FROM
+         teacher
+      WHERE
+         teacher_id = #{teacherId} 
+   </select>
+
 	
 
 </mapper>

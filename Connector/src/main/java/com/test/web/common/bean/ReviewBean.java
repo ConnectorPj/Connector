@@ -14,8 +14,15 @@ public class ReviewBean {
 	private String reviewContent;
 	private int reviewRating;
 	private String reviewRegdate;
+	private int startRow;
 	
 	
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
 	public int getReviewNo() {
 		return reviewNo;
 	}

@@ -1,78 +1,49 @@
-package com.test.web.realReview.controller;
+package  com.test.web.realReview.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.web.common.Constants;
 import com.test.web.common.bean.ReviewBean;
-import com.test.web.common.dao.reviewDAO;
+import com.test.web.common.service.ReviewService;
 
 @Controller
 public class RealReviewController {
-
+	
 	@Autowired
-	reviewDAO reviewDao;
-
+	private ReviewService reviewService;
+	
 	@RequestMapping("/realreview")
-	public String realreview(@RequestParam("selectLevel") String selectLevel, Model model) {
-
-		ReviewBean bean = new ReviewBean();
-
-		bean.setStudyProgressname("웹개발");
-		List<ReviewBean> listWeb = reviewDao.selectReviewList(bean);
-		bean.setStudyProgressname("모바일개발");
-		List<ReviewBean> listMobile = reviewDao.selectReviewList(bean);
-		bean.setStudyProgressname("시스템개발");
-		List<ReviewBean> listSystem = reviewDao.selectReviewList(bean);
-		bean.setStudyProgressname("IoT");
-		List<ReviewBean> listIoT = reviewDao.selectReviewList(bean);
-
-		String reviewCountWeb = listWeb.size() + "";
-		model.addAttribute("reviewCountWeb", reviewCountWeb);
-
-		String reviewCountMobile = listMobile.size() + "";
-		model.addAttribute("reviewCountMobile", reviewCountMobile);
-
-		String reviewCountSystem = listSystem.size() + "";
-		model.addAttribute("reviewCountSystem", reviewCountSystem);
-
-		String reviewCountIoT = listIoT.size() + "";
-		model.addAttribute("reviewCountIoT", reviewCountIoT);
-		
-		
-		bean.setStudyProgressname(selectLevel);
-
-		List<ReviewBean> list = reviewDao.selectReviewList(bean);
-
-		model.addAttribute("reviewListTitle", selectLevel);
-
-		String reviewCount = list.size() + "";
-		model.addAttribute("reviewCount", reviewCount);
-
-		model.addAttribute("reviewList", list);
-
-		// reviewBean bean = new reviewBean();
-		// bean.setCustomerId("ttt");
-		// bean.setStudyId("y");
-		// bean.setReviewContent("abdc");
-
-		// reviewDao.insertReview(bean);
-		// System.out.println("!5555");
-
-		// reviewDao.updateReview(bean);
-		// reviewDao.deleteReview(bean);
-		// bean.setReviewRating(4);
-		// reviewDao.selectReview(bean);
-
-		// reviewBean bean1 = reviewDao.selectReview(bean);
-
+	public String realreview() {
 		return "realReview";
 	}
+	
+	@RequestMapping("/realreviewProc")
+	@ResponseBody
+	public Map<String, Object> realreviewProc(ReviewBean rBean) {
 
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 실패");
+		
+		System.out.println(rBean.getStartRow());
+		
+		try {
+			//게시글 통합조회(댓글 목록까지 조회)
+			resMap = reviewService.selectReviewInfo(rBean);
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+	}
+	
+	
 }

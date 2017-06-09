@@ -88,5 +88,18 @@
 		customer_id = #{customerId}
 	</delete>
 
+   <!-- 회원 가입시 ID 중복 체크 -->
+   <select id="customerCheckId" resultType="java.lang.Integer" parameterType="customerBean">
+      SELECT
+         count(*)
+      FROM
+         customer
+      WHERE
+         customer_id = #{customerId} 
+   </select>
+
+
+
+
 
 </mapper>
