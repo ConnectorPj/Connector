@@ -68,18 +68,18 @@ public class MainController {
 		return "payment";
 	}
 
-	/** 회원가입 처리를 한다. **/
-	@RequestMapping("/insertTeacherProc")
-	public String insertTeacherProc(TeacherBean teacherBean) {
-
-		// DB insert
-		int res = teacherDao.insertTeacher(teacherBean);
-
-		System.out.println(res);
-
-		return "redirect:/main.do";
-
-	}
+//	/** 회원가입 처리를 한다. **/
+//	@RequestMapping("/insertTeacherProc")
+//	public String insertTeacherProc(TeacherBean teacherBean) {
+//
+//		// DB insert
+//		int res = teacherDao.insertTeacher(teacherBean);
+//
+//		System.out.println(res);
+//
+//		return "redirect:/main.do";
+//
+//	}
 
 	@RequestMapping("/selectTeacher")
 	public String selectMember(TeacherBean teacherBean, Model model) {

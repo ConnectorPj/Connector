@@ -9,13 +9,144 @@
     
     <title>Document</title>
     
-    <link href="/resources/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/leaderIntro.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/jquery-1.12.4.min.js"></script>
+    
+    
+<script type="text/javascript">
+	// Modal Function
+	function checkinputJoinpassword() {
+
+		var inputJoinpassword = document.getElementById("inputJoinpassword").value;
+		var exptext = /^.*(?=.{6,15})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+		if (exptext.test(inputJoinpassword) == false) {
+
+			document.getElementById("resultinputJoinpasswordconfirm").textContent = "비밀번호 형식이 올바르지 않습니다.";
+			document.getElementById("inputJoinpassword").focus();
+			return false;
+
+		}
+		else {
+			document.getElementById("resultinputJoinpasswordconfirm").textContent = "";
+			document.getElementById("inputJoinpasswordconfirm").disabled = false;
+
+			return true;
+
+
+		}
+	};
+
+	function checkinputJoinpasswordconfirm() {
+		if ($("#inputJoinpassword").val() == $("#inputJoinpasswordconfirm").val()) {
+			document.getElementById("resultinputJoinpasswordconfirm").textContent = "비밀번호가 일치합니다.";
+
+			return true;
+
+		}
+		else {
+			document.getElementById("resultinputJoinpasswordconfirm").textContent = "비밀번호가 일치하지 않습니다.";
+
+			return false;
+		}
+	};
+
+	function checkinputJoinEmail() {
+		var inputJoinEmail = document.getElementById("inputJoinEmail").value;
+		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		if (exptext.test(inputJoinEmail) == false) {
+			//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
+			document.getElementById("resultinputJoinEmail").textContent = "메일형식이 올바르지 않습니다.";
+			document.getElementById("inputJoinEmail").focus();
+			return false;
+		}
+		else {
+			document.getElementById("resultinputJoinEmail").textContent = "";
+			return true;
+		}
+	};
+
+    function teacherCheckIdJSP(){
+        
+        $.ajax({
+           url : '/teacherCheckId.do',
+           type : 'post',
+           data : {
+              "teacherId": $("#inputJoinEmail").val()   
+           },
+           success : function(data) {
+              $("#resultinputJoinEmail").html(data.resultMsg);
+           },
+           error : function(error) {
+              alert(error.statusText);
+           }
+        });
+     };
+
+	function insertTeacher() {
+
+ 		if ($("#inputJoinName").val() == null || $("#inputJoinName").val() == "") {
+
+ 			document.getElementById("inputJoinName").focus();
+
+ 			$('#inputJoinName').attr('placeholder', '이름을 입력하지 않으셨습니다.');
+
+ 			return;
+
+ 		}
+ 		else if ($("#inputJoinEmail").val() == null || $("#inputJoinEmail").val() == ""
+ 				|| !checkinputJoinEmail()) {
+ 			document.getElementById("inputJoinEmail").focus();
+ 			$('#inputJoinEmail').attr('placeholder', '메일을 올바르게 작성해주세요.');
+
+ 			return;
+ 		}
+ 		else if ($("#inputJoinpassword").val() == null || $("#inputJoinpassword").val() == ""
+				|| !checkinputJoinpasswordconfirm()) {
+ 			document.getElementById("inputJoinpassword").focus();
+ 			$('#inputJoinpassword').attr('placeholder', '비밀번호을 입력하지 않으셨습니다.');
+
+ 			return;
+ 		}
+ 		else if ($(":input:radio[id='agreeJSP2']:checked").val() != "1") {
+ 			alert("개인정보 활용 제공에 동의해주세요.");
+ 			return;
+ 		}
+ 		
+ 		else {
+
+			$.ajax({
+				type : "post",
+				url : "/insertTeacherProc.do",
+				data : $("#teacherFormJSP").serialize(),
+				async : false,
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+
+					if (data.result == "ok") {
+						alert(data.resultMsg);
+						location.replace("/login.do");
+
+						return;
+					} else {
+						alert(data.resultMsg);
+					}
+
+				},
+				error : function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " + status
+							+ ", error : " + error);
+				}
+			});
+		}
+	} 
+
+
+</script>
+    
 </head>
 
 <style>
@@ -125,7 +256,7 @@ span.buttonText {
 	padding-right: 42px;
 	font-size: 14px;
 	font-weight: bold;
-	/* Use the Roboto font that is loaded in the <head> */
+	<!-- Use the Roboto font that is loaded in the <head> -->
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -137,12 +268,6 @@ span.buttonText {
 
 <body>
 
-	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-	<script src="/js/bootstrap.min.js"></script>
-    
     <section>
     
     <div class="to">
@@ -233,53 +358,57 @@ span.buttonText {
 					<!-- 네이버 로그인 API -->
 					<div id="naver_id_login"></div>
 					<h6 style="text-align: center;">
-						<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
-							──────────────── </small>
+						<small> ───────────────────── </small>또&nbsp;&nbsp;는<small>
+							───────────────────── </small>
 					</h6>
-					<form>
+					<form id="teacherFormJSP">
 						<div>
-							<input type="text" class="form-control" id="inputJoinName"
+							<input type="text" class="form-control" name="teacherName" id="inputJoinName"
 								placeholder="이름" /><br/>
-							<input type="email" class="form-control"
-								id="inputJoinEmail" placeholder="이메일" /><br/>
+								
+							<input type="email" class="form-control" name="teacherId"
+								id="inputJoinEmail" onkeyup="checkinputJoinEmail()" placeholder="이메일" />
+							<p id="resultinputJoinEmail" style="font-size: 0.4em; color: #aaa;"></p>
+							
 							<input type="password"
-								name="password" id="inputJoinpassword"
-								class="form-control input-sm" placeholder="비밀번호" tabindex="5">
-							<input type="password" name="password_confirmation"
+								name="password" name="teacherPw" id="inputJoinpassword" onkeyup="checkinputJoinpassword()"
+								class="form-control input-sm" placeholder="비밀번호" >
+							<p id="resultinputJoinpassword" style="font-size: 0.4em; color: #aaa;">
+							
+							<input type="password" name="password_confirmation" onkeyup="checkinputJoinpasswordconfirm()"
 								id="inputJoinpasswordconfirm" class="form-control input-sm"
-								placeholder="비밀번호 확인" tabindex="6"><br/><br/><br/>
+								placeholder="비밀번호 확인" ><br/><br/><br/><br/>
+							<p id="resultinputJoinpasswordconfirm" style="font-size: 0.4em; color: #aaa;"></p>
+							
 							<input type="text"
-								class="form-control" id="inputJoinCareer" placeholder="경력" /><br/>
+								class="form-control" name="teacherCareer" id="inputJoinCareer" placeholder="경력" /><br/>
+							
 							<input type="text"
-								class="form-control" id="inputJoinRegistration"
+								class="form-control" name="teacherInfo" id="inputJoinRegistration"
 								placeholder="주민등록번호 앞자리" /><br/>
+							
 							<input type="text"
-								class="form-control" id="inputJoinPhone" placeholder="핸드폰번호" /><br/>
+								class="form-control" name="teacherCellphone" id="inputJoinPhone" placeholder="핸드폰번호" /><br/>
+							
 							<input type="text"
 								class="form-control" id="inputJoinIntroduction" placeholder="강사소개" /><br/>
-							<input type="radio" name="gender" value="F" >여자 
-							<input type="radio" name="gender" value="M" >남자 
+							
+							<input type="radio" name="teacherGender" value="F" >여자 &nbsp;&nbsp;&nbsp;
+							<input type="radio" name="teacherGender" value="M" >남자 
 						</div>
 				
 
 
 					</form>
 					<h6 style="text-align: center;">
-						<small>더코세의 이용약관과 개인정보 보호정책에 동의합니다.</small>
+						<small>더코세의 이용약관과 개인정보 보호정책에 동의합니다.&nbsp;&nbsp;&nbsp;<input type="radio" name="cho" id="agreeJSP2" value="1" /></small>
 					</h6>
 
-					<button type="button" class="button button-orange">가입 완료</button>
+					<button type="button" class="button button-orange" onclick="insertTeacher();">가입 완료</button>
 				</div>
 
 			</div>
 			</div>
-			<script type="text/javascript"
-		src="http://code.jquery.com/jquery-latest.js"></script>
-
-	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 
 	<!-- Login Modal Script -->
 	<script type="text/javascript">

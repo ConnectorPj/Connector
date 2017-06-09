@@ -1,4 +1,4 @@
-package com.test.web.customer.controller;
+﻿package com.test.web.customer.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +65,33 @@ public class CustomerController {
 		
 		return resMap;
 	}
+	
+	
+	/** 회원가입 처리를 한다. **/
+	@RequestMapping("/insertTeacherProc")
+	@ResponseBody
+	public Map<String, Object> insertTeacherProc(TeacherBean teacherBean) {
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원가입에 실패 하였습니다.");
+		
+		//DB insert
+		try {
+			int res = teacherService.insertTeacher(teacherBean);
+			
+			if(res > 0) {
+				resMap.put(Constants.RESULT, Constants.RESULT_OK);
+				resMap.put(Constants.RESULT_MSG, "회원가입에 성공 하였습니다.");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+	}
+	
 
 	@RequestMapping("/login")
 	public String login() {
@@ -131,6 +158,26 @@ public class CustomerController {
 		
 		return resMap;
 	}
+	
+	/** ID 중복체크 **/
+	   @RequestMapping("/TeacherCheckId")
+	   @ResponseBody
+	   public Map<String, Object> teacherCheckId(TeacherBean teacherBean) {
+	      Map<String, Object> resMap = new HashMap<String, Object>();
+	      
+	      resMap.put(Constants.RESULT_MSG, "이미 사용중인 ID 입니다.");
+	      resMap.put(Constants.RESULT, "success");
+	   
+	      try {
+	         int res = teacherService.teacherCheckId(teacherBean);
+	         if(res == 0) {
+	            resMap.put(Constants.RESULT_MSG, "사용할 수 있는 ID 입니다.");
+	         }
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return resMap;
+	   }
 
 	
 	/** 로그아웃 **/
