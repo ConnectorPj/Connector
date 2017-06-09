@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
+import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.bean.TeacherBean;
+import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.service.CustomerService;
@@ -35,6 +38,10 @@ public class CustomerController {
 	private CustomerDAO customerDao;
 	@Autowired
 	private TeacherDAO teacherDao;
+	
+	
+	@Autowired
+	private ClassDAO classDao;
 
 	@RequestMapping("/join")
 	public String join() {
