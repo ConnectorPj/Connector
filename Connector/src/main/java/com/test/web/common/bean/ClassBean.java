@@ -3,6 +3,7 @@ package com.test.web.common.bean;
 public class ClassBean {
 	private String studyId;
 	private String teacherId;
+	private String teacherName;
 	private String studyName;
 	private String studyInfo;
 	private String studyJob;
@@ -168,6 +169,14 @@ public class ClassBean {
 
 	public void setStudyProgramLanguage(String studyProgramLanguage) {
 		this.studyProgramLanguage = studyProgramLanguage;
+	}
+
+	public String getTeacherName() {
+		return teacherName;
+	}
+
+	public void setTeacherName(String teacherName) {
+		this.teacherName = teacherName;
 	}
 
 }

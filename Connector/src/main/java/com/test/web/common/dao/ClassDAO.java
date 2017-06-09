@@ -23,6 +23,9 @@ public interface ClassDAO {
 	public List<ClassBean> selectClassListAll(ClassBean bean, PagingBean pBean) throws Exception;
 
 	public List<ClassBean> selectTeacherClassList(ClassBean bean) throws Exception;
+	
 	public List<ClassBean> selectCustomerPurchaseList(PurchaseBean pBean) throws Exception;
-	public List<ClassBean> selectCustomerBusketList(BusketBean bBean) throws Exception;
+	
+	public List<ClassBean> selectBucketClassList(ClassBean bean);
+
 }

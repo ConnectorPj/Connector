@@ -96,7 +96,7 @@
 	
 	
 	<!--수업  찜목록  조회 -->
-	<select id="selectCustomerBusketList" resultType="classBean">
+	<select id="selectBucketClassList" resultType="classBean">
 		SELECT
 		<include refid="classColumns" />
 		FROM
