@@ -170,7 +170,17 @@ public class MainController {
 	}
 
 	@RequestMapping("/adminRegClass")
-	public String adminRegClass() {
+	public String adminRegClass(Model model, ClassBean cBean) {
+		
+		cBean = classDao.selectClass(cBean);
+		
+		String location[] = cBean.getStudyLocation().split(",");
+		model.addAttribute("Alt",location[0]);
+		model.addAttribute("Att",location[1]);
+		
+		model.addAttribute("ClassBean", cBean);
+		
+		
 		return "adminRegClass";
 	}
 

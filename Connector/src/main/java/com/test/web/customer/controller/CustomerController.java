@@ -86,6 +86,8 @@ public class CustomerController {
 		
 		//DB insert
 		try {
+			
+			teacherBean.setTeacherCheck("0");
 			int res = teacherService.insertTeacher(teacherBean);
 			
 			if(res > 0) {

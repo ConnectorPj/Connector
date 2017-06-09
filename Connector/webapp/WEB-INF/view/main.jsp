@@ -121,8 +121,8 @@ a:hover {
 			<h2 class="title">분야별</h2>
 			<div class="title_hr"></div>
 			
-			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img1.jpg"
+			<div class="classType_box"> 
+				<a href="/search.do?StudyProgressName=0"> <img src="/resources/images/Main_Img1.jpg"
 					alt="classType01" />
 					<div class="img_text">
 						<p>#웹 개발</p>

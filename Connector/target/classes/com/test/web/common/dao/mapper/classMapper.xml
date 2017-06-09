@@ -45,6 +45,16 @@
 		order by study_regdate DESC;
 	</select>
 	
+	<!-- 카테 고리상 조회-->
+	<select id="selectConClassList" resultType="classBean" parameterType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_progressName = #{studyProgressName}
+		order by study_regdate DESC;
+	</select>
 
 	<!-- 특정 Class 조회 -->
 	<select id="selectClass" resultType="classBean" parameterType="classBean">
@@ -105,6 +115,24 @@
 		)
 
 	</insert>
+	
+	<!--수업 결제내역 조회 -->
+   <select id="selectCustomerPurchaseList" resultType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      WHERE
+      study_id 
+      IN
+      (SELECT study_id
+      FROM 
+      purchase_study
+      WHERE
+      customer_id=#{customerId})
+      order by study_regdate DESC
+   </select>
+	
 
 	<update id="updateClass" parameterType="classBean">
 		UPDATE study SET

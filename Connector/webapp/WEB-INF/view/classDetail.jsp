@@ -51,7 +51,6 @@
 				<hr />
 			</div>
 			<!-- end of studyintro -->
-			
 
 			<div id="detail">
 				<div id="detailTitle" class="detailTitle">상세정보</div>
@@ -121,7 +120,9 @@
 			</div>
 			<hr />
 			<br>
-			<!-- end of detail -->
+			<input type="hidden" id="studyId" value="${ClassBean.studyId}">
+			<input type="hidden" id="memberId" value="pdh">
+			 
 
 			<div id="leaderintro">
 				<div id="leaderTitle" class="leaderTitle">
@@ -191,8 +192,71 @@
 				<input id="actionBtn" type="submit" class="actionBtn"
 					value="참여 신청하기">
 			</form>
-			<a class="booking" href="#"> <span class="bookingIcon"></span>찜하기
-			</a>
+			<a id="booking" class="booking" href="#" ></span>찜하기</a>
+			
+			<script type="text/javascript">
+			var cond = 1;
+			
+			$("#booking").click(function() {
+				
+				if(cond == 1){				
+					$.ajax({
+						type: "post",
+						url: "updateBusket.do",
+						data: {
+							customerId : $("#memberId").val(), 
+							studyId: $("#studyId").val()
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.result == "ok") {																
+								$("#booking").text("찜취소");
+								$("#booking").css("background-color","orange");
+								cond = 2;
+								return;
+							} else {
+								alert("찜 목록에 실패 하였습니다.");
+							}
+							
+						},
+						error: function(xhr, status, error) {
+							console.log(xhr);
+							alert("error\nxhr : " + xhr + ", status : " 
+									+ status + ", error : " + error);      
+						}
+					});
+					
+					
+				}else{
+					$.ajax({
+						type: "post",
+						url: "updateBusket.do",
+						data: {
+							customerId : $("#memberId").val(), 
+							studyId: $("#studyId").val()
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.result == "ok") {																
+								$("#booking").text("찜하기");
+								$("#booking").css("background-color","white");
+								cond = 1;
+								return;
+							} else {
+								alert("찜 목록에 실패 하였습니다.");
+							}
+							
+						},
+						error: function(xhr, status, error) {
+							console.log(xhr);
+							alert("error\nxhr : " + xhr + ", status : " 
+									+ status + ", error : " + error);      
+						}
+					});
+				}
+			});
+		
+			</script>
 		</div>
 		<!-- end of side -->
 	</div>

@@ -390,9 +390,6 @@ span.buttonText {
 							<input type="text"
 								class="form-control" name="teacherCellphone" id="inputJoinPhone" placeholder="핸드폰번호" /><br/>
 							
-							<input type="text"
-								class="form-control" id="inputJoinIntroduction" placeholder="강사소개" /><br/>
-							
 							<input type="radio" name="teacherGender" value="F" >여자 &nbsp;&nbsp;&nbsp;
 							<input type="radio" name="teacherGender" value="M" >남자 
 						</div>

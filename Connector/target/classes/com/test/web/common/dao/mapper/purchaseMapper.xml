@@ -24,7 +24,6 @@
   			customer_id = #{customerId} 
 	</select>
 	
-	<!-- ȸ������ List ��ȸ -->
 	<select id="selectPurchaseList" resultType="purchaseBean"
 		parameterType="purchaseBean">
 		SELECT
@@ -37,7 +36,11 @@
 		purchase_study
 	</select>
     
-	<!-- ȸ������ 1�� ���� -->
+
+    
+    
+    
+    
     <insert id="insertPurchase" parameterType="purchaseBean">
         INSERT INTO purchase_study
 		(
@@ -54,7 +57,6 @@
 		)
 	</insert>
     
-    <!-- ȸ������ ���� -->
 	<update id="updatePurchase" parameterType="purchaseBean">
 		UPDATE purchase_study SET
 		customer_id = #{customerId}
@@ -68,7 +70,6 @@
 			customer_id = #{customerId}
 	</update>
 	
-	<!-- ȸ������ ���� -->
 	<delete id="deletePurchase" parameterType="purchaseBean">
 	    DELETE FROM 
 	    	purchase_study
