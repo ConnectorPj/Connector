@@ -6,20 +6,23 @@
 	<sql id="classColumns">
 		study_id AS studyId,
 		teacher_id AS teacherId,
-		study_name AS studyName,
+		teacher_name AS teacherName,
+		study_name AS
+		studyName,
 		study_info AS studyInfo,
 		study_job AS studyJob,
-		study_price AS studyPrice,
+		study_price AS
+		studyPrice,
 		study_progressName AS studyProgressName,
 		study_programLanguage AS studyProgramLanguage,
 		study_week AS studyWeek,
-		
+
 		study_startTime AS studyStartTime,
 		study_endTime AS studyEndTime,
-		
+
 		study_startDate AS studyStartDate,
 		study_endDate AS studyEndDate,
-		
+
 		study_location AS studyLocation,
 		study_amount AS studyAmount,
 		study_reference AS studyReference,
@@ -33,9 +36,11 @@
 		<include refid="classColumns" />
 		FROM
 		study
+		WHERE
+		study_id = #{studyId}
 		order by study_regdate DESC;
 	</select>
-	
+
 	<!-- Class List 조회 -->
 	<select id="selectClassListAll" resultType="classBean">
 		SELECT
@@ -44,7 +49,7 @@
 		study
 		order by study_regdate DESC;
 	</select>
-	
+
 
 	<!-- 특정 Class 조회 -->
 	<select id="selectClass" resultType="classBean" parameterType="classBean">
@@ -57,11 +62,70 @@
 		order by study_regdate DESC
 	</select>
 
+
+	<!-- 특정 ClassList 조회 -->
+	<select id="selectTeacherClassList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		teacher_id = #{teacherId}
+		order by study_regdate DESC
+	</select>
+
+
+
+	<!--수업 결제내역 조회 -->
+	<select id="selectCustomerPurchaseList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_id 
+		IN
+		(SELECT study_id
+		
+		FROM 
+		purchase_study
+		WHERE
+		customer_id=#{customerId})
+		order by study_regdate DESC
+	</select>
+	
+	
+	<!--수업  찜목록  조회 -->
+	<select id="selectCustomerBusketList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_id 
+		IN
+		(SELECT study_id
+		
+		FROM 
+		bucket_study
+		WHERE
+		customer_id=#{customerId})
+		order by study_regdate DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+
 	<insert id="insertClass" parameterType="classBean">
 		INSERT INTO study
 		(
 		study_id,
 		teacher_id,
+		teacher_name,
 		study_name,
 		study_info,
 		study_job,
@@ -83,7 +147,7 @@
 		VALUES
 		(
 		#{studyId},
-		#{teacherId},
+		#{teacherName},
 		#{studyName},
 		#{studyInfo},
 		#{studyJob},
@@ -91,13 +155,13 @@
 		#{studyProgressName},
 		#{studyProgramLanguage},
 		#{studyWeek},
-		
+
 		#{studyStartTime},
 		#{studyEndTime},
-		
+
 		#{studyStartDate},
 		#{studyEndDate},
-		
+
 		#{studyLocation},
 		#{studyAmount},
 		#{studyReference},
@@ -108,25 +172,35 @@
 
 	<update id="updateClass" parameterType="classBean">
 		UPDATE study SET
-		study_id = #{studyId},
+		study_id
+		= #{studyId},
 		teacher_id = #{teacherId},
+		teacher_name = #{teacherName},
 		study_name = #{studyName},
 		study_info = #{studyInfo},
 		study_job = #{studyJob},
-		study_price = #{studyPrice},
+		study_price =
+		#{studyPrice},
 		study_progressName = #{studyProgressName},
 		study_programLanguage = #{studyProgramLanguage},
-		study_week = #{studyWeek},
-		
+		study_week =
+		#{studyWeek},
+
 		study_startTime = #{studyStartTime},
-		study_endTime = #{studyEndTime},
-		study_startDate = #{studyStartDate},
-		study_endDate = #{studyEndDate},
-		
+		study_endTime =
+		#{studyEndTime},
+		study_startDate =
+		#{studyStartDate},
+		study_endDate =
+		#{studyEndDate},
+
 		study_location = #{studyLocation},
-		study_amount = #{studyAmount},
-		study_reference = #{studyReference},
-		study_check = #{studyCheck}
+		study_amount =
+		#{studyAmount},
+		study_reference =
+		#{studyReference},
+		study_check =
+		#{studyCheck}
 	</update>
 
 	<delete id="deleteClass" parameterType="classBean">

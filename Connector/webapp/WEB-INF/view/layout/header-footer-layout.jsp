@@ -283,10 +283,8 @@ span.buttonText {
 
 											//android 호출
 											try {
-												var cusId = $("#customerIdM")
-														.val();
-												window.JSInterface
-														.updateAndToken(cusId);
+												var cusId = $("#customerIdM").val();
+												window.JSInterface.updateAndToken(cusId);
 											} catch (e) {
 												console.log(e);
 											}
@@ -299,12 +297,6 @@ span.buttonText {
 											$("#customerPwM").focus();
 										}
 
-									},
-									error : function(xhr, status, error) {
-										console.log(xhr);
-										alert("error\nxhr : " + xhr
-												+ ", status : " + status
-												+ ", error : " + error);
 									}
 								});
 
@@ -545,10 +537,9 @@ span.buttonText {
 							</c:when>
 							<c:otherwise>
 
-
 								<c:if test="${sessionScope.code eq 'T'}">
 									<li style="width: 150px;"><a
-										href="personalInfoTeacher.do?teacherId=${sessionScope.memberLoginBean.teacherId}">
+										href="personalInfoTeacher.do">
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" id="loginLink" />
@@ -582,7 +573,6 @@ span.buttonText {
 				<!-- Modal content -->
 				<div class="modal-content">
 					<span class="closeLogin">&times;</span> <br />
-					<form>
 						<div style="text-align: center; font-size: 1em; margin: 10px 0;">
 							<input type="radio" name="customer" value="1">학생 <input
 								type="radio" name="customer" value="2">리더
@@ -592,7 +582,7 @@ span.buttonText {
 							<input type="password" class="inputLogin" id="customerPwM"
 								placeholder="암호">
 
-						<button class="button button-navy" id="btnLoginM">로그인</button>
+						<button type="button" class="button button-navy" id="btnLoginM">로그인</button>
 						<button class="button ">회원가입</button>
 						<!-- 구글 로그인 연동1 -->
 						<div id="customBtn" class="customGPlusSignIn"
@@ -613,7 +603,6 @@ span.buttonText {
 							naver_id_login.setPopup();
 							naver_id_login.init_naver_id_login();
 						</script>
-					</form>
 				</div>
 
 			</div>
@@ -760,9 +749,6 @@ span.buttonText {
 			if (event.target == modalJoin) {
 				modalJoin.style.display = "none";
 			}
-			// 			if (event.target == modalReview) {
-			// 				modalReview.style.display = "none";
-			// 			}
 		}
 	</script>
 

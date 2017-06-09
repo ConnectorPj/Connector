@@ -21,7 +21,60 @@
 <link type="text/css" href="/resources/css/payorderStyle.css"
 	rel="stylesheet">
 <title>수업 결제 내역</title>
+
+
+<script type="text/javascript">
+	$(function() {
+
+		$.ajax({
+			type : "post",
+			url : "/selectCustomerPurchaseList.do",
+			dataType : "json",
+			data : {
+				customerId : "${sessionScope.memberLoginBean.customerId}"
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data.result == "ok") {
+					var num = 1;
+					//리스트 출력
+					$.each(data.ClassList, function(i, classBean) {
+						var str = "";
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + classBean.studyId + "</td>";
+						str += "<td>" + classBean.studyName + "</td>";
+
+						str += "<td><button type='button' onclick='openModal("
+								+ classBean.studyId
+								+ ");' class='reviewBtn'>후기쓰기</button></td>";
+						str += "</tr>";
+
+						$("#memberListBody").append(str);
+					});
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
+	});
+</script>
+
+
+
+
+
 </head>
+
+
+
 <body>
 
 	<!--메인 -->
@@ -33,6 +86,7 @@
 					<ul>
 						<li><a href="personalInfoCustomer.do">개인정보</a></li>
 						<li><a href="payorder.do" class="on">수업 결제 내역</a></li>
+						<li><a href="busketList.do" class="on">수업 결제 내역</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -45,57 +99,29 @@
 					<h2>수업 결제 내역</h2>
 				</div>
 
+
+
 				<!-- 서브 내용 -->
 				<div class="sub_content">
 					<div class="notice_table">
 						<table>
 							<colgroup>
 								<col width="5%">
-								<col width="40%">
-								<col width="10%">
+								<col width="30%">
+								<col width="20%">
 								<col width="5%">
 							</colgroup>
-							<tr>
-								<th>No.</th>
-								<th>스터디 이름</th>
-								<th>강사명</th>
-								<th>후기쓰기</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>스터디 이름</th>
+									<th>언어</th>
+									<th>후기</th>
+								</tr>
+							</thead>
+							<tbody id="memberListBody">
 
-							<tr>
-								<td>5</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>박덕환</td>
-								<td><button id="reviewLink" class="reviewBtn">후기쓰기</button></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>엠씨덕환</td>
-								<td><button class="reviewBtn">후기쓰기</button></td>
-
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>라이언</td>
-								<td><button class="reviewBtn">후기쓰기</button></td>
-
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>엠씨콴</td>
-								<td><button class="reviewBtn">후기쓰기</button></td>
-
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>스타장인</td>
-								<td><button class="reviewBtn">후기쓰기</button></td>
-
-							</tr>
+							</tbody>
 						</table>
 					</div>
 
@@ -115,12 +141,13 @@
 
 		<div id="myReviewModal" class="modal">
 			<div class="modal-content-review">
-				<span class="closeReview">&times;</span>
+				<span class="closeReview" onclick="closeModal();">&times;</span>
 				<div>
 					<div>
 						<h2>리뷰 쓰기</h2>
 
-						<h4>박덕환 강사님의 스터디에 대한 평가를 해주세요!</h4>
+						<h4 id="teacherName"> 
+						</h4>
 						<form id="reviewForm">
 
 							<div>
@@ -174,22 +201,43 @@
 
 	<!-- Review Modal -->
 	<script type="text/javascript">
-		// Get the modal
 		var modalReview = document.getElementById("myReviewModal");
+		function openModal(bean) {
 
-		// Get the button that opens the modal
-		var btnReview = document.getElementById("reviewLink");
+			$(function() {
 
-		// Get the <span> element that closes the modal
-		var spanReview = document.getElementsByClassName("closeReview")[0];
+				$.ajax({
+					type : "post",
+					url : "/selectClass.do",
+					dataType : "json",
+					data : {
+						studyId : bean
+					},
+					success : function(data) {
+						console.log(data);
 
-		// When the user clicks on the button, open the modal 
-		btnReview.onclick = function() {
+						if (data.result == "ok") {
+							var cBean = data.classBean;
+							document.getElementById("teacherName").textContent=cBean.studyName+"강사님의스터디에 대한 평가를 해주세요!";
+							
+						} else {
+							alert("외않되?");
+						}
+					},
+					error : function(xhr, status, error) {
+						console.log(xhr);
+						alert("error\nxhr : " + xhr + ", status : " + status
+								+ ", error : " + error);
+					}
+				});
+			});
 			modalReview.style.display = "block";
+
 		}
 
 		// When the user clicks on <span> (x), close the modal
-		spanReview.onclick = function() {
+
+		function closeModal() {
 			modalReview.style.display = "none";
 		}
 	</script>

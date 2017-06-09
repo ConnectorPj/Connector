@@ -328,6 +328,33 @@ public class CustomerController {
     }
 
 	
+	/** 수업결제 내역 개인별 수업정보**/
+	@RequestMapping("/selectCustomerPurchaseList")
+	@ResponseBody
+	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean,Model model, PurchaseBean pBean){
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
+		
+		
+		try {
+			
+
+			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean);
+			
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+		
+	}
 	
 
 }
