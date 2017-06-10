@@ -517,7 +517,7 @@ span.buttonText {
 
 								</ul></li>
 						</ul></li>
-					<li><a href="#">리얼후기</a></li>
+					<li><a href="/realreview.do">리얼후기</a></li>
 
 				</ul>
 

@@ -50,36 +50,20 @@ public class ReviewServiceImpl implements ReviewService {
 		return resMap;
 	}
 	
-//	@Override
-//	public int insertBoardAttach(BoardBean bBean, BoardAttachBean baBean, String upPath) {
-//		
-//		//TODO 테스트 데이터
-//		bBean.setMemberId("b");
-//		
-//		int resVal1 = boardDao.insertBoard(bBean);
-//		
-//		if(resVal1 <= 0) return 0; //insert실패
-//		
-//		
-//		for(int i=0; i<baBean.getUpFile().length; i++) {
-//			
-//			MultipartFile file = baBean.getUpFile()[i];
-//			String fileName = "";
-//			try {
-//				fileName = Util.uploadFileMng(file, upPath);
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//			//insert
-//			BoardAttachBean inBean = new BoardAttachBean();
-//			inBean.setBoardNo( bBean.getNo() );
-//			inBean.setAttachType( Constants.FILE_TYPE_BOARD );
-//			inBean.setFileName( fileName );
-//			//DB
-//			boardAttachDao.insertBoardAttach(inBean);
-//		}
-//		
-//		return resVal1;
-//	}
+	@Override
+	public int insertReviewAttach(ReviewBean rBean) {
+		
+		//TODO 테스트 데이터
+		rBean.setCustomerId("abcde");
+		rBean.setTeacherId("ffff");
+		rBean.setStudyProgressname("IoT");
+		rBean.setTeacherName("아무개");
+		
+		int resVal1 = reviewDao.insertReview(rBean);
+		
+		if(resVal1 <= 0) return 0; //insert실패
+		
+		return resVal1;
+	}
 	
 }

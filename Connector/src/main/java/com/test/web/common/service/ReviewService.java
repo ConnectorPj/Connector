@@ -19,7 +19,7 @@ public interface ReviewService {
 	// 게시글과 댓글목록을 한꺼번에 조회하는 처리
 	public Map<String, Object> selectReviewInfo(ReviewBean rBean);
 
-//	// 게시글과 파일의 정보를 한꺼번에 insert처리
-//	public int insertBoardAttach(BoardBean bBean, BoardAttachBean baBean, String upPath);
+	// 게시글과 파일의 정보를 한꺼번에 insert처리
+	public int insertReviewAttach(ReviewBean rBean);
 
 }

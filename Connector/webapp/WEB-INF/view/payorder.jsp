@@ -65,6 +65,43 @@
 			}
 		});
 	});
+	
+	function btnReviewWrite() {
+		
+		var formData = new FormData();
+
+		var reviewRating = document.getElementById("reviewRating").value;
+		var reviewContent = document.getElementById("reviewContent").value;
+		//var teacherName = document.getElementById("teacherName").value;
+		
+		formData.append("reviewRating", reviewRating );
+		formData.append("reviewContent", reviewContent );
+		//formData.append("teacherName", teacherName );
+		
+		
+		$.ajax({
+                url: '/realReviewInsertProc.do',
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: 'POST',
+                success: function(data){
+                    
+                	alert(data.resultMsg);
+                	
+                	if(data.result == "ok") {
+                		//화면이동 처리
+                	} else {
+        				alert(data.resultMsg);
+        			}
+
+        		},
+        		error: function() {
+					alert("리뷰 작성 성공");      
+				}
+        	});
+
+	};//end function
 </script>
 
 
@@ -118,10 +155,16 @@
 									<th>언어</th>
 									<th>후기</th>
 								</tr>
+								<tr>
+								<td>5</td>
+								<td>덕화니의 씨샵생각하기</td>
+								<td>박덕환</td>
+								<td><button id="reviewLink" class="reviewBtn">후기쓰기</button></td>
+							</tr>
 							</thead>
-							<tbody id="memberListBody">
+							<!-- <tbody id="memberListBody">
 
-							</tbody>
+							</tbody> -->
 						</table>
 					</div>
 
@@ -148,44 +191,33 @@
 
 						<h4 id="teacherName"> 
 						</h4>
-						<form id="reviewForm">
+						<form method="post" id="reviewForm">
 
 							<div>
-								<fieldset class="rating">
-									<input type="radio" id="star5" name="rating" value="5" /><label
-										class="full" for="star5" title="Awesome - 5 stars"></label> <input
-										type="radio" id="star4half" name="rating" value="4 and a half" /><label
-										class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-									<input type="radio" id="star4" name="rating" value="4" /><label
-										class="full" for="star4" title="Pretty good - 4 stars"></label>
-									<input type="radio" id="star3half" name="rating"
-										value="3 and a half" /><label class="half" for="star3half"
-										title="Meh - 3.5 stars"></label> <input type="radio"
-										id="star3" name="rating" value="3" /><label class="full"
-										for="star3" title="Meh - 3 stars"></label> <input type="radio"
-										id="star2half" name="rating" value="2 and a half" /><label
-										class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-									<input type="radio" id="star2" name="rating" value="2" /><label
-										class="full" for="star2" title="Kinda bad - 2 stars"></label>
-									<input type="radio" id="star1half" name="rating"
-										value="1 and a half" /><label class="half" for="star1half"
-										title="Meh - 1.5 stars"></label> <input type="radio"
-										id="star1" name="rating" value="1" /><label class="full"
-										for="star1" title="Sucks big time - 1 star"></label> <input
-										type="radio" id="starhalf" name="rating" value="half" /><label
-										class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+								<fieldset class="rating" id="rating" >
+									<input type="radio" id="star5" name="rating" value="5" />
+										<label class="full" for="star5" title="Awesome - 5 stars"></label>
+									<input type="radio" id="star4" name="rating" value="4" />
+										<label class="full" for="star4" title="Pretty good - 4 stars"></label>
+									<input type="radio" id="star3" name="rating" value="3" />
+										<label class="full" for="star3" title="Meh - 3 stars"></label>
+									<input type="radio" id="star2" name="rating" value="2" />
+										<label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+									<input type="radio" id="star1" name="rating" value="1" />
+										<label class="full" for="star1" title="Sucks big time - 1 star"></label>
 								</fieldset>
 							</div>
 
 
 							<div>
-								<textarea class="inputReview"></textarea>
+								<textarea class="inputReview" id="reviewContent"></textarea>
 							</div>
 							<br />
 							<div>
-								<button class="btnReview">리뷰 쓰기</button>
+								<button class="btnReview" onclick="btnReviewWrite()">리뷰 쓰기</button>
 							</div>
 							<br /> <br />
+							<input type="hidden" id="reviewRating" name="reviewRating" />
 
 						</form>
 
@@ -201,7 +233,7 @@
 
 	<!-- Review Modal -->
 	<script type="text/javascript">
-		var modalReview = document.getElementById("myReviewModal");
+		/* var modalReview = document.getElementById("myReviewModal");
 		function openModal(bean) {
 
 			$(function() {
@@ -239,12 +271,33 @@
 
 		function closeModal() {
 			modalReview.style.display = "none";
+		} */
+		
+		
+		// Get the modal
+		var modalReview = document.getElementById("myReviewModal");
+
+		// Get the button that opens the modal
+		var btnReview = document.getElementById("reviewLink");
+
+		// Get the <span> element that closes the modal
+		var spanReview = document.getElementsByClassName("closeReview")[0];
+
+		// When the user clicks on the button, open the modal 
+		btnReview.onclick = function() {
+			modalReview.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		spanReview.onclick = function() {
+			modalReview.style.display = "none";
 		}
 	</script>
 
 	<script type="text/javascript">
 		$(':radio').change(function() {
-			$('.choice').text($(this).val() + ' stars');
+			var reviewRating = $(this).val();
+			document.getElementById("reviewRating").value = parseInt(reviewRating);
 		})
 	</script>
 </body>

@@ -38,7 +38,7 @@ var isReviewLoadingFirst = true;
 $(function() {
 	$.ajax({
 		type : "post",
-		url : "/realreviewProc.do",
+		url : "/realReviewProc.do",
 		data : {
 			studyProgressname: "웹개발"
 		},
@@ -67,7 +67,7 @@ $(function() {
 	});
 	$.ajax({
 		type : "post",
-		url : "/realreviewProc.do",
+		url : "/realReviewProc.do",
 		data : {
 			studyProgressname: "모바일개발"
 		},
@@ -90,7 +90,7 @@ $(function() {
 	});
 	$.ajax({
 		type : "post",
-		url : "/realreviewProc.do",
+		url : "/realReviewProc.do",
 		data : {
 			studyProgressname: "시스템개발"
 		},
@@ -113,7 +113,7 @@ $(function() {
 	});
 	$.ajax({
 		type : "post",
-		url : "/realreviewProc.do",
+		url : "/realReviewProc.do",
 		data : {
 			studyProgressname: "IoT"
 		},
@@ -183,7 +183,7 @@ function showReviewList(studyProgressname) {
 	
 	$.ajax({
 		type : "post",
-		url : "/realreviewProc.do",
+		url : "/realReviewProc.do",
 		data : {
 			studyProgressname: studyProgressname
 		},
@@ -272,7 +272,7 @@ function showNextReviewList() {
 	
 	$.ajax({
 		type: "post",
-		url: "/realreviewProc.do",
+		url: "/realReviewProc.do",
 		data: {
 			studyProgressname: currentProgressname,
 			startRow : reviewStartRow
