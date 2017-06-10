@@ -23,6 +23,9 @@ $(function() {
 			$.ajax({
 				type: "post",
 				url: "/selectClassListAjax.do",
+				data : {
+					pageNo : "${param.pageNo}"
+				},
 				dataType: "json",
 				success: function(data) {
 					console.log(data);
@@ -40,6 +43,28 @@ $(function() {
 							str += "</tr>";
 
 							$("#memberListBody").append(str);
+							
+							// 페이징
+				               var str2 = "<ul>";
+				               var pBean = data.pBean;
+				               var storeDetail = data.storeDetail;
+				                str2 += "<li><a href='adminStudyList.do?pageNo=1'>처음 </a></li>";
+				               if(pBean.groupNo>1) {
+				                  str2 += "<li><a href='adminStudyList.do?pageNo=" + (pBean.pageStartNo - 1) + "'> 이전 </a></li>";
+				               }
+				               for(var i =pBean.pageStartNo ; i<= pBean.pageEndNo ; i++) {
+				                  if(pBean.pageNo != i) {
+				                     str2 += "<li><a href='adminStudyList.do?pageNo="+i + "'> " + i + "</a></li>";
+				                  } else {
+				                     str2 += "<li><a class='on'>" + i + "</a></li>";
+				                  }
+				               }
+				               if(pBean.groupNo < pBean.totalGroupCount) {
+				                  str2 += "<li><a href='adminStudyList.do?pageNo=" + (pBean.pageEndNo + 1) + "'> 다음 </a></li>";
+				               }
+				               str2 += "<li><a href='adminStudyList.do?pageNo=" + pBean.totalPageCount + "'> 끝 </a></li>";
+				               str2 += "</ul>";
+				               $("#page").html(str2);
 						});
 						
 					} else {
@@ -66,7 +91,7 @@ $(function() {
 				<div class="sub_menu">
 					<ul>
 						<li><a href="adminPage.do">관리자 홈</a></li>
-						<li><a href="adminStudyList.do" class="on">스터디 목록 </a></li>
+						<li><a href="adminStudyList.do?pageNo=1" class="on">스터디 목록 </a></li>
 						<li><a href="">스터디 등록</a></li>
 					</ul>
 				</div>
@@ -98,20 +123,12 @@ $(function() {
 								</tr>
 							</thead>
 							<tbody id="memberListBody">
-
 							</tbody>
 						</table>
 					</div>
 
 
-					<div class="page">
-						<ul>
-							<li><a href="#" class="on">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
+					<div id="page" class="page">
 					</div>
 				</div>
 			</div>

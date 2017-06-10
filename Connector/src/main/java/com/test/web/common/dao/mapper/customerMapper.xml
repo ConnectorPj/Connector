@@ -35,6 +35,7 @@
 		<include refid="memberColumns" />
 		FROM
 		customer
+		LIMIT #{pagingBean.startRow}, #{pagingBean.endRow}
 	</select>
 
 
@@ -74,6 +75,9 @@
 			,customer_gender = #{customerGender}
 		</if>
 
+		<if test="customerProfile != null and customerProfile != ''">
+			,customer_profile = #{customerProfile}
+		</if>
 
 		<!-- <if test="token != null and token != ''"> ,token = #{token} </if> -->
 		WHERE
@@ -88,17 +92,23 @@
 		customer_id = #{customerId}
 	</delete>
 
-   <!-- 회원 가입시 ID 중복 체크 -->
-   <select id="customerCheckId" resultType="java.lang.Integer" parameterType="customerBean">
-      SELECT
-         count(*)
-      FROM
-         customer
-      WHERE
-         customer_id = #{customerId} 
-   </select>
+	<!-- 회원 가입시 ID 중복 체크 -->
+	<select id="customerCheckId" resultType="java.lang.Integer"
+		parameterType="customerBean">
+		SELECT
+		count(*)
+		FROM
+		customer
+		WHERE
+		customer_id = #{customerId}
+	</select>
 
-
+	<!-- 회원정보 리스트 전체 갯수 조회 -->
+	<select id="selectCustomerListTotalCount" resultType="int"
+		parameterType="pagingBean">
+		SELECT COUNT(*)
+		FROM customer
+	</select>
 
 
 

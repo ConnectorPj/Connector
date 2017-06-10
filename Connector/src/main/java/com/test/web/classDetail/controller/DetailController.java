@@ -29,8 +29,9 @@ import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.dao.BuscketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.PhotoDAO;
-import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.dao.ReviewDAO;
+import com.test.web.common.dao.TeacherDAO;
+import com.test.web.common.service.TeacherService;
 
 
 @Controller
@@ -38,8 +39,10 @@ public class DetailController {
 
 	@Autowired
 	ClassDAO classDao;
+	
 	@Autowired
 	TeacherDAO teacherDao;
+	
 	@Autowired
 	ReviewDAO reviewDao;
 	
@@ -48,6 +51,9 @@ public class DetailController {
 	
 	@Autowired
 	BuscketDAO busketDao;
+	
+	@Autowired
+	private TeacherService teacherService;
 
 
 	@RequestMapping("/detail")
@@ -130,25 +136,28 @@ public class DetailController {
 		return resMap;
 	}
 	
+	/** 클래스 리스트 AJAX **/
 	@RequestMapping("/selectClassListAjax")
 	@ResponseBody
 	public Map<String, Object> selectClassListAjax(ClassBean bean, PagingBean pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
-		resMap.put(Constants.RESULT_MSG, "�쉶�썝 由ъ뒪�듃 議고쉶�뿉 �떎�뙣 �븯���뒿�땲�떎.");
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
 
 		try {
-			// int totRecord = memberService.selectMemberListTotalCount();
-			// pagingBean.calcPage(totRecord);
+			// 전체 회원 리스트 갯수 조회
+			 int totRecord = teacherService.selectClassListTotalCount(bean, pagingBean );
+			// 페이징 계산
+			 pagingBean.calcPage(totRecord);
 
 			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
-			resMap.put("pagingBean", pagingBean);
+			resMap.put("pBean", pagingBean);
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
-			resMap.put(Constants.RESULT_MSG, "�쉶�썝 由ъ뒪�듃 議고쉶�뿉 �꽦怨� �븯���뒿�땲�떎.");
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

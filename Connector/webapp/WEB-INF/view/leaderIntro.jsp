@@ -371,7 +371,7 @@ span.buttonText {
 							<p id="resultinputJoinEmail" style="font-size: 0.4em; color: #aaa;"></p>
 							
 							<input type="password"
-								name="password" name="teacherPw" id="inputJoinpassword" onkeyup="checkinputJoinpassword()"
+								name="teacherPw" id="inputJoinpassword" onkeyup="checkinputJoinpassword()"
 								class="form-control input-sm" placeholder="비밀번호" >
 							<p id="resultinputJoinpassword" style="font-size: 0.4em; color: #aaa;">
 							
@@ -384,7 +384,7 @@ span.buttonText {
 								class="form-control" name="teacherCareer" id="inputJoinCareer" placeholder="경력" /><br/>
 							
 							<input type="text"
-								class="form-control" name="teacherInfo" id="inputJoinRegistration"
+								class="form-control" name="teacherBirthnum" id="inputJoinRegistration"
 								placeholder="주민등록번호 앞자리" /><br/>
 							
 							<input type="text"

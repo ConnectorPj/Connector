@@ -9,24 +9,24 @@ import com.test.web.common.bean.PagingBean;
 
 public interface CustomerDAO {
 
-	
 	public CustomerBean selectCustomer(CustomerBean bean);
-	
+
 	/** 회원정보를 조회해서 리스트로 가져온다. **/
 	public List<CustomerBean> selectCustomerList(
 			@Param("customerBean") CustomerBean bean,
-			@Param("pagingBean") PagingBean pBean
-	);	
+			@Param("pagingBean") PagingBean pBean);
+
 	public int insertCustomer(CustomerBean bean);
-	
+
 	public int updateCustomer(CustomerBean bean);
-	
+
 	public int deleteCustomer(CustomerBean bean) throws Exception;
 
-	public int selectCustomerListTotalCount();
+	public int customerCheckId(CustomerBean bean);
 	
-	 public int customerCheckId ( CustomerBean bean); 
 
+	/** 회원정보 전체 리스트 갯수를 가져온다. **/
+	public int selectCustomerListTotalCount();
 
 
 }

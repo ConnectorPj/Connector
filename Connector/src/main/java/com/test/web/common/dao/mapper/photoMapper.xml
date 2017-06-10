@@ -52,12 +52,13 @@
     		member_id = #{memberId}
     </update>
     
-    <!-- 사진 삭제 -->
+   <!-- 사진 삭제 -->
     <delete id="deletePhoto" parameterType="photoBean">
     	DELETE FROM
     		photo
     	WHERE
-    		photo_filename = #{photoFilename}
+    	member_id = #{memberId}
+    		<!-- photo_filename = #{photoFilename} -->
     </delete>
     
 

@@ -3,7 +3,7 @@ package com.test.web.common.bean;
 public class PagingBean extends CommonBean {
 
 	/** 한페이지당 보여지는 레코드의 갯수 **/
-	public static final int COUNT_PER_RECORD = 20;
+	public static final int COUNT_PER_RECORD = 10;
 	
 	/** 페이징 그룹당 보여지는 페이지의 갯수 **/
 	public static final int COUNT_PER_PAGE_GROUP = 10;

@@ -22,7 +22,7 @@ import com.test.web.common.dao.TeacherDAO;
  */
 @Controller
 public class MainController {
-	
+
 	// 파일 업로드 저장경로
 	@Value("#{config['file.upload.path']}")
 	private String FILE_UPLOAD_PATH;
@@ -68,18 +68,18 @@ public class MainController {
 		return "payment";
 	}
 
-//	/** 회원가입 처리를 한다. **/
-//	@RequestMapping("/insertTeacherProc")
-//	public String insertTeacherProc(TeacherBean teacherBean) {
-//
-//		// DB insert
-//		int res = teacherDao.insertTeacher(teacherBean);
-//
-//		System.out.println(res);
-//
-//		return "redirect:/main.do";
-//
-//	}
+	// /** 회원가입 처리를 한다. **/
+	// @RequestMapping("/insertTeacherProc")
+	// public String insertTeacherProc(TeacherBean teacherBean) {
+	//
+	// // DB insert
+	// int res = teacherDao.insertTeacher(teacherBean);
+	//
+	// System.out.println(res);
+	//
+	// return "redirect:/main.do";
+	//
+	// }
 
 	@RequestMapping("/selectTeacher")
 	public String selectMember(TeacherBean teacherBean, Model model) {
@@ -99,9 +99,12 @@ public class MainController {
 		model.addAttribute("teacherBean", resBean);
 
 		PhotoBean poBean = photoDao.selectPhoto(photoBean);
-		model.addAttribute("photoBean", poBean);
 
-		model.addAttribute("filepath", FILE_UPLOAD_PATH);
+		if (poBean == null) {
+			poBean = new PhotoBean();
+			poBean.setPhotoFileName("/resources/images/noImage.png");
+		}
+		model.addAttribute("photoBean", poBean);
 
 		return "/personalInfoTeacher";
 	}
@@ -171,22 +174,16 @@ public class MainController {
 
 	@RequestMapping("/adminRegClass")
 	public String adminRegClass(Model model, ClassBean cBean) {
-		
-		cBean = classDao.selectClass(cBean);
-		
-		String location[] = cBean.getStudyLocation().split(",");
-		model.addAttribute("Alt",location[0]);
-		model.addAttribute("Att",location[1]);
-		
-		model.addAttribute("ClassBean", cBean);
-		
-		
-		return "adminRegClass";
-	}
 
-	@RequestMapping("/adminTeacherList")
-	public String adminTeacherList() {
-		return "adminTeacherList";
+		cBean = classDao.selectClass(cBean);
+
+		String location[] = cBean.getStudyLocation().split(",");
+		model.addAttribute("Alt", location[0]);
+		model.addAttribute("Att", location[1]);
+
+		model.addAttribute("ClassBean", cBean);
+
+		return "adminRegClass";
 	}
 
 	@RequestMapping("/adminStudentList")

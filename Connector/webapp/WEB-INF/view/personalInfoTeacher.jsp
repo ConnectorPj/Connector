@@ -1,3 +1,4 @@
+<%@page import="com.test.web.common.bean.TeacherBean"%>
 <%@page import="org.springframework.web.multipart.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -24,6 +25,40 @@
 
 
 <script>
+
+$(function() {
+	$.ajax({
+		type : "post",
+		url : "/photoTeacherRecAjax.do",
+		dataType : "json",
+		data : {
+			memberId : "${sessionScope.memberLoginBean.teacherId}",
+			teacherId : "${sessionScope.memberLoginBean.teacherId}"
+		},
+		success : function(data) {
+			console.log(data);
+
+			if (data.result == "ok") {
+				var pBean = data.pBean;
+				var teaBean = data.teaBean;
+				
+				if(pBean != null){
+					$("#profileImg").attr("src", pBean.photoFileName);
+				}else{
+					$("#profileImg").attr("src","/resources/images/noImage.png");
+				}
+
+			} else {
+				alert(data.resultMsg);
+			}
+		},
+		error : function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+		}
+	});
+});
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -33,19 +68,33 @@
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	
-	//회원정보 수정
-	function updateTeacher() {
 
-		var teacherForm = document.getElementById("teacherForm");
-		teacherForm.action = "/updateTeacherProc.do";
-		console.log(teacherForm.method);
-		teacherForm.method = "post";
-		console.log(teacherForm.method);
+	function writePhoto() {
 
-		teacherForm.submit();
+		var formData = new FormData();
+
+		formData.append("teacherId", $("#teacherId").val());
+		formData.append("teacherCellphone", $("#teacherCellphone").val());
+		formData.append("teacherInfo", $("#teacherInfo").val());
+		formData.append("upFile", $("input[name=upFile]")[0].files[0]);
+
+		$.ajax({
+			url : 'teacherInsertProcAjax.do',
+			processData : false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			success : function(data) {
+
+				alert(data.resultMsg);
+
+				if (data.result == "ok") {
+					//화면이동 처리
+					location.href = 'main.do'
+				}
+			}
+		});
 	};
-
 </script>
 
 <head>
@@ -83,18 +132,16 @@
 					<div class="profile_form">
 
 						<div class="profilePhoto">
-							<img id="profileImg"
-								src="/upFile/${photoBean.photoFileName}"
+							<img id="profileImg" src="#"
 								alt="your image" />
+
 							<div class="profile_text">
 								회원님의 정면 사진을 올려주세요!<br /> 상대방이 신뢰를 갖고 연락할 확률이 높아질 거예요!<br />
 							</div>
 							<input type='file' onchange="readURL(this);"
-								class="upload_btn upload-hidden" />
+								class="upload_btn upload-hidden" name="upFile" />
 						</div>
 					</div>
-
-
 
 					<div class="profile_title">계정 정보</div>
 					<div class="info_form">
@@ -105,32 +152,39 @@
 							</colgroup>
 							<tr>
 								<td class="table_att">아이디</td>
-								<td class="table_att2">${teacherBean.teacherId}</td>
+								<td class="table_att2">${sessionScope.memberLoginBean.teacherId}<input
+									id="teacherId" name="teacherId" type="hidden"
+									value="${sessionScope.memberLoginBean.teacherId}" /></td>
 							</tr>
 							<tr>
 								<td class="table_att">이름</td>
-								<td class="table_att2">${teacherBean.teacherName}</td>
+								<td class="table_att2">${sessionScope.memberLoginBean.teacherName}</td>
 							</tr>
 							<tr>
 								<td class="table_att">성별</td>
-								<td class="table_att2"><select>
-										<option>남</option>
-										<option>여</option>
-								</select></td>
+								<td class="table_att2"><input type="radio"
+									id="teacherGender" name="teacherGender" value="F"
+									<c:if test="${fn:toUpperCase(sessionScope.memberLoginBean.teacherGender) eq 'F'}">checked</c:if>>여자
+									<input type="radio" id="teacherGender" name="teacherGender"
+									value="M"
+									<c:if test="${fn:toUpperCase(sessionScope.memberLoginBean.teacherGender) eq 'M'}">checked</c:if>>남자
+
+								</td>
 							</tr>
 							<tr>
 								<td class="table_att">휴대폰 번호</td>
-								<td class="table_att2">${teacherBean.teacherCellphone}</td>
+								<td class="table_att2"><input id="teacherCellphone"
+									type="text" value="${sessionScope.memberLoginBean.teacherCellphone}" /></td>
 							</tr>
 							<tr>
 								<td class="table_att">소개</td>
-								<td class="table_att2"><textarea cols="50" rows="10"
-										style="resize: none;"></textarea></td>
+								<td class="table_att2"><textarea id="teacherInfo"
+										cols="50" rows="10" style="resize: none;">${sessionScope.memberLoginBean.teacherInfo}</textarea></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type="button" class="table_btn" value="수정하기" />
-								</td>
+								<td><input type="button" class="table_btn" value="수정하기"
+									onclick="writePhoto(); return false;" /></td>
 							</tr>
 
 						</table>

@@ -29,9 +29,9 @@
 				<div class="sub_menu">
 					<ul>
 						<li><a href="adminPage.do" class="on">관리자 홈</a></li>
-						<li><a href="adminTeacherList.do">강사 관리</a></li>
-						<li><a href="adminStudentList.do">회원 관리</a></li>
-						<li><a href="adminRegClass.do">스터디 관리</a></li>
+						<li><a href="adminTeacherList.do?pageNo=1">강사 관리</a></li>
+						<li><a href="adminStudentList.do?pageNo=1">회원 관리</a></li>
+						<li><a href="adminStudyList.do?pageNo=1">스터디 관리</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -48,13 +48,13 @@
 
 				<div class="adminPageMain">
 					<div class="mainStudy">
-					<button class="menuBtn" onclick="location.href='/adminTeacherList.do'">강사 관리</button>
+					<button class="menuBtn" onclick="location.href='/adminTeacherList.do?pageNo=1'">강사 관리</button>
 					</div>
 					<div class="mainStudy">
-					<button class="menuBtn" onclick="location.href='/adminStudentList.do'">회원 관리</button>
+					<button class="menuBtn" onclick="location.href='/adminStudentList.do?pageNo=1'">회원 관리</button>
 					</div>
 					<div class="mainStudy">
-					<button class="menuBtn" onclick="location.href='/adminStudyList.do'">스터디 관리</button>
+					<button class="menuBtn" onclick="location.href='/adminStudyList.do?pageNo=1'">스터디 관리</button>
 					</div>
 				</div>
 

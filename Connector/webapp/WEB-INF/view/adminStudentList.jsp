@@ -22,11 +22,9 @@
 function delCustomer(customerId) {
 	
 	if( confirm("회원정보를 삭제 하시겠습니까?") ) {
-		
-		
 		$.ajax({
 			type: "post",
-			url: "/deleteCustomer.do",
+			url: "/deleteCustomerAjax.do",
 			data: { 
 				customerId: customerId
 			},
@@ -35,7 +33,7 @@ function delCustomer(customerId) {
 				console.log(data);
 				
 				if(data.result == "ok") {
-					location.reload(); //새로고침
+					location.href = 'adminStudentList.do?pageNo=1'
 				} else {
 					alert(data.resultMsg);
 				}
@@ -56,6 +54,9 @@ function delCustomer(customerId) {
 			type: "post",
 			url: "/selectCustomerListAjax.do",
 			dataType: "json",
+			data : {
+				pageNo : "${param.pageNo}"
+			},
 			success: function(data) {
 				console.log(data);
 				
@@ -73,6 +74,28 @@ function delCustomer(customerId) {
 						str += "</tr>";
 
 						$("#memberListBody").append(str);
+						
+						// 페이징
+		               var str2 = "<ul>";
+		               var pBean = data.pBean;
+		               var storeDetail = data.storeDetail;
+		                str2 += "<li><a href='adminStudentList.do?pageNo=1'>처음 </a></li>";
+		               if(pBean.groupNo>1) {
+		                  str2 += "<li><a href='adminStudentList.do?pageNo=" + (pBean.pageStartNo - 1) + "'> 이전 </a></li>";
+		               }
+		               for(var i =pBean.pageStartNo ; i<= pBean.pageEndNo ; i++) {
+		                  if(pBean.pageNo != i) {
+		                     str2 += "<li><a href='adminStudentList.do?pageNo="+i + "'> " + i + "</a></li>";
+		                  } else {
+		                     str2 += "<li><a class='on'>" + i + "</a></li>";
+		                  }
+		               }
+		               if(pBean.groupNo < pBean.totalGroupCount) {
+		                  str2 += "<li><a href='adminStudentList.do?pageNo=" + (pBean.pageEndNo + 1) + "'> 다음 </a></li>";
+		               }
+		               str2 += "<li><a href='adminStudentList.do?pageNo=" + pBean.totalPageCount + "'> 끝 </a></li>";
+		               str2 += "</ul>";
+		               $("#page").html(str2);
 					});
 					
 				} else {
@@ -99,7 +122,7 @@ function delCustomer(customerId) {
 				<div class="sub_menu">
 					<ul>
 						<li><a href="adminPage.do">관리자 홈</a></li>
-						<li><a href="adminStudentList.do" class="on">회원목록</a></li>
+						<li><a href="adminStudentList.do?pageNo=1" class="on">회원목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -135,14 +158,7 @@ function delCustomer(customerId) {
 						</table>
 					</div>
 
-					<div class="page">
-						<ul>
-							<li><a href="#" class="on">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
+					<div id="page" class="page">
 					</div>
 				</div>
 			</div>
