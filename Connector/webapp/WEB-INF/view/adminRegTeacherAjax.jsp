@@ -131,14 +131,14 @@
 								<tr>
 									<td class="table_att">성별</td>
 									<td class="table_att2">
-										<%
-											TeacherBean tBean = (TeacherBean) request.getAttribute("teacherBean");
-											String gen = tBean.getTeacherGender();
-										%> 
-										<input type="radio" id="teacherGender" name="teacherGender"
-										value="M" <%=("M".equals(gen)) ? "checked" : ""%> />남자 &nbsp;
-										<input type="radio" id="teacherGender" name="teacherGender"
-										value="F" <%=("F".equals(gen)) ? "checked" : ""%> />여자
+									<input type="radio"
+									id="teacherGender" name="teacherGender" value="F"
+									<c:if test="${fn:toUpperCase(teacherBean.teacherGender) eq 'F'}">checked</c:if>>여자
+									
+									<input type="radio"
+									id="teacherGender" name="teacherGender" value="M"
+									<c:if test="${fn:toUpperCase(teacherBean.teacherGender) eq 'M'}">checked</c:if>>남자
+										
 									</td>
 								</tr>
 								<tr>
@@ -153,15 +153,12 @@
 								<tr>
 									<td class="table_att">리더 등록</td>
 									<td class="table_att2">
-										<%
-											TeacherBean tBean2 = (TeacherBean) request.getAttribute("teacherBean");
-											String gen2 = tBean2.getTeacherCheck();
-										%> 
-										<input type="radio" id="teacherCheck" name="teacherCheck"
-										value="0" <%=("0".equals(gen2)) ? "checked" : ""%> />미완료
-										&nbsp; <input type="radio" id="teacherCheck"
-										name="teacherCheck" value="1"
-										<%=("1".equals(gen2)) ? "checked" : ""%> />완료
+									<input type="radio"
+									id="teacherCheck" name="teacherCheck" value="0"
+									<c:if test="${fn:toUpperCase(teacherBean.teacherCheck) eq '0'}">checked</c:if>>미완료
+									<input type="radio"
+									id="teacherCheck" name="teacherCheck" value="1"
+									<c:if test="${fn:toUpperCase(teacherBean.teacherCheck) eq '1'}">checked</c:if>>완료
 									</td>
 								</tr>
 								
