@@ -336,7 +336,56 @@ html {
 .inputLogin:FOCUS{
 	
 	    box-shadow:  0 0 3px #2c3d46;
-	
-	
-	
+
+}
+
+
+
+#customer-radio {
+   text-align: center;
+   
+}
+/* 라벨 기본 스타일 지정 */
+#customer-radio>label {
+   margin: 0px auto 5px;
+   font-size: 1em;
+   padding: 5px;
+   text-align: center;
+   width: 40%;
+   line-height: 1.8em;
+   font-weight: 500;
+   background: #fff;
+   color: #777;
+   border: 1px solid #ddd;
+   display: inline-block;
+}
+
+#customer-radio>label:hover {
+   cursor: pointer
+}
+
+#customer-radio label[for=students] {
+   margin-left: 0px;
+}
+
+/* 선택된 라벨, 커서를 올린 라벨 스타일 지정 */
+#customer-radio input:nth-of-type(1):checked ~ label:nth-of-type(1), #css_tabs>label[for=students]:hover
+   {
+   background: #2c3d46;
+   color: #fff
+}
+
+#customer-radio input:nth-of-type(2):checked ~ label:nth-of-type(2), #css_tabs>label[for=leaders]:hover
+   {
+   background: #2c3d46;
+   color: #fff
+}
+
+#customer-radio {
+   font-family: 'nanumgothic', '나눔고딕', 'malgun gothic', '맑은 고딕', 'dotum',
+      '돋움', sans-serif
+}
+
+#customer-radio input[type="radio"]{
+	display:none;
 }

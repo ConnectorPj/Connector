@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.test.web.common.Constants;
+import com.test.web.common.bean.BucketBean;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
+import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.bean.TeacherBean;
+import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
@@ -36,7 +39,6 @@ public class CustomerController {
 
 	@Autowired
 	private PhotoDAO photoDao;
-	
 
 	@Autowired
 	private CustomerService customerService;
@@ -49,11 +51,13 @@ public class CustomerController {
 	@Autowired
 	private TeacherDAO teacherDao;
 
-
+	@Autowired
+	private BucketDAO bucketDao;
+	
 	@Autowired
 	private ClassDAO classDao;
 
-	//파일 업로드 저장경로
+	// 파일 업로드 저장경로
 	@Value("#{config['file.upload.path']}")
 	private String FILE_UPLOAD_PATH;
 
@@ -268,7 +272,7 @@ public class CustomerController {
 
 		return "/main";
 	}
-	
+
 	@RequestMapping("deleteCustomerAjax")
 	@ResponseBody
 	public Map<String, Object> deleteCustomerAjax(CustomerBean bean, PhotoBean photoBean, HttpServletRequest req) {
@@ -297,53 +301,44 @@ public class CustomerController {
 		return resMap;
 	}
 
-
 	@RequestMapping("/registerstudy")
 	public String registerstudy() {
 		return "registerStudy";
 	}
-	
+
 	@RequestMapping("/registerstudyProc")
-	public String registerstudyProc(
-			ClassBean ClassBean,
-			@RequestParam("file1") MultipartFile file1
-			)
-	{
-		//DB insert
+	public String registerstudyProc(ClassBean ClassBean, @RequestParam("file1") MultipartFile file1) {
+		// DB insert
 		// 임의의 선생 아이디 생성
 		ClassBean.setTeacherId("pdh");
 		// 임이의 사작날짜, 끝 날짜 계산
 
 		ClassBean.setStudyCheck("0");
 
-		ClassBean.setStudyId(ClassBean.getTeacherId()+"-"+System.nanoTime());
+		ClassBean.setStudyId(ClassBean.getTeacherId() + "-" + System.nanoTime());
 
 		classDao.insertClass(ClassBean);
 
-		// 파일 이미지 처리 
-		if(!file1.getOriginalFilename().equals("")) {
+		// 파일 이미지 처리
+		if (!file1.getOriginalFilename().equals("")) {
 			try {
-				//파일을 저장하는 처리를 시작한다.
+				// 파일을 저장하는 처리를 시작한다.
 				File saveDir = new File(FILE_UPLOAD_PATH + "/upfile");
 
-				if(!saveDir.exists()) {
+				if (!saveDir.exists()) {
 					saveDir.mkdirs();
 				}
 
-				//파일이름 생성
-				String fileName = ClassBean.getStudyId()+ "";
-				String fileExt = file1.getOriginalFilename().substring(
-						file1.getOriginalFilename().lastIndexOf(".") 
-						);
-				System.out.println( fileName + fileExt );
+				// 파일이름 생성
+				String fileName = ClassBean.getStudyId() + "";
+				String fileExt = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
+				System.out.println(fileName + fileExt);
 
-				String fullFilePath = saveDir.getPath() 
-						+ File.separator + fileName + fileExt;
+				String fullFilePath = saveDir.getPath() + File.separator + fileName + fileExt;
 
-				//파일저장
+				// 파일저장
 				byte[] bytes = file1.getBytes();
-				BufferedOutputStream buffStream = 
-						new BufferedOutputStream(new FileOutputStream(fullFilePath));
+				BufferedOutputStream buffStream = new BufferedOutputStream(new FileOutputStream(fullFilePath));
 				buffStream.write(bytes);
 				buffStream.close();
 
@@ -355,16 +350,15 @@ public class CustomerController {
 				classPhoto.setPhotoFileName(fileName);
 				photoDao.insertPhoto(classPhoto);
 
-			} catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-		}//end if
-		// db 처리
+		} // end if
+			// db 처리
 
 		return "applicationSuccess";
 	}
-
 
 	@RequestMapping("/applicationsuccess")
 
@@ -393,7 +387,6 @@ public class CustomerController {
 
 		return "/personalInfoCustomer";
 	}
-
 
 	@RequestMapping("/leaderIntro")
 	public String leaderIntro() {
@@ -469,10 +462,10 @@ public class CustomerController {
 		try {
 			PhotoBean pBean = photoDao.selectPhoto(bean);
 			CustomerBean CusBean = customerService.selectCustomer(cbean);
-						
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "게시글 작성 성공");
-			
+
 			resMap.put("pBean", pBean);
 			resMap.put("CusBean", CusBean);
 
@@ -482,63 +475,57 @@ public class CustomerController {
 		return resMap;
 	}
 
-
-	/** 수업결제 내역 개인별 수업정보**/
+	/** 수업결제 내역 개인별 수업정보 **/
 	@RequestMapping("/selectCustomerPurchaseList")
 	@ResponseBody
-	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean,Model model, PurchaseBean pBean){
+	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean, Model model, PurchaseBean pBean) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		
-		
+
 		try {
-			
 
 			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean);
-			
+
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
-		
+
 	}
-	/** 수업결제 내역 개인별 찜목록**/
+
+	/** 수업결제 내역 개인별 찜목록 **/
 	@RequestMapping("/selectBucketClassAjax")
 	@ResponseBody
-	public Map<String, Object> selectBucketClassAjax(ClassBean bean,Model model, BucketBean bBean){
+	public Map<String, Object> selectBucketClassAjax(ClassBean bean, Model model, BucketBean bBean) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		
-		
+
 		try {
-			
-			
+
 			List<ClassBean> list = classDao.selectBucketClassList(bBean);
-			
+
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
-		
+
 	}
-	
-	/* 찜목록 삭제*/
+
+	/* 찜목록 삭제 */
 	@RequestMapping("/deleteBucket")
 	@ResponseBody
 	public Map<String, Object> deleteBucket(BucketBean bBean) {

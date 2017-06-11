@@ -15,7 +15,9 @@ public class CustomerBean {
 	private String customerGender;
 	private Calendar customerRegdate;
 
+	
 	ArrayList<PurchaseBean> purchaseList;
+	ArrayList<BucketBean> bucketList;
 
 	
 	
@@ -35,15 +37,14 @@ public class CustomerBean {
 		this.purchaseList = purchaseList;
 	}
 
-	public ArrayList<BusketBean> getBuskcetList() {
-		return buskcetList;
+	public ArrayList<BucketBean> getBucketList() {
+		return bucketList;
 	}
 
-	public void setBuskcetList(ArrayList<BusketBean> buskcetList) {
-		this.buskcetList = buskcetList;
+	public void setBuskcetList(ArrayList<BucketBean> bucketList) {
+		this.bucketList = bucketList;
 	}
 
-	ArrayList<BusketBean> buskcetList;
 
 	public int getCustomerNo() {
 		return customerNo;

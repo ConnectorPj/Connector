@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
-import com.test.web.common.bean.BusketBean;
+import com.test.web.common.bean.BucketBean;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
-import com.test.web.common.dao.BuscketDAO;
+import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.ReviewDAO;
@@ -50,7 +50,7 @@ public class DetailController {
 	PhotoDAO photoDao;
 	
 	@Autowired
-	BuscketDAO busketDao;
+	BucketDAO busketDao;
 	
 	@Autowired
 	private TeacherService teacherService;
@@ -112,7 +112,7 @@ public class DetailController {
 	
 	@RequestMapping("/updateBusket")
 	@ResponseBody
-	public Map<String, Object> updateBusket(BusketBean bBean) {
+	public Map<String, Object> updateBusket(BucketBean bBean) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "데이터 통신 실패");
@@ -121,7 +121,7 @@ public class DetailController {
 		System.out.println(bBean.getStudyId());
 
 		try {
-			BusketBean sBean = busketDao.selectBucket(bBean);
+			BucketBean sBean = busketDao.selectBucket(bBean);
 			if(sBean == null){
 			busketDao.insertBucket(bBean);
 			}else{

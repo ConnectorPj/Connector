@@ -527,8 +527,8 @@ span.buttonText {
 
 						<c:choose>
 							<c:when test="${sessionScope.memberLoginBean==null}">
-								<li onclick="openLoginModal();">로그인</li>
-								<li onclick="openJoinModal();">회원가입</li>
+								<li onclick="openLoginModal();" style="cursor:pointer">로그인</li>
+								<li onclick="openJoinModal();"style="cursor:pointer" >회원가입</li>
 								<li style="width: 150px;"><a href="leaderIntro.do">리더로
 										시작하기</a></li>
 							</c:when>
@@ -566,10 +566,20 @@ span.buttonText {
 				<div class="modal-content">
 					<span class="closeLogin" onclick="closeLoginModal();">&times;</span>
 					<br />
-					<div style="text-align: center; font-size: 1em; margin: 10px 0;">
-						<input type="radio" name="customer" value="1" checked>학생 <input
-							type="radio" name="customer" value="2">리더
+
+					<div id="customer-radio">
+						<!-- 라디오 버튼 -->
+						<input id="students" type="radio" name="customer" value="1" checked/>
+						<input id="leaders" type="radio" name="customer"
+							value="2" />
+							 <label for="students">학생</label> <label for="leaders">리더</label>
 					</div>
+
+
+
+
+
+
 					<input type="email" class="inputLogin" id="customerIdM"
 						placeholder="이메일을 입력하세요"> <input type="password"
 						class="inputLogin" id="customerPwM" placeholder="암호">
