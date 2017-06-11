@@ -43,9 +43,10 @@
 						var str = "";
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
-						str += "<td>" + classBean.studyId + "</td>";
 						str += "<td>" + classBean.studyName + "</td>";
-
+						str += "<td>" + classBean.studyProgramLanguage + "</td>";
+						str += "<td>" + classBean.teacherName + "</td>";
+						str += "<td>" + classBean.studyLocation + "</td>";
 						str += "<td><button type='button' onclick='openModal("
 								+ classBean.studyId
 								+ ");' class='reviewBtn'>후기쓰기</button></td>";
@@ -122,18 +123,18 @@
 				<div class="sub_menu">
 					<ul>
 						<li><a href="personalInfoCustomer.do">개인정보</a></li>
-						<li><a href="payorder.do" class="on">수업 결제 내역</a></li>
-						<li><a href="busketList.do">마이 찜목록</a></li>
+						<li><a href="payorder.do" class="on">마이 클래스</a></li>
+						<li><a href="bucketList.do">마이 찜목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
 							<li>홈</li> >
-							<li>수업 결제 내역</li>
+							<li>마이 클래스</li>
 						</ul>
 					</div>
-					<h2>수업 결제 내역</h2>
+					<h2>마이 클래스</h2>
 				</div>
 
 
@@ -145,26 +146,24 @@
 							<colgroup>
 								<col width="5%">
 								<col width="30%">
-								<col width="20%">
-								<col width="5%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
 									<th>No.</th>
 									<th>스터디 이름</th>
 									<th>언어</th>
-									<th>후기</th>
+									<th>강사</th>
+									<th>장소</th>
+									<th>후기쓰기</th>
 								</tr>
-								<tr>
-								<td>5</td>
-								<td>덕화니의 씨샵생각하기</td>
-								<td>박덕환</td>
-								<td><button id="reviewLink" class="reviewBtn">후기쓰기</button></td>
-							</tr>
 							</thead>
-							<!-- <tbody id="memberListBody">
+							<tbody id="memberListBody">
 
-							</tbody> -->
+							</tbody>
 						</table>
 					</div>
 
@@ -233,7 +232,7 @@
 
 	<!-- Review Modal -->
 	<script type="text/javascript">
-		/* var modalReview = document.getElementById("myReviewModal");
+		var modalReview = document.getElementById("myReviewModal");
 		function openModal(bean) {
 
 			$(function() {
@@ -270,26 +269,6 @@
 		// When the user clicks on <span> (x), close the modal
 
 		function closeModal() {
-			modalReview.style.display = "none";
-		} */
-		
-		
-		// Get the modal
-		var modalReview = document.getElementById("myReviewModal");
-
-		// Get the button that opens the modal
-		var btnReview = document.getElementById("reviewLink");
-
-		// Get the <span> element that closes the modal
-		var spanReview = document.getElementsByClassName("closeReview")[0];
-
-		// When the user clicks on the button, open the modal 
-		btnReview.onclick = function() {
-			modalReview.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the modal
-		spanReview.onclick = function() {
 			modalReview.style.display = "none";
 		}
 	</script>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.test.web.common.dao.BuscketDAO">
+<mapper namespace="com.test.web.common.dao.BucketDAO">
 
-    <sql id="busketColumns">
-		bucket_no		AS busketNo,
+    <sql id="bucketColumns">
+		bucket_no		AS bucketNo,
 		customer_id	AS customerId,
 		study_id			AS teacherPw,
-		bucket_date 	AS buscketDate
+		bucket_date 	AS bucketDate
 	</sql>
 
 	<!-- 회원정보 1건 조회 -->
-	<select id="selectBucket" resultType="busketBean"
-		parameterType="busketBean">
+	<select id="selectBucket" resultType="bucketBean"
+		parameterType="bucketBean">
 		SELECT
-			<include refid="busketColumns" />
+			<include refid="bucketColumns" />
 		FROM
 			bucket_study
 		WHERE
@@ -22,15 +22,15 @@
 	</select>
 
 	<!-- 회원정보 List 조회 -->
-	<select id="selectBucketList" resultType="busketBean"
-		parameterType="busketBean">
+	<select id="selectBucketList" resultType="bucketBean"
+		parameterType="bucketBean">
 		SELECT
-			<include refid="busketColumns" />
+			<include refid="bucketColumns" />
 		FROM
 			bucket_study
 	</select>
 
-	<insert id="insertBucket" parameterType="busketBean">
+	<insert id="insertBucket" parameterType="bucketBean">
 		INSERT INTO bucket_study
 		(
 			customer_id,
@@ -44,7 +44,7 @@
 	</insert>
 
 	<!-- 회원정보 수정 -->
-	<update id="updateBucket" parameterType="busketBean">
+	<update id="updateBucket" parameterType="bucketBean">
 		UPDATE bucket_study SET
 			customer_id=#{customerId},
 			study_id = #{studyId}
@@ -52,8 +52,8 @@
 			customer_id = #{customerId}
 	</update>
 
-	<!-- 회원정보 삭제 -->
-	<delete id="deleteBucket" parameterType="busketBean">
+	<!-- 찜목록 정보 삭제 -->
+	<delete id="deleteBucket" parameterType="bucketBean">
 		DELETE FROM
 			bucket_study
 		WHERE

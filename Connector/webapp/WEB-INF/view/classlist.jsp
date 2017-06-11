@@ -37,8 +37,11 @@ $(function() {
 							var str = "";
 							str += "<tr>";
 							str += "<td>" + num++ + "</td>";
+							str += "<td>" + classBean.studyId + "</td>";
 							str += "<td>" + classBean.studyName + "</td>";
 							str += "<td>" + classBean.studyProgramLanguage + "</td>";
+							str += "<td>" + classBean.studyLocation + "</td>";
+							str += "<td>" + classBean.studyRegdate + "</td>";
 							str += "</tr>";
 
 							$("#memberListBody").append(str);
@@ -91,14 +94,20 @@ $(function() {
 						<table>
 							<colgroup>
 								<col width="5%">
+								<col width="5%">
 								<col width="30%">
-								<col width="20%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
 									<th>No.</th>
+									<th>스터디 번호</th>
 									<th>스터디 이름</th>
 									<th>언어</th>
+									<th>장소</th>
+									<th>등록 일</th>
 								</tr>
 							</thead>
 							<tbody id="memberListBody">

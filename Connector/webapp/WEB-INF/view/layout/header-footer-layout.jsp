@@ -171,26 +171,27 @@ span.buttonText {
 			return false;
 		} else {
 			document.getElementById("resultEmail").textContent = "";
+			customerCheckId();
 			return true;
 		}
 	};
 
-    function customerCheckId(){
-        
-        $.ajax({
-           url : '/customerCheckId.do',
-           type : 'post',
-           data : {
-              "customerId": $("#email").val()   
-           },
-           success : function(data) {
-              $("#resultEmail").html(data.resultMsg);
-           },
-           error : function(error) {
-              alert(error.statusText);
-           }
-        });
-     };
+	function customerCheckId() {
+
+		$.ajax({
+			url : '/customerCheckId.do',
+			type : 'post',
+			data : {
+				"customerId" : $("#email").val()
+				},
+			success : function(data) {
+				$("#resultEmail").html(data.resultMsg);
+			},
+			error : function(error) {
+				alert(error.statusText);
+			}
+		});
+	};
 
 	function insertCustomer() {
 
@@ -231,8 +232,8 @@ span.buttonText {
 
 					if (data.result == "ok") {
 						alert(data.resultMsg);
-						location.replace("/login.do");
-
+						closeJoinModal();
+						openLoginModal();
 						return;
 					} else {
 						alert(data.resultMsg);
@@ -258,95 +259,90 @@ span.buttonText {
 
 	$(document).ready(
 
-			function() {
+	function() {
 
-				$("#btnLoginM").click(
-						function() {
+		$("#btnLoginM").click(function() {
 
-							var st = $(":input:radio[name=customer]:checked")
-									.val();
+			var st = $(":input:radio[name=customer]:checked").val();
 
-							if (st == 1) {
+			if (st == 1) {
 
-								$.ajax({
-									type : "post",
-									url : "/CustomerloginProc.do",
-									data : {
-										customerId : $("#customerIdM").val(),
-										customerPw : $("#customerPwM").val()
-									},
-									dataType : "json",
-									success : function(data) {
-										console.log(data);
+				$.ajax({
+					type : "post",
+					url : "/CustomerloginProc.do",
+					data : {
+						customerId : $("#customerIdM").val(),
+						customerPw : $("#customerPwM").val()
+					},
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
 
-										if (data.result == "ok") {
+						if (data.result == "ok") {
 
-											//android 호출
-											try {
-												var cusId = $("#customerIdM").val();
-												window.JSInterface.updateAndToken(cusId);
-											} catch (e) {
-												console.log(e);
-											}
-
-											//로그인 성공
-											location.replace("/main.do");
-											return;
-										} else {
-											alert("로그인을 실패하였습니다.");
-											$("#customerPwM").focus();
-										}
-
-									}
-								});
-
-							} else if (st == 2) {
-
-								$.ajax({
-									type : "post",
-									url : "/TeacherloginProc.do",
-									data : {
-										teacherId : $("#customerIdM").val(),
-										teacherPw : $("#customerPwM").val()
-									},
-									dataType : "json",
-									success : function(data) {
-										console.log(data);
-										if (data.result == "ok") {
-
-											//android 호출
-											try {
-												var teaId = $("#customerIdM")
-														.val();
-												window.JSInterface
-														.updateAndToken(teaId);
-											} catch (e) {
-												console.log(e);
-											}
-
-											//로그인 성공
-											location.replace("/main.do");
-											return;
-										} else {
-											alert("로그인을 실패하였습니다.");
-											$("#customerPwM").focus();
-										}
-
-									},
-									error : function(xhr, status, error) {
-										console.log(xhr);
-										alert("error\nxhr : " + xhr
-
-										+ ", status : " + status + ", error : "
-												+ error);
-									}
-								});
-
+							//android 호출
+							try {
+								var cusId = $("#customerIdM").val();
+								window.JSInterface.updateAndToken(cusId);
+							} catch (e) {
+								console.log(e);
 							}
 
-						});
+							//로그인 성공
+							location.replace("/main.do");
+							return;
+						} else {
+							alert("로그인을 실패하였습니다.");
+							$("#customerPwM").focus();
+						}
 
-			});
+					}
+				});
+
+			} else if (st == 2) {
+
+				$.ajax({
+					type : "post",
+					url : "/TeacherloginProc.do",
+					data : {
+						teacherId : $("#customerIdM").val(),
+						teacherPw : $("#customerPwM").val()
+					},
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+						if (data.result == "ok") {
+
+							//android 호출
+							try {
+								var teaId = $("#customerIdM").val();
+								window.JSInterface.updateAndToken(teaId);
+							} catch (e) {
+								console.log(e);
+							}
+
+							//로그인 성공
+							location.replace("/main.do");
+							return;
+						} else {
+							alert("로그인을 실패하였습니다.");
+							$("#customerPwM").focus();
+						}
+
+					},
+					error : function(xhr, status, error) {
+						console.log(xhr);
+						alert("error\nxhr : " + xhr
+
+						+ ", status : " + status + ", error : " + error);
+					}
+				});
+
+			}
+
+		});
+
+	});
 </script>
 
 
@@ -517,7 +513,7 @@ span.buttonText {
 
 								</ul></li>
 						</ul></li>
-					<li><a href="/realreview.do">리얼후기</a></li>
+					<li><a href="realreview.do">리얼후기</a></li>
 
 				</ul>
 
@@ -531,30 +527,26 @@ span.buttonText {
 
 						<c:choose>
 							<c:when test="${sessionScope.memberLoginBean==null}">
-								<li><a id="loginLink"> 로그인</a></li>
-								<li><a id="joinLink"> 회원가입</a></li>
-								<li style="width: 150px;"><a href="#">리더로 시작하기</a></li>
+								<li onclick="openLoginModal();">로그인</li>
+								<li onclick="openJoinModal();">회원가입</li>
+								<li style="width: 150px;"><a href="leaderIntro.do">리더로
+										시작하기</a></li>
 							</c:when>
 							<c:otherwise>
 
 								<c:if test="${sessionScope.code eq 'T'}">
-									<li style="width: 150px;"><a
-										href="personalInfoTeacher.do">
+									<li style="width: 150px;"><a href="personalInfoTeacher.do">
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
-									<input type="hidden" id="loginLink" />
-									<input type="hidden" id="joinLink" />
 
 								</c:if>
 
 
 								<c:if test="${sessionScope.code eq 'C' }">
 									<li style="width: 150px;"><a
-										href="personalInfoCustomer.do">
+										href="personalInfoCustomer.do?customerId=${sessionScope.memberLoginBean.customerId}">
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
-									<input type="hidden" id="loginLink" />
-									<input type="hidden" id="joinLink" />
 
 
 
@@ -572,37 +564,36 @@ span.buttonText {
 			<div id="myLoginModal" class="modal">
 				<!-- Modal content -->
 				<div class="modal-content">
-					<span class="closeLogin">&times;</span> <br />
-						<div style="text-align: center; font-size: 1em; margin: 10px 0;">
-							<input type="radio" name="customer" value="1">학생 <input
-								type="radio" name="customer" value="2">리더
-						</div>
-							<input type="email" class="inputLogin" id="customerIdM"
-								placeholder="이메일을 입력하세요">
-							<input type="password" class="inputLogin" id="customerPwM"
-								placeholder="암호">
+					<span class="closeLogin" onclick="closeLoginModal();">&times;</span>
+					<br />
+					<div style="text-align: center; font-size: 1em; margin: 10px 0;">
+						<input type="radio" name="customer" value="1" checked>학생 <input
+							type="radio" name="customer" value="2">리더
+					</div>
+					<input type="email" class="inputLogin" id="customerIdM"
+						placeholder="이메일을 입력하세요"> <input type="password"
+						class="inputLogin" id="customerPwM" placeholder="암호">
 
-						<button type="button" class="button button-navy" id="btnLoginM">로그인</button>
-						<button class="button ">회원가입</button>
-						<!-- 구글 로그인 연동1 -->
-						<div id="customBtn" class="customGPlusSignIn"
-							onclick="startApp();">
-							<span class="icon"></span> <span class="buttonText">Google</span>
-						</div>
-						<!-- 네이버 로그인 API -->
-						<div id="naver_id_login"></div>
-						<!--  2017.05.26 네이버 로그인 추가 - 정홍의 -->
-						<script type="text/javascript">
-							var naver_id_login = new naver_id_login(
-									"FIZpO6PTmY_KCqzmdq8c",
-									"http://localhost:8181/naver_callback.jsp");
-							var state = naver_id_login.getUniqState();
-							naver_id_login.setButton("white", 2, 40);
-							naver_id_login.setDomain("http://localhost:8181");
-							naver_id_login.setState(state);
-							naver_id_login.setPopup();
-							naver_id_login.init_naver_id_login();
-						</script>
+					<button type="button" class="button button-navy" id="btnLoginM">로그인</button>
+					<button class="button" onclick="closeLoginModal(); openJoinModal();">회원가입</button>
+					<!-- 구글 로그인 연동1 -->
+					<div id="customBtn" class="customGPlusSignIn" onclick="startApp();">
+						<span class="icon"></span> <span class="buttonText">Google</span>
+					</div>
+					<!-- 네이버 로그인 API -->
+					<div id="naver_id_login"></div>
+					<!--  2017.05.26 네이버 로그인 추가 - 정홍의 -->
+					<script type="text/javascript">
+						var naver_id_login = new naver_id_login(
+								"FIZpO6PTmY_KCqzmdq8c",
+								"http://localhost:8181/naver_callback.jsp");
+						var state = naver_id_login.getUniqState();
+						naver_id_login.setButton("white", 2, 40);
+						naver_id_login.setDomain("http://localhost:8181");
+						naver_id_login.setState(state);
+						naver_id_login.setPopup();
+						naver_id_login.init_naver_id_login();
+					</script>
 				</div>
 
 			</div>
@@ -612,7 +603,7 @@ span.buttonText {
 
 			<div id="myJoinModal" class="modal">
 				<div class="modal-content">
-					<span class="closeJoin">&times;</span>
+					<span class="closeJoin" onclick="closeJoinModal();">&times;</span>
 					<div>
 						<br />
 						<!-- 구글 연동 2 -->
@@ -632,7 +623,7 @@ span.buttonText {
 							<p style="font-size: 0.4em; color: #aaa;"></p>
 							<input type="text" class=" inputLogin" placeholder="e-mail"
 								name="customerId" id="email" onkeyup="checkEmail();"
-								onblur="customerCheckId();" />
+								/>
 							<p id="resultEmail" style="font-size: 0.4em; color: #aaa;"></p>
 
 							<input type="password" class=" inputLogin" placeholder="비밀번호 입력 "
@@ -652,7 +643,8 @@ span.buttonText {
 							<button type="button" class="button button-orange"
 								onclick="insertCustomer();return false;">가입완료</button>
 							<h6>
-								이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a href="/login.do">로그인</a>
+								이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a
+									onclick="closeJoinModal(); openLoginModal();">로그인</a>
 							</h6>
 						</form>
 
@@ -724,22 +716,46 @@ span.buttonText {
 	<script type="text/javascript">
 		// Get the modal
 		var modalLogin = document.getElementById("myLoginModal");
+		var modalJoin = document.getElementById("myJoinModal");
 
-		// Get the button that opens the modal
-		var btnLogin = document.getElementById("loginLink");
+		function openLoginModal() {
 
-		// Get the <span> element that closes the modal
-		var spanLogin = document.getElementsByClassName("closeLogin")[0];
-
-		// When the user clicks on the button, open the modal 
-		btnLogin.onclick = function() {
 			modalLogin.style.display = "block";
+
 		}
 
-		// When the user clicks on <span> (x), close the modal
-		spanLogin.onclick = function() {
+		function closeLoginModal() {
 			modalLogin.style.display = "none";
+
 		}
+
+		function openJoinModal() {
+
+			modalJoin.style.display = "block";
+
+		}
+
+		function closeJoinModal() {
+			modalJoin.style.display = "none";
+
+		}
+		// 		var modalLogin = document.getElementById("myLoginModal");
+
+		// 		// Get the button that opens the modal
+		// 		var btnLogin = document.getElementById("loginLink");
+
+		// 		// Get the <span> element that closes the modal
+		// 		var spanLogin = document.getElementsByClassName("closeLogin")[0];
+
+		// 		// When the user clicks on the button, open the modal 
+		// 		btnLogin.onclick = function() {
+		// 			modalLogin.style.display = "block";
+		// 		}
+
+		// 		// When the user clicks on <span> (x), close the modal
+		// 		spanLogin.onclick = function() {
+		// 			modalLogin.style.display = "none";
+		// 		}
 
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
@@ -752,29 +768,6 @@ span.buttonText {
 		}
 	</script>
 
-
-
-	<!-- Join Modal Script -->
-	<script type="text/javascript">
-		// Get the modal
-		var modalJoin = document.getElementById("myJoinModal");
-
-		// Get the button that opens the modal
-		var btnJoin = document.getElementById("joinLink");
-
-		// Get the <span> element that closes the modal
-		var spanJoin = document.getElementsByClassName("closeJoin")[0];
-
-		// When the user clicks on the button, open the modal 
-		btnJoin.onclick = function() {
-			modalJoin.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the modal
-		spanJoin.onclick = function() {
-			modalJoin.style.display = "none";
-		}
-	</script>
 
 </body>
 </html>

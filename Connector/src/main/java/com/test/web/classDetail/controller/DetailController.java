@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 
  */
 /**
@@ -164,6 +164,62 @@ public class DetailController {
 
 		return resMap;
 	}
+
+
+/** 클래스 가져오깅 */
+	@RequestMapping("/selectClass")
+	@ResponseBody
+	public Map<String, Object> selectClass(ClassBean bean) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+
+		try {
+			ClassBean classBean = classDao.selectClass(bean);
+			System.out.println(classBean.getStudyId());
+			resMap.put("classBean", classBean);
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			return resMap;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+	}
+
+	/** 수업진행 내역 개인별 수업정보 **/
+	@RequestMapping("/selectClassAjax")
+	@ResponseBody
+	public Map<String, Object> selectTeacherClassList(ClassBean bean, Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+
+		try {
+			// 전체 회원 리스트 갯수 조회
+			// int totRecord = memberService.selectMemberListTotalCount();
+			// 페이징 계산
+			// pagingBean.calcPage(totRecord);
+			System.out.println(bean.getTeacherId());
+			List<ClassBean> list = classDao.selectTeacherClassList(bean);
+
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+
+	}
+
+
+
+
+
 }
 
 

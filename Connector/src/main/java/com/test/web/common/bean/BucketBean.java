@@ -2,17 +2,16 @@ package com.test.web.common.bean;
 
 import java.util.Calendar;
 
-public class BusketBean {
-	private String busketNo;
+public class BucketBean {
+	private String bucketNo;
 	private String customerId;
 	private String studyId;
-	private Calendar buscketDate;
-	
-	public String getBusketNo() {
-		return busketNo;
+	private Calendar bucketDate;
+	public String getBucketNo() {
+		return bucketNo;
 	}
-	public void setBusketNo(String busketNo) {
-		this.busketNo = busketNo;
+	public void setBucketNo(String bucketNo) {
+		this.bucketNo = bucketNo;
 	}
 	public String getCustomerId() {
 		return customerId;
@@ -26,11 +25,13 @@ public class BusketBean {
 	public void setStudyId(String studyId) {
 		this.studyId = studyId;
 	}
-	public Calendar getBuscketDate() {
-		return buscketDate;
+	public Calendar getBucketDate() {
+		return bucketDate;
 	}
-	public void setBuscketDate(Calendar buscketDate) {
-		this.buscketDate = buscketDate;
+	public void setBucketDate(Calendar bucketDate) {
+		this.bucketDate = bucketDate;
 	}
+	
+	
 	
 }

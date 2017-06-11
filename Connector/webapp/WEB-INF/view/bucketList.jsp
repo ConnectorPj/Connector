@@ -17,6 +17,44 @@
 <title>수업 진행 내역</title>
 
 <script type="text/javascript">
+
+
+function delBucket(studyId) {
+	
+	if( confirm("선택하신 수업을 찜목록에서 삭제 하시겠습니까?") ) {
+
+		
+		
+		$.ajax({
+			type: "post",
+			url: "/deleteBucket.do",
+			data: { 
+				customerId: "${sessionScope.memberLoginBean.customerId}",
+				studyId : studyId
+			
+			},
+			dataType: "json",
+			success: function(data) {
+				console.log(data);
+				
+				if(data.result == "ok") {
+					location.reload(); //새로고침
+				} else {
+					alert(data.resultMsg);
+				}
+				
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " 
+						+ status + ", error : " + error);      
+			}
+		});
+	
+	}
+};
+
+
 $(function() {
 
 	$.ajax({
@@ -36,8 +74,12 @@ $(function() {
 					var str = "";
 					str += "<tr>";
 					str += "<td>" + num++ + "</td>";
-					str += "<td>" + classBean.studyId + "</td>";
 					str += "<td>" + classBean.studyName + "</td>";
+					str += "<td>" + classBean.studyLanguage + "</td>";
+					str += "<td>" + classBean.teacherName + "</td>";
+					str += "<td>" + classBean.studyLocation + "</td>";
+					str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket(" 
+						+ classBean.studyId + ")></td>";
 					str += "</tr>";
 
 					$("#memberListBody").append(str);
@@ -69,18 +111,19 @@ $(function() {
 			<div class="sub_nav">
 				<div class="sub_menu">
 					<ul>
-						<li><a href="personalInfoTeacher.do">개인정보</a></li>
-						<li><a href="classlist.do" class="on">수업 진행 내역</a></li>
+							<li><a href="personalInfoCustomer.do">개인정보</a></li>
+						<li><a href="payorder.do" class="on">마이 클래스</a></li>
+						<li><a href="bucketList.do">마이 찜목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> 
-							<li>수업 진행 내역</li>
+							<li>홈</li>> 
+							<li>마이 찜목록</li>
 						</ul>
 					</div>
-					<h2>수업 진행 내역</h2>
+					<h2>마이 찜목록</h2>
 				</div>
 
 				<!-- 서브 내용 -->
@@ -90,13 +133,19 @@ $(function() {
 							<colgroup>
 								<col width="5%">
 								<col width="30%">
-								<col width="20%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
 									<th>No.</th>
 									<th>스터디 이름</th>
 									<th>언어</th>
+									<th>강사</th>
+									<th>장소</th>
+									<th>좋아요취소</th>
 								</tr>
 							</thead>
 							<tbody id="memberListBody">

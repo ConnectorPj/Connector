@@ -62,7 +62,7 @@ public class CustomerController {
 		return "join";
 	}
 
-	/** 회원가입 처리를 한다. **/
+	/** 학생 회원가입 처리를 한다. **/
 	@RequestMapping("/insertCustomerProc")
 	@ResponseBody
 	public Map<String, Object> insertCustomerProc(CustomerBean customerBean) {
@@ -87,7 +87,7 @@ public class CustomerController {
 		return resMap;
 	}
 
-	/** 회원가입 처리를 한다. **/
+	/** 강사 회원가입 처리를 한다. **/
 	@RequestMapping("/insertTeacherProc")
 	@ResponseBody
 	public Map<String, Object> insertTeacherProc(TeacherBean teacherBean) {
@@ -480,6 +480,83 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 		return resMap;
+	}
+
+
+	/** 수업결제 내역 개인별 수업정보**/
+	@RequestMapping("/selectCustomerPurchaseList")
+	@ResponseBody
+	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean,Model model, PurchaseBean pBean){
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
+		
+		
+		try {
+			
+
+			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean);
+			
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+		
+	}
+	/** 수업결제 내역 개인별 찜목록**/
+	@RequestMapping("/selectBucketClassAjax")
+	@ResponseBody
+	public Map<String, Object> selectBucketClassAjax(ClassBean bean,Model model, BucketBean bBean){
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
+		
+		
+		try {
+			
+			
+			List<ClassBean> list = classDao.selectBucketClassList(bBean);
+			
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+		
+	}
+	
+	/* 찜목록 삭제*/
+	@RequestMapping("/deleteBucket")
+	@ResponseBody
+	public Map<String, Object> deleteBucket(BucketBean bBean) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "찜목록 삭제에 실패했습니다.");
+		// DB insert
+
+		try {
+			int res = bucketDao.deleteBucket(bBean);
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "찜목록 삭제에 성공했습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+
 	}
 
 }
