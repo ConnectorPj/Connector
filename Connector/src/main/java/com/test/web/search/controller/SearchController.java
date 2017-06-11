@@ -20,16 +20,21 @@ import com.test.web.common.dao.ClassDAO;
 public class SearchController {
 	@Autowired
 	ClassDAO classDao;
-
-
-
 	@RequestMapping("/search")
 	public String Search(Model model, ClassBean cBean) {
 		
-		System.out.println("111111111"+cBean.getStudyProgressName());
+		List<ClassBean> classList = classDao.selectClassList();
+		model.addAttribute("classList", classList);
+		model.addAttribute("cBean",cBean);
+
+		return "/search";
+	}
+	@RequestMapping("/searchDetail")
+	public String searchDetail(Model model, ClassBean cBean) {
 		
 		List<ClassBean> classList = classDao.selectClassList();
 		model.addAttribute("classList", classList);
+		model.addAttribute("cBean",cBean);
 
 		return "/search";
 	}

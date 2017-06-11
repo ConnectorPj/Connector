@@ -1,7 +1,6 @@
 package com.test.web.common.dao;
 
 import java.util.List;
-
 import com.test.web.common.bean.ReviewBean;
 
 public interface ReviewDAO {

@@ -120,10 +120,10 @@ a:hover {
 		<div class="classType">
 			<h2 class="title">분야별</h2>
 			<div class="title_hr"></div>
-			
-			<div class="classType_box"> 
-				<a href="/search.do?StudyProgressName=0"> <img src="/resources/images/Main_Img1.jpg"
-					alt="classType01" />
+
+			<div class="classType_box">
+				<a href="/search.do?StudyProgressName=1"> <img
+					src="/resources/images/Main_Img1.jpg" alt="classType01" />
 					<div class="img_text">
 						<p>#웹 개발</p>
 					</div>
@@ -131,35 +131,8 @@ a:hover {
 			</div>
 
 			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img2.jpg"
+				<a href="/search.do"> <img src="/resources/images/Main_Img2.jpg"
 					alt="classType02" />
-					<div class="img_text">
-						<p>#모바일 개발</p>
-					</div>
-				</a>
-			</div>
-
-			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img3.jpg"
-					alt="classType03" />
-					<div class="img_text">
-						<p>#시스템 개발</p>
-					</div>
-				</a>
-			</div>
-
-			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img4.jpg"
-					alt="classType04" />
-					<div class="img_text">
-						<p>#IOT</p>
-					</div>
-				</a>
-			</div>
-
-			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img5.jpg"
-					alt="classType05" />
 					<div class="img_text">
 						<p>#전체보기</p>
 					</div>
@@ -167,10 +140,37 @@ a:hover {
 			</div>
 
 			<div class="classType_box">
-				<a href="#"> <img src="/resources/images/Main_Img6.jpg"
-					alt="classType06" />
+				<a href="/search.do?StudyProgressName=2"> <img
+					src="/resources/images/Main_Img3.jpg" alt="classType03" />
+					<div class="img_text">
+						<p>#모바일 개발</p>
+					</div>
+				</a>
+			</div>
+
+			<div class="classType_box">
+				<a href="/search.do?StudyProgressName=3"> <img
+					src="/resources/images/Main_Img4.jpg" alt="classType04" />
+					<div class="img_text">
+						<p>#시스템 개발</p>
+					</div>
+				</a>
+			</div>
+
+			<div class="classType_box">
+				<a href="/realreview.do"> <img
+					src="/resources/images/Main_Img5.jpg" alt="classType05" />
 					<div class="img_text">
 						<p>#리얼후기</p>
+					</div>
+				</a>
+			</div>
+
+			<div class="classType_box">
+				<a href="/search.do?StudyProgressName=4"> <img
+					src="/resources/images/Main_Img6.jpg" alt="classType06" />
+					<div class="img_text">
+						<p>#IOT</p>
 					</div>
 				</a>
 			</div>
@@ -204,47 +204,89 @@ a:hover {
 				</c:forEach>
 			</div>
 		</div>
-		
+
 		<!-- CHATTING -->
-		<div class="chatBefore"  id="chatBefore" style="position:fixed; right:0; bottom:0; z-index:10000; background-color: gray;">
-			<span style="font-size: 20px; text-align: center; color: white;"> 채팅을 시작해 보세요!</span>
+		<div class="chatBefore" id="chatBefore"
+			style="position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray;">
+			<span style="font-size: 20px; text-align: center; color: white;">
+				채팅을 시작해 보세요!</span>
 		</div>
-		
-		<div class="chatBefore" id="chatAfter" style=" visibility:hidden; position:fixed; right:0; bottom:0; z-index:10000; background-color: gray; width:300px; height:400px;">
-			<div class="chatTitle" id="chatTitle" style= "width:100%; height:10%; background: gray;">
-			<span style="font-size: 20px; color: white;"> Let's chat! </span>
-					 <div class="close" onclick="closeChat()" title="닫기"></div>
+
+		<div class="chatAfter" id="chatAfter"
+			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
+			<div class="chatTitle" id="chatTitle"
+				style="width: 100%; height: 10%; background: gray;">
+				<span style="font-size: 20px; color: white;"> Let's chat! </span>
+				<div class="close" onclick="closeChat()" title="닫기"></div>
 			</div>
-			
-			<div class="content" id="content" style= "width:100%; height:60%; background-color: blue;">
-			
-			</div>
-			
-			<div class="message" id="message" style= "width:100%; line-height:40%; height:40%; background-color: yellow;">
-				<input type="text" placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]" style="width: 100%; height: 100px;">
-			</div>
-			<span style="font-size: 20px; text-align: center; "> 채팅을 시작해 보세요!</span>
+
+
+			<div id="message"
+				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word"></div>
+
+			<input id="input" type="text"
+				placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]"
+				style="width: 100%; height: 15%;"> <span
+				style="font-size: 20px; text-align: center;"> 채팅을 시작해 보세요!</span>
 		</div>
-		
+
 		<script type="text/javascript">
-		$(document).ready(function(){
-			$("#chatBefore").click(function () { 	
-				
-				document.getElementById("chatBefore").style.visibility = "hidden";
-				document.getElementById("chatAfter").style.visibility = "visible";
-			});
+			var div = document.getElementById('message');
+		
+			//WebSocketEx는 프로젝트 이름
+			//websocket 클래스 이름
+			var webSocket = new WebSocket("ws://localhost:8181/websocket");
+			/* var messageTextArea = document.getElementById("messageTextArea");*/
 			
+			//웹 소켓이 연결되었을 때 호출되는 이벤트
+			webSocket.onopen = function(message) {
+			 	webSocket.send("user");
+			};
+			//웹 소켓이 닫혔을 때 호출되는 이벤트
+			webSocket.onclose = function(message) {
+				div.innerText += "Server Disconnect...\n";
+			};
+			//웹 소켓이 에러가 났을 때 호출되는 이벤트
+			webSocket.onerror = function(message) {
+				div.innerText += "error...\n";
+			};
+			//웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
+			webSocket.onmessage = function(message) {
+				 var jsonData = JSON.parse(message.data);
+				div.innerText += jsonData.message + "\n";
+				div.scrollTop = div.scrollHeight; 
+			};
+			//Send 버튼을 누르면 실행되는 함수
+			function sendMessage() {
+				var message = $("#input").val();
+				//웹소켓으로 textMessage객체의 값을 보낸다.
+				webSocket.send(message);
+				//textMessage객체의 값 초기화
+				$("#input").val("");
+			}
+			//웹소켓 종료
+			function disconnect() {
+				webSocket.close();
+			}
+		
+			$("#input").keypress(function(e) {
+				var key = e.which || e.keyCode;
+				if (key === 13) { // 13 is enter
+					sendMessage();
+				}
+			});
+		
+			$(document).ready(function() {
+				$("#chatBefore").click(function() {
+					document.getElementById("chatBefore").style.visibility = "hidden";
+					document.getElementById("chatAfter").style.visibility = "visible";
+				});
+			});
 			function closeChat() {
 				document.getElementById("chatBefore").style.visibility = "visible";
 				document.getElementById("chatAfter").style.visibility = "hidden";
 			}
-		});
-
 		</script>
-		
-
 	</section>
-
-
 </body>
 </html>

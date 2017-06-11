@@ -128,6 +128,7 @@
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries=services,clusterer"></script>
 <script>
+
 	var overlay = null;
 	var Map_position = '당산동';
 	var positions = []; // 마커의 위치
@@ -216,6 +217,24 @@
 
 					initiate();
 					// 지도 영역 변화 이벤트를 등록한다
+
+					if ($("#categoryInit").val() == "1") {
+						$("#bigCategorySelect").val("1");
+						changeCategory();
+					} else if ($("#categoryInit").val() == "2") {
+						$("#bigCategorySelect").val("2");
+						changeCategory();
+					} else if ($("#categoryInit").val() == "3") {
+						$("#bigCategorySelect").val("3");
+						changeCategory();
+					} else if ($("#categoryInit").val() == "4") {
+						$("#bigCategorySelect").val("4");
+						changeCategory();
+					}
+					$("#bigCategorySelect").change(function() {
+						changeCategory();
+					});
+
 					return;
 				} else {
 					alert(data.resultMsg);
@@ -228,27 +247,24 @@
 					+ status + ", error : " + error);
 			}
 		}); // end of ajax
-
-		$("#bigCategorySelect").change(function() {
-			
+		function changeCategory() {
 			$.ajax({
 				type : "post",
 				url : "searchListAjax.do",
 				data : {
-					studyProgressName : $(this).val()
+					studyProgressName : $("#bigCategorySelect").val()
 				},
 				dataType : "json",
 				success : function(data) {
 					if (data.result == "ok") {
-						
 						mapContainer = document.getElementById('test2'); // 지도를 표시할 div
 						mapOption = {
 							center : new daum.maps.LatLng(36.340007, 127.413235), // 지도의 중심좌표
 							level : 12 // 지도의 확대 레벨
 						};
-					    map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-					    
-					    daum.maps.event.addListener(map, 'idle', function() {
+						map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+						daum.maps.event.addListener(map, 'idle', function() {
 							initiate();
 						});
 
@@ -256,10 +272,10 @@
 						content = new Array();
 						showContents = new Array();
 						showLeftContents = new Array();
-						
-						 positions = new Array(); // 마커의 위치
-						 contents = new Array();
-						 leftContents = new Array();
+
+						positions = new Array(); // 마커의 위치
+						contents = new Array();
+						leftContents = new Array();
 
 						// 클러스트에 포함될 마커들의 집함
 						var markers = [];
@@ -280,10 +296,8 @@
 					alert("error\nxhr : " + xhr + ", status : "
 						+ status + ", error : " + error);
 				}
-				
 			});
-
-		});
+		} //end of changeCategory method;
 
 		daum.maps.event.addListener(map, 'idle', function() {
 			initiate();
@@ -294,7 +308,7 @@
 			// class의 위치를 position에 저장한다.
 			var str = cBean.studyLocation.split(",");
 			positions.push(new daum.maps.LatLng(str[0], str[1]));
-			
+
 			// overlay로 뿌려줄 content를 저장한다.
 
 			// 위치 저장후 컨탠츠의 값을 저장한다.
@@ -343,8 +357,6 @@
 
 			var mapBounds = map.getBounds();
 			var lb = new daum.maps.LatLngBounds(mapBounds.getSouthWest(), mapBounds.getNorthEast());
-			
-			
 			for (var i = 0, len = positions.length; i < len; i++) {
 				//화면의 위치에 포함 되어 있다면
 				if( (lb.contain(positions[i])) ) {
@@ -361,6 +373,7 @@
 			}
 
 			// 총 갯수 구하기
+			alert(showLeftContents.length);
 			$("#totalCount").text(showLeftContents.length);
 
 		}
@@ -370,7 +383,7 @@
 			// 지도 상에서 좌표의 위치에 포함된 마커만 나열한다. 검사
 			// 그 후에 지도 위에 마커를 표시 합니다.
 			markers = new Array();
-			
+
 			// 지도 위에 마커를 표시합니다
 			for (var i = 0, len = showPositions.length; i < len; i++) {
 				var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
@@ -383,8 +396,8 @@
 				// 마커를 생성하고 지도위에 표시합니다
 				addMarker(showPositions[i], normalOrigin, overOrigin, clickOrigin, i);
 			}
-			
-			
+
+
 			// 클러스터러에 마커들을 추가합니다
 			clusterer.addMarkers(markers);
 		}
@@ -515,14 +528,13 @@
 			    }
 		}); */
 
+
 	}); //end of ready function
 
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	function closeOverlay() {
 		overlay.setMap(null);
 	}
-
-	<!-- 여기 -->
 </script>
 
 </head>
@@ -557,7 +569,8 @@
 								<option id="select_mobile" value="2">모바일 개발</option>
 								<option id="select_system" value="3">시스템 개발</option>
 								<option id="select_iot" value="4">IOT</option>
-							</select>
+							</select> <input type="hidden" id="categoryInit"
+								value="${cBean.studyProgressName}">
 						</div>
 					</div>
 					<hr>

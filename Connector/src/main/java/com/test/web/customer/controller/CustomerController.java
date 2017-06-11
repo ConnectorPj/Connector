@@ -1,5 +1,8 @@
 ﻿package com.test.web.customer.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,24 +14,29 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.test.web.common.Constants;
+import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.TeacherBean;
+import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
+import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.service.CustomerService;
 import com.test.web.common.service.TeacherService;
 
 @Controller
 public class CustomerController {
 
-	// 파일 업로드 저장경로
-	@Value("#{config['file.upload.path']}")
-	private String FILE_UPLOAD_PATH;
+	@Autowired
+	private PhotoDAO photoDao;
+	
 
 	@Autowired
 	private CustomerService customerService;
@@ -38,9 +46,16 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerDAO customerDao;
+	@Autowired
+	private TeacherDAO teacherDao;
+
 
 	@Autowired
-	private PhotoDAO photoDao;
+	private ClassDAO classDao;
+
+	//파일 업로드 저장경로
+	@Value("#{config['file.upload.path']}")
+	private String FILE_UPLOAD_PATH;
 
 	@RequestMapping("/join")
 	public String join() {
@@ -287,6 +302,69 @@ public class CustomerController {
 	public String registerstudy() {
 		return "registerStudy";
 	}
+	
+	@RequestMapping("/registerstudyProc")
+	public String registerstudyProc(
+			ClassBean ClassBean,
+			@RequestParam("file1") MultipartFile file1
+			)
+	{
+		//DB insert
+		// 임의의 선생 아이디 생성
+		ClassBean.setTeacherId("pdh");
+		// 임이의 사작날짜, 끝 날짜 계산
+
+		ClassBean.setStudyCheck("0");
+
+		ClassBean.setStudyId(ClassBean.getTeacherId()+"-"+System.nanoTime());
+
+		classDao.insertClass(ClassBean);
+
+		// 파일 이미지 처리 
+		if(!file1.getOriginalFilename().equals("")) {
+			try {
+				//파일을 저장하는 처리를 시작한다.
+				File saveDir = new File(FILE_UPLOAD_PATH + "/upfile");
+
+				if(!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+
+				//파일이름 생성
+				String fileName = ClassBean.getStudyId()+ "";
+				String fileExt = file1.getOriginalFilename().substring(
+						file1.getOriginalFilename().lastIndexOf(".") 
+						);
+				System.out.println( fileName + fileExt );
+
+				String fullFilePath = saveDir.getPath() 
+						+ File.separator + fileName + fileExt;
+
+				//파일저장
+				byte[] bytes = file1.getBytes();
+				BufferedOutputStream buffStream = 
+						new BufferedOutputStream(new FileOutputStream(fullFilePath));
+				buffStream.write(bytes);
+				buffStream.close();
+
+				// 파일 db에 넣기
+
+				PhotoBean classPhoto = new PhotoBean();
+				classPhoto.setPhotoSort("2");
+				classPhoto.setMemberId(ClassBean.getStudyId());
+				classPhoto.setPhotoFileName(fileName);
+				photoDao.insertPhoto(classPhoto);
+
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
+		}//end if
+		// db 처리
+
+		return "applicationSuccess";
+	}
+
 
 	@RequestMapping("/applicationsuccess")
 
