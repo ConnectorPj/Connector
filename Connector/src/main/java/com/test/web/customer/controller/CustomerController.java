@@ -30,12 +30,15 @@ import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
-import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.service.CustomerService;
 import com.test.web.common.service.TeacherService;
 
 @Controller
 public class CustomerController {
+
+	// 파일 업로드 저장경로
+	@Value("#{config['file.upload.path']}")
+	private String FILE_UPLOAD_PATH;
 
 	@Autowired
 	private PhotoDAO photoDao;
@@ -48,18 +51,12 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerDAO customerDao;
-	@Autowired
-	private TeacherDAO teacherDao;
 
 	@Autowired
 	private BucketDAO bucketDao;
-	
+
 	@Autowired
 	private ClassDAO classDao;
-
-	// 파일 업로드 저장경로
-	@Value("#{config['file.upload.path']}")
-	private String FILE_UPLOAD_PATH;
 
 	@RequestMapping("/join")
 	public String join() {
@@ -205,7 +202,7 @@ public class CustomerController {
 
 		req.getSession().invalidate();
 
-		return "main";
+		 return "redirect:/main.do";
 	}
 
 	/** ID 중복체크 **/
@@ -309,21 +306,15 @@ public class CustomerController {
 	@RequestMapping("/registerstudyProc")
 	public String registerstudyProc(ClassBean ClassBean, @RequestParam("file1") MultipartFile file1) {
 		// DB insert
-		// 임의의 선생 아이디 생성
-		ClassBean.setTeacherId("pdh");
-		// 임이의 사작날짜, 끝 날짜 계산
-
 		ClassBean.setStudyCheck("0");
-
 		ClassBean.setStudyId(ClassBean.getTeacherId() + "-" + System.nanoTime());
-
 		classDao.insertClass(ClassBean);
 
 		// 파일 이미지 처리
 		if (!file1.getOriginalFilename().equals("")) {
 			try {
 				// 파일을 저장하는 처리를 시작한다.
-				File saveDir = new File(FILE_UPLOAD_PATH + "/upfile");
+				File saveDir = new File(FILE_UPLOAD_PATH + "/upFile");
 
 				if (!saveDir.exists()) {
 					saveDir.mkdirs();
@@ -345,9 +336,16 @@ public class CustomerController {
 				// 파일 db에 넣기
 
 				PhotoBean classPhoto = new PhotoBean();
-				classPhoto.setPhotoSort("2");
 				classPhoto.setMemberId(ClassBean.getStudyId());
-				classPhoto.setPhotoFileName(fileName);
+				classPhoto.setPhotoSort("2");
+				
+				try {
+					photoDao.deletePhoto(classPhoto);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				classPhoto.setPhotoFileName("/upFile/" + fileName + fileExt);
 				photoDao.insertPhoto(classPhoto);
 
 			} catch (Exception e) {
@@ -428,27 +426,92 @@ public class CustomerController {
 	}
 
 	@RequestMapping("customerInsertProcAjax")
-	@ResponseBody
-	public Map<String, Object> customerInsertProcAjax(CustomerBean cBean, PhotoBean pBean, HttpServletRequest req) {
+	public String customerInsertProcAjax(CustomerBean cBean, PhotoBean pBean,
+			@RequestParam("file1") MultipartFile file1, HttpServletRequest req) {
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
 
-		try {
-			int res = customerService.insertCustomerAttach(cBean, pBean, FILE_UPLOAD_PATH + "/upFile");
-			CustomerBean cusBean = customerService.selectCustomer(cBean);
-			req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, cusBean);
+		System.out.println("filename: " + file1.getOriginalFilename());
 
-			if (res > 0) {
+		// 파일 이미지 처리
+		if (!file1.getOriginalFilename().equals("")) {
+			try {
+				int resVal1 = customerDao.updateCustomer(cBean);
+
+				if (resVal1 <= 0) {
+					resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+					resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
+				}
+
+				// 파일을 저장하는 처리를 시작한다.
+				File saveDir = new File(FILE_UPLOAD_PATH + "/upFile");
+
+				if (!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+
+				// 파일이름 생성
+				String fileName = cBean.getCustomerId() + file1.getOriginalFilename() + "";
+				String fileExt = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
+				System.out.println(fileName + fileExt);
+
+				String fullFilePath = saveDir.getPath() + File.separator + fileName + fileExt;
+
+				// 파일저장
+				byte[] bytes = file1.getBytes();
+				BufferedOutputStream buffStream = new BufferedOutputStream(new FileOutputStream(fullFilePath));
+				buffStream.write(bytes);
+				buffStream.close();
+
+				// 파일 db에 넣기
+
+				PhotoBean inBean = new PhotoBean();
+				inBean.setMemberId(cBean.getCustomerId());
+				inBean.setPhotoSort(Constants.FILE_TYPE_BOARD);
+
+				try {
+					photoDao.deletePhoto(inBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				// insert
+
+				inBean.setPhotoFileName("/upFile/" + fileName + fileExt);
+
+				// DB
+				photoDao.insertPhoto(inBean);
+
+				CustomerBean cusBean = customerService.selectCustomer(cBean);
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, cusBean);
+
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);
 				resMap.put(Constants.RESULT_MSG, "게시글 작성 성공");
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} // end if
+		else {
+			int resVal1 = customerDao.updateCustomer(cBean);
+
+			if (resVal1 <= 0) {
+				resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+				resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
+			}
+
+			try {
+				CustomerBean cusBean = customerService.selectCustomer(cBean);
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, cusBean);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
-		return resMap;
+		  return "redirect:/main.do";
 	}
 
 	@RequestMapping("photoSendAjax")

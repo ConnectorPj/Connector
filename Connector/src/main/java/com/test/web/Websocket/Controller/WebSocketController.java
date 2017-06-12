@@ -11,7 +11,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
 import javax.websocket.OnClose;
-import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -22,12 +21,12 @@ import javax.websocket.server.ServerEndpoint;
 public class WebSocketController {
 	
 	
-	//À¯Àú ÁýÇÕ ¸®½ºÆ®
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
      
     /**
-     * À¥ ¼ÒÄÏÀÌ Á¢¼ÓµÇ¸é À¯Àú¸®½ºÆ®¿¡ ¼¼¼ÇÀ» ³Ö´Â´Ù.
-     * @param userSession À¥ ¼ÒÄÏ ¼¼¼Ç
+     * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÓµÇ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+     * @param userSession ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
      */
     @OnOpen
     public void handleOpen(Session userSession){
@@ -35,28 +34,28 @@ public class WebSocketController {
         System.out.println(sessionUsers.size());
     }
     /**
-     * À¥ ¼ÒÄÏÀ¸·ÎºÎÅÍ ¸Þ½ÃÁö°¡ ¿À¸é È£ÃâÇÑ´Ù.
-     * @param message ¸Þ½ÃÁö
+     * ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ñ´ï¿½.
+     * @param message ï¿½Þ½ï¿½ï¿½ï¿½
      * @param userSession
      * @throws IOException
      */
     @OnMessage
     public void handleMessage(String message,Session userSession) throws IOException{
         String username = (String)userSession.getUserProperties().get("username");
-        //¼¼¼Ç ÇÁ·ÎÆÛÆ¼¿¡ usernameÀÌ ¾øÀ¸¸é usernameÀ» ¼±¾ðÇÏ°í ÇØ´ç ¼¼¼ÇÀ»À¸·Î ¸Þ½ÃÁö¸¦ º¸³½´Ù.(json Çü½ÄÀÌ´Ù.)
-        //ÃÖÃÊ ¸Þ½ÃÁö´Â username¼³Á¤
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ usernameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ usernameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.(json ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.)
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ usernameï¿½ï¿½ï¿½ï¿½
         if(username == null){
-        	if(message.equals("#")){ // Á¢¼ÓÇÑ »ç¿ëÀÚ°¡ °ü¸®ÀÚ ¶ó¸é
+        	if(message.equals("#")){ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         		userSession.getUserProperties().put("username", "admin");
                 userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as admin"));
                 
         	}else{
-        		userSession.getUserProperties().put("username", message); // userÀÇ Id·Î ÀúÀåÇÑ´Ù.
+        		userSession.getUserProperties().put("username", message); // userï¿½ï¿½ Idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
                 userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as user"));
         	}
             return;
         }
-        //usernameÀÌ ÀÖÀ¸¸é ÀüÃ¼¿¡°Ô ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        //usernameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         Iterator<Session> iterator = sessionUsers.iterator();
         while(iterator.hasNext()){
         	Session session = iterator.next();
@@ -64,7 +63,7 @@ public class WebSocketController {
         }
     }
     /**
-     * À¥¼ÒÄÏÀ» ´ÝÀ¸¸é ÇØ´ç À¯Àú¸¦ À¯Àú¸®½ºÆ®¿¡¼­ »«´Ù.
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
      * @param userSession
      */
     @OnClose
@@ -72,7 +71,7 @@ public class WebSocketController {
         sessionUsers.remove(userSession);
     }
     /**
-     * jsonÅ¸ÀÔÀÇ ¸Þ½ÃÁö ¸¸µé±â
+     * jsonÅ¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param username
      * @param message
      * @return

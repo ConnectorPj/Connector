@@ -98,8 +98,7 @@
 								<div class="profile_text">
 									회원님의 정면 사진을 올려주세요!<br /> 상대방이 신뢰를 갖고 연락할 확률이 높아질 거예요!<br />
 								</div>
-								<input type='file' onchange="readURL(this);"
-									class="upload_btn upload-hidden" name="upFile" />
+								
 							</div>
 						</div>
 

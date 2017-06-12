@@ -123,55 +123,37 @@ a:hover {
 
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=1"> <img
-					src="/resources/images/Main_Img1.jpg" alt="classType01" />
-					<div class="img_text">
-						<p>#웹 개발</p>
-					</div>
+					src="/resources/images/web.png" alt="classType01" />
 				</a>
 			</div>
 
 			<div class="classType_box">
-				<a href="/search.do"> <img src="/resources/images/Main_Img2.jpg"
+				<a href="/search.do"> <img src="/resources/images/ALL.png"
 					alt="classType02" />
-					<div class="img_text">
-						<p>#전체보기</p>
-					</div>
 				</a>
 			</div>
 
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=2"> <img
-					src="/resources/images/Main_Img3.jpg" alt="classType03" />
-					<div class="img_text">
-						<p>#모바일 개발</p>
-					</div>
+					src="/resources/images/moblie.png" alt="classType03" />
 				</a>
 			</div>
 
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=3"> <img
-					src="/resources/images/Main_Img4.jpg" alt="classType04" />
-					<div class="img_text">
-						<p>#시스템 개발</p>
-					</div>
+					src="/resources/images/SYSTEM.png" alt="classType04" />
 				</a>
 			</div>
 
 			<div class="classType_box">
 				<a href="/realreview.do"> <img
-					src="/resources/images/Main_Img5.jpg" alt="classType05" />
-					<div class="img_text">
-						<p>#리얼후기</p>
-					</div>
+					src="/resources/images/review.png" alt="classType05" />
 				</a>
 			</div>
 
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=4"> <img
-					src="/resources/images/Main_Img6.jpg" alt="classType06" />
-					<div class="img_text">
-						<p>#IOT</p>
-					</div>
+					src="/resources/images/iot.png" alt="classType06" />
 				</a>
 			</div>
 
@@ -235,7 +217,7 @@ a:hover {
 		
 			//WebSocketEx는 프로젝트 이름
 			//websocket 클래스 이름
-			var webSocket = new WebSocket("ws://localhost:8181/websocket");
+			var webSocket = new WebSocket("ws://localhost:8080/websocket");
 			/* var messageTextArea = document.getElementById("messageTextArea");*/
 			
 			//웹 소켓이 연결되었을 때 호출되는 이벤트

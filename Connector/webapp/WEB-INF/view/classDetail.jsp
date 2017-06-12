@@ -32,7 +32,8 @@
 					data-ride="carousel">
 					<!-- Indicators -->
 				</div>
-				<div class="reviewImg" ><img style="width: 100%; height: 350px;" src="/resources/images/main.png" alt="realReview"></div>
+				<div class="reviewImg" >
+				<img style="width: 100%; height: 350px;" src="${photoBean.photoFileName}" alt="realReview"></div>
 				<div id="title" class="title">${ClassBean.studyName}</div>
 			</div>
 			<hr />
@@ -121,12 +122,12 @@
 			<hr />
 			<br>
 			<input type="hidden" id="studyId" value="${ClassBean.studyId}">
-			<input type="hidden" id="memberId" value="pdh">
+			<input type="hidden" id="teacherId" value="${ClassBean.teacherId}">
 			 
 
 			<div id="leaderintro">
 				<div id="leaderTitle" class="leaderTitle">
-					리더 소개 <img class="profile">
+					리더 소개 <img class="profile" src="${tPhotoBean.photoFileName}">
 				</div>
 				<div id="leaderContent" class="leaderContent">
 					${ClassBean.studyInfo}</div>

@@ -23,11 +23,12 @@ public interface CustomerService {
 	/** 회원정보를 수정한다. **/
 	public int updateCustomer(CustomerBean bean) throws Exception;
 
+	/** 회원정보를 삭제한다. **/
 	public int deleteCustomer(CustomerBean bean) throws Exception;
 
 	/** 회원 아이디 중복 체크 */
 	public int customerCheckId(CustomerBean bean) throws Exception;
 
-	/** customer 와 photo 정보를 한꺼번에 insert 처리 **/
+	/** customer �� photo �젙蹂대�� �븳爰쇰쾲�뿉 insert 泥섎━ **/
 	public int insertCustomerAttach(CustomerBean tBean, PhotoBean pBean, String upPath);
 }

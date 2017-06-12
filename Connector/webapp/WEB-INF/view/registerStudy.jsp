@@ -484,7 +484,7 @@ ul, li {
 						<h4>종료시간</h4>
 						<div class="toggle-button toggle-button--aava">
 							<input id="endTimeAmPm" type="checkbox"> <label
-								for="endTimeAmPm" data-on-text="오전" data-off-text="오후"></label>
+								for="endTimeAmPm" data-on-text="오전" data-off-text="오후" ></label>
 						</div>
 
 						<div class="timegood">
@@ -499,6 +499,9 @@ ul, li {
 							</select><br />
 						</div>
 					</div>
+					
+					<input type="hidden" id="teacherId" name="teacherId" value="${sessionScope.memberLoginBean.teacherId}"/>
+					<input type="hidden" id="teacherName" name="teacherName" value="${sessionScope.memberLoginBean.teacherName}" />
 					<input type="hidden" id="startTime" name="studyStartTime" /> <input
 						type="hidden" id="endTime" name="studyEndTime" />
 

@@ -1,5 +1,8 @@
 package com.test.web.main.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.PagingBean;
@@ -54,27 +59,91 @@ public class MainControllerAjax {
 	}
 
 	@RequestMapping("teacherInsertProcAjax")
-	@ResponseBody
-	public Map<String, Object> teacherInsertProcAjax(TeacherBean tBean, PhotoBean pBean, HttpServletRequest req) {
+	public String teacherInsertProcAjax(TeacherBean tBean, PhotoBean pBean, @RequestParam("file1") MultipartFile file1,
+			HttpServletRequest req) {
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
 
-		try {
-			int res = teacherService.insertTeacherAttach(tBean, pBean, FILE_UPLOAD_PATH + "/upFile");
-			TeacherBean teaBean = teacherService.selectTeacher(tBean);
-			req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, teaBean);
+		System.out.println("filename: " + file1.getOriginalFilename());
 
-			if (res > 0) {
+		// 파일 이미지 처리
+		if (!file1.getOriginalFilename().equals("")) {
+			try {
+				int resVal1 = teacherDao.updateTeacher(tBean);
+
+				if (resVal1 <= 0) {
+					resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+					resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
+				}
+
+				// 파일을 저장하는 처리를 시작한다.
+				File saveDir = new File(FILE_UPLOAD_PATH + "/upFile");
+
+				if (!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+
+				// 파일이름 생성
+				String fileName = tBean.getTeacherId() + file1.getOriginalFilename() + "";
+				String fileExt = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
+				System.out.println(fileName + fileExt);
+
+				String fullFilePath = saveDir.getPath() + File.separator + fileName + fileExt;
+
+				// 파일저장
+				byte[] bytes = file1.getBytes();
+				BufferedOutputStream buffStream = new BufferedOutputStream(new FileOutputStream(fullFilePath));
+				buffStream.write(bytes);
+				buffStream.close();
+
+				// 파일 db에 넣기
+
+				PhotoBean inBean = new PhotoBean();
+				inBean.setMemberId(tBean.getTeacherId());
+				inBean.setPhotoSort(Constants.FILE_TYPE_BOARD);
+
+				try {
+					photoDao.deletePhoto(inBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// insert
+
+				inBean.setPhotoFileName("/upFile/" + fileName + fileExt);
+
+				// DB
+				photoDao.insertPhoto(inBean);
+
+				TeacherBean teaBean = teacherService.selectTeacher(tBean);
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, teaBean);
+
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);
 				resMap.put(Constants.RESULT_MSG, "게시글 작성 성공");
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} // end if
+		else {
+			int resVal1 = teacherDao.updateTeacher(tBean);
+
+			if (resVal1 <= 0) {
+				resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+				resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
+			}
+
+			try {
+				TeacherBean teaBean = teacherService.selectTeacher(tBean);
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, teaBean);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return resMap;
+		
+		return "redirect:/main.do";
 	}
 
 	@RequestMapping("/adminTeacherList")
@@ -168,6 +237,8 @@ public class MainControllerAjax {
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "게시글 작성 성공");
+
+			pBean.setPhotoSort("1");
 
 			resMap.put("pBean", pBean);
 			resMap.put("teaBean", teaBean);

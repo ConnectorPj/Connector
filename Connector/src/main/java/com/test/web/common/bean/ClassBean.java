@@ -11,14 +11,10 @@ public class ClassBean {
 	private String studyProgressName;
 	private String studyProgramLanguage;
 	private String studyWeek; // int
-	
 	private String studyStartTime;
 	private String studyEndTime;
-	
 	private String studyStartDate;
 	private String studyEndDate;
-	
-	
 	private String studyLocation;
 	private String studyAmount;
 	private String studyReference;

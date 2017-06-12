@@ -543,8 +543,7 @@ span.buttonText {
 
 
 								<c:if test="${sessionScope.code eq 'C' }">
-									<li style="width: 150px;"><a
-										href="personalInfoCustomer.do?customerId=${sessionScope.memberLoginBean.customerId}">
+									<li style="width: 150px;"><a href="personalInfoCustomer.do">
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 

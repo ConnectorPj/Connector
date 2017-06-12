@@ -86,12 +86,10 @@
 		study_progressName,
 		study_programLanguage,
 		study_week,
-
 		study_startTime,
 		study_endTime,
 		study_startDate,
 		study_endDate,
-
 		study_location,
 		study_amount,
 		study_reference,
@@ -100,6 +98,7 @@
 		VALUES
 		(
 		#{studyId},
+		#{teacherId},
 		#{teacherName},
 		#{studyName},
 		#{studyInfo},
@@ -108,13 +107,10 @@
 		#{studyProgressName},
 		#{studyProgramLanguage},
 		#{studyWeek},
-
 		#{studyStartTime},
 		#{studyEndTime},
-
 		#{studyStartDate},
 		#{studyEndDate},
-
 		#{studyLocation},
 		#{studyAmount},
 		#{studyReference},
