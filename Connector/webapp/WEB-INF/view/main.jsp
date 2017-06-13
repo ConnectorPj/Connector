@@ -1,4 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <html>
 <head>
@@ -124,6 +124,7 @@ a:hover {
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=1"> <img
 					src="/resources/images/web.png" alt="classType01" />
+					<div class="img_text"></div>
 				</a>
 			</div>
 
@@ -135,7 +136,7 @@ a:hover {
 
 			<div class="classType_box">
 				<a href="/search.do?StudyProgressName=2"> <img
-					src="/resources/images/moblie.png" alt="classType03" />
+					src="/resources/images/mobile.png" alt="classType03" />
 				</a>
 			</div>
 
@@ -187,21 +188,30 @@ a:hover {
 			</div>
 		</div>
 
-		<!-- CHATTING -->
-		<div class="chatBefore" id="chatBefore"
-			style="position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray;">
-			<span style="font-size: 20px; text-align: center; color: white;">
-				채팅을 시작해 보세요!</span>
+
+		<div id="chatAfter"
+			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
+			<div class="chatTitle" id="chatTitle"
+				style="width: 100%; height: 10%; background: gray;">
+				<span style="font-size: 20px; color: white;"> 로그인 후 이용해 주세요.
+				</span>
+				<div class="close" onclick="closeChat()" title="닫기"></div>
+			</div>
+			<div
+				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word">
+				로그인 후 이용 가능합니다.</div>
+			<input type="text" placeholder="로그인 후 이용 가능 합니다."
+				style="width: 100%; height: 15%;"> <span
+				style="font-size: 20px; text-align: center;"> 채팅을 시작해 보세요!</span>
 		</div>
 
-		<div class="chatAfter" id="chatAfter"
+		<div id="loginAfter"
 			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
 			<div class="chatTitle" id="chatTitle"
 				style="width: 100%; height: 10%; background: gray;">
 				<span style="font-size: 20px; color: white;"> Let's chat! </span>
-				<div class="close" onclick="closeChat()" title="닫기"></div>
+				<div class="close" onclick="closeChatAfter()" title="닫기"></div>
 			</div>
-
 
 			<div id="message"
 				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word"></div>
@@ -212,17 +222,24 @@ a:hover {
 				style="font-size: 20px; text-align: center;"> 채팅을 시작해 보세요!</span>
 		</div>
 
+		<!-- CHATTING -->
+		<div class="chatBefore" id="chatBefore"
+			style="position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray;">
+			<span style="font-size: 20px; text-align: center; color: white;">
+				채팅을 시작해 보세요!</span>
+		</div>
+
 		<script type="text/javascript">
 			var div = document.getElementById('message');
 		
 			//WebSocketEx는 프로젝트 이름
 			//websocket 클래스 이름
-			var webSocket = new WebSocket("ws://localhost:8080/websocket");
+			var webSocket = new WebSocket("ws://localhost:8181/websocket");
 			/* var messageTextArea = document.getElementById("messageTextArea");*/
-			
+		
 			//웹 소켓이 연결되었을 때 호출되는 이벤트
 			webSocket.onopen = function(message) {
-			 	webSocket.send("user");
+				webSocket.send($("#loginName").val());
 			};
 			//웹 소켓이 닫혔을 때 호출되는 이벤트
 			webSocket.onclose = function(message) {
@@ -234,13 +251,15 @@ a:hover {
 			};
 			//웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
 			webSocket.onmessage = function(message) {
-				 var jsonData = JSON.parse(message.data);
-				div.innerText += jsonData.message + "\n";
-				div.scrollTop = div.scrollHeight; 
+				var jsonData = JSON.parse(message.data);
+				div.innerText +="admin : "+jsonData.message + "\n";
+				div.scrollTop = div.scrollHeight;
 			};
+			
 			//Send 버튼을 누르면 실행되는 함수
 			function sendMessage() {
 				var message = $("#input").val();
+				div.innerText +=$("#loginName").val()+ " : " + message + "\n"; 
 				//웹소켓으로 textMessage객체의 값을 보낸다.
 				webSocket.send(message);
 				//textMessage객체의 값 초기화
@@ -260,13 +279,23 @@ a:hover {
 		
 			$(document).ready(function() {
 				$("#chatBefore").click(function() {
+					if($("#loginCheck").val() == "g" ){
+					
 					document.getElementById("chatBefore").style.visibility = "hidden";
-					document.getElementById("chatAfter").style.visibility = "visible";
+					document.getElementById("loginAfter").style.visibility = "visible";
+					}else{
+						document.getElementById("chatBefore").style.visibility = "hidden";
+						document.getElementById("chatAfter").style.visibility = "visible";
+					}
 				});
 			});
 			function closeChat() {
 				document.getElementById("chatBefore").style.visibility = "visible";
 				document.getElementById("chatAfter").style.visibility = "hidden";
+			}
+			function closeChatAfter() {
+				document.getElementById("chatBefore").style.visibility = "visible";
+				document.getElementById("loginAfter").style.visibility = "hidden";
 			}
 		</script>
 	</section>

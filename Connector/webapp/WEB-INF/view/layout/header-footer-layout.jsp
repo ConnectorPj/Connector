@@ -165,7 +165,7 @@ span.buttonText {
 		var email = document.getElementById("email").value;
 		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		if (exptext.test(email) == false) {
-			//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
+			//이메일 형식이 알파벳+숫자@알파벳+R숫자.알파벳+숫자 형식이 아닐경우			
 			document.getElementById("resultEmail").textContent = "메일형식이 올바르지 않습니다.";
 			document.getElementById("email").focus();
 			return false;
@@ -538,6 +538,8 @@ span.buttonText {
 									<li style="width: 150px;"><a href="personalInfoTeacher.do">
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
 
 								</c:if>
 
@@ -546,6 +548,8 @@ span.buttonText {
 									<li style="width: 150px;"><a href="personalInfoCustomer.do">
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
 
 
 
@@ -558,7 +562,7 @@ span.buttonText {
 					</ul>
 				</div>
 			</div>
-
+			
 			<!-- Login Modal -->
 			<div id="myLoginModal" class="modal">
 				<!-- Modal content -->

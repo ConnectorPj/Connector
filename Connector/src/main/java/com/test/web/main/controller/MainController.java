@@ -64,7 +64,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/payment")
-	public String payment(Locale locale, Model model) {
+	public String payment(Model model) {
 		return "payment";
 	}
 

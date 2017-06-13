@@ -3,81 +3,82 @@
 
 <mapper namespace="com.test.web.common.dao.ClassDAO">
 
-	<sql id="classColumns">
-		study_id AS studyId,
-		teacher_id AS teacherId,
-		study_name AS
-		studyName,
-		study_info AS studyInfo,
-		study_job AS studyJob,
-		study_price AS
-		studyPrice,
-		study_progressName AS studyProgressName,
-		study_programLanguage AS studyProgramLanguage,
-		study_week AS studyWeek,
+   <sql id="classColumns">
+      study_id AS studyId,
+      teacher_id AS teacherId,
+      study_name AS
+      studyName,
+      study_info AS studyInfo,
+      study_job AS studyJob,
+      study_price AS
+      studyPrice,
+      study_progressName AS studyProgressName,
+      study_programLanguage AS studyProgramLanguage,
+      study_week AS studyWeek,
 
-		study_startTime AS studyStartTime,
-		study_endTime AS studyEndTime,
+      study_startTime AS studyStartTime,
+      study_endTime AS studyEndTime,
 
-		study_startDate AS studyStartDate,
-		study_endDate AS studyEndDate,
+      study_startDate AS studyStartDate,
+      study_endDate AS studyEndDate,
 
-		study_location AS studyLocation,
-		study_amount AS studyAmount,
-		study_reference AS studyReference,
-		study_check AS studyCheck,
-		study_regdate AS studyRegdate
-	</sql>
+      study_location AS studyLocation,
+      study_amount AS studyAmount,
+      study_reference AS studyReference,
+      study_check AS studyCheck,
+      study_regdate AS studyRegdate
+   </sql>
 
-	<!-- Class List 조회 -->
-	<select id="selectClassList" resultType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		order by study_regdate DESC;
-	</select>
+   <!-- Class List 조회 -->
+   <select id="selectClassList" resultType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      order by study_regdate DESC;
+   </select>
 
-	<!-- Class List 조회 -->
-	<select id="selectClassListAll" resultType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		order by study_regdate DESC
-		LIMIT #{pagingBean.startRow},
-		#{pagingBean.endRow}
-	</select>
+   <!-- Class List 조회 -->
+   <select id="selectClassListAll" resultType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      order by study_regdate DESC
+      LIMIT #{pagingBean.startRow},
+      #{pagingBean.endRow}
+   </select>
 
-	<!-- 카테 고리상 조회 -->
-	<select id="selectConClassList" resultType="classBean"
-		parameterType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		WHERE
-		study_progressName = #{studyProgressName}
-		order by
-		study_regdate DESC;
-	</select>
+   <!-- 카테 고리상 조회 -->
+   <select id="selectConClassList" resultType="classBean"
+      parameterType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      WHERE
+      study_progressName = #{studyProgressName}
+      order by
+      study_regdate DESC;
+   </select>
 
-	<!-- 특정 Class 조회 -->
-	<select id="selectClass" resultType="classBean" parameterType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		WHERE
-		study_id = #{studyId}
-		order by study_regdate DESC
-	</select>
+   <!-- 특정 Class 조회 -->
+   <select id="selectClass" resultType="classBean" parameterType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      WHERE
+      study_id = #{studyId}
+      order by study_regdate DESC
+   </select>
 
-	<insert id="insertClass" parameterType="classBean">
+ <insert id="insertClass" parameterType="classBean">
 		INSERT INTO study
 		(
 		study_id,
 		teacher_id,
+		teacher_name,
 		study_name,
 		study_info,
 		study_job,
@@ -85,12 +86,10 @@
 		study_progressName,
 		study_programLanguage,
 		study_week,
-
 		study_startTime,
 		study_endTime,
 		study_startDate,
 		study_endDate,
-
 		study_location,
 		study_amount,
 		study_reference,
@@ -100,6 +99,7 @@
 		(
 		#{studyId},
 		#{teacherId},
+		#{teacherName},
 		#{studyName},
 		#{studyInfo},
 		#{studyJob},
@@ -107,13 +107,10 @@
 		#{studyProgressName},
 		#{studyProgramLanguage},
 		#{studyWeek},
-
 		#{studyStartTime},
 		#{studyEndTime},
-
 		#{studyStartDate},
 		#{studyEndDate},
-
 		#{studyLocation},
 		#{studyAmount},
 		#{studyReference},
@@ -121,30 +118,31 @@
 		)
 
 	</insert>
+    
+   <!--수업 결제내역 조회 -->
+   <select id="selectCustomerPurchaseList" resultType="classBean">
+      SELECT
+      <include refid="classColumns" />
+      FROM
+      study
+      WHERE
+      study_id
+      IN
+      (SELECT study_id
+      FROM
+      purchase_study
+      WHERE
+      customer_id=#{customerId})
+      order by study_regdate DESC
+   </select>
 
-	<!--수업 결제내역 조회 -->
-	<select id="selectCustomerPurchaseList" resultType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		WHERE
-		study_id
-		IN
-		(SELECT study_id
-		FROM
-		purchase_study
-		WHERE
-		customer_id=#{customerId})
-		order by study_regdate DESC
-	</select>
 
-
-	<update id="updateClass" parameterType="classBean">
+ 	<update id="updateClass" parameterType="classBean">
 		UPDATE study SET
 		study_id
 		= #{studyId},
 		teacher_id = #{teacherId},
+		teacher_name = #{teacherName},
 		study_name = #{studyName},
 		study_info = #{studyInfo},
 		study_job = #{studyJob},
@@ -156,29 +154,55 @@
 		#{studyWeek},
 
 		study_startTime = #{studyStartTime},
-		study_endTime = #{studyEndTime},
+		study_endTime =
+		#{studyEndTime},
 		study_startDate =
 		#{studyStartDate},
-		study_endDate = #{studyEndDate},
+		study_endDate =
+		#{studyEndDate},
 
 		study_location = #{studyLocation},
-		study_amount = #{studyAmount},
+		study_amount =
+		#{studyAmount},
 		study_reference =
 		#{studyReference},
-		study_check = #{studyCheck}
+		study_check =
+		#{studyCheck}
 	</update>
 
-	<delete id="deleteClass" parameterType="classBean">
-		DELETE FROM
+   <delete id="deleteClass" parameterType="classBean">
+      DELETE FROM
+      study
+      WHERE
+      study_id = #{studyId}
+   </delete>
+
+   <!-- 회원정보 리스트 전체 갯수 조회 -->
+   <select id="selectClassListTotalCount" resultType="int"
+      parameterType="pagingBean">
+      SELECT COUNT(*)
+      FROM study
+   </select>
+   
+   	<!--수업  찜목록  조회 -->
+	<select id="selectBucketClassList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
 		study
 		WHERE
-		study_id = #{studyId}
-	</delete>
-
-	<!-- 회원정보 리스트 전체 갯수 조회 -->
-	<select id="selectClassListTotalCount" resultType="int"
-		parameterType="pagingBean">
-		SELECT COUNT(*)
-		FROM study
+		study_id 
+		IN
+		(SELECT study_id
+		
+		FROM 
+		bucket_study
+		WHERE
+		customer_id=#{customerId})
+		order by study_regdate DESC
 	</select>
+   
+   
+   
+   
 </mapper>

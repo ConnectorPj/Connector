@@ -175,7 +175,7 @@
 
 		<div id="side">
 			<label id="sideTitle" class="sideTitle"> ${ClassBean.studyName} </label>
-			<form class="sideWrap">
+			<div class="sideWrap">
 				<ul class="sideSchedule">
 					<li><input type="radio" class="choiceBtn" value="N"> <label
 						for="choiceBtn"> <span class="mock-radio"></span> <span
@@ -190,13 +190,18 @@
 					<span id="sideCostInit" class="sideCostInit">참가비</span> <span
 						class="sideCost">${ClassBean.studyPrice}원</span>
 				</div>
-				<input id="actionBtn" type="submit" class="actionBtn"
-					value="참여 신청하기">
-			</form>
-			<a id="booking" class="booking" href="#" ></span>찜하기</a>
+				<button id="actionBtn"  class="actionBtn"> 참여 신청하기 </button>
+			</div>
+			<a id="booking" class="booking" href="#" >찜하기</a>
 			
 			<script type="text/javascript">
 			var cond = 1;
+			
+			$("#actionBtn").click(function() {
+				if (confirm("참가 신청 하시겠습니까?")) {
+					location.href="payment.do?"+$("#studyId").val();
+				}
+			});
 			
 			$("#booking").click(function() {
 				

@@ -373,7 +373,6 @@
 			}
 
 			// 총 갯수 구하기
-			alert(showLeftContents.length);
 			$("#totalCount").text(showLeftContents.length);
 
 		}
