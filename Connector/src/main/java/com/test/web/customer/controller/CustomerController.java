@@ -30,6 +30,7 @@ import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
+import com.test.web.common.dao.PurchaseDAO;
 import com.test.web.common.service.CustomerService;
 import com.test.web.common.service.TeacherService;
 
@@ -39,6 +40,12 @@ public class CustomerController {
 	// 파일 업로드 저장경로
 	@Value("#{config['file.upload.path']}")
 	private String FILE_UPLOAD_PATH;
+	
+	@Value("#{config['admin.id']}")
+	private String adminId;
+	
+	@Value("#{config['admin.pw']}")
+	private String adminPw;
 
 	@Autowired
 	private PhotoDAO photoDao;
@@ -57,6 +64,9 @@ public class CustomerController {
 
 	@Autowired
 	private ClassDAO classDao;
+	
+	@Autowired
+	PurchaseDAO purchaseDao;
 
 	@RequestMapping("/join")
 	public String join() {
@@ -128,8 +138,16 @@ public class CustomerController {
 		// 로그인 실패
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put("mBean", bean);
-		System.out.println(bean.getCustomerId());
-		System.out.println(bean.getCustomerPw());
+		
+		// 운영자 로그인
+		if(bean.getCustomerId().equals(adminId) && bean.getCustomerPw().equals(adminPw)){
+			
+			req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, bean);
+			req.getSession().setAttribute(Constants.RESULT_CODE, "A");
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put("admin",bean);
+			return resMap;
+		}
 
 		try {
 			CustomerBean customerBean = customerService.selectCustomer(bean);
@@ -203,6 +221,22 @@ public class CustomerController {
 		req.getSession().invalidate();
 
 		 return "redirect:/main.do";
+	}
+	
+	@RequestMapping("/applicationProc")
+	public String applicationProc(ClassBean classBean, CustomerBean cusBean) {
+		System.out.println(classBean.getStudyId());
+		System.out.println(cusBean.getCustomerId());
+		
+		PurchaseBean purBean = new PurchaseBean();
+		purBean.setStudyId(classBean.getStudyId());
+		purBean.setCustomerId(cusBean.getCustomerId());
+		// 기본값 0 
+		purBean.setPurchaseSort("0");
+		
+		purchaseDao.insertPurchase(purBean);
+		
+		return "applicationSuccess";
 	}
 
 	/** ID 중복체크 **/

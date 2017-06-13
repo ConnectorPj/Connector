@@ -36,7 +36,10 @@
 		<include refid="teacherColumns" />
 		FROM
 		teacher
+		WHERE
+		teacher_check =#{teacherCheck}
 	</select>
+
 
 	<insert id="insertTeacher" parameterType="teacherBean">
 		INSERT INTO teacher

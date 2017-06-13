@@ -254,7 +254,6 @@ span.buttonText {
 <script type="text/javascript">
 	$(window).scroll(function() {
 		var scrollValue = $(document).scrollTop();
-		console.log(scrollValue);
 	});
 
 	$(document).ready(
@@ -539,7 +538,7 @@ span.buttonText {
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
-									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
+									<input type="hidden" value="${sessionScope.memberLoginBean.teacherName}" id="loginName">
 
 								</c:if>
 
@@ -550,10 +549,17 @@ span.buttonText {
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
 									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
-
-
-
+									<input type="hidden" value="${sessionScope.memberLoginBean.customerId}" id="memberId">
 								</c:if>
+								
+								<!-- 관리자가 로그인 했다면 -->
+								<c:if test="${sessionScope.code eq 'A' }">
+									<li style="width: 150px;"><a href="adminPage.do">
+											관리자님이 로그인중입니다.</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+								</c:if>
+								
 							</c:otherwise>
 						</c:choose>
 

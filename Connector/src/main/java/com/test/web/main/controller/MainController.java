@@ -64,7 +64,10 @@ public class MainController {
 	}
 
 	@RequestMapping("/payment")
-	public String payment(Model model) {
+	public String payment(Model model, ClassBean cBean) {
+		ClassBean classBean = classDao.selectClass(cBean);
+		model.addAttribute("classBean",classBean);
+		
 		return "payment";
 	}
 

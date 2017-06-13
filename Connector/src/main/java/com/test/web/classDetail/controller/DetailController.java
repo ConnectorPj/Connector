@@ -82,6 +82,14 @@ public class DetailController {
 
 		return "classDetail";
 	}
+	
+	@RequestMapping("/detailProc")
+	public String detailProc(Model model, ClassBean cBean) {
+		ClassBean selBean = classDao.selectClass(cBean);
+		model.addAttribute("ClassBean", selBean);
+		
+		return "applicationsuccess";
+	}
 
 	int dayCal(String str, String str1) {
 		try {

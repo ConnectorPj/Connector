@@ -199,7 +199,7 @@
 			
 			$("#actionBtn").click(function() {
 				if (confirm("참가 신청 하시겠습니까?")) {
-					location.href="payment.do?"+$("#studyId").val();
+					location.href="payment.do?studyId="+$("#studyId").val();
 				}
 			});
 			

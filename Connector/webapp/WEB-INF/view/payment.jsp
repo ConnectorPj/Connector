@@ -18,11 +18,11 @@
 <body>
 	<section>
 
-		<div id="section-left">
+		<div id="section-left" style="width: 40%;">
 			<div id="title" style="margin-left: 5px">참가비 결제</div>
 			<div id="scheduled amount"
 				style="margin-left: 5px; margin-top: 30px; width: auto">
-				<div id="amount">240,000 원</div>
+				<div id="amount">${classBean.studyPrice}원</div>
 				결제 예정 금액
 			</div>
 			<hr style="background-color: #999999; height: 1px; width: 96%;" />
@@ -37,7 +37,7 @@
 
 		<hr id="col1" />
 
-		<div id="section-right">
+		<div id="section-right" style="width: 60%;">
 			<div id="nicepay">
 				<div id="nicepay-left">
 					<img src="/resources/images/image.jpg" width="30px" /> &nbsp;
@@ -47,22 +47,6 @@
 					안전한 나이스페이 전자결제 서비스에 직접 등록되며, 코넥터 서버에 별도로 저장되지 않습니다.</div>
 			</div>
 
-			<div id="input-group">
-				<div id="input">적립금 사용 &nbsp;&nbsp;&nbsp;</div>
-				<input id="inputMoney" type="text" placeholder="0원"
-					style="font-size: 14px; font-weight: 1;" />
-				<div id="input-button">
-					<button href="#" class="btn btn-primary btn-lg raised apply">적용하기</button>
-				</div>
-			</div>
-
-			<div id="usable">
-				<div id="usable-text">사용 가능 적립금:</div>
-				<div id="money" style="color: deepskyblue">0원</div>
-			</div>
-
-			<hr id="row2" style="background-color: #999999; height: 1px;" />
-
 			<div id="section-right">
 
 				<div id="title1" style="maring-left: 40px; float: left;">결제 방법
@@ -70,13 +54,20 @@
 
 				<div id="div-card">
 					<input id="card" type="radio" value="card" />&nbsp; 체크/신용카드
+					<input type="hidden" id="studyId" value="${classBean.studyId}">
 				</div>
 			</div>
 
-			<button href="applicationSuccess.do"
-				class="btn btn-primary btn-lg raised end" style="margin-top: 70px;">다음으로</button>
+			<button class="btn btn-primary btn-lg raised end"
+				style="margin-top: 70px;" id="actionBtn">다음으로</button>
 
 		</div>
+		<script type="text/javascript">
+		
+		$("#actionBtn").click(function() {
+				 location.href="applicationProc.do?studyId="+$("#studyId").val()+"&customerId="+$("#memberId").val();
+		});
+		</script>
 
 	</section>
 
