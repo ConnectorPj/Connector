@@ -237,6 +237,61 @@ public class DetailController {
 		return resMap;
 		
 	}
+	@RequestMapping("/updateClass")
+	@ResponseBody
+	public Map<String, Object> updateClass(ClassBean bean) {
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
 
+		try {
+			
+			ClassBean cBean = new ClassBean();
+			cBean = classDao.selectClass(bean);
+			cBean.setStudyCheck("1");
+			
+			int res = classDao.updateClass(cBean);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+
+	}
+	
+
+	@RequestMapping("/calcelClass")
+	@ResponseBody
+	public Map<String, Object> calcelClass(ClassBean bean) {
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
+
+		try {
+			
+			ClassBean cBean = new ClassBean();
+			cBean = classDao.selectClass(bean);
+			cBean.setStudyCheck("0");
+			
+			int res = classDao.updateClass(cBean);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+
+	}
 
 }

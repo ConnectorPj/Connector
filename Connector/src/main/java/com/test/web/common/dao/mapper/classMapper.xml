@@ -6,6 +6,7 @@
 	<sql id="classColumns">
 		study_id AS studyId,
 		teacher_id AS teacherId,
+		teacher_name AS teacherName,
 		study_name AS
 		studyName,
 		study_info AS studyInfo,
@@ -186,6 +187,10 @@
 		#{studyReference},
 		study_check =
 		#{studyCheck}
+		
+		WHERE
+		study_id= #{studyId}
+		
 	</update>
 
 	<delete id="deleteClass" parameterType="classBean">

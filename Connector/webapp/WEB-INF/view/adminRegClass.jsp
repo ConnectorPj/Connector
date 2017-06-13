@@ -22,17 +22,78 @@
 
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries"></script>
+<script type="text/javascript">
+
+function updateClass(studyId) {
+
+	$.ajax({
+		type : "post",
+		url : "/updateClass.do",
+		dataType : "json",
+		data : {
+			studyId : studyId
+		},
+		success : function(data) {
+			console.log(data);
+			
+			if(data.result == "ok") {
+				location.href = 'adminStudyList.do?pageNo=1'
+			} else {
+				alert(data.resultMsg);
+			}
+			
+		},
+		error : function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+		}
+	});
+};
+
+function calcelClass(studyId) {
+
+	$.ajax({
+		type : "post",
+		url : "/calcelClass.do",
+		dataType : "json",
+		data : {
+			studyId : studyId
+		},
+		success : function(data) {
+			console.log(data);
+			
+			if(data.result == "ok") {
+				location.href = 'adminStudyList.do?pageNo=1'
+			} else {
+				alert(data.resultMsg);
+			}
+			
+		},
+		error : function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+		}
+	});
+};
+</script>
 
 </head>
 <body>
 	<div id="classWrap">
+	<form id="classForm" method="post">
 		<div id="class">
+
 			<div id="title">
 				<div id="carousel-example-generic" class="carousel slide"
 					data-ride="carousel">
 					<!-- Indicators -->
 				</div>
-				<div class="reviewImg" ><img style="width: 100%; height: 350px;" src="/upfile/${photoBean.photoFileName}.jpg" alt="realReview"></div>
+				<div class="reviewImg">
+					<img style="width: 100%; height: 350px;"
+						src="${photoBean.photoFileName}" alt="realReview">
+				</div>
 				<div id="title" class="title">${ClassBean.studyName}</div>
 			</div>
 			<hr />
@@ -42,16 +103,18 @@
 				<div id="StudyContent" class="StudyContent">
 					${ClassBean.studyInfo}</div>
 				<hr />
+
 			</div>
 			<!-- end of studyintro -->
-			
+
 			<div id="studyRefer">
 				<div id="studyTitle" class="studyTitle">참고 사항</div>
-				<div id="StudyContent" class="StudyContent"> ${ClassBean.studyReference}</div>
+				<div id="StudyContent" class="StudyContent">
+					${ClassBean.studyReference}</div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
-			
+
 
 			<div id="detail">
 				<div id="detailTitle" class="detailTitle">상세정보</div>
@@ -79,38 +142,42 @@
 
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-							center : new daum.maps.LatLng($("#Alt").val(),$("#Att").val()), // 지도의 중심좌표
-							level : 3 // 지도의 확대 레벨
-						};
-				
+					mapOption = {
+						center : new daum.maps.LatLng($("#Alt").val(),
+								$("#Att").val()), // 지도의 중심좌표
+						level : 3
+					// 지도의 확대 레벨
+					};
+
 					var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				
+
 					// 마커를 표시할 위치입니다 
-					var position = new daum.maps.LatLng($("#Alt").val(), $("#Att").val());
-				
+					var position = new daum.maps.LatLng($("#Alt").val(), $(
+							"#Att").val());
+
 					// 마커를 생성합니다
 					var marker = new daum.maps.Marker({
 						position : position
 					});
-				
+
 					// 마커를 지도에 표시합니다.
 					marker.setMap(map);
-				
+
 					// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 					var iwContent = '<div style="padding:5px;">스터디 위치 입니다.</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				
+
 					// 인포윈도우를 생성합니다
 					var infowindow = new daum.maps.InfoWindow({
 						content : iwContent
 					});
-				
+
 					// 마커에 마우스오버 이벤트를 등록합니다
-					daum.maps.event.addListener(marker, 'mouseover', function() {
-						// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-						infowindow.open(map, marker);
-					});
-				
+					daum.maps.event.addListener(marker, 'mouseover',
+							function() {
+								// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+								infowindow.open(map, marker);
+							});
+
 					// 마커에 마우스아웃 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseout', function() {
 						// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -136,8 +203,9 @@
 		</div>
 
 		<div id="side">
-			<label id="sideTitle" class="sideTitle"> ${ClassBean.studyName} </label>
-			<form class="sideWrap">
+			<label id="sideTitle" class="sideTitle">
+				${ClassBean.studyName} </label>
+			<div class="sideWrap">
 				<ul class="sideSchedule">
 					<li><input type="radio" class="choiceBtn" value="N"> <label
 						for="choiceBtn"> <span class="mock-radio"></span> <span
@@ -145,19 +213,24 @@
 					</label>
 						<div class="titleLevel">
 							<div class="levelText1">분야명</div>
-							<div id="levelText" class="levelText2"> ${ClassBean.studyProgressName}</div>
+							<div id="levelText" class="levelText2">
+								${ClassBean.studyProgressName}</div>
 						</div></li>
 				</ul>
 				<div class="sideCostWrap">
 					<span id="sideCostInit" class="sideCostInit">참가비</span> <span
 						class="sideCost">${ClassBean.studyPrice}원</span>
 				</div>
-				<br>
-				&nbsp;&nbsp;
-				<input id="actionBtn" type="button" value="승인하기">&nbsp;&nbsp;
-				<input id="actionBtn" type="button" value="취소하기">
-			</form>
+
+				<br> &nbsp;&nbsp; 
+				<input id="actionBtn" type="button"
+					value="승인하기"
+					onclick="updateClass('${ClassBean.studyId}'); return false;">&nbsp;&nbsp;
+				<input id="actionBtn" type="button" value="취소하기"
+					onclick="calcelClass('${ClassBean.studyId}'); return false;">
+			</div>
 		</div>
+		</form>
 		<!-- end of side -->
 	</div>
 </body>

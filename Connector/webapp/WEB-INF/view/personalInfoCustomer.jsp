@@ -138,7 +138,8 @@
 				<div class="sub_menu">
 					<ul>
 						<li><a href="personalInfoCustomer.do" class="on">개인정보</a></li>
-						<li><a href="payorder.do">수업 결제 내역</a></li>
+						<li><a href="payorder.do" >마이 클래스</a></li>
+						<li><a href="bucketList.do">마이 찜목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
