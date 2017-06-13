@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.CustomerBean;
+import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.ReviewBean;
+import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.service.ReviewService;
+import com.test.web.common.service.TeacherService;
 
 @Controller
 public class RealReviewController {
@@ -64,8 +67,9 @@ public class RealReviewController {
 				.getAttribute(Constants.MEMBER_LOGIN_BEAN);
 			if(cBean != null) {
 				rBean.setCustomerId( cBean.getCustomerId() );
+				rBean.setCustomerName(cBean.getCustomerName());
 			}
-			
+		    
 			int res = reviewService.insertReviewAttach(rBean);
 			if(res > 0) {
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);

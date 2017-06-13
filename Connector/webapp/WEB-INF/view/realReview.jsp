@@ -201,10 +201,16 @@ function showReviewList(studyProgressname) {
 				
 				//댓글 리스트 출력
 				$.each(data.reviewList, function(i, rBean) {
+					if(rBean.customerPicture == null) {
+						rBean.customerPicture = "/resources/images/userIcon.png";
+					}
+					if(rBean.teacherPicture == null) {
+						rBean.teacherPicture = "/resources/images/userIcon.png";
+					}
 					var str = "";
 					str += '<ul class="reviewList">';
 					str += '<li class="review">';
-					str += '<div class="writerPhoto"><img src="/resources/images/profile.jpg"></div>';
+					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
 					str += '<div class="reviewContentWrap">';
 					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
 					str += '<ul class="score">';
@@ -220,7 +226,7 @@ function showReviewList(studyProgressname) {
 					str += '<span>'+ rBean.reviewContent +'</span></div>';
 					str += '<div class="reviewContentFooter">';
 					str += '<a class="leader" href="#">';
-					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="/resources/images/profile.jpg"></span>';
+					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="'+ rBean.teacherPicture +'"></span>';
                     str += '</a>';
                     str += '</div>';
                     str += '</div>';
@@ -286,10 +292,16 @@ function showNextReviewList() {
 				//댓글 리스트 출력
 				//$("#realReviewInfo").load(window.location.href);
 				$.each(data.reviewList, function(i, rBean) {
+					if(rBean.customerPicture == null) {
+						rBean.customerPicture = "/resources/images/userIcon.png";
+					}
+					if(rBean.teacherPicture == null) {
+						rBean.teacherPicture = "/resources/images/userIcon.png";
+					}
 					var str = "";
 					str += '<ul class="reviewList">';
 					str += '<li class="review">';
-					str += '<div class="writerPhoto"><img src="/resources/images/profile.jpg"></div>';
+					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
 					str += '<div class="reviewContentWrap">';
 					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
 					str += '<ul class="score">';
@@ -305,7 +317,7 @@ function showNextReviewList() {
 					str += '<span>'+ rBean.reviewContent +'</span></div>';
 					str += '<div class="reviewContentFooter">';
 					str += '<a class="leader" href="#">';
-					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="/resources/images/profile.jpg"></span>';
+					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="'+ rBean.teacherPicture +'"></span>';
                     str += '</a>';
                     str += '</div>';
                     str += '</div>';

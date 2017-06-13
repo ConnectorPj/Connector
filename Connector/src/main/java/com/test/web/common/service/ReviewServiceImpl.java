@@ -1,5 +1,6 @@
 package com.test.web.common.service;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.test.web.common.bean.ClassBean;
+import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.ReviewBean;
+import com.test.web.common.dao.ClassDAO;
+import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.ReviewDAO;
 
 @Service
@@ -17,6 +22,10 @@ public class ReviewServiceImpl implements ReviewService {
 //	private BoardDao boardDao;
 	@Autowired
 	private ReviewDAO reviewDao;
+	@Autowired
+	private PhotoDAO photoDAO;
+	@Autowired
+	private ClassDAO classDAO;
 //	@Autowired
 //	private AttachDao boardAttachDao;
 	
@@ -53,11 +62,29 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int insertReviewAttach(ReviewBean rBean) {
 		
-		//TODO 테스트 데이터
-		rBean.setCustomerId("abcde");
-		rBean.setTeacherId("ffff");
-		rBean.setStudyProgressname("IoT");
-		rBean.setTeacherName("아무개");
+		PhotoBean photoBean = new PhotoBean();
+		ClassBean cBean = new ClassBean();
+		//학생 사진 넣기(Realreview안에)
+		photoBean.setMemberId(rBean.getCustomerId());
+		cBean.setStudyId(rBean.getStudyId());
+		cBean = classDAO.selectClass(cBean);
+		rBean.setStudyProgressname(cBean.getStudyProgressName());
+		
+		try{
+			photoBean = photoDAO.selectPhoto(photoBean);
+			rBean.setCustomerPicture(photoBean.getPhotoFileName());
+		}catch (NullPointerException e) {
+			System.out.println("사진이 없는 계정");
+		}
+		//강사 사진 넣기(Realreview안에)
+		photoBean.setMemberId(rBean.getTeacherId());
+		
+		try{	
+			photoBean = photoDAO.selectPhoto(photoBean);
+			rBean.setTeacherPicture(photoBean.getPhotoFileName());
+		}catch (NullPointerException e) {
+			System.out.println("사진이 없는 계정");
+		}
 		
 		int resVal1 = reviewDao.insertReview(rBean);
 		
@@ -65,5 +92,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return resVal1;
 	}
+	
+	
 	
 }

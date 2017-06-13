@@ -6,6 +6,7 @@
         review_no AS reviewNo, 
         customer_id AS customerId,
 	    teacher_id AS teacherId,
+	    study_id AS studyId,
 	    customer_name AS customerName,
 	    teacher_name AS teacherName,
 	    customer_picture AS customerPicture,
@@ -55,6 +56,7 @@
  		( 
  			customer_id,
  			teacher_id,
+ 			study_id,
  			customer_name,
  			teacher_name,
  			customer_picture,
@@ -63,11 +65,13 @@
  			study_programlanguage,
  			review_content,
  			review_rating
+ 			
  		)
 		VALUES
  		(
  			#{customerId},
  			#{teacherId}, 
+ 			#{studyId},
  			#{customerName},
  			#{teacherName},
  			#{customerPicture},

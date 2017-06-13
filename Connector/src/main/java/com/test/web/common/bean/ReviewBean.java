@@ -5,6 +5,7 @@ public class ReviewBean {
 	private int reviewNo;
 	private String customerId;
 	private String teacherId;
+	private String studyId;
 	private String customerName;
 	private String teacherName;
 	private String customerPicture;
@@ -17,6 +18,12 @@ public class ReviewBean {
 	private int startRow;
 	
 	
+	public String getStudyId() {
+		return studyId;
+	}
+	public void setStudyId(String studyId) {
+		this.studyId = studyId;
+	}
 	public int getStartRow() {
 		return startRow;
 	}
