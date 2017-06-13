@@ -13,6 +13,8 @@ public interface TeacherDAO {
 
 	public List<TeacherBean> selectTeacherList(@Param("teacherBean") TeacherBean bean,
 			@Param("pagingBean") PagingBean pBean);
+	
+	public List<TeacherBean> selectTeacherList(TeacherBean bean);
 
 	public int insertTeacher(TeacherBean bean);
 

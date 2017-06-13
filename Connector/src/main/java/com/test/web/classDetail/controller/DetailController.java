@@ -142,6 +142,7 @@ public class DetailController {
 			int totRecord = teacherService.selectClassListTotalCount(bean, pagingBean);
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
+			bean.setStudyCheck("1");
 
 			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
 
@@ -157,7 +158,29 @@ public class DetailController {
 
 		return resMap;
 	}
-
+	/** 클래스 리스트 AJAX **/
+	@RequestMapping("/selectClassListAjax2")
+	@ResponseBody
+	public Map<String, Object> selectClassListAjax2(ClassBean bean, Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+		
+		try {
+			bean.setStudyCheck("0");
+			List<ClassBean> list = classDao.selectClassListAllunChecked(bean);
+			
+			resMap.put("classBean", bean);
+			resMap.put("ClassList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+	}
 	/** 클래스 가져오깅 */
 	@RequestMapping("/selectClass")
 	@ResponseBody

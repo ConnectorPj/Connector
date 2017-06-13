@@ -32,6 +32,7 @@ public interface TeacherService {
 
 	/** 회원정보를 조회해서 리스트로 가져온다. **/
 	public List<TeacherBean> selectTeacherList(TeacherBean bean, PagingBean pBean) throws Exception;
+	public List<TeacherBean> selectTeacherList(TeacherBean bean) throws Exception;
 
 	/** 전체 Teacher 데이터 갯수를 가져온다. **/
 	public int selectTeacherListTotalCount(TeacherBean bean, PagingBean pBean);

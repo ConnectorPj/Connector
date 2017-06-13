@@ -24,6 +24,8 @@ public interface ClassDAO {
 
 	public List<ClassBean> selectClassListAll(@Param("classBean") ClassBean bean, @Param("pagingBean") PagingBean pBean)
 			throws Exception;
+	public List<ClassBean> selectClassListAllunChecked( ClassBean bean)
+			throws Exception;
 
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	public int selectClassListTotalCount();

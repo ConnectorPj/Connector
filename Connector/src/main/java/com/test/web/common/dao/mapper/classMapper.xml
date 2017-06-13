@@ -49,6 +49,17 @@
 		LIMIT #{pagingBean.startRow},
 		#{pagingBean.endRow}
 	</select>
+	<!-- Class List 조회 -->
+	<select id="selectClassListAllunChecked" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_check=#{studyCheck}
+		order by study_regdate DESC
+
+	</select>
 
 	<!-- 카테 고리상 조회 -->
 	<select id="selectConClassList" resultType="classBean"

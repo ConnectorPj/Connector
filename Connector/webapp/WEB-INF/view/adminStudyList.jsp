@@ -20,6 +20,8 @@
 
 <script type="text/javascript">
 $(function() {
+	
+	//등록된 수업
 			$.ajax({
 				type: "post",
 				url: "/selectClassListAjax.do",
@@ -39,7 +41,8 @@ $(function() {
 							str += "<tr>";
 							str += "<td>" + num++ + "</td>";
 							str += "<td>" + classBean.studyName + "</td>";
-							str += "<td><a href='adminRegClass.do?studyId=" + classBean.studyId + "'><input type='button' value='등록하기'/></a></td>";
+							str += "<td><a href='adminRegClass.do?studyId=" + classBean.studyId + "'>등록완료</a></td>";
+
 							str += "</tr>";
 
 							$("#memberListBody").append(str);
@@ -65,6 +68,42 @@ $(function() {
 				               str2 += "<li><a href='adminStudyList.do?pageNo=" + pBean.totalPageCount + "'> 끝 </a></li>";
 				               str2 += "</ul>";
 				               $("#page").html(str2);
+						});
+						
+					} else {
+						alert(data.resultMsg);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " 
+							+ status + ", error : " + error);      
+				}
+			});
+		});
+$(function() {
+			$.ajax({
+				type: "post",
+				url: "/selectClassListAjax2.do",
+				dataType: "json",
+				success: function(data) {
+					console.log(data);
+					
+					
+					if(data.result == "ok") {
+						var num=1;
+						//리스트 출력
+						$.each(data.ClassList, function(i, classBean) {
+							var str = "";
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>" + classBean.studyName + "</td>";
+							str += "<td><a href='adminRegClass.do?studyId=" + classBean.studyId + "'><input type='button' value='등록하기'/></a></td>";
+							str += "</tr>";
+
+							$("#memberListBody").append(str);
+							
+							
 						});
 						
 					} else {

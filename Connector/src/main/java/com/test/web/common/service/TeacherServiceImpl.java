@@ -109,6 +109,10 @@ public class TeacherServiceImpl implements TeacherService {
 	public List<TeacherBean> selectTeacherList(TeacherBean bean, PagingBean pBean) throws Exception {
 		return teacherDao.selectTeacherList(bean, pBean);
 	}
+	@Override
+	public List<TeacherBean> selectTeacherList(TeacherBean bean) throws Exception {
+		return teacherDao.selectTeacherList(bean);
+	}
 
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	@Override

@@ -51,13 +51,10 @@ function delTeacher(teacherId) {
 	}
 	
 };
-	$(function() {
+$(function() {
 	$.ajax({
 		type : "post",
-		url : "/selectTeacherListAjax.do",
-		data : {
-			pageNo : "${param.pageNo}"
-		},
+		url : "/selectTeacherListAjax2.do",
 		dataType : "json",
 		success : function(data) {
 			console.log(data);
@@ -72,7 +69,54 @@ function delTeacher(teacherId) {
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str += "<td><a href='adminRegTeacherAjax.do?teacherId="+ teacherBean.teacherId + '&memberId='
-								+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
+						+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
+						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						str += "</tr>";
+
+						$("#memberListBody").append(str);
+
+						
+
+					});
+				
+				
+				
+			} else {
+				alert(data.resultMsg);
+			}
+		},
+		error : function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+		}
+	});
+	});
+
+
+
+	$(function() {
+	$.ajax({
+		type : "post",
+		url : "/selectTeacherListAjax.do",
+		data : {
+			pageNo : "${param.pageNo}"
+		},
+		dataType : "json",
+		success : function(data) {
+			console.log(data);
+
+			//강사가 등록 된것 
+			if (data.result == "ok") {
+				var num = 1;
+				//리스트 출력
+				$.each(data.TeacherList,
+					function(i, teacherBean) {
+						var str = "";
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + teacherBean.teacherName + "</td>";
+						str +="<td></td>";
 						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
 
@@ -112,6 +156,9 @@ function delTeacher(teacherId) {
 		}
 	});
 	});
+	
+	
+	
 </script>
 </head>
 <body>
