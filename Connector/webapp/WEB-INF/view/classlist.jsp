@@ -58,6 +58,48 @@ $(function() {
 				}
 			});
 		});
+$(function() {
+	
+			$.ajax({
+				type: "post",
+				url: "/selectClassAjax2.do",
+
+				dataType: "json",
+				data : {
+		              teacherId:"${sessionScope.memberLoginBean.teacherId}"
+		           },
+				success: function(data) {
+					console.log(data);
+					
+					
+					if(data.result == "ok") {
+						var num=1;
+						//리스트 출력
+						$.each(data.ClassList, function(i, classBean) {
+							var str = "";
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>" + classBean.studyId + "</td>";
+							str += "<td>" + classBean.studyName + "</td>";
+							str += "<td>" + classBean.studyProgramLanguage + "</td>";
+							str += "<td>" + classBean.studyLocation + "</td>";
+							str += "<td>대기중</td>";
+							str += "</tr>";
+
+							$("#memberListBody2").append(str);
+						});
+						
+					} else {
+						alert(data.resultMsg);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " 
+							+ status + ", error : " + error);      
+				}
+			});
+		});
 	
 	</script>
 
@@ -110,7 +152,10 @@ $(function() {
 									<th>등록 일</th>
 								</tr>
 							</thead>
+							</tbody>
+							<tbody id="memberListBody2">
 							<tbody id="memberListBody">
+
 
 							</tbody>
 						</table>

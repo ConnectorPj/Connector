@@ -24,35 +24,77 @@
 
 
 <script type="text/javascript">
-	$(function() {
+   $(function() {
 
-		$.ajax({
-			type : "post",
-			url : "/selectCustomerPurchaseList.do",
-			dataType : "json",
-			data : {
-				customerId : "${sessionScope.memberLoginBean.customerId}"
-			},
-			success : function(data) {
-				console.log(data);
+      $.ajax({
+         type : "post",
+         url : "/selectCustomerPurchaseList.do",
+         dataType : "json",
+         data : {
+            customerId : "${sessionScope.memberLoginBean.customerId}"
+         },
+         success : function(data) {
+            console.log(data);
 
-				if (data.result == "ok") {
-					var num = 1;
-					//리스트 출력
-					$.each(data.ClassList, function(i, classBean) {
-						var str = "";
-						str += "<tr>";
-						str += "<td>" + num++ + "</td>";
-						str += "<td>" + classBean.studyName + "</td>";
-						str += "<td>" + classBean.studyProgramLanguage + "</td>";
-						str += "<td>" + classBean.teacherName + "</td>";
-						str += "<td>" + classBean.studyLocation + "</td>";
-						str += "<td><button type='button' onclick='openModal("
-								+ classBean.studyId
-								+ ");' class='reviewBtn'>후기쓰기</button></td>";
+            if (data.result == "ok") {
+               var num = 1;
+               //리스트 출력
+               $.each(data.ClassList, function(i, classBean) {
+                  var str = "";
+                  str += "<tr>";
+                  str += "<td>" + num++ + "</td>";
+                  str += "<td>" + classBean.studyName + "</td>";
+                  str += "<td>" + classBean.studyProgramLanguage + "</td>";
+                  str += "<td>" + classBean.teacherName + "</td>";
+                  str += "<td>" + classBean.studyLocation + "</td>";
+                  str += "<td><button type='button' onclick='openModal("+'"'
+                        + classBean.studyId +'"'
+                        + ");' class='reviewBtn'>후기쓰기</button></td>";
+                  str += "</tr>";
+
+                  $("#memberListBody").append(str);
+               });
+
+            } else {
+               alert(data.resultMsg);
+            }
+         },
+         error : function(xhr, status, error) {
+            console.log(xhr);
+            alert("error\nxhr : " + xhr + ", status : " + status
+                  + ", error : " + error);
+         }
+      });
+   });
+   
+   /**대기*/
+   $(function() {
+
+      $.ajax({
+         type : "post",
+         url : "/selectCustomerPurchaseList2.do",
+         dataType : "json",
+         data : {
+            customerId : "${sessionScope.memberLoginBean.customerId}"
+         },
+         success : function(data) {
+            console.log(data);
+
+            if (data.result == "ok") {
+               var num = 1;
+               //리스트 출력
+               $.each(data.ClassList, function(i, classBean) {
+                  var str = "";
+                  str += "<tr>";
+                  str += "<td>" + num++ + "</td>";
+                  str += "<td>" + classBean.studyName + "</td>";
+                  str += "<td>" + classBean.studyProgramLanguage + "</td>";
+                  str += "<td>" + classBean.teacherName + "</td>";
+                  str += "<td>" + classBean.studyLocation + "</td>";
+               str+="<td>대기중</td>";
 						str += "</tr>";
 
-						$("#memberListBody").append(str);
+						$("#memberListBody2").append(str);
 					});
 
 				} else {
@@ -66,41 +108,40 @@
 			}
 		});
 	});
-	
+
 	function btnReviewWrite() {
-		
+
 		var formData = new FormData();
 
 		var reviewRating = document.getElementById("reviewRating").value;
 		var reviewContent = document.getElementById("reviewContent").value;
 		//var teacherName = document.getElementById("teacherName").value;
-		
-		formData.append("reviewRating", reviewRating );
-		formData.append("reviewContent", reviewContent );
-		//formData.append("teacherName", teacherName );
-		
-		
-		$.ajax({
-                url: '/realReviewInsertProc.do',
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: 'POST',
-                success: function(data){
-                    
-                	alert(data.resultMsg);
-                	
-                	if(data.result == "ok") {
-                		//화면이동 처리
-                	} else {
-        				alert(data.resultMsg);
-        			}
 
-        		},
-        		error: function() {
-					alert("리뷰 작성 성공");      
+		formData.append("reviewRating", reviewRating);
+		formData.append("reviewContent", reviewContent);
+		//formData.append("teacherName", teacherName );
+
+		$.ajax({
+			url : '/realReviewInsertProc.do',
+			processData : false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			success : function(data) {
+
+				alert(data.resultMsg);
+
+				if (data.result == "ok") {
+					//화면이동 처리
+				} else {
+					alert(data.resultMsg);
 				}
-        	});
+
+			},
+			error : function() {
+				alert("리뷰 작성 성공");
+			}
+		});
 
 	};//end function
 </script>
@@ -162,6 +203,8 @@
 								</tr>
 							</thead>
 							<tbody id="memberListBody">
+				</tbody>
+							<tbody id="memberListBody2">
 
 							</tbody>
 						</table>
@@ -188,22 +231,21 @@
 					<div>
 						<h2>리뷰 쓰기</h2>
 
-						<h4 id="teacherName"> 
-						</h4>
+						<h4 id="teacherName"></h4>
 						<form method="post" id="reviewForm">
 
 							<div>
-								<fieldset class="rating" id="rating" >
-									<input type="radio" id="star5" name="rating" value="5" />
-										<label class="full" for="star5" title="Awesome - 5 stars"></label>
-									<input type="radio" id="star4" name="rating" value="4" />
-										<label class="full" for="star4" title="Pretty good - 4 stars"></label>
-									<input type="radio" id="star3" name="rating" value="3" />
-										<label class="full" for="star3" title="Meh - 3 stars"></label>
-									<input type="radio" id="star2" name="rating" value="2" />
-										<label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-									<input type="radio" id="star1" name="rating" value="1" />
-										<label class="full" for="star1" title="Sucks big time - 1 star"></label>
+								<fieldset class="rating" id="rating">
+									<input type="radio" id="star5" name="rating" value="5" /> <label
+										class="full" for="star5" title="Awesome - 5 stars"></label> <input
+										type="radio" id="star4" name="rating" value="4" /> <label
+										class="full" for="star4" title="Pretty good - 4 stars"></label>
+									<input type="radio" id="star3" name="rating" value="3" /> <label
+										class="full" for="star3" title="Meh - 3 stars"></label> <input
+										type="radio" id="star2" name="rating" value="2" /> <label
+										class="full" for="star2" title="Kinda bad - 2 stars"></label>
+									<input type="radio" id="star1" name="rating" value="1" /> <label
+										class="full" for="star1" title="Sucks big time - 1 star"></label>
 								</fieldset>
 							</div>
 
@@ -213,10 +255,11 @@
 							</div>
 							<br />
 							<div>
-								<button class="btnReview" onclick="btnReviewWrite()">리뷰 쓰기</button>
+								<button class="btnReview" onclick="btnReviewWrite()">리뷰
+									쓰기</button>
 							</div>
-							<br /> <br />
-							<input type="hidden" id="reviewRating" name="reviewRating" />
+							<br /> <br /> <input type="hidden" id="reviewRating"
+								name="reviewRating" />
 
 						</form>
 
@@ -232,52 +275,52 @@
 
 	<!-- Review Modal -->
 	<script type="text/javascript">
-		var modalReview = document.getElementById("myReviewModal");
-		function openModal(bean) {
+      var modalReview = document.getElementById("myReviewModal");
+      function openModal(bean) {
 
-			$(function() {
+         $(function() {
 
-				$.ajax({
-					type : "post",
-					url : "/selectClass.do",
-					dataType : "json",
-					data : {
-						studyId : bean
-					},
-					success : function(data) {
-						console.log(data);
+            $.ajax({
+               type : "post",
+               url : "/selectClass.do",
+               dataType : "json",
+               data : {
+                  studyId : bean
+               },
+               success : function(data) {
+                  console.log(data);
 
-						if (data.result == "ok") {
-							var cBean = data.classBean;
-							document.getElementById("teacherName").textContent=cBean.studyName+"강사님의스터디에 대한 평가를 해주세요!";
-							
-						} else {
-							alert("외않되?");
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
-					}
-				});
-			});
-			modalReview.style.display = "block";
+                  if (data.result == "ok") {
+                     var cBean = data.classBean;
+                     document.getElementById("teacherName").textContent=cBean.studyName+"강사님의스터디에 대한 평가를 해주세요!";
+                     
+                  } else {
+                     alert("외않되?");
+                  }
+               },
+               error : function(xhr, status, error) {
+                  console.log(xhr);
+                  alert("error\nxhr : " + xhr + ", status : " + status
+                        + ", error : " + error);
+               }
+            });
+         });
+         modalReview.style.display = "block";
 
-		}
+      }
 
-		// When the user clicks on <span> (x), close the modal
+      // When the user clicks on <span> (x), close the modal
 
-		function closeModal() {
-			modalReview.style.display = "none";
-		}
-	</script>
+      function closeModal() {
+         modalReview.style.display = "none";
+      }
+   </script>
 
 	<script type="text/javascript">
-		$(':radio').change(function() {
-			var reviewRating = $(this).val();
-			document.getElementById("reviewRating").value = parseInt(reviewRating);
-		})
-	</script>
+      $(':radio').change(function() {
+         var reviewRating = $(this).val();
+         document.getElementById("reviewRating").value = parseInt(reviewRating);
+      })
+   </script>
 </body>
 </html>
