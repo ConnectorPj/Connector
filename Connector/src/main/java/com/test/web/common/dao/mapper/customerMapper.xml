@@ -37,7 +37,25 @@
 		customer
 		LIMIT #{pagingBean.startRow}, #{pagingBean.endRow}
 	</select>
+<!-- 회원정보 List 조회 -->
+	<select id="selectStudyMember" resultType="customerBean">
+	SELECT
+		<include refid="memberColumns" />
 
+	FROM
+	customer
+	WHERE
+	customer_id
+	IN(
+	SELECT
+	customer_id
+	FROM
+	purchase_study
+	WHERE
+	study_id=#{studyId}
+	AND
+	purchase_sort=#{purchaseSort});
+	</select>
 
 	<insert id="insertCustomer" parameterType="customerBean">
 		INSERT INTO customer

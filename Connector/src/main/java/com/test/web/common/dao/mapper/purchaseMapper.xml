@@ -76,5 +76,16 @@
 	    WHERE
 	    	customer_id = #{customerId}
 	</delete>
+	
+		<update id="updateStudyMember" parameterType="purchaseBean">
+		UPDATE purchase_study
+		SET
+		purchase_sort =#{purchaseSort}
+		WHERE
+		study_id=#{studyId}
+		AND
+		customer_id=#{customerId};
+
+	</update>
 
 </mapper>

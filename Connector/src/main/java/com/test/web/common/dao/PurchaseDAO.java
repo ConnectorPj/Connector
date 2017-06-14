@@ -19,5 +19,6 @@ public interface PurchaseDAO {
 	public int updatePurchase(PurchaseBean bean);
 	
 	public int deletePurchase(PurchaseBean bean) throws Exception;
+	public int updateStudyMember(PurchaseBean bean);
 
 }

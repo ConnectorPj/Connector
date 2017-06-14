@@ -1,4 +1,4 @@
-package com.test.web.common.service;
+﻿package com.test.web.common.service;
 
 import java.util.List;
 
@@ -14,6 +14,11 @@ public interface CustomerService {
 	/** 회원정보를 조회해서 리스트로 가져온다. **/
 	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean pBean) throws Exception;
 
+
+
+	/** 개인별 구매 내역 조회 */
+	public List<CustomerBean> selectStudyMember(PurchaseBean pBean) throws Exception;
+	
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	public int selectCustomerListTotalCount();
 

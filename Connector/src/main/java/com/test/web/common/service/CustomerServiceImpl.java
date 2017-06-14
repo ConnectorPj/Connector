@@ -1,4 +1,4 @@
-package com.test.web.common.service;
+﻿package com.test.web.common.service;
 
 import java.util.List;
 
@@ -33,6 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.selectCustomerList(bean, pBean);
 	}
 
+	/** 개인별 구매 내역 조회 */
+	public List<CustomerBean> selectStudyMember(PurchaseBean pBean) throws Exception{
+		return customerDao.selectStudyMember(pBean);
+
+	}
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	@Override
 	public int selectCustomerListTotalCount() {

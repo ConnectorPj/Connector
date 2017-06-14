@@ -268,6 +268,65 @@ public class DetailController {
 		return resMap;
 		
 	}
+
+/** 수업에 신청한 학생리스트 뿌려주깅 **/
+	@RequestMapping("/selectStudyMember")
+	@ResponseBody
+	public Map<String, Object> selectStudyMember(PurchaseBean bean,  Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+		try {
+			// 전체 회원 리스트 갯수 조회
+			// int totRecord = memberService.selectMemberListTotalCount();
+			// 페이징 계산
+			// pagingBean.calcPage(totRecord);
+
+			bean.setPurchaseSort("0");
+			List<CustomerBean> list = customerDao.selectStudyMember(bean);
+			
+			resMap.put("customerBean", bean);
+			resMap.put("CustomerList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+	}
+	/** 수업에 듣는 학생리스트 뿌려주깅 **/
+	@RequestMapping("/selectStudyMember2")
+	@ResponseBody
+	public Map<String, Object> selectStudyMember2(PurchaseBean bean,  Model model) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
+		try {
+			// 전체 회원 리스트 갯수 조회
+			// int totRecord = memberService.selectMemberListTotalCount();
+			// 페이징 계산
+			// pagingBean.calcPage(totRecord);
+			
+			bean.setPurchaseSort("1");
+			List<CustomerBean> list = customerDao.selectStudyMember(bean);
+			
+			resMap.put("customerBean", bean);
+			resMap.put("CustomerList", list);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+	}
+
+
 	@RequestMapping("/updateClass")
 	@ResponseBody
 	public Map<String, Object> updateClass(ClassBean bean) {

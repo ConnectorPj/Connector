@@ -668,4 +668,33 @@ public class CustomerController {
 
 	}
 
+
+/**수업 신청 수락하기 */
+@RequestMapping("/updateStudyMember")
+	@ResponseBody
+	public Map<String, Object> updateStudyMember(PurchaseBean bean){
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
+		
+		try {
+//			
+//			PurchaseBean pBean = new PurchaseBean();
+//			pBean = purchaseDao.selectPurchase(bean);
+			bean.setPurchaseSort("1");
+			
+			int res = purchaseDao.updateStudyMember(bean);
+			
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resMap;
+		
+	}
 }

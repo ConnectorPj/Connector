@@ -142,10 +142,12 @@
 			<!-- 서브 네비 -->
 			<div class="sub_nav">
 				<div class="sub_menu">
-					<ul>
+						<ul>
 						<li><a href="personalInfoTeacher.do" class="on">개인정보</a></li>
 						<li><a href="classlist.do">수업 진행 내역</a></li>
-						<li><a href="registerstudy.do">Study 등록하기</a>
+						<c:if test="${sessionScope.memberLoginBean.teacherCheck eq '1' }">
+						<li><a href="registerstudy.do">Study 등록하기</a></li>
+						</c:if>
 					</ul>
 				</div>
 				<div class="sub_title">
