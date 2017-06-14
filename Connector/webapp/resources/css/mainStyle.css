@@ -66,6 +66,91 @@ section .main_visual .visual03 {
 	background-size: cover;
 }
 
+#chatAfter {
+	visibility: hidden;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	background-color: #54707e;
+	width: 330px;
+	height: 400px;
+}
+
+.chatAfter_input {
+	padding-left:10px;
+	width: 100%;
+	height: 15%;
+}
+
+.chatAfter_span {
+	font-size: 20px;
+	text-align: center;
+}
+.close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+#loginAfter {
+	visibility: hidden;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 10000;
+	background-color: #54707e;
+	width: 330px;
+	height: 400px;
+}
+
+.chatText {
+	font-size: 1.2em;
+	text-align: center;
+	color: white;
+	font-weight: 700;
+}
+
+.chatBefore {
+	padding: 5px;
+	position: fixed;
+	right: 20px;
+	bottom: 5px;
+	z-index: 10000;
+	position: fixed;
+	z-index: 10000;
+	background-color: #54707e;
+	border-radius: 20px;
+}
+
+.chatTitle {
+	padding: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 10%;
+	background: #54707e;
+}
+
+.chatContent {
+	background-color: #F5F5F5;
+	width: 100%;
+	padding: 10px;
+	height: 75%;
+	OVERFLOW-Y: auto;
+	word-wrap: break-word;
+	height: 75%;
+}
+
+.chatTitle span {
+	font-size: 20px;
+	color: white;
+	font-size: 20px;
+}
+
 /*분야별 CSS*/
 .classType {
 	width: 60%;
@@ -84,14 +169,13 @@ section .main_visual .visual03 {
 	float: left;
 	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
 	box-sizing: border-box;
-	margin-right:10px;
+	margin-right: 10px;
 }
 
 .classType .classType_box a {
 	display: block;
 	background-color: #000;
 	position: relative;
-	
 }
 
 .classType .classType_box a:hover img {
@@ -166,7 +250,6 @@ section .main_visual .visual03 {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	
 }
 
 div .card:hover {
@@ -424,7 +507,6 @@ div .card:hover {
 	.classType .classType_box a span {
 		line-height: 200px;
 	}
-	
 	.pick_box {
 		width: 96%;
 	}

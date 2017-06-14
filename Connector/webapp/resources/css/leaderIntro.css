@@ -1,6 +1,13 @@
 @CHARSET "UTF-8";
 
+/* @font-face { */
+/* 	font-family: 'aritaFontMedium'; */
+/* 	src: url(/resources/font/aritaFontMedium.ttf) format('truetype'); */
+/* } */
+
 html, body {
+		font-family: aritaFontMedium;
+	
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -299,7 +306,6 @@ html, body {
 }
 
 span.label {
-	font-family: serif;
 	font-weight: normal;
 }
 
@@ -323,7 +329,6 @@ span.buttonText {
 	padding-right: 42px;
 	font-size: 14px;
 	font-weight: bold;
-	font-family: 'Roboto', sans-serif;
 }
 
 #naver_id_login img {

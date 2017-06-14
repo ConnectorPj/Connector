@@ -6,76 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- bootstrap.css -->
-<link type="text/css"
-	href="/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
-<link type="text/css" href="/resources/bootstrap/css/bootstrap.css"
-	rel="stylesheet" />
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
 
-<!-- jquery.js -->
-<script type="text/javascript"
-	src="/resources/js/common/jquery/jquery-3.2.1.js"></script>
-
-<!-- bootstrap.js -->
-<script type="text/javascript"
-	src="/resources/bootstrap/js/bootstrap.js"></script>
 
 <title>Main</title>
 
-<style type="text/css">
-html, body {
-	font-family: 'Noto Sans KR', sans-serif, dotum, '돋움', gulim, '굴림', Arial,
-		AppleGothic, verdana, helvetica;
-	font-size: 14px;
-	letter-spacing: -0.05em;
-	line-height: 1.6;
-	font-weight: 400;
-	color: #333;
-	margin: 0;
-	overflow-x: hidden;
-	!
-	important;
-}
 
-a {
-	color: #333333;
-	text-decoration: none;
-}
-
-a:link {
-	color: #333333;
-	text-decoration: none;
-	transition: all .3s ease
-}
-
-a:visited {
-	color: #333333;
-	text-decoration: none
-}
-
-a:active {
-	color: #333333;
-	text-decoration: none
-}
-
-a:hover {
-	color: #666666;
-	text-decoration: none
-}
-
-.close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	color: #888;
-	width: 17px;
-	height: 17px;
-	background:
-		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-}
-</style>
 
 </head>
 <body>
@@ -189,54 +126,43 @@ a:hover {
 		</div>
 
 
-		<div id="chatAfter"
-			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
-			<div class="chatTitle" id="chatTitle"
-				style="width: 100%; height: 10%; background: gray;">
-				<span style="font-size: 20px; color: white;"> 로그인 후 이용해 주세요.
-				</span>
+		<div id="chatAfter">
+			<div class="chatTitle" id="chatTitle">
+				<span> 로그인 후 이용해 주세요. </span>
 				<div class="close" onclick="closeChat()" title="닫기"></div>
 			</div>
-			<div
-				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word">
-				로그인 후 이용 가능합니다.</div>
-			<input type="text" placeholder="로그인 후 이용 가능 합니다."
-				style="width: 100%; height: 15%;"> <span
-				style="font-size: 20px; text-align: center;"> 채팅을 시작해 보세요!</span>
+			<div class="chatContent">로그인 후 이용 가능합니다.</div>
+			<input class="chatAfter_input" type="text"
+				placeholder="로그인 후 이용 가능 합니다." disabled>
+			<!-- 			<span class="chatAfter_span"> 채팅을 시작해 보세요!</span> -->
 		</div>
 
-		<div id="loginAfter"
-			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
-			<div class="chatTitle" id="chatTitle"
-				style="width: 100%; height: 10%; background: gray;">
-				<span style="font-size: 20px; color: white;"> Let's chat! </span>
+		<div id="loginAfter">
+			<div class="chatTitle" id="chatTitle">
+				<span> Let's chat! </span>
 				<div class="close" onclick="closeChatAfter()" title="닫기"></div>
 			</div>
 
-			<div id="message"
-				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word"></div>
+			<div id="message" class="chatContent"></div>
 
-			<input id="input" type="text"
-				placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]"
-				style="width: 100%; height: 15%;"> <span
-				style="font-size: 20px; text-align: center;"> 채팅을 시작해 보세요!</span>
+			<input id="input" type="text" class="chatAfter_input"
+				placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]">
+			<!-- 				<span class="chatAfter_span"> 채팅을 시작해 보세요!</span> -->
 		</div>
 
 		<!-- CHATTING -->
-		<div class="chatBefore" id="chatBefore"
-			style="position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray;">
-			<span style="font-size: 20px; text-align: center; color: white;">
-				채팅을 시작해 보세요!</span>
+		<div class="chatBefore" id="chatBefore">
+			<span class="chatText"> &nbsp;&nbsp;채팅을 시작해 보세요!&nbsp;&nbsp;</span>
 		</div>
 
 		<script type="text/javascript">
 			var div = document.getElementById('message');
-		
+
 			//WebSocketEx는 프로젝트 이름
 			//websocket 클래스 이름
 			var webSocket = new WebSocket("ws://localhost:8181/websocket");
 			/* var messageTextArea = document.getElementById("messageTextArea");*/
-		
+
 			//웹 소켓이 연결되었을 때 호출되는 이벤트
 			webSocket.onopen = function(message) {
 				webSocket.send($("#loginName").val());
@@ -252,14 +178,14 @@ a:hover {
 			//웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
 			webSocket.onmessage = function(message) {
 				var jsonData = JSON.parse(message.data);
-				div.innerText +="admin : "+jsonData.message + "\n";
+				div.innerText += "admin : " + jsonData.message + "\n";
 				div.scrollTop = div.scrollHeight;
 			};
-			
+
 			//Send 버튼을 누르면 실행되는 함수
 			function sendMessage() {
 				var message = $("#input").val();
-				div.innerText +=$("#loginName").val()+ " : " + message + "\n"; 
+				div.innerText += $("#loginName").val() + " : " + message + "\n";
 				//웹소켓으로 textMessage객체의 값을 보낸다.
 				webSocket.send(message);
 				//textMessage객체의 값 초기화
@@ -269,26 +195,34 @@ a:hover {
 			function disconnect() {
 				webSocket.close();
 			}
-		
+
 			$("#input").keypress(function(e) {
 				var key = e.which || e.keyCode;
 				if (key === 13) { // 13 is enter
 					sendMessage();
 				}
 			});
-		
-			$(document).ready(function() {
-				$("#chatBefore").click(function() {
-					if($("#loginCheck").val() == "g" ){
-					
-					document.getElementById("chatBefore").style.visibility = "hidden";
-					document.getElementById("loginAfter").style.visibility = "visible";
-					}else{
-						document.getElementById("chatBefore").style.visibility = "hidden";
-						document.getElementById("chatAfter").style.visibility = "visible";
-					}
-				});
-			});
+
+			$(document)
+					.ready(
+							function() {
+								$("#chatBefore")
+										.click(
+												function() {
+													if ($("#loginCheck").val() == "g") {
+
+														document
+																.getElementById("chatBefore").style.visibility = "hidden";
+														document
+																.getElementById("loginAfter").style.visibility = "visible";
+													} else {
+														document
+																.getElementById("chatBefore").style.visibility = "hidden";
+														document
+																.getElementById("chatAfter").style.visibility = "visible";
+													}
+												});
+							});
 			function closeChat() {
 				document.getElementById("chatBefore").style.visibility = "visible";
 				document.getElementById("chatAfter").style.visibility = "hidden";
