@@ -39,26 +39,31 @@
 		order by study_regdate DESC;
 	</select>
 
-	<!-- Class List 조회 -->
+	<!-- Class List(check=1) 조회 -->
 	<select id="selectClassListAll" resultType="classBean">
 		SELECT
 		<include refid="classColumns" />
 		FROM
 		study
+		WHERE
+		study_check="1"
 		order by study_regdate DESC
-		LIMIT #{pagingBean.startRow},
+		LIMIT
+		#{pagingBean.startRow},
 		#{pagingBean.endRow}
 	</select>
-	<!-- Class List 조회 -->
+	
+	<!-- Class List(check=0) 조회 -->
 	<select id="selectClassListAllunChecked" resultType="classBean">
 		SELECT
 		<include refid="classColumns" />
 		FROM
 		study
 		WHERE
-		study_check=#{studyCheck}
+		study_check="0"
 		order by study_regdate DESC
-
+		LIMIT #{pagingBean.startRow},
+		#{pagingBean.endRow}
 	</select>
 
 	<!-- 카테 고리상 조회 -->
@@ -131,26 +136,6 @@
 
 	</insert>
 
-	<!--수업 결제내역 조회 -->
-	<select id="selectCustomerPurchaseList" resultType="classBean">
-		SELECT
-		<include refid="classColumns" />
-		FROM
-		study
-		WHERE
-		study_id
-		IN
-		(SELECT study_id
-		FROM
-		purchase_study
-		WHERE
-		customer_id=#{customerId}
-		AND
-		purchase_sort=#{purchaseSort}
-		)
-
-		order by study_regdate DESC
-	</select>
 	<!--수업 진행 내역 조회 -->
 	<select id="selectTeacherClassList" resultType="classBean">
 		SELECT
@@ -211,13 +196,24 @@
 		study_id = #{studyId}
 	</delete>
 
-	<!-- 회원정보 리스트 전체 갯수 조회 -->
+	<!-- 회원정보 리스트 전체 갯수 조회 (등록된 리스트)-->
 	<select id="selectClassListTotalCount" resultType="int"
 		parameterType="pagingBean">
 		SELECT COUNT(*)
 		FROM study
+		WHERE
+		study_check="1"
 	</select>
-
+	
+	<!-- 회원정보 리스트 전체 갯수 조회 (대기중인 리스트)-->
+	<select id="selectClassUnCheckedListTotalCount" resultType="int"
+		parameterType="pagingBean">
+		SELECT COUNT(*)
+		FROM study
+		WHERE
+		study_check="0"
+	</select>
+	
 	<!--수업 찜목록 조회 -->
 	<select id="selectBucketClassList" resultType="classBean">
 		SELECT
@@ -236,7 +232,89 @@
 		order by study_regdate DESC
 	</select>
 
-
+ <!--수업 결제내역 조회 -->
+	<select id="selectCustomerPurchaseList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_id
+		IN
+		(SELECT study_id
+		FROM
+		purchase_study
+		WHERE
+		customer_id=#{purchaseBean.customerId}
+		AND
+		purchase_sort="1"
+		)
+		order by study_regdate DESC
+		LIMIT #{pagingBean.startRow},
+		#{pagingBean.endRow}
+		
+	</select>
+	
+	
+	 <!--수업 결제내역 조회 -->
+	<select id="selectCustomerPurchaseUncheckList" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		study_id
+		IN
+		(SELECT study_id
+		FROM
+		purchase_study
+		WHERE
+		customer_id=#{purchaseBean.customerId}
+		AND
+		purchase_sort="0"
+			
+		)
+		order by study_regdate DESC
+		LIMIT #{pagingBean.startRow},
+		#{pagingBean.endRow}
+	</select>
+	
+	
+	<!--수업 결제내역 개수 조회(check=1) -->
+	<select id="selectCustomerPurchaseListTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		study
+		WHERE
+		study_id
+		IN
+		(SELECT study_id
+		FROM
+		purchase_study
+		WHERE
+		customer_id=#{customerId}
+		AND
+		purchase_sort="1"
+		)
+	</select>
+	
+	 <!--수업 결제내역 개수 조회(check=0) -->
+	<select id="selectCustomerPurchaseUncheckListTotal" resultType="int" >
+		SELECT COUNT(*)
+		FROM
+		study
+		WHERE
+		study_id
+		IN
+		(SELECT study_id
+		FROM
+		purchase_study
+		WHERE
+		customer_id=#{customerId}
+		AND
+		purchase_sort="0"
+		)
+	</select>
 
 
 </mapper>

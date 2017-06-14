@@ -36,7 +36,7 @@ function delTeacher(teacherId) {
 				console.log(data);
 				
 				if(data.result == "ok") {
-					location.href = 'adminTeacherList.do?pageNo=1'
+					location.href = 'adminTeacherList.do'
 				} else {
 					alert(data.resultMsg);
 				}
@@ -51,6 +51,73 @@ function delTeacher(teacherId) {
 	}
 	
 };
+
+$(function() {
+	$.ajax({
+		type : "post",
+		url : "/selectTeacherListAjax.do",
+		data : {
+			//pageNo : "${param.pageNo}"
+		},
+		dataType : "json",
+		success : function(data) {
+			console.log(data);
+
+			//강사가 등록 된것 
+			if (data.result == "ok") {
+				var num = 1;
+				//리스트 출력
+				var str = "";
+				var str2 = "";
+				$.each(data.TeacherList,
+					function(i, teacherBean) {
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + teacherBean.teacherName + "</td>";
+						str +="<td></td>";
+						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						str += "</tr>";
+					});
+				$("#memberListBody").append(str);
+
+				var pBean = data.pBean;
+				str2 += "<ul>";
+				str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+				if (pBean.groupNo > 1) {
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ (pBean.pageStartNo - 1)
+							+ "'> 이전 </a></li>";
+				}
+				for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+					if (pBean.pageNo != i) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ i + "'>" + i + "</a></li>";
+					} else {
+						str2 += "<li><a class='on'>" + i
+								+ "</a></li>";
+					}
+				}
+				if (pBean.groupNo < pBean.totalGroupCount) {
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ (pBean.pageEndNo + 1)
+							+ "'> 다음 </a></li>";
+				}
+				str2 += "<li><a href='#' onclick='paging(this);' id='"
+						+ pBean.totalPageCount + "'> 끝 </a></li>";
+				str2 += "</ul>";
+
+				$("#page").html(str2);
+			} else {
+				alert(data.resultMsg);
+			}
+		},
+		error : function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+		}
+	});
+	
 $(function() {
 	$.ajax({
 		type : "post",
@@ -62,9 +129,10 @@ $(function() {
 			if (data.result == "ok") {
 				var num = 1;
 				//리스트 출력
+				var str = "";
+				var str2 = "";
 				$.each(data.TeacherList,
 					function(i, teacherBean) {
-						var str = "";
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
@@ -72,13 +140,36 @@ $(function() {
 						+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
 						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
-
-						$("#memberListBody").append(str);
-
-						
-
 					});
-				
+				$("#memberListBody2").append(str);
+
+				var pBean = data.pBean;
+				str2 += "<ul>";
+				str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+				if (pBean.groupNo > 1) {
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ (pBean.pageStartNo - 1)
+							+ "'> 이전 </a></li>";
+				}
+				for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+					if (pBean.pageNo != i) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ i + "'>" + i + "</a></li>";
+					} else {
+						str2 += "<li><a class='on'>" + i
+								+ "</a></li>";
+					}
+				}
+				if (pBean.groupNo < pBean.totalGroupCount) {
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ (pBean.pageEndNo + 1)
+							+ "'> 다음 </a></li>";
+				}
+				str2 += "<li><a href='#' onclick='paging2(this);' id='"
+						+ pBean.totalPageCount + "'> 끝 </a></li>";
+				str2 += "</ul>";
+
+				$("#page2").html(str2);
 				
 				
 			} else {
@@ -92,74 +183,144 @@ $(function() {
 		}
 	});
 	});
+	
+	});
+	
+</script>
 
-
-
-	$(function() {
-	$.ajax({
-		type : "post",
-		url : "/selectTeacherListAjax.do",
-		data : {
-			pageNo : "${param.pageNo}"
-		},
-		dataType : "json",
-		success : function(data) {
-			console.log(data);
-
-			//강사가 등록 된것 
-			if (data.result == "ok") {
-				var num = 1;
-				//리스트 출력
-				$.each(data.TeacherList,
+<script type="text/javascript">
+	function paging(click) {
+		$.ajax({
+			type : "POST",
+			url : "/selectTeacherListAjax.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(data.TeacherList,
 					function(i, teacherBean) {
-						var str = "";
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str +="<td></td>";
 						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
-
-						$("#memberListBody").append(str);
-
-						// 페이징
-						var str2 = "<ul>";
-						var pBean = data.pBean;
-						var storeDetail = data.storeDetail;
-						str2 += "<li><a href='adminTeacherList.do?pageNo=1'>처음 </a></li>";
-						if (pBean.groupNo > 1) {
-							str2 += "<li><a href='adminTeacherList.do?pageNo=" + (pBean.pageStartNo - 1) + "'> 이전 </a></li>";
-						}
-						for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-							if (pBean.pageNo != i) {
-								str2 += "<li><a href='adminTeacherList.do?pageNo="+ i+ "'> "+ i + "</a></li>";
-							} else {
-								str2 += "<li><a class='on'>"+ i + "</a></li>";
-							}
-						}
-						if (pBean.groupNo < pBean.totalGroupCount) {
-							str2 += "<li><a href='adminTeacherList.do?pageNo=" + (pBean.pageEndNo + 1) + "'> 다음 </a></li>";
-						}
-						str2 += "<li><a href='adminTeacherList.do?pageNo=" + pBean.totalPageCount + "'> 끝 </a></li>";
-						str2 += "</ul>";
-						$("#page").html(str2);
-
 					});
-			} else {
-				alert(data.resultMsg);
+					$("#memberListBody").html(str);
+
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> 이전 </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> 다음 </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> 끝 </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
 			}
-		},
-		error : function(xhr, status, error) {
-			console.log(xhr);
-			alert("error\nxhr : " + xhr + ", status : " + status
-					+ ", error : " + error);
-		}
-	});
-	});
-	
-	
-	
+		}); // end of ajax 모달화면뿌리기 
+	};
+
+	function paging2(click) {
+		$.ajax({
+			type : "POST",
+			url : "/selectTeacherListAjax2.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(data.TeacherList,
+					function(i, teacherBean) {
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + teacherBean.teacherName + "</td>";
+						str += "<td><a href='adminRegTeacherAjax.do?teacherId="+ teacherBean.teacherId + '&memberId='
+						+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
+						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						str += "</tr>";
+					});
+					$("#memberListBody2").html(str);
+
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> 이전 </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging2(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> 다음 </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ pBean.totalPageCount + "'> 끝 </a></li>";
+					str2 += "</ul>";
+
+					$("#page2").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
+	};
 </script>
+
 </head>
 <body>
 
@@ -212,6 +373,34 @@ $(function() {
 
 					<div id="page" class="page"></div>
 				</div>
+				
+				
+				<!-- 서브 내용 -->
+				<div class="sub_content">
+					<div class="notice_table">
+						<table>
+							<colgroup>
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>강사 Name</th>
+									<th>등록하기</th>
+									<th>삭제하기</th>
+								</tr>
+							</thead>
+							<tbody id="memberListBody2">
+							</tbody>
+						</table>
+					</div>
+
+					<div id="page2" class="page2"></div>
+				</div>
+				
 			</div>
 		</div>
 

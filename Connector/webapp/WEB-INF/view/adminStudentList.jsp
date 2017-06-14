@@ -55,49 +55,54 @@ function delCustomer(customerId) {
 			url: "/selectCustomerListAjax.do",
 			dataType: "json",
 			data : {
-				pageNo : "${param.pageNo}"
+			//	pageNo : "${param.pageNo}"
 			},
 			success: function(data) {
 				console.log(data);
 				
-				
 				if(data.result == "ok") {
 					var num=1;
 					//리스트 출력
+					var str = "";
+					var str2 = "";
 					$.each(data.CustomerList, function(i, customerBean) {
-						var str = "";
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + customerBean.customerName + "</td>";
 						str += "<td><button type='button' onclick=delCustomer('" 
 							+ customerBean.customerId + "')>삭제</button></td>";
 						str += "</tr>";
-
-						$("#memberListBody").append(str);
-						
-						// 페이징
-		               var str2 = "<ul>";
-		               var pBean = data.pBean;
-		               var storeDetail = data.storeDetail;
-		                str2 += "<li><a href='adminStudentList.do?pageNo=1'>처음 </a></li>";
-		               if(pBean.groupNo>1) {
-		                  str2 += "<li><a href='adminStudentList.do?pageNo=" + (pBean.pageStartNo - 1) + "'> 이전 </a></li>";
-		               }
-		               for(var i =pBean.pageStartNo ; i<= pBean.pageEndNo ; i++) {
-		                  if(pBean.pageNo != i) {
-		                     str2 += "<li><a href='adminStudentList.do?pageNo="+i + "'> " + i + "</a></li>";
-		                  } else {
-		                     str2 += "<li><a class='on'>" + i + "</a></li>";
-		                  }
-		               }
-		               if(pBean.groupNo < pBean.totalGroupCount) {
-		                  str2 += "<li><a href='adminStudentList.do?pageNo=" + (pBean.pageEndNo + 1) + "'> 다음 </a></li>";
-		               }
-		               str2 += "<li><a href='adminStudentList.do?pageNo=" + pBean.totalPageCount + "'> 끝 </a></li>";
-		               str2 += "</ul>";
-		               $("#page").html(str2);
 					});
+					$("#memberListBody").append(str);
 					
+					// 페이징
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> 이전 </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> 다음 </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> 끝 </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
 				} else {
 					alert(data.resultMsg);
 				}
@@ -108,9 +113,77 @@ function delCustomer(customerId) {
 						+ status + ", error : " + error);      
 			}
 		});
+		
 	});
 	
 </script>
+
+<script type="text/javascript">
+	function paging(click) {
+		$.ajax({
+			type : "POST",
+			url : "/selectCustomerListAjax.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(data.CustomerList, function(i, customerBean) {
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + customerBean.customerName + "</td>";
+						str += "<td><button type='button' onclick=delCustomer('" 
+							+ customerBean.customerId + "')>삭제</button></td>";
+						str += "</tr>";
+					});
+					$("#memberListBody").html(str);
+
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> 이전 </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> 다음 </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> 끝 </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
+	};
+</script>
+
 </head>
 <body>
 
@@ -161,6 +234,10 @@ function delCustomer(customerId) {
 					<div id="page" class="page">
 					</div>
 				</div>
+				
+				
+				
+				
 			</div>
 		</div>
 

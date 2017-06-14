@@ -37,24 +37,25 @@
 		customer
 		LIMIT #{pagingBean.startRow}, #{pagingBean.endRow}
 	</select>
-<!-- 회원정보 List 조회 -->
+
+	<!-- 회원정보 List 조회 -->
 	<select id="selectStudyMember" resultType="customerBean">
-	SELECT
+		SELECT
 		<include refid="memberColumns" />
 
-	FROM
-	customer
-	WHERE
-	customer_id
-	IN(
-	SELECT
-	customer_id
-	FROM
-	purchase_study
-	WHERE
-	study_id=#{studyId}
-	AND
-	purchase_sort=#{purchaseSort});
+		FROM
+		customer
+		WHERE
+		customer_id
+		IN(
+		SELECT
+		customer_id
+		FROM
+		purchase_study
+		WHERE
+		study_id=#{studyId}
+		AND
+		purchase_sort=#{purchaseSort});
 	</select>
 
 	<insert id="insertCustomer" parameterType="customerBean">
@@ -118,7 +119,8 @@
 		FROM
 		customer
 		WHERE
-		customer_id = #{customerId}
+		customer_id =
+		#{customerId}
 	</select>
 
 	<!-- 회원정보 리스트 전체 갯수 조회 -->

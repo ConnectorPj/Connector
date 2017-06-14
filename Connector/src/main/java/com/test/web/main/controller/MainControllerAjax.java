@@ -151,7 +151,7 @@ public class MainControllerAjax {
 		return "adminTeacherList";
 	}
 
-		/** 회원정보 리스트 AJAX **/
+	/** 회원정보 리스트 AJAX **/
 	@RequestMapping("/selectTeacherListAjax")
 	@ResponseBody
 	public Map<String, Object> selectTeacherListAjax(TeacherBean bean, PagingBean pagingBean, Model model) {
@@ -162,13 +162,13 @@ public class MainControllerAjax {
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			int totRecord = teacherService.selectTeacherListTotalCount(bean, pagingBean);
+			int totRecord = teacherService.selectTeacherListTotalCountCheck(bean, pagingBean);
 
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
-			bean.setTeacherCheck("1");
+//			bean.setTeacherCheck("1");
 
-			List<TeacherBean> list = teacherService.selectTeacherList(bean);
+			List<TeacherBean> list = teacherService.selectTeacherListCheck(bean,pagingBean);
 
 			resMap.put("teacherBean", bean);
 			resMap.put("TeacherList", list);
@@ -185,7 +185,7 @@ public class MainControllerAjax {
 	/** 회원정보 리스트 AJAX **/
 	@RequestMapping("/selectTeacherListAjax2")
 	@ResponseBody
-	public Map<String, Object> selectTeacherListAjax2(TeacherBean bean,  Model model) {
+	public Map<String, Object> selectTeacherListAjax2(TeacherBean bean, PagingBean pagingBean,  Model model) {
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
@@ -193,14 +193,18 @@ public class MainControllerAjax {
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			
-			// 페이징 계산
-			bean.setTeacherCheck("0");
+			int totRecord = teacherService.selectTeacherListTotalCount(bean, pagingBean);
 
-			List<TeacherBean> list = teacherService.selectTeacherList(bean);
+			// 페이징 계산
+			pagingBean.calcPage(totRecord);
+			
+//			bean.setTeacherCheck("0");
+
+			List<TeacherBean> list = teacherService.selectTeacherList(bean,pagingBean);
 			
 			resMap.put("teacherBean", bean);
 			resMap.put("TeacherList", list);
+			resMap.put("pBean", pagingBean);
 			
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
@@ -210,6 +214,7 @@ public class MainControllerAjax {
 		
 		return resMap;
 	}
+	
 	@RequestMapping("/updateTeacherAjax")
 	public String updateTeacherAjax(TeacherBean tBean) {
 

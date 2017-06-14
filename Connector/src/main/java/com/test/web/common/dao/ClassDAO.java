@@ -22,21 +22,37 @@ public interface ClassDAO {
 	/** 수업 내용를 조회해서 리스트로 가져온다. **/
 	public List<ClassBean> selectClassList();
 
+	/** 회원정보 전체 리스트를 가져온다.(check=1) **/
 	public List<ClassBean> selectClassListAll(@Param("classBean") ClassBean bean, @Param("pagingBean") PagingBean pBean)
 			throws Exception;
-	public List<ClassBean> selectClassListAllunChecked( ClassBean bean)
-			throws Exception;
 
-	/** 회원정보 전체 리스트 갯수를 가져온다. **/
+	/** 회원정보 전체 리스트를 가져온다.(check=0) **/
+	public List<ClassBean> selectClassListAllunChecked(@Param("classBean") ClassBean bean,
+			@Param("pagingBean") PagingBean pBean) throws Exception;
+
+	/** 회원정보 전체 리스트 갯수를 가져온다.(check=1) **/
 	public int selectClassListTotalCount();
+
+	/** 회원정보 전체 리스트 갯수를 가져온다.(check=0) **/
+	public int selectClassUnCheckedListTotalCount();
 
 	public List<ClassBean> selectConClassList(ClassBean bean);
 
-
 	public List<ClassBean> selectTeacherClassList(ClassBean bean) throws Exception;
 
-	/** 개인별 구매 내역 조회 */
-	public List<ClassBean> selectCustomerPurchaseList(PurchaseBean pBean) throws Exception;
+	/** 개인별 구매 내역 조회 (check=1) **/
+	public List<ClassBean> selectCustomerPurchaseList(@Param("purchaseBean") PurchaseBean pBean,
+			@Param("pagingBean") PagingBean paBean) throws Exception;
+
+	/** 개인별 구매 내역 조회 (check=0) */
+	public List<ClassBean> selectCustomerPurchaseUncheckList(@Param("purchaseBean") PurchaseBean purBean,
+			@Param("pagingBean") PagingBean pBean) throws Exception;
+
+	/** 구매내역 개수 조회(check=1) **/
+	public int selectCustomerPurchaseListTotal(PurchaseBean pBean);
+
+	/** 구매내역 개수 조회(check=0) **/
+	public int selectCustomerPurchaseUncheckListTotal(PurchaseBean purBean);
 
 	/** 개인별 찜목록 조회 */
 	public List<ClassBean> selectBucketClassList(BucketBean bean);

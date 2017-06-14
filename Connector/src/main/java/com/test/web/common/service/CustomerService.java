@@ -16,7 +16,6 @@ public interface CustomerService {
 	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean pBean) throws Exception;
 
 
-
 	/** 개인별 구매 내역 조회 */
 	public List<CustomerBean> selectStudyMember(PurchaseBean pBean) throws Exception;
 	

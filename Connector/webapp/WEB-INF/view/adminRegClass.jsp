@@ -37,7 +37,7 @@ function updateClass(studyId) {
 			console.log(data);
 			
 			if(data.result == "ok") {
-				location.href = 'adminStudyList.do?pageNo=1'
+				location.href = 'adminStudyList.do'
 			} else {
 				alert(data.resultMsg);
 			}

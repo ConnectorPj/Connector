@@ -101,8 +101,6 @@ public class DetailController {
 			Date beginDate = formatter.parse(str);
 			Date endDate = formatter.parse(str1);
 
-			// 占시곤옙占쏙옙占싱몌옙 占시곤옙,占쏙옙,占십몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싹뤄옙
-			// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 			long diff = endDate.getTime() - beginDate.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 
@@ -142,7 +140,7 @@ public class DetailController {
 	}
 
 	/** 클래스 리스트 AJAX **/
-	@RequestMapping("/selectClassListAjax")
+	@RequestMapping("/selectAdminClassListAjax")
 	@ResponseBody
 	public Map<String, Object> selectClassListAjax(ClassBean bean, PagingBean pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -151,10 +149,10 @@ public class DetailController {
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			int totRecord = teacherService.selectClassListTotalCount(bean, pagingBean);
+			int totRecord = classDao.selectClassListTotalCount();
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
-			bean.setStudyCheck("1");
+			// bean.setStudyCheck("1");
 
 			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
 
@@ -170,29 +168,36 @@ public class DetailController {
 
 		return resMap;
 	}
+
 	/** 클래스 리스트 AJAX **/
-	@RequestMapping("/selectClassListAjax2")
+	@RequestMapping("/selectAdminClassListAjax2")
 	@ResponseBody
-	public Map<String, Object> selectClassListAjax2(ClassBean bean, Model model) {
+	public Map<String, Object> selectClassListAjax2(ClassBean bean, PagingBean pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
-		
+
 		try {
-			bean.setStudyCheck("0");
-			List<ClassBean> list = classDao.selectClassListAllunChecked(bean);
-			
+			// 전체 회원 리스트 갯수 조회
+			int totRecord = classDao.selectClassUnCheckedListTotalCount();
+			// 페이징 계산
+			pagingBean.calcPage(totRecord);
+			// bean.setStudyCheck("0");
+			List<ClassBean> list = classDao.selectClassListAllunChecked(bean, pagingBean);
+
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
-			
+			resMap.put("pBean", pagingBean);
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
 	}
+	
 	/** 클래스 가져오깅 */
 	@RequestMapping("/selectClass")
 	@ResponseBody
@@ -217,22 +222,24 @@ public class DetailController {
 	/** 수업진행 내역 개인별 수업정보 **/
 	@RequestMapping("/selectClassAjax")
 	@ResponseBody
-	public Map<String, Object> selectTeacherClassList(ClassBean bean, Model model) {
+	public Map<String, Object> selectTeacherClassList(ClassBean bean, PagingBean pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			// int totRecord = memberService.selectMemberListTotalCount();
+			int totRecord = classDao.selectClassListTotalCount();
 			// 페이징 계산
-			// pagingBean.calcPage(totRecord);
-			bean.setStudyCheck("1");
+			pagingBean.calcPage(totRecord);
 
-			List<ClassBean> list = classDao.selectTeacherClassList(bean);
+			// bean.setStudyCheck("1");
+
+			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
+			resMap.put("pBean", pagingBean);
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
@@ -247,30 +254,33 @@ public class DetailController {
 	/** 수업진행 신청내역 개인별 수업정보 **/
 	@RequestMapping("/selectClassAjax2")
 	@ResponseBody
-	public Map<String, Object> selectTeacherClassList2(ClassBean bean, Model model) {
+	public Map<String, Object> selectTeacherClassList2(ClassBean bean, PagingBean pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
 		try {
-			// 전체 회원 리스트 갯수 조회
-			// int totRecord = memberService.selectMemberListTotalCount();
-			// 페이징 계산
-			// pagingBean.calcPage(totRecord);
-			bean.setStudyCheck("0");
 
-			List<ClassBean> list = classDao.selectTeacherClassList(bean);
-			
+			// bean.setStudyCheck("0");
+
+			// 전체 회원 리스트 갯수 조회
+			int totRecord = classDao.selectClassUnCheckedListTotalCount();
+			// 페이징 계산
+			pagingBean.calcPage(totRecord);
+
+			List<ClassBean> list = classDao.selectClassListAllunChecked(bean, pagingBean);
+
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
-			
+			resMap.put("pBean", pagingBean);
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
+
 	}
 
 /** 수업에 신청한 학생리스트 뿌려주깅 **/

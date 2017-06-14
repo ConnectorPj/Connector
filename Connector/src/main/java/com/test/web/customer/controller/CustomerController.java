@@ -321,12 +321,6 @@ public class CustomerController {
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원정보 삭제를 실패 하였습니다.");
 		try {
-			// 세션값 취득
-			// MemberBean sesBean =
-			// (MemberBean)req.getSession().getAttribute(Constants.MEMBER_LOGIN_BEAN);
-
-			// if( StringUtils.equals(sesBean.getMemberId(), bean.getMemberId())
-			// ){
 			int resVal = customerDao.deleteCustomer(bean);
 			photoBean.setMemberId(bean.getCustomerId());
 			photoDao.deletePhoto(photoBean);
@@ -334,7 +328,6 @@ public class CustomerController {
 				resMap.put(Constants.RESULT, Constants.RESULT_OK);
 				resMap.put(Constants.RESULT_MSG, "회원정보 삭제를 성공 하였습니다.");
 			}
-			// }
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -586,17 +579,23 @@ public class CustomerController {
 	/** 수업결제 내역 개인별 수업정보 **/
 	@RequestMapping("/selectCustomerPurchaseList")
 	@ResponseBody
-	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean, Model model, PurchaseBean pBean) {
+	public Map<String, Object> selectCustomerPurchaseList(ClassBean bean, PurchaseBean pBean, PagingBean paBean) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		pBean.setPurchaseSort("1");
+		
 		try {
+			
+			// 전체 회원 리스트 갯수 조회
+			int totRecord = classDao.selectCustomerPurchaseListTotal(pBean);
+			// 페이징 계산
+			paBean.calcPage(totRecord);
 
-			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean);
+			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean,paBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
+			resMap.put("pBean", paBean);
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
@@ -610,17 +609,23 @@ public class CustomerController {
 	/** 수업신청 내역 개인별 수업정보 **/
 	@RequestMapping("/selectCustomerPurchaseList2")
 	@ResponseBody
-	public Map<String, Object> selectCustomerPurchaseList2(ClassBean bean, Model model, PurchaseBean pBean) {
+	public Map<String, Object> selectCustomerPurchaseList2(ClassBean bean, Model model, PurchaseBean pBean, PagingBean paBean) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		pBean.setPurchaseSort("0");
+		
 		try {
 			
-			List<ClassBean> list = classDao.selectCustomerPurchaseList(pBean);
+			// 전체 회원 리스트 갯수 조회
+			int totRecord = classDao.selectCustomerPurchaseUncheckListTotal(pBean);
+			// 페이징 계산
+			paBean.calcPage(totRecord);
+			
+			List<ClassBean> list = classDao.selectCustomerPurchaseUncheckList(pBean, paBean);
 			
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
+			resMap.put("pBean", paBean);
 			
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
@@ -631,6 +636,7 @@ public class CustomerController {
 		return resMap;
 		
 	}
+
 
 	/** 수업결제 내역 개인별 찜목록 **/
 	@RequestMapping("/selectBucketClassAjax")

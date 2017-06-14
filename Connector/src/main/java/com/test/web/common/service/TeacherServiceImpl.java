@@ -23,6 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Autowired
 	private PhotoDAO photoDao;
+	
 	@Autowired
 	private TeacherDAO teacherDao;
 
@@ -35,12 +36,6 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public TeacherBean selectTeacher(TeacherBean bean) throws Exception {
 		return teacherDao.selectTeacher(bean);
-	}
-
-	/** 회원정보 전체 리스트 갯수를 가져온다. **/
-	@Override
-	public int selectTeacherListTotalCount(PagingBean pBean) {
-		return teacherDao.selectTeacherListTotalCount();
 	}
 
 	@Override
@@ -107,12 +102,9 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public List<TeacherBean> selectTeacherList(TeacherBean bean, PagingBean pBean) throws Exception {
-		return teacherDao.selectTeacherList(bean, pBean);
+		return teacherDao.selectTeacherList(bean,pBean);
 	}
-	@Override
-	public List<TeacherBean> selectTeacherList(TeacherBean bean) throws Exception {
-		return teacherDao.selectTeacherList(bean);
-	}
+	
 
 	/** 회원정보 전체 리스트 갯수를 가져온다. **/
 	@Override
@@ -128,6 +120,16 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public int selectCustomerListTotalCount(CustomerBean bean, PagingBean pBean) {
 		return customerDao.selectCustomerListTotalCount();
+	}
+
+	@Override
+	public int selectTeacherListTotalCountCheck(TeacherBean bean, PagingBean pBean) {
+		return teacherDao.selectTeacherListTotalCountCheck();
+	}
+
+	@Override
+	public List<TeacherBean> selectTeacherListCheck(TeacherBean bean, PagingBean pBean) throws Exception {
+		return teacherDao.selectTeacherListCheck(bean, pBean);
 	}
 
 }
