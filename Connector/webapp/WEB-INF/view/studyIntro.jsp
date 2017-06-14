@@ -80,21 +80,21 @@
     
     <section>
        
+       <div class="top">
+            <div class="top-2">
+                <h1>스터디서치는<br/>나와 비슷한 6명의<br/>정예 멤버로 진짜 말하는<br/>영어를 시작하는 오프라인<br/>영어회화 스터디 입니다.</h1>
+             </div>
+       </div>
+       
        <div class="fu">
        
-                <div class="top">
-                    <div class="top-2">
-                        <h1>스터디서치는<br/>나와 비슷한 6명의<br/>정예 멤버로 진짜 말하는<br/>영어를 시작하는 오프라인<br/>영어회화 스터디 입니다.</h1>
-                    </div>
-                    <div class="top-3">
-                        <img src="/resources/images/img.jpg" alt="aaa"/>
-                    </div>
-                </div>
+                
+                
                 <br/><br/><br/><br/><br/>
             
                 <div class="bo">
                     <div class="bo-2">
-                        <h1>1.<br/>내게 꼭 맞는 스터디에<br/>신청하세요.</h1>
+                        <h1>1<br/>내게 꼭 맞는 스터디에<br/>신청하세요.</h1>
                         <h4>내 레벨, 지역, 일정에 꼭 맞는 스터디에<br/>
                         신청하세요. 신청 후 24시간 이내에 리더로부터<br/>
                         정식 멤버 승인을 받으면 결제가 완료됩니다.</h4>
@@ -103,6 +103,7 @@
                         <img src="/resources/images/img.jpg" alt="aaa"/>
                     </div>
                 </div>
+                
                 <br/><br/><br/><br/><br/>
                     
                 <div class="bo2">
@@ -110,7 +111,7 @@
                       <img src="/resources/images/img.jpg" alt="aaa"/>
                 </div>
                     <div class="bo2-2">
-                        <h1>2.<br/>매주 스터디룸에서<br/>함께 만나요!</h1>
+                        <h1>2<br/>매주 스터디룸에서<br/>함께 만나요!</h1>
                         <h4>나와 비슷한 6명의 도란도란한 정예 멤버로<br/>
                         살아 숨쉬는 영어를 느껴보세요!<br/>
                         결석시 대체 수업도 노히지 마세요.</h4>

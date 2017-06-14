@@ -16,7 +16,7 @@ html, body {
 }
 
 .service {
-	width: 65%;
+	width: 56%;
 	margin: 0 auto;
 	background-color: #ffffff;
 }
@@ -43,22 +43,26 @@ html, body {
 	margin: 0;
 }
 
-.service .service_list .sec-leader {
+.service .service_list .bo {
 	text-align: center;
 }
 
 .service .service_list .sec-leader {
 	width: 100%;
 	margin: 0 auto;
+	display: flex;
 }
 
 .service .service_list .sec-leader .sec-leader-img2 {
 	float: right;
-	width: 50%;
+	width: 100%;
+	flex: 1;
+	padding-top: 1%;
 }
 
 .service .service_list .sec-leader .sec-leader-img1 {
-	width: 50%;
+	flex:1;
+	width: 100%;
 	float: left;
 }
 
@@ -67,21 +71,22 @@ html, body {
 }
 
 .service .service_list .sec-leader2 {
-	
 	width: 100%;
-	margin: 100px auto;
+	margin: 0 auto;
 	text-align: center;
-
+	display: flex;
 }
 
 .service .service_list .sec-leader2 .sec-leader2-img1 {
-	width: 50%;
-	padding-top:100px;
+	flex:1;
+	width: 100%;
 	float: left;
+	padding-top: 5%;
 }
 
 .service .service_list .sec-leader2 .sec-leader2-img2 {
-	width: 50%;
+	flex:1;
+	width: 100%;
 	float: right;
 }
 
@@ -113,12 +118,28 @@ html, body {
 	margin: 30px 1%;
 }
 
-.about article .about_img {
+.about .about_fi article .about_img {
+	width: 100%;
+	text-align: center;
+}
+.about .about_se article .about_img2 {
+	width: 100%;
+	text-align: center;
+}
+.about .about_sa article .about_img3 {
 	width: 100%;
 	text-align: center;
 }
 
-.about article .about_img img {
+.about .about_fi article .about_img img {
+	width: 70%;
+	height: 70%;
+}
+.about .about_se article .about_img2 img {
+	width: 70%;
+	height: 70%;
+}
+.about .about_sa article .about_img3 img {
 	width: 70%;
 	height: 70%;
 }
@@ -128,6 +149,62 @@ html, body {
 	height: auto;
 	box-sizing: border-box;
 }
+
+
+@media screen and (max-width: 1024px) {
+	.sec-leader {
+		width: 100%;
+		display: block;
+		flex-direction: column;
+	}
+	.sec-leader .sec-leader-img1 {
+		float: none;
+		width: 100%;
+	}
+	.sec-leader .sec-leader-img2 {
+		float: none;
+		width: 100%;
+	}
+	
+	.sec-leader2 {
+		width: 100%;
+		display: block;
+		flex-direction: column-reverse;
+	}
+	.sec-leader2 .sec-leader2-img1 {
+		float: none;
+		width: 100%;
+	}
+	.sec-leader2 .sec-leader2-img2 {
+		float: none;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.about {
+		width: 100%;
+		display: block;
+	}
+	.about .about_fi article {
+		float: none;
+		width: 100%;
+		display: block;
+	}
+	.about .about_se article {
+		float: none;
+		width: 100%;
+		display: block;
+	}
+	.about .about_sa article {
+		float: none;
+		width: 100%;
+		display: block;
+	}
+}
+
+
+
 
 
 

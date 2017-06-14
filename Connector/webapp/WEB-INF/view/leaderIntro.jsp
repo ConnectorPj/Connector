@@ -10,10 +10,14 @@
 
 <title>Document</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link href="/resources/css/leaderIntro.css" rel="stylesheet"
 	type="text/css">
 
+<!-- <style>
 
+</style> -->
 
 
 <script type="text/javascript">
@@ -168,34 +172,44 @@
 				</div>
 
 				<div class="about">
-					<article>
-						<div class="about_img">
-							<img src="/resources/images/leader1.png" alt="service01" />
-						</div>
-						<h4>다양한 지원</h4>
-						<p>
-							내가 편한 지역, 편한 시간에<br /> 스터디를 개설해 안정적인 부수입을<br /> 확보할 수 있습니다.<br />
-						</p>
-					</article>
-					<article>
-						<div class="about_img">
-							<img src="/resources/images/leader2.png" alt="service02" />
-						</div>
-						<h4>안정적인 부수입</h4>
-						<p>
-							학생들과의 유쾌한 교류에만 집중하세요.<br /> 스터디원 모집 및 장소 예약<br /> 유용한 팁 등을지원해
-							드립니다. <br />
-						</p>
-					</article>
-					<article>
-						<div class="about_img">
-							<img src="/resources/images/leader3.png" alt="service02" />
-						</div>
-						<h4>프로그래밍 언어 감 유지</h4>
-						<p>
-							다양한 사람들과 교류하며<br /> 프로그래밍 실력을 유지할 수 있습니다.<br />
-						</p>
-					</article>
+				
+					<div class="about_fi">
+						<article>
+							<div class="about_img">
+								<img src="/resources/images/leader1.png" alt="service01" />
+							</div>
+							<h4>다양한 지원</h4>
+							<p>
+								내가 편한 지역, 편한 시간에<br /> 스터디를 개설해 안정적인 부수입을<br /> 확보할 수 있습니다.<br />
+							</p>
+						</article>
+					</div>
+					
+					<div class="about_se">
+						<article>
+							<div class="about_img2">
+								<img src="/resources/images/leader2.png" alt="service02" />
+							</div>
+							<h4>안정적인 부수입</h4>
+							<p>
+								학생들과의 유쾌한 교류에만 집중하세요.<br /> 스터디원 모집 및 장소 예약<br /> 유용한 팁 등을지원해
+								드립니다. <br />
+							</p>
+						</article>
+					</div>
+					
+					<div class="about_sa">
+						<article>
+							<div class="about_img3">
+								<img src="/resources/images/leader3.png" alt="service03" />
+							</div>
+							<h4>프로그래밍 언어 감 유지</h4>
+							<p>
+								다양한 사람들과 교류하며<br /> 프로그래밍 실력을 유지할 수 있습니다.<br />
+							</p>
+						</article>
+					</div>
+					
 				</div>
 
 
@@ -207,7 +221,7 @@
 						<img src="/resources/images/leader4.png" alt="service04" />
 					</div>
 					<div class="sec-leader-img2">
-						<h3 style="text-align: center;">리더와 함께하는 코:넥터</h3>
+						<h3 style="text-align: center">리더와 함께하는 코:넥터</h3>
 						<h4 >
 							먼저 리더 지원서를 확인 및 작성해 주세요.<br />개설 가능한 지역 및 시간대에 대해<br>
 							7일 이내로 안내를 드리겠습니다!<br /> <br />7일 이후에도 메일이 오지 않는다면<br />
@@ -218,7 +232,7 @@
 		
 <br/>
 <br/><br/><br/><br/><br/>
-<br/><br/><br/><br/>
+
 				<div class="sec-leader2">
 					<div class="sec-leader2-img1">
 						<h2>지금 바로 리더 신청하기</h2>
