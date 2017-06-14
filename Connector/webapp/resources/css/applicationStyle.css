@@ -1,6 +1,6 @@
-@charset "utf-8"
+@CHARSET "UTF-8";
     
-    body{
+    html,body{
         width: 100%;
         height: 100%;
     }
@@ -37,6 +37,9 @@
             margin: 0 auto;
             width: 92%;
         }
+        .check p {
+        	color: #000;
+        }
         hr{
             border: 0;
             height: 1px;
@@ -72,21 +75,6 @@
             margin-left: 80px;
             padding: 15px;
         }
-        div #text-tail{
-            width: 0px;height:0px;
-            border-right:10px solid transparent;border-bottom:50px solid aquamarine; 
-            transform:rotate(225deg);
-            -ms-transform:rotate(225deg);
-            -webkit-transform:rotate(225deg);
-            -moz-transform:rotate(225deg);
-            -o-transform:rotate(225deg);
-
-            margin-left: 72px;
-            margin-top:21px;
-            position: absolute;
-            border-width: 15px;
-            background-color: aquamarine;
-        }
         div #text1{
             text-align: center;
             border-radius: 5px;
@@ -94,21 +82,6 @@
             margin-top: 110px;
             margin-left: 80px;
             padding: 15px;
-        }
-        div #text1-tail{
-            width: 0px;height:0px;
-            border-right:10px solid transparent;border-bottom:50px solid aquamarine; 
-            transform:rotate(225deg);
-            -ms-transform:rotate(225deg);
-            -webkit-transform:rotate(225deg);
-            -moz-transform:rotate(225deg);
-            -o-transform:rotate(225deg);
-
-            margin-left: 72px;
-            margin-top:131px;
-            position: absolute;
-            border-width: 15px;
-            background-color: aquamarine;
         }
         .image-wrap:after{
             float: none;
