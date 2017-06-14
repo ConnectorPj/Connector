@@ -10,6 +10,7 @@ import com.test.web.common.Constants;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
+import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.util.Util;

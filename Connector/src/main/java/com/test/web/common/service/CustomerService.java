@@ -5,6 +5,7 @@ import java.util.List;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
+import com.test.web.common.bean.PurchaseBean;
 
 public interface CustomerService {
 

@@ -23,7 +23,19 @@
 	padding: 0;
 	width: 200px;
 }
+/* The Close Button */
+.closeStudy {
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+}
 
+.closeStudy:hover, .closeStudy:focus
+	{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 .sub_menu h3 {
 	font-size: 24px;
 	color: #454545;

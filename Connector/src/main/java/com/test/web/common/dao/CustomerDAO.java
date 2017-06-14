@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PurchaseBean;
 
 public interface CustomerDAO {
 

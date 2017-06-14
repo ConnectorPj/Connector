@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.test.web.common.Constants;
 import com.test.web.common.bean.BucketBean;
 import com.test.web.common.bean.ClassBean;
+import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
-import com.test.web.common.bean.TeacherBean;
+import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
+import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.ReviewDAO;
 import com.test.web.common.dao.TeacherDAO;
@@ -50,6 +52,8 @@ public class DetailController {
 
 	@Autowired
 	BucketDAO busketDao;
+	@Autowired
+	CustomerDAO customerDao;
 
 	@Autowired
 	private TeacherService teacherService;
