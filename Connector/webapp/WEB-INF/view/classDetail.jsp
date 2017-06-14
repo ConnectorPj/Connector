@@ -25,6 +25,7 @@
 
 </head>
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.memberLoginBean}">
 	<div id="classWrap">
 		<div id="class">
 			<div id="title">
@@ -199,7 +200,17 @@
 			
 			$("#actionBtn").click(function() {
 				if (confirm("참가 신청 하시겠습니까?")) {
+					
+					if($("#loginId").val() != ""){
+						
 					location.href="payment.do?studyId="+$("#studyId").val();
+						
+						
+					}else{
+						
+					location.href="login.do?studyId="+$("#studyId").val();
+						
+					}
 				}
 			});
 			

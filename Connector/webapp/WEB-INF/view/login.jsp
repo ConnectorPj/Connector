@@ -31,8 +31,7 @@
 	margin-bottom: 3px;
 }
 </style>
-	<script type="text/javascript">
-		
+<script type="text/javascript">
 	$(document).ready(
 
 			function() {
@@ -40,55 +39,49 @@
 				$("#btnLogin").click(
 						function() {
 
+							$.ajax({
+								type : "post",
+								url : "/CustomerloginProc.do",
+								data : {
+									customerId : $("#customerId").val(),
+									customerPw : $("#customerPw").val()
+								},
+								dataType : "json",
+								success : function(data) {
+									console.log(data);
 
+									if (data.result == "ok") {
 
-								$.ajax({
-									type : "post",
-									url : "/CustomerloginProc.do",
-									data : {
-										customerId : $("#customerId").val(),
-										customerPw : $("#customerPw").val()
-									},
-									dataType : "json",
-									success : function(data) {
-										console.log(data);
-
-										if (data.result == "ok") {
-
-											//android 호출
-											try {
-												var cusId = $("#customerId")
-														.val();
-												window.JSInterface
-														.updateAndToken(cusId);
-											} catch (e) {
-												console.log(e);
-											}
-
-											//로그인 성공
-											location.replace("/main.do");
-											return;
-										} else {
-											alert("로그인을 실패하였습니다.");
-											$("#customerPw").focus();
+										//android 호출
+										try {
+											var cusId = $("#customerId").val();
+											window.JSInterface
+													.updateAndToken(cusId);
+										} catch (e) {
+											console.log(e);
 										}
 
-									},
-									error : function(xhr, status, error) {
-										console.log(xhr);
-										alert("error\nxhr : " + xhr
-												+ ", status : " + status
-												+ ", error : " + error);
+										//로그인 성공
+										location.href = "payment.do?studyId="+ $("#studyId").val();
+										return;
+									} else {
+										alert("로그인을 실패하였습니다.");
+										$("#customerPw").focus();
 									}
-								});
 
-							
+								},
+								error : function(xhr, status, error) {
+									console.log(xhr);
+									alert("error\nxhr : " + xhr + ", status : "
+											+ status + ", error : " + error);
+								}
+							});
 
 						});
 
 			});
-	</script>
-	
+</script>
+
 
 </head>
 <body>
@@ -100,31 +93,32 @@
 	</c:if>
 
 
-
+<input type="hidden" id="studyId" value="${classBean.studyId}"/>
 
 	<div style="background-color: #2c3d46; width: 100%; height: 300px;"></div>
 	<div style="position: relative; top: -200px; margin: 0px auto 0px">
-		<h1 style="color: #fff; text-align: center">더카니와 함께하는 씨샵!</h1>
+		<h1 style="color: #fff; text-align: center">${classBean.studyName}</h1>
 		<br />
 		<h4 style="color: #fff; text-align: center">에 신청하시려면 로그인이 필요합니다.</h4>
 	</div>
 
 	<div class="formDiv">
-		<form >
-				<input type="email" class="inputLogin"
-					id="customerId" placeholder="이메일을 입력하세요" required>
-				<input type="password" class="inputLogin"
-						id="customerPw"  placeholder="암호"required>
+		<form>
+			<input type="email" class="inputLogin" id="customerId"
+				placeholder="이메일을 입력하세요" required> <input type="password"
+				class="inputLogin" id="customerPw" placeholder="암호" required>
 		</form>
 
-			<button class="button button-navy"  id="btnLogin">로그인</button>
-			<a href="/join"><button class="button">회원가입</button></a>
-			<!-- 구글 로그인 연동1 -->
-			<div id="customBtn3" class="customGPlusSignIn" onclick="thirdApp();">
-				<span class="icon" style="margin: 0;"></span> <span class="buttonText" style="padding-left: 10%;">Google</span>
-			</div>
-			<!-- 네이버 로그인 API -->
-			<div id="naver_id_login"></div>
+		<button class="button button-navy" id="btnLogin">로그인</button>
+		<a href="/join.do?studyId=${classBean.studyId}"><button
+				class="button">회원가입</button></a>
+		<!-- 구글 로그인 연동1 -->
+		<div id="customBtn3" class="customGPlusSignIn" onclick="thirdApp();">
+			<span class="icon" style="margin: 0;"></span> <span
+				class="buttonText" style="padding-left: 10%;">Google</span>
+		</div>
+		<!-- 네이버 로그인 API -->
+		<div id="naver_id_login"></div>
 	</div>
 
 </body>

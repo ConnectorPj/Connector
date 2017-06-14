@@ -69,10 +69,16 @@ public class CustomerController {
 	PurchaseDAO purchaseDao;
 
 	@RequestMapping("/join")
-	public String join() {
+	public String join(ClassBean bean, Model model) {
+		
+		
+		ClassBean cbean = classDao.selectClass(bean);
+		model.addAttribute(cbean);
 		return "join";
 	}
-
+	
+	
+	
 	/** 학생 회원가입 처리를 한다. **/
 	@RequestMapping("/insertCustomerProc")
 	@ResponseBody
@@ -126,7 +132,11 @@ public class CustomerController {
 	}
 
 	@RequestMapping("/login")
-	public String login() {
+	public String login(ClassBean bean, Model model) {
+		
+		
+		ClassBean cbean = classDao.selectClass(bean);
+		model.addAttribute(cbean);
 		return "login";
 	}
 

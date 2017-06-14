@@ -7,7 +7,6 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/resources/css/joinLogin.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Join-Co:nnector</title>
@@ -72,7 +71,6 @@
 			return true;
 		}
 	};
-
     function customerCheckIdJSP(){
         
         $.ajax({
@@ -83,6 +81,8 @@
            },
            success : function(data) {
               $("#resultEmailJSP").html(data.resultMsg);
+              if(data.result=="ok"){
+              }
            },
            error : function(error) {
               alert(error.statusText);
@@ -129,7 +129,7 @@
 
 					if (data.result == "ok") {
 						alert(data.resultMsg);
-						location.replace("/login.do");
+						location.href="login.do?studyId="+$("#studyId").val();
 
 						return;
 					} else {
@@ -152,13 +152,14 @@
 </head>
 <body>
 
+<input type="hidden" id="studyId" value="${classBean.studyId}"/>
 
 
 	<div style="background-color: #2c3d46; width: 100%; height: 300px;"></div>
 	<div style="position: relative; top: -200px; margin: 0px auto 0px">
-		<h1 style="color: #fff; text-align: center">더카니와 함께하는 씨샵!</h1>
+		<h1 style="color: #fff; text-align: center">${classBean.studyName}</h1>
 		<br />
-		<h4 style="color: #fff; text-align: center">에 신청하시려면 로그인이 필요합니다.</h4>
+		<h4 style="color: #fff; text-align: center">에 신청하시려면 회원가입이 필요합니다.</h4>
 	</div>
 
 	<div class="formDiv">
@@ -199,7 +200,7 @@
 			<button type="button" class="button button-orange"
 				onclick="insertCustomerJSP();return false;">가입완료</button>
 			<h6>
-				이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a href="/login.do">로그인</a>
+				이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a href="/login.do?studyId=${classBean.studyId}">로그인</a>
 			</h6>
 		</form>
 
