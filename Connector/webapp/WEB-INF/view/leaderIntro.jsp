@@ -90,30 +90,57 @@
 
 		if ($("#inputJoinName").val() == null
 				|| $("#inputJoinName").val() == "") {
-
 			document.getElementById("inputJoinName").focus();
-
 			$('#inputJoinName').attr('placeholder', '이름을 입력하지 않으셨습니다.');
-
 			return;
-
-		} else if ($("#inputJoinEmail").val() == null
+		}
+		
+		else if ($("#inputJoinEmail").val() == null
 				|| $("#inputJoinEmail").val() == "" || !checkinputJoinEmail()) {
 			document.getElementById("inputJoinEmail").focus();
 			$('#inputJoinEmail').attr('placeholder', '메일을 올바르게 작성해주세요.');
-
 			return;
-		} else if ($("#inputJoinpassword").val() == null
-				|| $("#inputJoinpassword").val() == ""
-				|| !checkinputJoinpasswordconfirm()) {
+		}
+		
+		else if ($("#inputJoinpassword").val() == null
+				|| $("#inputJoinpassword").val() == "" || !checkinputJoinpasswordconfirm()) {
 			document.getElementById("inputJoinpassword").focus();
 			$('#inputJoinpassword').attr('placeholder', '비밀번호을 입력하지 않으셨습니다.');
-
 			return;
-		} else if ($(":input:radio[id='agreeJSP2']:checked").val() != "1") {
+		}
+		
+		else if ($("#inputJoinCareer").val() == null
+				|| $("#inputJoinCareer").val() == "") {
+			document.getElementById("inputJoinCareer").focus();
+			$('#inputJoinCareer').attr('placeholder', '경력을 입력하세요.');
+			return;
+		}
+		
+		else if ($("#inputJoinRegistration").val() == null
+				|| $("#inputJoinRegistration").val() == "") {
+			document.getElementById("inputJoinRegistration").focus();
+			$('#inputJoinRegistration').attr('placeholder', '주민등록번호 앞자리를 입력하세요.');
+			return;
+		}
+		
+		else if ($("#inputJoinPhone").val() == null
+				|| $("#inputJoinPhone").val() == "") {
+			document.getElementById("inputJoinPhone").focus();
+			$('#inputJoinPhone').attr('placeholder', '핸드폰 번호를  입력하세요.');
+			return;
+		}
+		
+		else if ($(":input:radio[id='inputGender']:checked").val() != "F"
+				&& $(":input:radio[id='inputGender2']:checked").val() != "M") {
+			alert("성별을 선택해주세요.");
+			return;
+		}
+		
+		else if ($(":input:radio[id='agreeJSP2']:checked").val() != "1") {
 			alert("개인정보 활용 제공에 동의해주세요.");
 			return;
 		}
+		
 
 		else {
 
@@ -128,7 +155,7 @@
 
 					if (data.result == "ok") {
 						alert(data.resultMsg);
-						location.replace("/login.do");
+						location.replace("/main.do");
 
 						return;
 					} else {
@@ -262,8 +289,8 @@
 				<!-- 네이버 로그인 API -->
 				<div id="naver_id_login"></div>
 				<h6 style="text-align: center;">
-					<small> ───────────────────── </small>또&nbsp;&nbsp;는<small>
-						───────────────────── </small>
+					<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
+						──────────────── </small>
 				</h6>
 				<form id="teacherFormJSP">
 					<div>
@@ -289,14 +316,16 @@
 							style="font-size: 0.4em; color: #aaa;"></p>
 
 						<input type="text" class="form-control" name="teacherCareer"
-							id="inputJoinCareer" placeholder="경력" /><br /> <input
-							type="text" class="form-control" name="teacherBirthnum"
-							id="inputJoinRegistration" placeholder="주민등록번호 앞자리" /><br /> <input
-							type="text" class="form-control" name="teacherCellphone"
-							id="inputJoinPhone" placeholder="핸드폰번호" /><br /> <input
-							type="radio" name="teacherGender" value="F">여자
-						&nbsp;&nbsp;&nbsp; <input type="radio" name="teacherGender"
-							value="M">남자
+							id="inputJoinCareer" placeholder="경력" /><br />
+							
+						<input type="text" class="form-control" name="teacherBirthnum"
+							id="inputJoinRegistration" placeholder="주민등록번호 앞자리" /><br />
+							
+						<input type="text" class="form-control" name="teacherCellphone"
+							id="inputJoinPhone" placeholder="핸드폰번호" /><br />
+							
+						<input type="radio" id="inputGender" name="teacherGender" value="F">여자 &nbsp;&nbsp;&nbsp;
+						<input type="radio" id="inputGender2" name="teacherGender" value="M">남자
 					</div>
 
 
