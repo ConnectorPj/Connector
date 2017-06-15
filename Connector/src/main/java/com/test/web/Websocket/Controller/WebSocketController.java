@@ -21,7 +21,7 @@ import javax.websocket.server.ServerEndpoint;
 public class WebSocketController {
 	
 	
-    static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+    static List<Object> sessionUsers = Collections.synchronizedList(new ArrayList<>());
     static Session AdminSession; 
      
     @OnOpen
@@ -46,10 +46,10 @@ public class WebSocketController {
         if(userSession == AdminSession){ // 보낸이가 관리자라면
         	
         	String [] messages = message.split("/");
-        	Iterator<Session> iterator = sessionUsers.iterator();
+        	Iterator<Object> iterator = sessionUsers.iterator();
         	
         	while(iterator.hasNext()){
-        		Session session = iterator.next();
+        		Session session = (Session) iterator.next();
         		if(session.getId().equals(messages[1])){ // 해당 사용자에게 메시지 보내기.
         			session.getBasicRemote().sendText(buildJsonData(username,messages[0]));
         		}

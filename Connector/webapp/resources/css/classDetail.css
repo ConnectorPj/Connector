@@ -1,14 +1,13 @@
 @CHARSET "UTF-8";
 
-
 #classWrap {
 	width: 56%;
 	margin: 90px auto 0;
 }
 
 #class {
-	margin-top : 10%;
-	width : 77%;
+	margin-top: 10%;
+	width: 77%;
 	background: white;
 }
 
@@ -24,16 +23,16 @@
 
 .sideTitle {
 	margin: 0 9pt 35px;
-    font-size: 13pt;
-    color: #333;
-    word-break: keep-all;
-    line-height: 1.5em;
+	font-size: 13pt;
+	color: #333;
+	word-break: keep-all;
+	line-height: 1.5em;
 }
 
 .sideWrap {
 	border-top: 1px solid #f2f2f2;
 	display: block;
-    margin-top: 0em;
+	margin-top: 0em;
 }
 
 .sideSchedule {
@@ -42,28 +41,28 @@
 	margin: 0;
 }
 
-
-
 .choiceBtn {
 	display: none;
 	outline: 0;
 	-webkit-appearance: none;
-    display: inline-block;
-    padding-left: 6px;
-    height: 2pc;
-    line-height: 2pc;
-    font-size: 14px;
-    cursor: default;
+	display: inline-block;
+	padding-left: 6px;
+	height: 2pc;
+	line-height: 2pc;
+	font-size: 14px;
+	cursor: default;
 }
 
 .mock-radio {
-	background: transparent url(https://cdn.studysearch.co.kr/static/images/purchase/item_radio_checked.1f99efef95e3.png)0 0 no-repeat;
+	background: transparent
+		url(https://cdn.studysearch.co.kr/static/images/purchase/item_radio_checked.1f99efef95e3.png)
+		0 0 no-repeat;
 	display: inline-block;
-    margin: -3px 9pt 0 0;
-    width: 2pc;
-    height: 2pc;
-    vertical-align: middle;
-    cursor: pointer;
+	margin: -3px 9pt 0 0;
+	width: 2pc;
+	height: 2pc;
+	vertical-align: middle;
+	cursor: pointer;
 }
 
 .choiceText {
@@ -72,80 +71,101 @@
 
 .sideCostWrap {
 	border-top: 1px solid #f2f2f2;
-    overflow: hidden;
-    font-size: 11pt;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+	overflow: hidden;
+	font-size: 11pt;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
 }
 
 .sideCostInit {
 	font-size: 9pt;
-    color: #a0a0a0;
+	color: #a0a0a0;
 }
 
 .sideCost {
 	float: right;
-    color: #ef6c00;
-    font-size: 18pt;
-    font-weight: 700;
+	color: #ef6c00;
+	font-size: 18pt;
+	font-weight: 700;
 }
 
-.titleLevel{
+.titleLevel {
 	width: 60pt;
-    height: 50pt;
-    overflow: hidden;
-    text-align: center;
-    background: #ef6c00;
-    line-height: normal;
-    float: right;
+	height: 50pt;
+	overflow: hidden;
+	text-align: center;
+	background: #ef6c00;
+	line-height: normal;
+	float: right;
 }
 
 .levelText1 {
 	margin-top: 10px;
-    color: #ffeb3b;
-    font-weight: 700;
-    font-size: 10pt;
+	color: #ffeb3b;
+	font-weight: 700;
+	font-size: 10pt;
 }
 
 .levelText2 {
 	margin-top: 3px;
-    font-size: 15pt;
-    color: #fff;
+	font-size: 15pt;
+	color: #fff;
 }
 
 .actionBtn {
 	margin-top: 24px;
-    background-color: #ef6c00;
-    color: #fff;
-    border: none;
-    display: block;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-    text-align: center;
-    font-size: 11pt;
+	background-color: #ef6c00;
+	color: #fff;
+	border: none;
+	display: block;
+	width: 100%;
+	height: 56px;
+	line-height: 56px;
+	text-align: center;
+	font-size: 11pt;
+}
+.actionBtnMobile {
+	float : left;
+	background-color: #ef6c00;
+	color: #fff;
+	border: none;
+	display: block;
+	width: 70%;
+	height: 25px;
+	margin-right : 6px;
+	text-align: center;
+	font-size: 11pt;
 }
 
 .booking {
 	margin-top: 10px;
-    border: 1px solid #dcdcdc;
-    box-sizing: border-box;
-    color: #777;
-    display: block;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-    text-align: center;
-    font-size: 11pt;
-    text-decoration: none;
+	border: 1px solid #dcdcdc;
+	box-sizing: border-box;
+	color: #777;
+	display: block;
+	width: 100%;
+	height: 56px;
+	line-height: 56px;
+	text-align: center;
+	font-size: 11pt;
+	text-decoration: none;
+}
+
+.bookingMobile {
+	color: #777;
+	text-align: center;
+	font-size: 11pt;
+	text-decoration: none;
 }
 
 .bookingIcon {
 	display: inline-block;
-    margin: 0 9pt -3px 0;
-    width: 20px;
-    height: 18px;
-    background: url(https://cdn.studysearch.co.kr/static/images/icon_asset.1de9e0de1114.png)-4px -15pc no-repeat;
+	margin: 0 9pt -3px 0;
+	width: 20px;
+	height: 18px;
+	background:
+		url(https://cdn.studysearch.co.kr/static/images/icon_asset.1de9e0de1114.png)
+		-4px -15pc no-repeat;
 }
 
 .sideJoin {
@@ -164,7 +184,7 @@
 }
 
 .carousel-inner>.item>img {
-	width : 820px;
+	width: 820px;
 	margin: 0 auto;
 }
 
@@ -182,9 +202,10 @@
 }
 
 #studyintro {
+	
 }
 
-.studyTitle{
+.studyTitle {
 	width: 22%;
 	font-size: 20px;
 	padding: 20px;
@@ -193,12 +214,11 @@
 
 .StudyContent {
 	margin-left: 23%;
-	margin-right : 5%;
+	margin-right: 5%;
 	margin-top: 5%;
 	height: 100%;
 	font-size: 20px;
 }
-
 
 #detail {
 	height: 6%;
@@ -274,8 +294,39 @@
 	wdith: 100%;
 	height: auto;
 }
-.replyTitle{
+
+.replyTitle {
 	font-size: 15px;
 	margin-left: 20px;
 	font-weight: bold;
+}
+
+#mobileButton{
+	visibility : hidden;
+	position : fixed;
+	width : 170px;
+	height : 26px;
+	margin-left : 50%;
+	border: 1px solid orange;
+	margin-top : 2px;
+}
+
+
+@media screen and (max-width: 766px) {
+	#classWrap {
+	width: 100%;
+	}
+	#class {
+		width: 100%;
+	}
+	.sideWrap{
+	visibility: hidden;
+	}
+	#side {
+	visibility: hidden;
+	}
+	
+	#mobileButton{
+		visibility: visible;
+	}
 }

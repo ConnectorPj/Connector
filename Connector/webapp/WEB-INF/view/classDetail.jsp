@@ -25,7 +25,10 @@
 
 </head>
 <body>
-<input type="hidden" id="loginId" value="${sessionScope.memberLoginBean}">
+	<div id="mobileButton">
+			<button id="actionBtnMobile" class="actionBtnMobile""> 참여 신청하기 </button>
+			<a id="bookingMobile" class="bookingMobile" >찜하기</a>
+	</div>
 	<div id="classWrap">
 		<div id="class">
 			<div id="title">
@@ -191,31 +194,28 @@
 					<span id="sideCostInit" class="sideCostInit">참가비</span> <span
 						class="sideCost">${ClassBean.studyPrice}원</span>
 				</div>
-				<button id="actionBtn"  class="actionBtn"> 참여 신청하기 </button>
 			</div>
+			<button id="actionBtn"  class="actionBtn"> 참여 신청하기 </button>
 			<a id="booking" class="booking" href="#" >찜하기</a>
 			
 			<script type="text/javascript">
 			var cond = 1;
 			
-			$("#actionBtn").click(function() {
+			function joinFunc(){
 				if (confirm("참가 신청 하시겠습니까?")) {
-					
-					if($("#loginId").val() != ""){
-						
 					location.href="payment.do?studyId="+$("#studyId").val();
-						
-						
-					}else{
-						
-					location.href="login.do?studyId="+$("#studyId").val();
-						
-					}
 				}
+			}
+			
+			$("#actionBtn").click(function() {
+				joinFunc();
+			});
+			$("#actionBtnMobile").click(function() {
+				joinFunc();
 			});
 			
-			$("#booking").click(function() {
-				
+			function book(){
+
 				if(cond == 1){				
 					$.ajax({
 						type: "post",
@@ -262,7 +262,6 @@
 							} else {
 								alert("찜 목록에 실패 하였습니다.");
 							}
-							
 						},
 						error: function(xhr, status, error) {
 							console.log(xhr);
@@ -271,8 +270,16 @@
 						}
 					});
 				}
-			});
 		
+			}
+			
+			$("#booking").click(function() {
+				book();
+			});
+			$("#bookingMobile").click(function() {
+				book();
+			});
+			
 			</script>
 		</div>
 		<!-- end of side -->

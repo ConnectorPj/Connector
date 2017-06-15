@@ -236,21 +236,13 @@ section .main_visual .visual03 {
 
 .card {
 	float: left;
-	width: 33.33%;
-	padding-top: 10px;
+	width: 240px;
+	height : 340px;
+	margin-right : 10px;
+	margin-bottom : 10px;
 	background-color: rgba(214, 224, 226, 0.2);
-	border-top-width: 0;
-	border-bottom-width: 2px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
+
 
 div .card:hover {
 	opacity: .5;

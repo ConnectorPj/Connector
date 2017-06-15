@@ -172,7 +172,6 @@
 
 	// 한번에 보여줄 bean의 갯수
 	var showPagingCount = 6;
-
 	$(document).ready(function() {
 		var mapContainer = document.getElementById('test2'), // 지도를 표시할 div
 			mapOption = {
@@ -232,8 +231,17 @@
 						changeCategory();
 					}
 					$("#bigCategorySelect").change(function() {
-						changeCategory();
+						if (window.innerWidth < 769) {
+							isMobile = 0;
+							changeCategoryMobile();
+						} else {
+							changeCategory();
+						}
 					});
+					
+					if (window.innerWidth < 769) {
+						mobileView();
+					}
 
 					return;
 				} else {
@@ -247,6 +255,52 @@
 					+ status + ", error : " + error);
 			}
 		}); // end of ajax
+
+		function changeCategoryMobile() {
+			var mobileContents = [];
+			$.ajax({
+				type : "post",
+				url : "searchListAjax.do",
+				data : {
+					studyProgressName : $("#bigCategorySelect").val()
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.result == "ok") {
+						$.each(data.classList, function(i, cBean) {
+							var content1 = "";
+							content1 += '<div class="card hovercard" id="pick_Contents"';
+							content1 += 'OnClick=location.href="/detail.do?studyId=' + cBean.studyId + '">';
+							content1 += '<div class="cardheader" style= "background-image:url(/resources/images/img.jpg)"></div>';
+							content1 += '<div class="avatar"> <img src="/resources/images/img.jpg"></div>';
+							content1 += '<div class="info"> <div class="title">' + cBean.studyName + '</div>';
+							content1 += '<div class="desc">' + cBean.studyPrice + '</div>';
+							content1 += '<div class="desc">' + cBean.studyStartDate + '~</div>';
+							content1 += '<div class="desc">' + cBean.studyEndDate + '</div></div></div>';
+
+							mobileContents.push(content1);
+						});
+						$("#memberListBody").text("");
+						for (var i = 0, len = mobileContents.length; i < len; i++) {
+							$("#memberListBody").append(mobileContents[i]);
+						}
+						// 총 갯수 구하기
+						$("#totalCount").text(mobileContents.length);
+
+						return;
+					} else {
+						alert(data.resultMsg);
+					}
+
+				},
+				error : function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : "
+						+ status + ", error : " + error);
+				}
+			}); // end of ajax
+		} //end of changeCategoryMobile;
+
 		function changeCategory() {
 			$.ajax({
 				type : "post",
@@ -507,7 +561,6 @@
 					for (var i = 0, len = data.places.length; i < len; i++) {
 						bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
 					}
-
 					// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 					map.setBounds(bounds);
 				}
@@ -534,6 +587,62 @@
 	function closeOverlay() {
 		overlay.setMap(null);
 	}
+	var isMobile = 1;
+	$(window).resize(function() {
+		if (window.innerWidth < 769 && isMobile == 1) {
+			$("#bigCategorySelect").val("0");
+			mobileView();
+		}
+		if(window.innerWidth > 769){
+			isMobile = 1;
+		}
+	});
+
+	function mobileView() {
+		var mobileContents = [];
+		$("#memberListBody").text("");
+
+		$.ajax({
+			type : "post",
+			url : "searchAjax.do",
+			dataType : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+
+					$.each(data.classList, function(i, cBean) {
+
+						var content1 = "";
+						content1 += '<div class="card hovercard" id="pick_Contents"';
+						content1 += 'OnClick=location.href="/detail.do?studyId=' + cBean.studyId + '">';
+						content1 += '<div class="cardheader" style= "background-image:url(/resources/images/img.jpg)"></div>';
+						content1 += '<div class="avatar"> <img src="/resources/images/img.jpg"></div>';
+						content1 += '<div class="info"> <div class="title">' + cBean.studyName + '</div>';
+						content1 += '<div class="desc">' + cBean.studyPrice + '</div>';
+						content1 += '<div class="desc">' + cBean.studyStartDate + '~</div>';
+						content1 += '<div class="desc">' + cBean.studyEndDate + '</div></div></div>';
+
+						mobileContents.push(content1);
+					});
+
+					for (var i = 0, len = mobileContents.length; i < len; i++) {
+						$("#memberListBody").append(mobileContents[i]);
+					}
+					// 총 갯수 구하기
+					$("#totalCount").text(mobileContents.length);
+
+					return;
+				} else {
+					alert(data.resultMsg);
+				}
+
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : "
+					+ status + ", error : " + error);
+			}
+		}); // end of ajax
+	} //end of mobileView
 </script>
 
 </head>
@@ -556,8 +665,8 @@
 								</span>
 							</div>
 						</div>
+						<hr>
 					</div>
-					<hr>
 
 					<div class="searchCategory">
 						<label class="textCategory">카테고리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -597,8 +706,6 @@
 			</div> --%>
 
 		</div>
-
-
 		<div id="test2"></div>
 	</div>
 </body>

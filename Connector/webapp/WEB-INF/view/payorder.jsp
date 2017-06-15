@@ -363,7 +363,7 @@
 					<ul>
 						<li><a href="personalInfoCustomer.do">개인정보</a></li>
 						<li><a href="payorder.do" class="on">마이 클래스</a></li>
-						<li><a href="busketList.do">마이 찜목록</a></li>
+						<li><a href="bucketList.do">마이 찜목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
@@ -525,7 +525,6 @@
 							document.getElementById("studyResult").textContent=cBean.studyName+"강사님의스터디에 대한 평가를 해주세요!";
 							
 						} else {
-							alert("외않되?");
 						}
 					},
 					error : function(xhr, status, error) {

@@ -80,8 +80,25 @@
 		<div class="chatBefore" id="chatBefore"
 			style="position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray;">
 			<span style="font-size: 20px; text-align: center; color: white;">
-				채팅을 시작해 보세요!</span>
+				1:1 문의 답변하기</span>
 		</div>
+
+		<div class="chatRoom" id="chatRoom"
+			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
+			<div class="chatTitle" id="chatTitle"
+				style="width: 100%; height: 10%; background: gray;">
+				<span style="font-size: 20px; color: white;"> 채팅방 관리하기 </span>
+				<div class="close" onclick="closeChatList()" title="닫기"></div>
+			</div>
+			<div id="content"
+				style="background-color: #F5F5F5; width: 100%; height: 90%; OVERFLOW-Y: auto; word-wrap: break-word">
+				<table style="width: 100%;">
+					<tbody id="chatBody"></tbody>
+				</table>
+			</div>
+
+		</div>
+
 		<div class="chatAfter" id="chatAfter"
 			style="visibility: hidden; position: fixed; right: 0; bottom: 0; z-index: 10000; background-color: gray; width: 330px; height: 400px;">
 			<div class="chatTitle" id="chatTitle"
@@ -89,7 +106,6 @@
 				<span style="font-size: 20px; color: white;"> Let's chat! </span>
 				<div class="close" onclick="closeChat()" title="닫기"></div>
 			</div>
-
 
 			<div id="message"
 				style="background-color: #F5F5F5; width: 100%; height: 75%; OVERFLOW-Y: auto; word-wrap: break-word"></div>
@@ -102,15 +118,18 @@
 
 		<script type="text/javascript">
 			var div = document.getElementById('message');
+			var arr = new Array();
+		
 		
 			//WebSocketEx는 프로젝트 이름
 			//websocket 클래스 이름
 			var webSocket = new WebSocket("ws://localhost:8181/websocket");
 			/* var messageTextArea = document.getElementById("messageTextArea");*/
-			
+		
 			//웹 소켓이 연결되었을 때 호출되는 이벤트
 			webSocket.onopen = function(message) {
-			 	webSocket.send("#");
+				webSocket.send("#");
+				arr.push("0");
 			};
 			//웹 소켓이 닫혔을 때 호출되는 이벤트
 			webSocket.onclose = function(message) {
@@ -120,18 +139,79 @@
 			webSocket.onerror = function(message) {
 				div.innerText += "error...\n";
 			};
+			var curId = "";
 			//웹 소켓에서 메시지가 날라왔을 때 호출되는 이벤트
 			webSocket.onmessage = function(message) {
-				 var jsonData = JSON.parse(message.data);
-				div.innerText += jsonData.message + "\n";
+				var jsonData = JSON.parse(message.data);
+				var message = jsonData.message.split("/");
+		
+				for (var i = 0; i < arr.length; i++) {
+					// 기존에 대화창이 있다면
+					
+					if (arr[i][0] == message[1]) {
+						arr[i].push(message[1] + " : " + message[0]);
+						break;
+					}
+					// 만약 기존에 대화창이 없다면
+					if (i == arr.length-1) {
+						arr.push(message[1]);
+						arr[arr.length - 1] = new Array();
+						arr[arr.length - 1].push(message[1]);
+						arr[arr.length - 1].push(message[1] + " : " + message[0]);
+		
+						//댓글 리스트 출력
+						var str = "";
+						str += "<tr>";
+						str += "<td width='70%'>" + message[1] + "</td>";
+						str += "<td width='30%'><button type='button' onclick='openChat(" + '"' + message[1] + '"' + ")'>채팅하기</button></td>";
+						str += "</tr>";
+						$("#chatBody").append(str);
+						break;
+					}
+				}
+		
+				if (curId == message[1]) {
+					div.innerText += message[1] + " : " + message[0] + "\n";
+				}
+		
 			};
 			//Send 버튼을 누르면 실행되는 함수
+			function openChat(id) {
+				div.innerText = "";
+				curId = id;
+		
+				for (var i = 1; i < arr.length; i++) {
+					if (arr[i][0] == id) {
+						for (var j = 1; j < arr[i].length; j++) {
+							$("#message").append(arr[i][j] + "<br/>");
+						}
+					}
+				}
+				document.getElementById("chatAfter").style.visibility = "visible";
+				document.getElementById("chatRoom").style.visibility = "hidden";
+			}
+			function closeChat() {
+				document.getElementById("chatRoom").style.visibility = "visible";
+				document.getElementById("chatAfter").style.visibility = "hidden";
+			}
+		
 			function sendMessage() {
+				
 				var message = $("#input").val();
+				div.innerText += "admin : " + message + "\n";
+				
 				//웹소켓으로 textMessage객체의 값을 보낸다.
-				webSocket.send(message);
+				webSocket.send(message + "/" + curId);
+				
 				//textMessage객체의 값 초기화
 				$("#input").val("");
+				
+				for (var i = 0; i < arr.length; i++) {
+					// 기존에 대화창이 있다면
+					if (arr[i][0] == curId) {
+						arr[i].push("admin : " + message + "\n");
+					}
+				}
 			}
 			//웹소켓 종료
 			function disconnect() {
@@ -148,12 +228,17 @@
 			$(document).ready(function() {
 				$("#chatBefore").click(function() {
 					document.getElementById("chatBefore").style.visibility = "hidden";
-					document.getElementById("chatAfter").style.visibility = "visible";
+					document.getElementById("chatRoom").style.visibility = "visible";
 				});
 			});
 			function closeChat() {
 				document.getElementById("chatBefore").style.visibility = "visible";
 				document.getElementById("chatAfter").style.visibility = "hidden";
+			}
+		
+			function closeChatList() {
+				document.getElementById("chatBefore").style.visibility = "visible";
+				document.getElementById("chatRoom").style.visibility = "hidden";
 			}
 		</script>
 

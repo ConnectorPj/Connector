@@ -54,6 +54,9 @@
 	width: 170px; 
 	height: 35px;
 }
+#memberListBody{
+	width : 100%;
+}
 .searchCategory {
 	display: flex;
 }
@@ -80,3 +83,5 @@
 	background: #ddd;
 	padding-left: 10px;
 }
+
+

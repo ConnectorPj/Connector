@@ -88,17 +88,27 @@ public class CustomerController {
 
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원가입에 실패 하였습니다.");
-
+		
+		
 		// DB insert
 		try {
-			int res = customerService.insertCustomer(customerBean);
+			TeacherBean tBean = new TeacherBean();
+			tBean.setTeacherId(customerBean.getCustomerId());
+			
+			tBean = teacherService.selectTeacher(tBean);
+			if(tBean == null){
+				int res = customerService.insertCustomer(customerBean);
 
-			if (res > 0) {
-				resMap.put(Constants.RESULT, Constants.RESULT_OK);
-				resMap.put(Constants.RESULT_MSG, "회원가입에 성공 하였습니다.");
+				if (res > 0) {
+					resMap.put(Constants.RESULT, Constants.RESULT_OK);
+					resMap.put(Constants.RESULT_MSG, "회원가입에 성공 하였습니다.");
+				}
+			}else{
+				resMap.put(Constants.RESULT_MSG, "이미 가입되어 있는 아이디 입니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			resMap.put(Constants.RESULT_MSG, "이미 가입되어 있는 아이디 입니다.");
 		}
 
 		return resMap;
@@ -116,20 +126,31 @@ public class CustomerController {
 
 		// DB insert
 		try {
+			CustomerBean cusBean = new CustomerBean();
+			cusBean.setCustomerId(teacherBean.getTeacherId());
+			
+			cusBean = customerService.selectCustomer(cusBean);
+			
+			if(cusBean == null){
+				teacherBean.setTeacherCheck("0");
+				int res = teacherService.insertTeacher(teacherBean);
 
-			teacherBean.setTeacherCheck("0");
-			int res = teacherService.insertTeacher(teacherBean);
-
-			if (res > 0) {
-				resMap.put(Constants.RESULT, Constants.RESULT_OK);
-				resMap.put(Constants.RESULT_MSG, "회원가입에 성공 하였습니다.");
+				if (res > 0) {
+					resMap.put(Constants.RESULT, Constants.RESULT_OK);
+					resMap.put(Constants.RESULT_MSG, "회원가입에 성공 하였습니다.");
+				}
+			}else{
+				resMap.put(Constants.RESULT_MSG, "이미 가입되어 있는 아이디 입니다.");
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
+			resMap.put(Constants.RESULT_MSG, "이미 가입되어 있는 아이디 입니다.");
 		}
 
 		return resMap;
 	}
+
 
 	@RequestMapping("/login")
 	public String login(ClassBean bean, Model model) {
