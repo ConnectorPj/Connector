@@ -1,6 +1,11 @@
 @CHARSET "UTF-8";
 
-
+html, body {
+   	height: 100%;
+   	width: 100%;
+   	overflow: auto;
+}
+	
 .realReviewWrap {
 	width: 56%;
 	margin: 90px auto 0;
@@ -14,7 +19,10 @@
 
 .reviewImg img {
 	width: 100%;
-	margin-bottom: 50px;
+}
+
+.reviewListWrap {
+	margin-top: 30px;
 }
 
 .reviewListTitle {
@@ -50,6 +58,11 @@
 	height: 50px;
 	border-radius: 50%;
 	text-decoration: none;
+}
+
+#moreReviewList {
+	width: 50px; 
+	height: 50px;
 }
 
 .reviewLevelSelect {
@@ -100,4 +113,41 @@
     color: #2c3d46;
     text-decoration: none;
 } 
+
+@media (max-width: 767px) {
+	.realReviewWrap {
+		width: auto;
+	}
+	.realReview {
+		float: none;
+		width: auto;
+	}
+	.reviewLevelSelect {
+		float: none;
+		width: auto;
+		position: inherit;
+		top: auto;
+		margin-left: auto;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
