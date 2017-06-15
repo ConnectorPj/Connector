@@ -28,7 +28,7 @@
              </div>
        </div>
        <div style="width:100%; text-align: center;">
-       <img alt="line" src="/resources/images/line.png"style="width:56%;margin:50px auto 50px;">
+       		<img alt="line" src="/resources/images/line.png"style="width:56%;margin:50px auto 50px;">
        </div>
        <div class="introSection">
        
@@ -37,7 +37,7 @@
             
                 <div class="section1">
                     <div class="section1_sub1">
-                         <p class="titleSection">다양한 언어를 배워보세요</p>
+                         <p class="titleSection">나에게 꼭 맞는 스터디에<br/> 신청하세요.</p>
                      <p class="subText"> 내 레벨, 지역, 일정에 꼭 맞는 스터디에<br/>
                         신청하세요. 신청 후 24시간 이내에 리더로부터<br/>
                         정식 멤버 승인을 받으면 결제가 완료됩니다</p>
@@ -54,10 +54,9 @@
                       <img src="/resources/images/img.jpg" alt="aaa"/>
                 </div>
                     <div class="section2_sub2">
-                         <p class="titleSection">나에게 꼭 맞는<br/> 스터디에 신청하세요</p>
-                       <p class="subText"> 나와 비슷한 6명의 도란도란한 정예 멤버로<br/>
-                        살아 숨쉬는 영어를 느껴보세요!<br/>
-                        결석시 대체 수업도 놓치지 마세요.</p>
+                         <p class="titleSection">다양한 언어를 배워보세요.</p>
+                       <p class="subText">웹개발, 모바일개발, 시스템개발, IOT<br/> 내가 원하는 언어를 선택해 보세요.<br/>
+                       	내가 원하는 리더, 원하는 언어를 부담없이<br/> 배울 수 있습니다.</p>
                     </div>
                 </div>
                 <br/><br/><br/><br/><br/>
