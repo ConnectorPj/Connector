@@ -18,217 +18,43 @@
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries=services"></script>
 
 <script type="text/javascript">
-	function fnMove(seq) {
-		var offset = $("#div" + seq).offset().top - 100;
-		$('html, body').animate({
-			scrollTop : offset
-		}, 400);
+	var aaa = 1;
+
+	function movePre() {
+		if (aaa > 1) {
+			var offset = $("#div" + (aaa - 1)).offset().top - 100;
+			$('html, body').animate({
+				scrollTop : offset
+			}, 400);
+			aaa--;
+		}
+	}
+	function moveNext() {
+		if (aaa < 7) {
+
+			var offset = $("#div" + (aaa + 1)).offset().top - 100;
+			$('html, body').animate({
+				scrollTop : offset
+			}, 400);
+			aaa++;
+		}
 	}
 </script>
 
 <style>
-.map_wrap, .map_wrap * {
-	margin: 0;
-	padding: 0;
-	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-	font-size: 12px;
-}
-
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
-	color: #000;
-	text-decoration: none;
-}
-
-.map_wrap {
-	position: relative;
-	width: 100%;
-	height: 500px;
-}
-
-#menu_wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 250px;
-	margin: 10px 0 30px 10px;
-	padding: 5px;
-	overflow-y: auto;
-	background: rgba(255, 255, 255, 0.7);
-	z-index: 1;
-	font-size: 12px;
-	border-radius: 10px;
-}
-
-.bg_white {
-	background: #fff;
-}
-
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
-#menu_wrap .option {
-	text-align: center;
-}
-
-#menu_wrap .option p {
-	margin: 10px 0;
-}
-
-#menu_wrap .option button {
-	margin-left: 5px;
-}
-
-#placesList li {
-	list-style: none;
-}
-
-#placesList .item {
-	position: relative;
-	border-bottom: 1px solid #888;
-	overflow: hidden;
-	cursor: pointer;
-	min-height: 65px;
-}
-
-#placesList .item span {
-	display: block;
-	margin-top: 4px;
-}
-
-#placesList .item h5, #placesList .item .info {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-#placesList .item .info {
-	padding: 10px 0 10px 55px;
-}
-
-#placesList .info .gray {
-	color: #8a8a8a;
-}
-
-#placesList .info .jibun {
-	padding-left: 26px;
-	background:
-		url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
-		no-repeat;
-}
-
-#placesList .info .tel {
-	color: #009900;
-}
-
-#placesList .item .markerbg {
-	float: left;
-	position: absolute;
-	width: 36px;
-	height: 37px;
-	margin: 10px 0 0 10px;
-	background:
-		url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-		no-repeat;
-}
-
-#placesList .item .marker_1 {
-	background-position: 0 -10px;
-}
-
-#placesList .item .marker_2 {
-	background-position: 0 -56px;
-}
-
-#placesList .item .marker_3 {
-	background-position: 0 -102px
-}
-
-#placesList .item .marker_4 {
-	background-position: 0 -148px;
-}
-
-#placesList .item .marker_5 {
-	background-position: 0 -194px;
-}
-
-#placesList .item .marker_6 {
-	background-position: 0 -240px;
-}
-
-#placesList .item .marker_7 {
-	background-position: 0 -286px;
-}
-
-#placesList .item .marker_8 {
-	background-position: 0 -332px;
-}
-
-#placesList .item .marker_9 {
-	background-position: 0 -378px;
-}
-
-#placesList .item .marker_10 {
-	background-position: 0 -423px;
-}
-
-#placesList .item .marker_11 {
-	background-position: 0 -470px;
-}
-
-#placesList .item .marker_12 {
-	background-position: 0 -516px;
-}
-
-#placesList .item .marker_13 {
-	background-position: 0 -562px;
-}
-
-#placesList .item .marker_14 {
-	background-position: 0 -608px;
-}
-
-#placesList .item .marker_15 {
-	background-position: 0 -654px;
-}
-
-#pagination {
-	margin: 10px auto;
-	text-align: center;
-}
-
-#pagination a {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-#pagination .on {
-	font-weight: bold;
-	cursor: default;
-	color: #777;
-}
-
-ul, li {
-	list-style: none;
-}
-
-.demo-3 i {
-	position: absolute;
-	right: 30px;
-	bottom: 10px;
-}
-
-.container {
-	margin: 150px auto;
-}
 </style>
 </head>
 <body>
+
+	<div class="moveBtnDiv">
+		<button class="button1" onclick="movePre();">
+			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+		</button>
+		<button class="button1" onclick="moveNext();">
+			<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+		</button>
+	</div>
+
 	<form id="registerStudyForm" enctype="multipart/form-data">
 		<div class="div_reg" id="div1">
 			<h1>스터디 등록하기</h1>
@@ -241,14 +67,16 @@ ul, li {
 
 			<div id="css_tabs">
 				<!-- 라디오 버튼 -->
-				<input id="tab1" type="radio" name="studyProgressName" value="웹개발" />
-				<input id="tab2" type="radio" name="studyProgressName"
+				<input id="tab1" type="radio" name="studyProgressName" value="웹개발"
+					checked /> <input id="tab2" type="radio" name="studyProgressName"
 					value="시스템개발" /> <input id="tab3" type="radio"
 					name="studyProgressName" value="모바일개발" /> <input id="tab4"
-					type="radio" name="studyProgressName" value="IoT" />
+					type="radio" name="studyProgressName" value="IOT" />
 				<!-- 라벨 : 화면에 표시되는 탭 제목 -->
-				<label for="tab1">WEB</label> <label for="tab2">SYSTEM</label> <label
-					for="tab3">MOBILE</label> <label for="tab4">IoT</label>
+				<label for="tab1" id="categoryLabel">WEB</label> <label for="tab2"
+					id="categoryLabel">SYSTEM</label> <label for="tab3"
+					id="categoryLabel">MOBILE</label> <label for="tab4"
+					id="categoryLabel">IoT</label>
 
 				<!-- 탭 내용 : 탭 제목을 선택했을 때 표시되는 본문 -->
 				<div class="tab1_content">
@@ -324,14 +152,7 @@ ul, li {
 
 		</div>
 
-		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('1');">
-				<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-			</button>
-			<button class="button1" onclick="fnMove('2');">
-				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-			</button>
-		</div>
+
 
 
 		<div class="div_reg" style="padding-top: 30px;" id="div2">
@@ -341,10 +162,12 @@ ul, li {
 			<br />
 			<h3>스터디 대상을 선택해주세요.</h3>
 			<div class="subdiv">
-				<div class="btn-group" style="margin: 50px auto 100px;"
-					data-toggle="buttons">
+
+
+				<div class="btn-group" data-toggle="buttons">
+
 					<label class="btn btn-default"> <input type="checkbox"
-						name="studyJob" id="elements" value="초등학생"> 초등학생
+						name="studyJob" id="elements" value="초등학생" " /> 초등학생
 					</label> <label class="btn btn-default"> <input type="checkbox"
 						name="studyJob" id="middle" value="중학생"> 중학생
 					</label> <label class="btn btn-default"> <input type="checkbox"
@@ -360,15 +183,6 @@ ul, li {
 					</label>
 				</div>
 			</div>
-
-		</div>
-		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('1');">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-			</button>
-			<button class="button1" onclick="fnMove('3');">
-				<span class="glyphicon glyphicon-chevron-down"></span>
-			</button>
 		</div>
 
 
@@ -381,12 +195,13 @@ ul, li {
 			<div class="subdiv">
 				<input type="text" class="inputStyle" name="studyName">
 			</div>
-			<br /> <br />
+			<hr>
+
 			<div style="width: 70%; display: inline-block">
 				<h3>스터디 인원과 금액을 설정해주세요.</h3>
 				<div>
 					<h4>최대 인원 :</h4>
-					<br /> <select name="studyAmount">
+					<br /> <select name="studyAmount" class="studyAmount">
 						<option>3 명</option>
 						<option>4 명</option>
 						<option>5 명</option>
@@ -395,21 +210,14 @@ ul, li {
 						<option>8 명</option>
 					</select>
 				</div>
+				<hr>
 				<div>
 					<h4>금액 :</h4>
-					<br /> <input type="text" class="inputOption" id="studyPrice"
-						name="studyPrice">
+					<input type="number" class="inputPrice" id="studyPrice"
+						name="studyPrice" min="0">
 
 				</div>
 			</div>
-		</div>
-		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('2');">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-			</button>
-			<button class="button1" onclick="fnMove('4');">
-				<span class="glyphicon glyphicon-chevron-down"></span>
-			</button>
 		</div>
 		<div class="div_reg clear_after"
 			style="padding-top: 30px; margin-bottom: 100px;" id="div4">
@@ -418,20 +226,6 @@ ul, li {
 
 			<br />
 			<h3>스터디 일정을 선택해주세요.</h3>
-			<!-- 			<div style="margin: 0 auto 0;">
-				<h4>
-					주<select>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-					</select>회
-				</h4>
-
-			</div> -->
 
 			<br />
 			<div class="subTimediv">
@@ -469,11 +263,15 @@ ul, li {
 						<div class="timegood">
 							<select class="time" id="startTimeHour">
 								<script type="text/javascript">
-									for (var i = 1; i <= 12; i++) document.write("<option>" + i + "</option>");
+									for (var i = 1; i <= 12; i++)
+										document.write("<option>" + i
+												+ "</option>");
 								</script>
 							</select> : <select class="time" id="startTimeMinute">
 								<script type="text/javascript">
-									for (var i = 0; i <= 50; i += 10) document.write("<option>" + i + "</option>");
+									for (var i = 0; i <= 50; i += 10)
+										document.write("<option>" + i
+												+ "</option>");
 								</script>
 							</select><br />
 						</div>
@@ -484,25 +282,31 @@ ul, li {
 						<h4>종료시간</h4>
 						<div class="toggle-button toggle-button--aava">
 							<input id="endTimeAmPm" type="checkbox"> <label
-								for="endTimeAmPm" data-on-text="오전" data-off-text="오후" ></label>
+								for="endTimeAmPm" data-on-text="오전" data-off-text="오후"></label>
 						</div>
 
 						<div class="timegood">
 							<select class="time" id="endTimeHour">
 								<script type="text/javascript">
-									for (var i = 1; i <= 12; i++) document.write("<option>" + i + "</option>");
+									for (var i = 1; i <= 12; i++)
+										document.write("<option>" + i
+												+ "</option>");
 								</script>
 							</select> : <select class="time" id="endTimeMinute">
 								<script type="text/javascript">
-									for (var i = 0; i <= 50; i += 10) document.write("<option>" + i + "</option>");
+									for (var i = 0; i <= 50; i += 10)
+										document.write("<option>" + i
+												+ "</option>");
 								</script>
 							</select><br />
 						</div>
 					</div>
-					
-					<input type="hidden" id="teacherId" name="teacherId" value="${sessionScope.memberLoginBean.teacherId}"/>
-					<input type="hidden" id="teacherName" name="teacherName" value="${sessionScope.memberLoginBean.teacherName}" />
-					<input type="hidden" id="startTime" name="studyStartTime" /> <input
+
+					<input type="hidden" id="teacherId" name="teacherId"
+						value="${sessionScope.memberLoginBean.teacherId}" /> <input
+						type="hidden" id="teacherName" name="teacherName"
+						value="${sessionScope.memberLoginBean.teacherName}" /> <input
+						type="hidden" id="startTime" name="studyStartTime" /> <input
 						type="hidden" id="endTime" name="studyEndTime" />
 
 				</div>
@@ -512,34 +316,28 @@ ul, li {
 
 		</div>
 
-		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('3');">
-				<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-			</button>
-			<button class="button1" onclick="fnMove('5');">
-				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-			</button>
+		<br> <br>
+		<div class="div_reg clear_after"
+			style="text-align: center; padding-top: 30px; margin-bottom: 100px;"
+			id="div5">
+
+			<h2>수업 시작 날짜와 종료 날짜를 입력해 주세요.</h2>
+			<div style="display: inline-block; margin: 100px auto 0; width:100%;">
+				<input id="startDate" name="studyStartDate" type="date" class="date"
+					style="float: left; margin-right: 50px;"> <input
+					id="endtDate" name="studyEndDate" type="date" class="date"
+					style="margin-left: 50px;">
+			</div>
+			
+			
+			<div style="text-align:center; inline-block; margin: 10px auto 50px;">
+				<div style="display: inline-block; margin: 0 auto 50px;">
+					<span style=" margin-right: 100px;">시작 날짜</span> <span
+						style="margin-left: 100px;">종료 날짜</span>
+				</div>
+			</div>
 		</div>
-		<br>
-		<br>
 
-		<h2>수업 시작 날짜와 종료 날짜를 입력해 주세요.</h2>
-		<br><br>
-
-		<input id="startDate" name="studyStartDate" type="date" style="float: left; margin-left: 35%;">
-		<input id="endtDate" name="studyEndDate" type="date" style="margin-left: 120px;">
-		
-		<br><br>
-
-<!-- 		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('4');">
-				<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-			</button>
-			<button class="button1" onclick="fnMove('6');">
-				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-			</button>
-		</div>
- -->
 		<div class="div_reg clear_after"
 			style="padding-top: 30px; margin-bottom: 100px;" id="div6">
 
@@ -569,14 +367,6 @@ ul, li {
 
 		</div>
 
-		<div style="text-align: center;">
-			<button class="button1" onclick="fnMove('5');">
-				<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-			</button>
-			<button class="button1" onclick="fnMove('7');">
-				<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-			</button>
-		</div>
 		<div class="div_reg clear_after"
 			style="padding-top: 30px; margin-bottom: 100px;" id="div7">
 
@@ -609,32 +399,30 @@ ul, li {
 			//여기
 			function insertClass() {
 				alert($("#startDate").val());
-		
+
 				var studyForm = document.getElementById("registerStudyForm");
 				studyForm.action = "/registerstudyProc.do";
 				studyForm.method = "post";
-		
-		
+
 				//studyTime 합치기.(몇시부터 몇시까지 진행되는 과정인지. ex) 12:00 ~ 13:00
 				var startTimeAmPm = $("#startTimeAmPm").val();
 				var startTimeHour = $("#startTimeHour").val();
 				var startTimeMinute = $("#startTimeMinute").val();
-		
-				var startTime = startTimeAmPm + " " + startTimeHour + ":" + startTimeMinute;
+
+				var startTime = startTimeAmPm + " " + startTimeHour + ":"
+						+ startTimeMinute;
 				document.getElementById("startTime").value = startTime;
-		
+
 				var endTimeAmPm = $("#endTimeAmPm").val();
 				var endTimeHour = $("#endTimeHour").val();
 				var endTimeMinute = $("#endTimeMinute").val();
-				var endTime = endTimeAmPm + " " + endTimeHour + ":" + endTimeMinute;
+				var endTime = endTimeAmPm + " " + endTimeHour + ":"
+						+ endTimeMinute;
 				document.getElementById("endTime").value = endTime;
-		
-		
-		
+
 				studyForm.submit();
-		
-			}
-			;
+
+			};
 		</script>
 
 		<div style="text-align: center;">
@@ -649,23 +437,22 @@ ul, li {
 	</form>
 
 	<script>
-	
 		//마커를 담을 배열입니다
 		var markers = [];
-	
+
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			mapOption = {
-				center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-				level : 3 // 지도의 확대 레벨
-			};
-	
+		mapOption = {
+			center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+
 		//지도를 생성합니다    
 		var map = new daum.maps.Map(mapContainer, mapOption);
-	
+
 		//장소 검색 객체를 생성합니다
 		var ps = new daum.maps.services.Places();
-	
-	
+
 		// 지도를 클릭한 위치에 표출할 마커입니다
 		var SelectMarker = new daum.maps.Marker({
 			// 지도 중심좌표에 마커를 생성합니다 
@@ -673,164 +460,166 @@ ul, li {
 		});
 		// 지도에 마커를 표시합니다
 		SelectMarker.setMap(map);
-	
+
 		var SelectLatlng;
 		daum.maps.event.addListener(map, 'click', function(mouseEvent) {
 			// 클릭한 위도, 경도 정보를 가져옵니다 
 			SelectLatlng = mouseEvent.latLng;
 			// 마커 위치를 클릭한 위치로 옮깁니다
 			SelectMarker.setPosition(SelectLatlng);
-		//마커에 클릭이벤트를 등록합니다
+			//마커에 클릭이벤트를 등록합니다
 		});
 		daum.maps.event.addListener(SelectMarker, 'click', function() {
 			if (confirm("선택한 장소가 맞습니까?")) {
-				var message = SelectLatlng.getLat() + ',' + SelectLatlng.getLng();
+				var message = SelectLatlng.getLat() + ','
+						+ SelectLatlng.getLng();
 				var resultDiv = document.getElementById('resultMessage');
 				resultDiv.innerHTML = message;
 				$("#result").val(message);
 			}
 		});
-	
+
 		//키워드로 장소를 검색합니다
 		searchPlaces();
-	
+
 		//키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
 			var keyword = document.getElementById('keyword').value;
-	
+
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
 				alert('키워드를 입력해주세요!');
 				return false;
 			}
-	
+
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 			ps.keywordSearch(keyword, placesSearchCB);
 		}
-	
+
 		//장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(status, data, pagination) {
 			if (status === daum.maps.services.Status.OK) {
-	
+
 				// 정상적으로 검색이 완료됐으면
 				// 검색 목록과 마커를 표출합니다
 				displayPlaces(data.places);
-	
+
 				// 페이지 번호를 표출합니다
 				displayPagination(pagination);
-	
+
 			} else if (status === daum.maps.services.Status.ZERO_RESULT) {
-	
+
 				alert('검색 결과가 존재하지 않습니다.');
 				return;
-	
+
 			} else if (status === daum.maps.services.Status.ERROR) {
-	
+
 				alert('검색 결과 중 오류가 발생했습니다.');
 				return;
-	
+
 			}
 		}
-	
+
 		//검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
-			var listEl = document.getElementById('placesList'),
-				menuEl = document.getElementById('menu_wrap'),
-				fragment = document.createDocumentFragment(),
-				bounds = new daum.maps.LatLngBounds(),
-				listStr = '';
-	
+			var listEl = document.getElementById('placesList'), menuEl = document
+					.getElementById('menu_wrap'), fragment = document
+					.createDocumentFragment(), bounds = new daum.maps.LatLngBounds(), listStr = '';
+
 			// 검색 결과 목록에 추가된 항목들을 제거합니다
 			removeAllChildNods(listEl);
-	
+
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
-	
+
 			for (var i = 0; i < places.length; i++) {
-	
+
 				// 마커를 생성하고 지도에 표시합니다
-				var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-					marker = addMarker(placePosition, i),
-					itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-	
+				var placePosition = new daum.maps.LatLng(places[i].latitude,
+						places[i].longitude), marker = addMarker(placePosition,
+						i), itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
+
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
 				bounds.extend(placePosition);
-	
+
 				// 마커와 검색결과 항목에 mouseover 했을때
 				// 해당 장소에 인포윈도우에 장소명을 표시합니다
 				// mouseout 했을 때는 인포윈도우를 닫습니다
 				(function(marker, title) {
-	
+
 					daum.maps.event.addListener(marker, 'click', function() {
-	
-	
+
 						if (confirm("선택한 장소가 맞습니까?")) {
 							var latlng = marker.getPosition();
-							var message = latlng.getLat() + ',' + latlng.getLng();
-							var resultDiv = document.getElementById('resultMessage');
+							var message = latlng.getLat() + ','
+									+ latlng.getLng();
+							var resultDiv = document
+									.getElementById('resultMessage');
 							resultDiv.innerHTML = message;
 							$("#result").val(message);
 						}
-	
+
 					});
-	
+
 				})(marker, places[i].title);
-	
+
 				fragment.appendChild(itemEl);
 			}
-	
+
 			// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
 			listEl.appendChild(fragment);
 			menuEl.scrollTop = 0;
-	
+
 			// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 			map.setBounds(bounds);
 		}
-	
+
 		//검색결과 항목을 Element로 반환하는 함수입니다
 		function getListItem(index, places) {
-			var el = document.createElement('li'),
-				itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
-					'<div class="info">' +
-					'   <h5>' + places.title + '</h5>';
-	
+			var el = document.createElement('li'), itemStr = '<span class="markerbg marker_'
+					+ (index + 1)
+					+ '"></span>'
+					+ '<div class="info">'
+					+ '   <h5>' + places.title + '</h5>';
+
 			if (places.newAddress) {
-				itemStr += '    <span>' + places.newAddress + '</span>' +
-					'   <span class="jibun gray">' + places.address + '</span>';
+				itemStr += '    <span>' + places.newAddress + '</span>'
+						+ '   <span class="jibun gray">' + places.address
+						+ '</span>';
 			} else {
 				itemStr += '    <span>' + places.address + '</span>';
 			}
-	
-			itemStr += '  <span class="tel">' + places.phone + '</span>' +
-				'</div>';
-	
+
+			itemStr += '  <span class="tel">' + places.phone + '</span>'
+					+ '</div>';
+
 			el.innerHTML = itemStr;
 			el.className = 'item';
-	
+
 			return el;
 		}
-	
+
 		//마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 		function addMarker(position, idx, title) {
 			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-				imageSize = new daum.maps.Size(36, 37), // 마커 이미지의 크기
-				imgOptions = {
-					spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
-					spriteOrigin : new daum.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-					offset : new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-				},
-				markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-				marker = new daum.maps.Marker({
-					position : position, // 마커의 위치
-					image : markerImage
-				});
-	
+			imageSize = new daum.maps.Size(36, 37), // 마커 이미지의 크기
+			imgOptions = {
+				spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
+				spriteOrigin : new daum.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+				offset : new daum.maps.Point(13, 37)
+			// 마커 좌표에 일치시킬 이미지 내에서의 좌표
+			}, markerImage = new daum.maps.MarkerImage(imageSrc, imageSize,
+					imgOptions), marker = new daum.maps.Marker({
+				position : position, // 마커의 위치
+				image : markerImage
+			});
+
 			marker.setMap(map); // 지도 위에 마커를 표출합니다
 			markers.push(marker); // 배열에 생성된 마커를 추가합니다
-	
+
 			return marker;
 		}
-	
+
 		//지도 위에 표시되고 있는 마커를 모두 제거합니다
 		function removeMarker() {
 			for (var i = 0; i < markers.length; i++) {
@@ -838,23 +627,22 @@ ul, li {
 			}
 			markers = [];
 		}
-	
+
 		//검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 		function displayPagination(pagination) {
-			var paginationEl = document.getElementById('pagination'),
-				fragment = document.createDocumentFragment(),
-				i;
-	
+			var paginationEl = document.getElementById('pagination'), fragment = document
+					.createDocumentFragment(), i;
+
 			// 기존에 추가된 페이지번호를 삭제합니다
 			while (paginationEl.hasChildNodes()) {
 				paginationEl.removeChild(paginationEl.lastChild);
 			}
-	
+
 			for (i = 1; i <= pagination.last; i++) {
 				var el = document.createElement('a');
 				el.href = "#";
 				el.innerHTML = i;
-	
+
 				if (i === pagination.current) {
 					el.className = 'on';
 				} else {
@@ -864,12 +652,12 @@ ul, li {
 						}
 					})(i);
 				}
-	
+
 				fragment.appendChild(el);
 			}
 			paginationEl.appendChild(fragment);
 		}
-	
+
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 		function removeAllChildNods(el) {
 			while (el.hasChildNodes()) {
@@ -891,51 +679,66 @@ ul, li {
 	</script>
 
 	<script type="text/javascript">
-	
-		$(document).ready(function() {
-			var fileTarget = $('.filebox .upload-hidden');
-	
-			fileTarget.on('change', function() {
-				if (window.FileReader) {
-					// 파일명 추출
-					var filename = $(this)[0].files[0].name;
-				} else {
-					// Old IE 파일명 추출
-					var filename = $(this).val().split('/').pop().split('\\').pop();
-				}
-	
-	
-				$(this).siblings('.upload-name').val(filename);
-			});
-	
-			//preview image 
-			var imgTarget = $('.preview-image .upload-hidden');
-	
-			imgTarget.on('change', function() {
-				var parent = $(this).parent();
-				parent.children('.upload-display').remove();
-	
-				if (window.FileReader) {
-					//image 파일만
-					if (!$(this)[0].files[0].type.match(/image\//)) return;
-	
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						var src = e.target.result;
-						parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="' + src + '" class="upload-thumb"></div></div>');
-					}
-					reader.readAsDataURL($(this)[0].files[0]);
-				} else {
-					$(this)[0].select();
-					$(this)[0].blur();
-					var imgSrc = document.selection.createRange().text;
-					parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-	
-					var img = $(this).siblings('.upload-display').find('img');
-					img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\"" + imgSrc + "\")";
-				}
-			});
-		});
+		$(document)
+				.ready(
+						function() {
+							var fileTarget = $('.filebox .upload-hidden');
+
+							fileTarget.on('change', function() {
+								if (window.FileReader) {
+									// 파일명 추출
+									var filename = $(this)[0].files[0].name;
+								} else {
+									// Old IE 파일명 추출
+									var filename = $(this).val().split('/')
+											.pop().split('\\').pop();
+								}
+
+								$(this).siblings('.upload-name').val(filename);
+							});
+
+							//preview image 
+							var imgTarget = $('.preview-image .upload-hidden');
+
+							imgTarget
+									.on(
+											'change',
+											function() {
+												var parent = $(this).parent();
+												parent.children(
+														'.upload-display')
+														.remove();
+
+												if (window.FileReader) {
+													//image 파일만
+													if (!$(this)[0].files[0].type
+															.match(/image\//))
+														return;
+
+													var reader = new FileReader();
+													reader.onload = function(e) {
+														var src = e.target.result;
+														parent
+																.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="' + src + '" class="upload-thumb"></div></div>');
+													}
+													reader
+															.readAsDataURL($(this)[0].files[0]);
+												} else {
+													$(this)[0].select();
+													$(this)[0].blur();
+													var imgSrc = document.selection
+															.createRange().text;
+													parent
+															.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+													var img = $(this).siblings(
+															'.upload-display')
+															.find('img');
+													img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""
+															+ imgSrc + "\")";
+												}
+											});
+						});
 	</script>
 
 
