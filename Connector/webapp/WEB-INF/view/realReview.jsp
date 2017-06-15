@@ -218,7 +218,7 @@ function showReviewList(studyProgressname) {
 					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
 					str += '<span>'+ rBean.reviewContent +'</span></div>';
 					str += '<div class="reviewContentFooter">';
-					str += '<a class="leader" href="#">';
+					str += '<a class="leader" href="/detail.do?studyId='+ rBean.studyId +'">'
 					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="'+ rBean.teacherPicture +'"></span>';
                     str += '</a>';
                     str += '</div>';
@@ -312,7 +312,7 @@ function showNextReviewList() {
 					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
 					str += '<span>'+ rBean.reviewContent +'</span></div>';
 					str += '<div class="reviewContentFooter">';
-					str += '<a class="leader" href="#">';
+					str += '<a class="leader" href="/detail.do?studyId='+ rBean.studyId +'">'
 					str += '<span class="leaderName">'+ rBean.teacherName +'<img src="'+ rBean.teacherPicture +'"></span>';
                     str += '</a>';
                     str += '</div>';
