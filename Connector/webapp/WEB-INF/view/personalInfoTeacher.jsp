@@ -146,7 +146,7 @@
 						<li><a href="personalInfoTeacher.do" class="on">개인정보</a></li>
 						<li><a href="classlist.do">수업 진행 내역</a></li>
 						<c:if test="${sessionScope.memberLoginBean.teacherCheck eq '1' }">
-						<li><a href="registerstudy.do">Study 등록하기</a></li>
+						<li><a href="registerstudy.do">스터디 등록하기</a></li>
 						</c:if>
 					</ul>
 				</div>

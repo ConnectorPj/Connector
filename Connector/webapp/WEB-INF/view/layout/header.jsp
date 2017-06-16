@@ -9,7 +9,8 @@
 	href="/resources/js/common/holdon/HoldOn.css" />
 <link href="/resources/css/header.css" rel="stylesheet" />
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
+<link type="text/css"
+	href="/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
 
 <!-- 공통 JS -->
 <script type="text/javascript"

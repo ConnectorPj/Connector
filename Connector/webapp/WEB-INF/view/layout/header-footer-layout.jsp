@@ -67,12 +67,7 @@ header .head h1 img {
 	border-radius: 5px;
 	border: thin solid #888;
 	white-space: nowrap;
-}
-
-#customBtn:hover, #customBtn2:hover, #customBtn3:hover, #customBtn4:hover
-	{
 	cursor: pointer;
-	box-shadow: 1px 1px 1px black;
 }
 
 span.label {
@@ -183,7 +178,7 @@ span.buttonText {
 			type : 'post',
 			data : {
 				"customerId" : $("#email").val()
-				},
+			},
 			success : function(data) {
 				$("#resultEmail").html(data.resultMsg);
 			},
@@ -441,13 +436,13 @@ span.buttonText {
 	var onSuccess = function(user) {
 		// user에 구글로 로그인한 사용자가 들어옴.
 		// getBasicProfile() 메소드로 .getName(), getEmail() 등 접근 가능
-		
+
 		var profile = user.getBasicProfile();
-		
+
 		var Id = profile.getEmail();
 		var name = profile.getName();
 		var pw = profile.getId();
-		
+
 		$.ajax({
 			type : "post",
 			url : "/loginByGoogle.do",
@@ -459,7 +454,7 @@ span.buttonText {
 			dataType : "json",
 			success : function(data) {
 				if (data.result == "ok") {
-					
+
 					//android 호출
 					try {
 						var cusId = $("#customerIdM").val();
@@ -474,7 +469,7 @@ span.buttonText {
 				} else {
 					alert("로그인을 실패하였습니다.");
 				}
-				
+
 			},
 			error : function(xhr, status, error) {
 				console.log(xhr);
@@ -483,9 +478,7 @@ span.buttonText {
 				+ ", status : " + status + ", error : " + error);
 			}
 		});
-		
-		
-		
+
 	}
 	// 로그인 실패시
 	var onFailure = function(error) {
@@ -515,7 +508,7 @@ span.buttonText {
 	<header style="height: 71px;">
 		<div class="head">
 			<h1 class="logo">
-				<a href="/main.do"><img src="/resources/images/logoWork3.png"
+				<a href="/main.do"><img src="/resources/images/logowork4.png"
 					alt="로고" /></a>
 			</h1>
 
@@ -526,35 +519,23 @@ span.buttonText {
 					<li><a href="#">카테고리</a>
 						<ul class="menu_list">
 							<li class="submenu"><a href="/search.do?StudyProgressName=1">웹개발</a>
-<!-- 								<ul class="menu_sublist"> -->
-<!-- 									<li><a href="#"> html </a></li> -->
-<!-- 									<li><a href="#"> jsp </a></li> -->
-<!-- 									<li><a href="#"> JavaScript </a></li> -->
-<!-- 									<li><a href="#"> Spring </a></li> -->
-<!-- 									<li><a href="#"> php </a></li> -->
-<!-- 								</ul></li> -->
+								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> html </a></li> -->
+								<!-- 									<li><a href="#"> jsp </a></li> --> <!-- 									<li><a href="#"> JavaScript </a></li> -->
+								<!-- 									<li><a href="#"> Spring </a></li> --> <!-- 									<li><a href="#"> php </a></li> -->
+								<!-- 								</ul></li> -->
 							<li class="submenu"><a href="/search.do?StudyProgressName=2">모바일개발</a>
-<!-- 								<ul class="menu_sublist"> -->
-<!-- 									<li><a href="#"> 안드로이드 </a></li> -->
-<!-- 									<li><a href="#">iOS </a></li> -->
-<!-- 								</ul></li> -->
-
+								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> 안드로이드 </a></li> -->
+								<!-- 									<li><a href="#">iOS </a></li> --> <!-- 								</ul></li> -->
 							<li class="submenu"><a href="/search.do?StudyProgressName=3">시스템개발</a>
 
-<!-- 								<ul class="menu_sublist"> -->
-<!-- 									<li><a href="#">java </a></li> -->
-<!-- 									<li><a href="#">C</a></li> -->
-<!-- 									<li><a href="#">C++</a></li> -->
-<!-- 									<li><a href="#">C#</a></li> -->
-<!-- 								</ul> -->
-								</li>
+								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#">java </a></li> -->
+								<!-- 									<li><a href="#">C</a></li> --> <!-- 									<li><a href="#">C++</a></li> -->
+								<!-- 									<li><a href="#">C#</a></li> --> <!-- 								</ul> -->
+							</li>
 							<li class="submenu"><a href="/search.do?StudyProgressName=4">IoT</a>
-<!-- 								<ul class="menu_sublist"> -->
-<!-- 									<li><a href="#"> 아두이노 </a></li> -->
-<!-- 									<li><a href="#">라즈베리파이 </a></li> -->
-
-<!-- 								</ul> -->
-								</li>
+								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> 아두이노 </a></li> -->
+								<!-- 									<li><a href="#">라즈베리파이 </a></li> --> <!-- 								</ul> -->
+							</li>
 						</ul></li>
 					<li><a href="realreview.do">리얼후기</a></li>
 
@@ -570,8 +551,8 @@ span.buttonText {
 
 						<c:choose>
 							<c:when test="${sessionScope.memberLoginBean==null}">
-								<li onclick="openLoginModal();" style="cursor:pointer">로그인</li>
-								<li onclick="openJoinModal();"style="cursor:pointer" >회원가입</li>
+								<li onclick="openLoginModal();" style="cursor: pointer">로그인</li>
+								<li onclick="openJoinModal();" style="cursor: pointer">회원가입</li>
 								<li style="width: 150px;"><a href="leaderIntro.do">리더로
 										시작하기</a></li>
 							</c:when>
@@ -582,20 +563,27 @@ span.buttonText {
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
-									<input type="hidden" value="${sessionScope.memberLoginBean.teacherName}" id="loginName">
+									<input type="hidden"
+										value="${sessionScope.memberLoginBean.teacherName}"
+										id="loginName">
 
 								</c:if>
 
 
 								<c:if test="${sessionScope.code eq 'C' }">
-									<li style="width: 200px;"><a href="personalInfoCustomer.do">
+									<li style="width: 200px;"><a
+										href="personalInfoCustomer.do">
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
-									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
-									<input type="hidden" value="${sessionScope.memberLoginBean.customerId}" id="memberId">
+									<input type="hidden"
+										value="${sessionScope.memberLoginBean.customerName}"
+										id="loginName">
+									<input type="hidden"
+										value="${sessionScope.memberLoginBean.customerId}"
+										id="memberId">
 								</c:if>
-								
+
 								<!-- 관리자가 로그인 했다면 -->
 								<c:if test="${sessionScope.code eq 'A' }">
 									<li style="width: 150px;"><a href="adminPage.do">
@@ -603,7 +591,7 @@ span.buttonText {
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
 								</c:if>
-								
+
 							</c:otherwise>
 						</c:choose>
 
@@ -612,7 +600,7 @@ span.buttonText {
 					</ul>
 				</div>
 			</div>
-			
+
 			<!-- Login Modal -->
 			<div id="myLoginModal" class="modal">
 				<!-- Modal content -->
@@ -622,10 +610,10 @@ span.buttonText {
 
 					<div id="customer-radio">
 						<!-- 라디오 버튼 -->
-						<input id="students" type="radio" name="customer" value="1" checked/>
-						<input id="leaders" type="radio" name="customer"
-							value="2" />
-							 <label for="students">학생</label> <label for="leaders">리더</label>
+						<input id="students" type="radio" name="customer" value="1"
+							checked /> <input id="leaders" type="radio" name="customer"
+							value="2" /> <label for="students">학생</label> <label
+							for="leaders">리더</label>
 					</div>
 
 
@@ -638,7 +626,8 @@ span.buttonText {
 						class="inputLogin" id="customerPwM" placeholder="암호">
 
 					<button type="button" class="button button-navy" id="btnLoginM">로그인</button>
-					<button class="button" onclick="closeLoginModal(); openJoinModal();">회원가입</button>
+					<button class="button"
+						onclick="closeLoginModal(); openJoinModal();">회원가입</button>
 					<!-- 구글 로그인 연동1 -->
 					<div id="customBtn" class="customGPlusSignIn" onclick="startApp();">
 						<span class="icon"></span> <span class="buttonText">Google</span>
@@ -677,16 +666,15 @@ span.buttonText {
 						<!-- 네이버 로그인 API -->
 						<div id="naver_id_login"></div>
 						<h6 style="text-align: center;">
-							<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
-								──────────────── </small>
+							<small> ────────── </small>또&nbsp;&nbsp;는<small>
+								 ──────────  </small>
 						</h6>
 						<form id="customerForm">
 							<input type="text" class="inputLogin" placeholder="이름 입력"
 								name="customerName" id="name" />
 							<p style="font-size: 0.4em; color: #aaa;"></p>
 							<input type="text" class=" inputLogin" placeholder="e-mail"
-								name="customerId" id="email" onkeyup="checkEmail();"
-								/>
+								name="customerId" id="email" onkeyup="checkEmail();" />
 							<p id="resultEmail" style="font-size: 0.4em; color: #aaa;"></p>
 
 							<input type="password" class=" inputLogin" placeholder="비밀번호 입력 "
@@ -753,13 +741,15 @@ span.buttonText {
 					<div>
 						<img style="width: 100px; margin: 10px auto;"
 							src="/resources/images/footer_support.png"><br /> <a
-							href="/leaderIntro.do"><p>리더로 지원</p></a> <a href="/search.do"><p>스터디 신청</p></a>
+							href="/leaderIntro.do"><p>리더로 지원</p></a> <a href="/search.do"><p>스터디
+								신청</p></a>
 
 					</div>
 
 					<div>
 						<img style="width: 100px; margin: 10px auto;"
-							src="/resources/images/footer_customer.png"><br /> <p onclick="alert('서비스 준비 중입니다.')">자주묻는 질문</p> 
+							src="/resources/images/footer_customer.png"><br />
+						<p onclick="alert('서비스 준비 중입니다.')">자주묻는 질문</p>
 					</div>
 
 				</div>
@@ -801,7 +791,7 @@ span.buttonText {
 			modalJoin.style.display = "none";
 
 		}
-		
+
 		window.onclick = function(event) {
 			if (event.target == modalLogin) {
 				modalLogin.style.display = "none";
@@ -811,7 +801,5 @@ span.buttonText {
 			}
 		}
 	</script>
-
-
 </body>
 </html>

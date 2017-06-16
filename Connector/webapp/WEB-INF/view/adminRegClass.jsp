@@ -18,7 +18,15 @@
 	type="text/css" />
 <link href="/resources/css/review/review.css" rel="stylesheet"
 	type="text/css" />
+<style type="text/css">
 
+.actionBtn1{
+width: 70px;
+height: 40px;
+border: 0px;
+background-color: #eee;
+}
+</style>
 
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries"></script>
@@ -223,10 +231,10 @@ function calcelClass(studyId) {
 				</div>
 
 				<br> &nbsp;&nbsp; 
-				<input id="actionBtn" type="button"
-					value="승인하기"
+				<input id="actionBtn" class= "actionBtn1" type="button"
+					value="승인하기" style="background-color: #2c3d46; color:#fff"
 					onclick="updateClass('${ClassBean.studyId}'); return false;">&nbsp;&nbsp;
-				<input id="actionBtn" type="button" value="취소하기"
+				<input id="actionBtn" class= "actionBtn1" type="button" value="취소하기"
 					onclick="calcelClass('${ClassBean.studyId}'); return false;">
 			</div>
 		</div>

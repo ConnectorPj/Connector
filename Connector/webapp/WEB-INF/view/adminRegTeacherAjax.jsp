@@ -69,14 +69,13 @@
 					<ul>
 						<li><a href="adminPage.do">관리자 홈</a></li>
 						<li><a href="adminTeacherList.do?pageNo=1">강사 목록</a></li>
-						<li><a href="adminRegTeacher.do" class="on">강사 등록 </a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> >
-							<li>강사 목록 페이지</li> >
+							<li><<a href="/adminPage.do">홈</a></li> >
+							<li><a href="adminTeacherList.do?pageNo=1">강사 목록 페이지</a></li> >
 							<li>강사 등록 페이지</li>
 						</ul>
 					</div>

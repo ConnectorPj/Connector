@@ -50,11 +50,11 @@
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> &gt;
-							<li>관리자 메뉴</li>
+							<li><a href="/main.do">홈</a></li> &gt;
+							<li>관리자</li>
 						</ul>
 					</div>
-					<h2>관리자 메뉴</h2>
+					<h2>관리자</h2>
 				</div>
 
 				<!-- 서브 내용 -->

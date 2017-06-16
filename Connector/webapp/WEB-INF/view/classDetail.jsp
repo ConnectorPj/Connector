@@ -23,193 +23,218 @@
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries"></script>
 <script type="text/javascript">
-
-//전체 리뷰의 갯수
-var reviewListTotCount = 0;
-// 현재 startRow 값
-var reviewStartRow = 0;
-var isReviewLoading = false;
-var currentProgressname = "";
-var isReviewLoadingFirst = true;
-
-$(function() {
-	$.ajax({
-		type: "post",
-		url: "/realDetailProc.do",
-		dataType: "json",
-		data : {
-			studyId:$("#studyId").val()
-		},
-		success: function(data) {
-			console.log(data);
-			
-			if(data.result == "ok") {
-				//리뷰 리스트 출력
-				$.each(data.detailList, function(i, rBean) {
-					
-					if(rBean.customerPicture == null) {
-						rBean.customerPicture = "/resources/images/userIcon.png";
-					}
-					
-					if(rBean.teacherPicture == null) {
-						rBean.teacherPicture = "/resources/images/userIcon.png";
-					}
-					
-					var str = "";
-					str += '<ul class="detailList">';
-					str += '<li class="review">';
-					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
-					str += '<div class="reviewContentWrap">';
-					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
-					str += '<ul class="score">';
-					
-					for(var j = 1; j <= 5; j++){
-						
-						if(j <= rBean.reviewRating) {
-							str += '<li class="star"><img src="/resources/images/staron.png"></li>';
-							
-						}else {
-							str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
-						}
-					}
-					
-					str += '</ul>';
-					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
-					str += '<span>'+ rBean.reviewContent +'</span></div>';
-                    str += '</div>';
-                    str += '</li>';
-                    str += '</ul>';
-                    str += '<hr>';
-                    
-					$("#realReviewInfo").append(str);
-				});
-				
-				//더 보기 버튼에 대한 처리
-				reviewListTotCount = data.detailListAll.length;
-				reviewStartRow = data.detailList.length;
-				
-				if( data.detailListAll.length > data.detailList.length ) {
-					//리뷰 더보기 버튼 화면에 표시
-					$("#moreReviewList").show();
-					
-				} else{
-					$("#moreReviewList").hide();
-				}
-
-			} else {
-				alert(data.resultMsg);
-			}
-		},
-		error: function(xhr, status, error) {
-			console.log(xhr);
-			alert("error\nxhr : " + xhr + ", status : " 
-					+ status + ", error : " + error);      
-		}
-	});
-	
-});
-
-
-//다음 리뷰 리스트를 표시한다.
-function showNextReviewList() {
-	
-	if( reviewListTotCount <= reviewStartRow && isReviewLoading) {
-		return;
-	}
-	
-	//알고 있어야 되는 정보
 	//전체 리뷰의 갯수
-	//현재 startRow 를 알고 있어야 한다.
-	
-	isReviewLoading = true;
-	
-	$.ajax({
-		type: "post",
-		url: "/realDetailProc.do",
-		data: {
-			studyId:$("#studyId").val(),
-			startRow : reviewStartRow
-		},
-		dataType: "json",
-		success: function(data) {
-			printLog(data);
-			
-			if(data.result == "ok") {
-				//리뷰 리스트 출력
-				$.each(data.detailList, function(i, rBean) {
-					
-					if(rBean.customerPicture == null) {
-						rBean.customerPicture = "/resources/images/userIcon.png";
-					}
-					
-					if(rBean.teacherPicture == null) {
-						rBean.teacherPicture = "/resources/images/userIcon.png";
-					}
-					
-					var str = "";
-					str += '<ul class="detailList">';
-					str += '<li class="review">';
-					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
-					str += '<div class="reviewContentWrap">';
-					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
-					str += '<ul class="score">';
-					
-					for(var j = 1; j <= 5; j++){
-						
-						if(j <= rBean.reviewRating) {
-							str += '<li class="star"><img src="/resources/images/staron.png"></li>';
-							
-						}else {
-							str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
-						}
-					}
-					
-					str += '</ul>';
-					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
-					str += '<span>'+ rBean.reviewContent +'</span></div>';
-                    str += '</div>';
-                    str += '</li>';
-                    str += '</ul>';
-                    str += '<hr>';
-                    
-					$("#realReviewInfo").append(str);
-				});
-				
-				//더보기 버튼에 대한 처리
-				reviewStartRow += data.detailList.length*1;
-				
-				if( reviewListTotCount > reviewStartRow ) {
-					//리뷰 더보기 버튼 화면에 표시
-					$("#moreReviewList").show();
-					
-				} else{
-					$("#moreReviewList").hide();
-				}
-				
-			} else {
-				alert(data.resultMsg);
-			}
-			
-			isReviewLoading = false;
-		},
-		error: function(xhr, status, error) {
-			isReviewLoading = false;
-			console.log(xhr);
-			alert("error\nxhr : " + xhr + ", status : " 
-					+ status + ", error : " + error);      
-		}
-	});
-};
+	var reviewListTotCount = 0;
+	// 현재 startRow 값
+	var reviewStartRow = 0;
+	var isReviewLoading = false;
+	var currentProgressname = "";
+	var isReviewLoadingFirst = true;
 
+	$(function() {
+		$
+				.ajax({
+					type : "post",
+					url : "/realDetailProc.do",
+					dataType : "json",
+					data : {
+						studyId : $("#studyId").val()
+					},
+					success : function(data) {
+						console.log(data);
+
+						if (data.result == "ok") {
+							//리뷰 리스트 출력
+							$
+									.each(
+											data.detailList,
+											function(i, rBean) {
+
+												if (rBean.customerPicture == null) {
+													rBean.customerPicture = "/resources/images/userIcon.png";
+												}
+
+												if (rBean.teacherPicture == null) {
+													rBean.teacherPicture = "/resources/images/userIcon.png";
+												}
+
+												var str = "";
+												str += '<ul class="detailList">';
+												str += '<li class="review">';
+												str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
+												str += '<div class="reviewContentWrap">';
+												str += '<div class="writerName">'
+														+ rBean.customerName
+														+ '<span class="writtenAt">'
+														+ rBean.reviewRegdate
+														+ '</span></div>';
+												str += '<ul class="score">';
+
+												for (var j = 1; j <= 5; j++) {
+
+													if (j <= rBean.reviewRating) {
+														str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+
+													} else {
+														str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+													}
+												}
+
+												str += '</ul>';
+												str += '<div class="reviewContent"><span class="reviewLevel">'
+														+ rBean.studyProgramlanguage
+														+ '</span>';
+												str += '<span>'
+														+ rBean.reviewContent
+														+ '</span></div>';
+												str += '</div>';
+												str += '</li>';
+												str += '</ul>';
+												str += '<hr>';
+
+												$("#realReviewInfo")
+														.append(str);
+											});
+
+							//더 보기 버튼에 대한 처리
+							reviewListTotCount = data.detailListAll.length;
+							reviewStartRow = data.detailList.length;
+
+							if (data.detailListAll.length > data.detailList.length) {
+								//리뷰 더보기 버튼 화면에 표시
+								$("#moreReviewList").show();
+
+							} else {
+								$("#moreReviewList").hide();
+							}
+
+						} else {
+							alert(data.resultMsg);
+						}
+					},
+					error : function(xhr, status, error) {
+						console.log(xhr);
+						alert("error\nxhr : " + xhr + ", status : " + status
+								+ ", error : " + error);
+					}
+				});
+
+	});
+
+	//다음 리뷰 리스트를 표시한다.
+	function showNextReviewList() {
+
+		if (reviewListTotCount <= reviewStartRow && isReviewLoading) {
+			return;
+		}
+
+		//알고 있어야 되는 정보
+		//전체 리뷰의 갯수
+		//현재 startRow 를 알고 있어야 한다.
+
+		isReviewLoading = true;
+
+		$
+				.ajax({
+					type : "post",
+					url : "/realDetailProc.do",
+					data : {
+						studyId : $("#studyId").val(),
+						startRow : reviewStartRow
+					},
+					dataType : "json",
+					success : function(data) {
+						printLog(data);
+
+						if (data.result == "ok") {
+							//리뷰 리스트 출력
+							$
+									.each(
+											data.detailList,
+											function(i, rBean) {
+
+												if (rBean.customerPicture == null) {
+													rBean.customerPicture = "/resources/images/userIcon.png";
+												}
+
+												if (rBean.teacherPicture == null) {
+													rBean.teacherPicture = "/resources/images/userIcon.png";
+												}
+
+												var str = "";
+												str += '<ul class="detailList">';
+												str += '<li class="review">';
+												str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
+												str += '<div class="reviewContentWrap">';
+												str += '<div class="writerName">'
+														+ rBean.customerName
+														+ '<span class="writtenAt">'
+														+ rBean.reviewRegdate
+														+ '</span></div>';
+												str += '<ul class="score">';
+
+												for (var j = 1; j <= 5; j++) {
+
+													if (j <= rBean.reviewRating) {
+														str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+
+													} else {
+														str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+													}
+												}
+
+												str += '</ul>';
+												str += '<div class="reviewContent"><span class="reviewLevel">'
+														+ rBean.studyProgramlanguage
+														+ '</span>';
+												str += '<span>'
+														+ rBean.reviewContent
+														+ '</span></div>';
+												str += '</div>';
+												str += '</li>';
+												str += '</ul>';
+												str += '<hr>';
+
+												$("#realReviewInfo")
+														.append(str);
+											});
+
+							//더보기 버튼에 대한 처리
+							reviewStartRow += data.detailList.length * 1;
+
+							if (reviewListTotCount > reviewStartRow) {
+								//리뷰 더보기 버튼 화면에 표시
+								$("#moreReviewList").show();
+
+							} else {
+								$("#moreReviewList").hide();
+							}
+
+						} else {
+							alert(data.resultMsg);
+						}
+
+						isReviewLoading = false;
+					},
+					error : function(xhr, status, error) {
+						isReviewLoading = false;
+						console.log(xhr);
+						alert("error\nxhr : " + xhr + ", status : " + status
+								+ ", error : " + error);
+					}
+				});
+	};
 </script>
 </head>
 <body>
 
-<input type="hidden" id="loginId" value="${sessionScope.memberLoginBean}">
+	<input type="hidden" id="loginId"
+		value="${sessionScope.memberLoginBean}">
 
 	<div id="mobileButton">
-			<button id="actionBtnMobile" class="actionBtnMobile""> 참여 신청하기 </button>
-			<a id="bookingMobile" class="bookingMobile" >찜하기</a>
+		<button id="actionBtnMobile" class="actionBtnMobile">참여 신청하기
+		</button>
+		<button id="bookingMobile" class="bookingMobile"> 찜하기 </button>
 	</div>
 	<div id="classWrap">
 		<div id="class">
@@ -218,8 +243,10 @@ function showNextReviewList() {
 					data-ride="carousel">
 					<!-- Indicators -->
 				</div>
-				<div class="reviewImg" >
-				<img style="width: 100%; height: 350px;" src="${photoBean.photoFileName}" alt="realReview"></div>
+				<div class="reviewImg">
+					<img style="width: 100%; height: 350px;"
+						src="${photoBean.photoFileName}" alt="realReview">
+				</div>
 				<div id="title" class="title">${ClassBean.studyName}</div>
 			</div>
 			<hr />
@@ -231,10 +258,11 @@ function showNextReviewList() {
 				<hr />
 			</div>
 			<!-- end of studyintro -->
-			
+
 			<div id="studyRefer">
 				<div id="studyTitle" class="studyTitle">참고 사항</div>
-				<div id="StudyContent" class="StudyContent"> ${ClassBean.studyReference}</div>
+				<div id="StudyContent" class="StudyContent">
+					${ClassBean.studyReference}</div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
@@ -265,38 +293,42 @@ function showNextReviewList() {
 
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-							center : new daum.maps.LatLng($("#Alt").val(),$("#Att").val()), // 지도의 중심좌표
-							level : 3 // 지도의 확대 레벨
-						};
-				
+					mapOption = {
+						center : new daum.maps.LatLng($("#Alt").val(),
+								$("#Att").val()), // 지도의 중심좌표
+						level : 3
+					// 지도의 확대 레벨
+					};
+
 					var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				
+
 					// 마커를 표시할 위치입니다 
-					var position = new daum.maps.LatLng($("#Alt").val(), $("#Att").val());
-				
+					var position = new daum.maps.LatLng($("#Alt").val(), $(
+							"#Att").val());
+
 					// 마커를 생성합니다
 					var marker = new daum.maps.Marker({
 						position : position
 					});
-				
+
 					// 마커를 지도에 표시합니다.
 					marker.setMap(map);
-				
+
 					// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 					var iwContent = '<div style="padding:5px;">스터디 위치 입니다.</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				
+
 					// 인포윈도우를 생성합니다
 					var infowindow = new daum.maps.InfoWindow({
 						content : iwContent
 					});
-				
+
 					// 마커에 마우스오버 이벤트를 등록합니다
-					daum.maps.event.addListener(marker, 'mouseover', function() {
-						// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-						infowindow.open(map, marker);
-					});
-				
+					daum.maps.event.addListener(marker, 'mouseover',
+							function() {
+								// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+								infowindow.open(map, marker);
+							});
+
 					// 마커에 마우스아웃 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseout', function() {
 						// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -306,10 +338,10 @@ function showNextReviewList() {
 
 			</div>
 			<hr />
-			<br>
-			<input type="hidden" id="studyId" value="${ClassBean.studyId}">
-			<input type="hidden" id="teacherId" value="${ClassBean.teacherId}">
-			 
+			<br> <input type="hidden" id="studyId"
+				value="${ClassBean.studyId}"> <input type="hidden"
+				id="teacherId" value="${ClassBean.teacherId}">
+
 
 			<div id="leaderintro">
 				<div id="leaderTitle" class="leaderTitle">
@@ -326,28 +358,28 @@ function showNextReviewList() {
 				<div id="replyTitle" class="replyTitle">
 					리더에 대한 후기<br> <br> <br>
 				</div>
-				 <div id="realReviewInfo"></div>
-				 <br/>
-                <p style="text-align: center;">
-                	<img src="/resources/images/more.png" id="moreReviewList"
-				 	onclick="showNextReviewList()" style="width:50px; height: 50px;" />
-                </p>
+				<div id="realReviewInfo"></div>
+				<br />
+				<p style="text-align: center;">
+					<img src="/resources/images/more.png" id="moreReviewList"
+						onclick="showNextReviewList()" style="width: 50px; height: 50px;" />
+				</p>
 			</div>
 			<hr />
 			<!-- end of reply -->
 		</div>
 
 		<div id="side">
-			<label id="sideTitle" class="sideTitle"> ${ClassBean.studyName} </label>
+			<label id="sideTitle" class="sideTitle">
+				${ClassBean.studyName} </label>
 			<div class="sideWrap">
 				<ul class="sideSchedule">
-					<li><input type="radio" class="choiceBtn" value="N"> <label
-						for="choiceBtn"> <span class="mock-radio"></span> <span
-							id="choiceText" class="choiceText">${diff}주</span>
-					</label>
+					<li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						<span id="choiceText" class="choiceText">${diff}주</span> </label>
 						<div class="titleLevel">
 							<div class="levelText1">분야명</div>
-							<div id="levelText" class="levelText2"> ${ClassBean.studyProgressName}</div>
+							<div id="levelText" class="levelText2">
+								${ClassBean.studyProgressName}</div>
 						</div></li>
 				</ul>
 				<div class="sideCostWrap">
@@ -355,104 +387,103 @@ function showNextReviewList() {
 						class="sideCost">${ClassBean.studyPrice}원</span>
 				</div>
 			</div>
-			<button id="actionBtn"  class="actionBtn"> 참여 신청하기 </button>
-			<a id="booking" class="booking" href="#" >찜하기</a>
-			
+			<button id="actionBtn" class="actionBtn">참여 신청하기</button>
+			<button id="booking" class="booking">찜하기</button>
+
 			<script type="text/javascript">
-			var cond = 1;
-			
-			function joinFunc(){
-				if (confirm("참가 신청 하시겠습니까?")) {
-					
-		                    
-		                    if($("#loginId").val() != ""){
-		                        
-		                    location.href="application.do?studyId="+$("#studyId").val();
-		                        
-		                        
-		                    }else{
-		                        
-		                    location.href="login.do?studyId="+$("#studyId").val();
-		                        
-		                    }
-		               
+				var cond = 1;
+
+				function joinFunc() {
+					if (confirm("참가 신청 하시겠습니까?")) {
+
+						if ($("#loginId").val() != "") {
+
+							location.href = "application.do?studyId="
+									+ $("#studyId").val();
+
+						} else {
+
+							location.href = "login.do?studyId="
+									+ $("#studyId").val();
+
+						}
+
+					}
+				}
+
+				$("#actionBtn").click(function() {
+					joinFunc();
+				});
+				$("#actionBtnMobile").click(function() {
+					joinFunc();
+				});
+
+				function book() {
+
+					if (cond == 1) {
+						$.ajax({
+							type : "post",
+							url : "updateBusket.do",
+							data : {
+								customerId : $("#memberId").val(),
+								studyId : $("#studyId").val()
+							},
+							dataType : "json",
+							success : function(data) {
+								if (data.result == "ok") {
+									$("#booking").text("찜취소");
+									$("#booking").css("background-color",
+											"#2c3d46");
+									cond = 2;
+									return;
+								} else {
+									alert("찜 목록에 실패 하였습니다.");
+								}
+
+							},
+							error : function(xhr, status, error) {
+								console.log(xhr);
+								alert("error\nxhr : " + xhr + ", status : "
+										+ status + ", error : " + error);
+							}
+						});
+
+					} else {
+						$.ajax({
+							type : "post",
+							url : "updateBusket.do",
+							data : {
+								customerId : $("#memberId").val(),
+								studyId : $("#studyId").val()
+							},
+							dataType : "json",
+							success : function(data) {
+								if (data.result == "ok") {
+									$("#booking").text("찜하기");
+									$("#booking").css("background-color",
+											"white");
+									cond = 1;
+									return;
+								} else {
+									alert("찜 목록에 실패 하였습니다.");
+								}
+							},
+							error : function(xhr, status, error) {
+								console.log(xhr);
+								alert("error\nxhr : " + xhr + ", status : "
+										+ status + ", error : " + error);
+							}
+						});
+					}
 
 				}
-			}
-			
-			$("#actionBtn").click(function() {
-				joinFunc();
-			});
-			$("#actionBtnMobile").click(function() {
-				joinFunc();
-			});
-			
-			function book(){
 
-				if(cond == 1){				
-					$.ajax({
-						type: "post",
-						url: "updateBusket.do",
-						data: {
-							customerId : $("#memberId").val(), 
-							studyId: $("#studyId").val()
-						},
-						dataType: "json",
-						success: function(data) {
-							if(data.result == "ok") {																
-								$("#booking").text("찜취소");
-								$("#booking").css("background-color","orange");
-								cond = 2;
-								return;
-							} else {
-								alert("찜 목록에 실패 하였습니다.");
-							}
-							
-						},
-						error: function(xhr, status, error) {
-							console.log(xhr);
-							alert("error\nxhr : " + xhr + ", status : " 
-									+ status + ", error : " + error);      
-						}
-					});
-					
-					
-				}else{
-					$.ajax({
-						type: "post",
-						url: "updateBusket.do",
-						data: {
-							customerId : $("#memberId").val(), 
-							studyId: $("#studyId").val()
-						},
-						dataType: "json",
-						success: function(data) {
-							if(data.result == "ok") {																
-								$("#booking").text("찜하기");
-								$("#booking").css("background-color","white");
-								cond = 1;
-								return;
-							} else {
-								alert("찜 목록에 실패 하였습니다.");
-							}
-						},
-						error: function(xhr, status, error) {
-							console.log(xhr);
-							alert("error\nxhr : " + xhr + ", status : " 
-									+ status + ", error : " + error);      
-						}
-					});
-				}
-		
-			}
-			
-			$("#booking").click(function() {
-				book();
-			});
-			$("#bookingMobile").click(function() {
-				book();
-			});
-			
+				$("#booking").click(function() {
+					book();
+				});
+				$("#bookingMobile").click(function() {
+					book();
+				});
 			</script>
 		</div>
 		<!-- end of side -->

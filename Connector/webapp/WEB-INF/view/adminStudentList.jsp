@@ -7,8 +7,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link type="text/css"
-	href="/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
@@ -69,7 +67,7 @@ function delCustomer(customerId) {
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + customerBean.customerName + "</td>";
-						str += "<td><button type='button' onclick=delCustomer('" 
+						str += "<td><button type='button' class='reviewBtn' onclick=delCustomer('" 
 							+ customerBean.customerId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
@@ -78,11 +76,11 @@ function delCustomer(customerId) {
 					// 페이징
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -96,10 +94,10 @@ function delCustomer(customerId) {
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
 					$("#page").html(str2);
@@ -137,7 +135,7 @@ function delCustomer(customerId) {
 						str += "<tr>";
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + customerBean.customerName + "</td>";
-						str += "<td><button type='button' onclick=delCustomer('" 
+						str += "<td><button type='button' class='reviewBtn' onclick=delCustomer('" 
 							+ customerBean.customerId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
@@ -145,11 +143,11 @@ function delCustomer(customerId) {
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -163,10 +161,10 @@ function delCustomer(customerId) {
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
 					$("#page").html(str2);
@@ -201,8 +199,8 @@ function delCustomer(customerId) {
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> >
-							<li>관리자</li>>
+							<li><a href="/main.do">홈</a></li> >
+							<li><a href="/adminPage.do">관리자</a></li>>
 							<li>회원 목록</li>
 						</ul>
 					</div>

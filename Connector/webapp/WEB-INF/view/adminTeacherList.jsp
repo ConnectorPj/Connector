@@ -10,8 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- bootstrap.css -->
-<link type="text/css"
-	href="/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/payorderStyle.css"
@@ -75,18 +73,18 @@ $(function() {
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str +="<td></td>";
-						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						str += "<td><button type='button' class='reviewBtn' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
 				$("#memberListBody").append(str);
 
 				var pBean = data.pBean;
 				str2 += "<ul>";
-				str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+				str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 				if (pBean.groupNo > 1) {
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
 							+ (pBean.pageStartNo - 1)
-							+ "'> 이전 </a></li>";
+							+ "'> < </a></li>";
 				}
 				for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 					if (pBean.pageNo != i) {
@@ -100,10 +98,10 @@ $(function() {
 				if (pBean.groupNo < pBean.totalGroupCount) {
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
 							+ (pBean.pageEndNo + 1)
-							+ "'> 다음 </a></li>";
+							+ "'> > </a></li>";
 				}
 				str2 += "<li><a href='#' onclick='paging(this);' id='"
-						+ pBean.totalPageCount + "'> 끝 </a></li>";
+						+ pBean.totalPageCount + "'> >> </a></li>";
 				str2 += "</ul>";
 
 				$("#page").html(str2);
@@ -137,19 +135,19 @@ $(function() {
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str += "<td><a href='adminRegTeacherAjax.do?teacherId="+ teacherBean.teacherId + '&memberId='
-						+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
-						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						+ teacherBean.teacherId + "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
+						str += "<td><button type='button' class='reviewBtn' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
 				$("#memberListBody2").append(str);
 
 				var pBean = data.pBean;
 				str2 += "<ul>";
-				str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+				str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
 				if (pBean.groupNo > 1) {
 					str2 += "<li><a href='#' onclick='paging2(this);' id='"
 							+ (pBean.pageStartNo - 1)
-							+ "'> 이전 </a></li>";
+							+ "'> < </a></li>";
 				}
 				for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 					if (pBean.pageNo != i) {
@@ -163,10 +161,10 @@ $(function() {
 				if (pBean.groupNo < pBean.totalGroupCount) {
 					str2 += "<li><a href='#' onclick='paging2(this);' id='"
 							+ (pBean.pageEndNo + 1)
-							+ "'> 다음 </a></li>";
+							+ "'> > </a></li>";
 				}
 				str2 += "<li><a href='#' onclick='paging2(this);' id='"
-						+ pBean.totalPageCount + "'> 끝 </a></li>";
+						+ pBean.totalPageCount + "'> >> </a></li>";
 				str2 += "</ul>";
 
 				$("#page2").html(str2);
@@ -209,18 +207,18 @@ $(function() {
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str +="<td></td>";
-						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						str += "<td><button type='button' class='reviewBtn' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
 					$("#memberListBody").html(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -234,10 +232,10 @@ $(function() {
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
 					$("#page").html(str2);
@@ -274,19 +272,19 @@ $(function() {
 						str += "<td>" + num++ + "</td>";
 						str += "<td>" + teacherBean.teacherName + "</td>";
 						str += "<td><a href='adminRegTeacherAjax.do?teacherId="+ teacherBean.teacherId + '&memberId='
-						+ teacherBean.teacherId + "'><input type='button' value='등록하기'/></a></td>";
-						str += "<td><button type='button' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
+						+ teacherBean.teacherId + "'><input type='button' class='reviewBtn'  value='등록하기'/></a></td>";
+						str += "<td><button type='button' class='reviewBtn' onclick=delTeacher('"+ teacherBean.teacherId + "')>삭제</button></td>";
 						str += "</tr>";
 					});
 					$("#memberListBody2").html(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging2(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -300,10 +298,10 @@ $(function() {
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging2(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging2(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
 					$("#page2").html(str2);
@@ -334,14 +332,13 @@ $(function() {
 						<li><a href="adminPage.do">관리자 홈</a></li>
 						<li><a href="adminTeacherList.do?pageNo=1" class="on">강사
 								목록</a></li>
-						<li><a href="">강사 등록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> >
-							<li>관리자</li>>
+							<li><a href="/main.do">홈</a></li> >
+							<li><a href="/adminPage.do">관리자</a></li>>
 							<li>강사 목록</li>
 						</ul>
 					</div>
