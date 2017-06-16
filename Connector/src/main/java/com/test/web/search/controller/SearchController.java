@@ -2,6 +2,7 @@ package  com.test.web.search.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.web.common.Constants;
@@ -24,8 +24,26 @@ public class SearchController {
 	public String Search(Model model, ClassBean cBean) {
 		
 		List<ClassBean> classList = classDao.selectClassList();
+		List<ClassBean> photoList =new ArrayList<>();
+		ClassBean ccBean = new ClassBean() ;
+		
+		Iterator<ClassBean> itor = classList.iterator();
+		
+		while (itor.hasNext()) {
+			ccBean = itor.next();
+			try {
+				ccBean = classDao.selectTeacherPhotoList(ccBean);
+				photoList.add(ccBean);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		model.addAttribute("ccBean",ccBean);
 		model.addAttribute("classList", classList);
-		model.addAttribute("cBean",cBean);
+		model.addAttribute("mainPhoto", photoList);
+
 
 		return "/search";
 	}
@@ -33,8 +51,26 @@ public class SearchController {
 	public String searchDetail(Model model, ClassBean cBean) {
 		
 		List<ClassBean> classList = classDao.selectClassList();
+		List<ClassBean> photoList =new ArrayList<>();
+		ClassBean ccBean = new ClassBean() ;
+		
+		Iterator<ClassBean> itor = classList.iterator();
+		
+		while (itor.hasNext()) {
+			ccBean = itor.next();
+			try {
+				ccBean = classDao.selectTeacherPhotoList(ccBean);
+				photoList.add(ccBean);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		model.addAttribute("ccBean",ccBean);
 		model.addAttribute("classList", classList);
-		model.addAttribute("cBean",cBean);
+		model.addAttribute("mainPhoto", photoList);
+
 
 		return "/search";
 	}
@@ -45,14 +81,30 @@ public class SearchController {
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
-		resMap.put(Constants.RESULT_MSG, "class 角菩");
-
+		resMap.put(Constants.RESULT_MSG, "class 鞁ろ尐");
+		
+		ClassBean ccBean = new ClassBean() ;
+		
 		try {
 			List<ClassBean> classList = classDao.selectClassList();
-
+			List<ClassBean> photoList =new ArrayList<>();
+			
+			Iterator<ClassBean> itor = classList.iterator();
+			
+			while (itor.hasNext()) {
+				ccBean = itor.next();
+				try {
+					ccBean = classDao.selectTeacherPhotoList(ccBean);
+					photoList.add(ccBean);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
-			resMap.put(Constants.RESULT_MSG, "己傍");
+			resMap.put(Constants.RESULT_MSG, "靹标车");
 			resMap.put("classList", classList);
+			resMap.put("mainPhoto", photoList);
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -67,9 +119,11 @@ public class SearchController {
 	{
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		List<ClassBean> classList = new ArrayList<>() ;
+		List<ClassBean> photoList =new ArrayList<>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
-		resMap.put(Constants.RESULT_MSG, "class 角菩");
-
+		resMap.put(Constants.RESULT_MSG, "class 鞁ろ尐");
+		
+		ClassBean ccBean = new ClassBean() ;
 		// str = 1 , web, 
 		// str = 2 , mobile 
 		// str = 3 , system 
@@ -84,17 +138,43 @@ public class SearchController {
 		if(cBean.getStudyProgressName().equals("0") ){
 			try {
 				classList =  classDao.selectClassList();
+				Iterator<ClassBean> itor = classList.iterator();
+				
+				while (itor.hasNext()) {
+					cBean = itor.next();
+					try {
+						ccBean = classDao.selectTeacherPhotoList(cBean);
+						photoList.add(ccBean);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}else{
 			classList =  classDao.selectConClassList(cBean);
+			Iterator<ClassBean> itor = classList.iterator();
+			
+			while (itor.hasNext()) {
+				cBean = itor.next();
+				try {
+					ccBean = classDao.selectTeacherPhotoList(cBean);
+					photoList.add(ccBean);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		resMap.put(Constants.RESULT, Constants.RESULT_OK);
-		resMap.put(Constants.RESULT_MSG, "己傍");
+		resMap.put(Constants.RESULT_MSG, "靹标车");
 		
 		resMap.put("classList", classList);
+		resMap.put("mainPhoto", photoList);
 		
 		return resMap;
 	}
