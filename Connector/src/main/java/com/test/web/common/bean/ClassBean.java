@@ -1,6 +1,8 @@
 package com.test.web.common.bean;
 
 public class ClassBean {
+	private String studyPhoto;
+	private String teacherPhoto;
 	private String studyId;
 	private String teacherId;
 	private String teacherName;
@@ -20,8 +22,22 @@ public class ClassBean {
 	private String studyReference;
 	private String studyCheck;
 	private String studyRegdate;
-	
-	
+
+	public String getStudyPhoto() {
+		return studyPhoto;
+	}
+
+	public void setStudyPhoto(String studyPhoto) {
+		this.studyPhoto = studyPhoto;
+	}
+
+	public String getTeacherPhoto() {
+		return teacherPhoto;
+	}
+
+	public void setTeacherPhoto(String teacherPhoto) {
+		this.teacherPhoto = teacherPhoto;
+	}
 
 	public String getStudyStartTime() {
 		return studyStartTime;

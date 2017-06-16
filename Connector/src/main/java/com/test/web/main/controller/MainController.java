@@ -1,5 +1,7 @@
 ﻿package com.test.web.main.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,9 +44,25 @@ public class MainController {
 	@RequestMapping("/main")
 	public String main(Model model) {
 		List<ClassBean> classList = classDao.selectClassList();
+		List<ClassBean> photoList =new ArrayList<>();
+		
 
-		model.addAttribute("classList", classList);
-
+		ClassBean cBean = new ClassBean() ;
+		
+		Iterator<ClassBean> itor = classList.iterator();
+		
+		while (itor.hasNext()) {
+			cBean = itor.next();
+			try {
+				cBean = classDao.selectTeacherPhotoList(cBean);
+				photoList.add(cBean);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		model.addAttribute("mainPhoto", photoList);
+		
 		return "main";
 	}
 

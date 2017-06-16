@@ -22,7 +22,186 @@
 
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries"></script>
+<script type="text/javascript">
 
+//전체 리뷰의 갯수
+var reviewListTotCount = 0;
+// 현재 startRow 값
+var reviewStartRow = 0;
+var isReviewLoading = false;
+var currentProgressname = "";
+var isReviewLoadingFirst = true;
+
+$(function() {
+	$.ajax({
+		type: "post",
+		url: "/realDetailProc.do",
+		dataType: "json",
+		data : {
+			studyId:$("#studyId").val()
+		},
+		success: function(data) {
+			console.log(data);
+			
+			if(data.result == "ok") {
+				//리뷰 리스트 출력
+				$.each(data.detailList, function(i, rBean) {
+					
+					if(rBean.customerPicture == null) {
+						rBean.customerPicture = "/resources/images/userIcon.png";
+					}
+					
+					if(rBean.teacherPicture == null) {
+						rBean.teacherPicture = "/resources/images/userIcon.png";
+					}
+					
+					var str = "";
+					str += '<ul class="detailList">';
+					str += '<li class="review">';
+					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
+					str += '<div class="reviewContentWrap">';
+					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
+					str += '<ul class="score">';
+					
+					for(var j = 1; j <= 5; j++){
+						
+						if(j <= rBean.reviewRating) {
+							str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+							
+						}else {
+							str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+						}
+					}
+					
+					str += '</ul>';
+					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
+					str += '<span>'+ rBean.reviewContent +'</span></div>';
+                    str += '</div>';
+                    str += '</li>';
+                    str += '</ul>';
+                    str += '<hr>';
+                    
+					$("#realReviewInfo").append(str);
+				});
+				
+				//더 보기 버튼에 대한 처리
+				reviewListTotCount = data.detailListAll.length;
+				reviewStartRow = data.detailList.length;
+				
+				if( data.detailListAll.length > data.detailList.length ) {
+					//리뷰 더보기 버튼 화면에 표시
+					$("#moreReviewList").show();
+					
+				} else{
+					$("#moreReviewList").hide();
+				}
+
+			} else {
+				alert(data.resultMsg);
+			}
+		},
+		error: function(xhr, status, error) {
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " 
+					+ status + ", error : " + error);      
+		}
+	});
+	
+});
+
+
+//다음 리뷰 리스트를 표시한다.
+function showNextReviewList() {
+	
+	if( reviewListTotCount <= reviewStartRow && isReviewLoading) {
+		return;
+	}
+	
+	//알고 있어야 되는 정보
+	//전체 리뷰의 갯수
+	//현재 startRow 를 알고 있어야 한다.
+	
+	isReviewLoading = true;
+	
+	$.ajax({
+		type: "post",
+		url: "/realDetailProc.do",
+		data: {
+			studyId:$("#studyId").val(),
+			startRow : reviewStartRow
+		},
+		dataType: "json",
+		success: function(data) {
+			printLog(data);
+			
+			if(data.result == "ok") {
+				//리뷰 리스트 출력
+				$.each(data.detailList, function(i, rBean) {
+					
+					if(rBean.customerPicture == null) {
+						rBean.customerPicture = "/resources/images/userIcon.png";
+					}
+					
+					if(rBean.teacherPicture == null) {
+						rBean.teacherPicture = "/resources/images/userIcon.png";
+					}
+					
+					var str = "";
+					str += '<ul class="detailList">';
+					str += '<li class="review">';
+					str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
+					str += '<div class="reviewContentWrap">';
+					str += '<div class="writerName">'+ rBean.customerName +'<span class="writtenAt">'+ rBean.reviewRegdate +'</span></div>';
+					str += '<ul class="score">';
+					
+					for(var j = 1; j <= 5; j++){
+						
+						if(j <= rBean.reviewRating) {
+							str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+							
+						}else {
+							str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+						}
+					}
+					
+					str += '</ul>';
+					str += '<div class="reviewContent"><span class="reviewLevel">'+ rBean.studyProgramlanguage +'</span>';
+					str += '<span>'+ rBean.reviewContent +'</span></div>';
+                    str += '</div>';
+                    str += '</li>';
+                    str += '</ul>';
+                    str += '<hr>';
+                    
+					$("#realReviewInfo").append(str);
+				});
+				
+				//더보기 버튼에 대한 처리
+				reviewStartRow += data.detailList.length*1;
+				
+				if( reviewListTotCount > reviewStartRow ) {
+					//리뷰 더보기 버튼 화면에 표시
+					$("#moreReviewList").show();
+					
+				} else{
+					$("#moreReviewList").hide();
+				}
+				
+			} else {
+				alert(data.resultMsg);
+			}
+			
+			isReviewLoading = false;
+		},
+		error: function(xhr, status, error) {
+			isReviewLoading = false;
+			console.log(xhr);
+			alert("error\nxhr : " + xhr + ", status : " 
+					+ status + ", error : " + error);      
+		}
+	});
+};
+
+</script>
 </head>
 <body>
 
@@ -147,34 +326,12 @@
 				<div id="replyTitle" class="replyTitle">
 					리더에 대한 후기<br> <br> <br>
 				</div>
-				<ul class="reviewList">
-					<li class="review">
-						<div class="writerPhoto">
-							<img src="/resources/images/profile.jpg">
-						</div>
-						<div class="reviewContentWrap">
-							<div id="writeName" class="writerName">
-								Kim Tae Hee<span id="writeAt" class="writtenAt">2017년 5월</span>
-							</div>
-
-							<ul id="score" class="score">
-								<li class="star"></li>
-								<li class="star"></li>
-								<li class="star"></li>
-								<li class="star"></li>
-								<li class="star"></li>
-							</ul>
-							<div class="reviewContent">
-								<span id="reviewLevel" class="reviewLevel">입문1</span> <span>"영어회화를
-									본격적으로 시작하기 전 즐거운 몸풀기를 하는 기분으로 "<br /> "참여하다보니 저도 어느순간 영어로 말하고
-									있네요."<br /> "영어회화를 본격적으로 시작하기 전 즐거운 몸풀기를 하는 기분으로 "<br />
-									"참여하다보니 저도 어느순간 영어로 말하고 있네요."<br /> "영어회화를 본격적으로 시작하기 전 즐거운
-									몸풀기를 하는 기분으로 "<br /> "참여하다보니 저도 어느순간 영어로 말하고 있네요."<br />
-								</span>
-							</div>
-						</div>
-					</li>
-				</ul>
+				 <div id="realReviewInfo"></div>
+				 <br/>
+                <p style="text-align: center;">
+                	<img src="/resources/images/more.png" id="moreReviewList"
+				 	onclick="showNextReviewList()" style="width:50px; height: 50px;" />
+                </p>
 			</div>
 			<hr />
 			<!-- end of reply -->

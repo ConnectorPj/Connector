@@ -27,13 +27,14 @@ import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.PurchaseBean;
+import com.test.web.common.bean.ReviewBean;
 import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
 import com.test.web.common.dao.ReviewDAO;
 import com.test.web.common.dao.TeacherDAO;
-import com.test.web.common.service.TeacherService;
+import com.test.web.common.service.ReviewService;
 
 @Controller
 public class DetailController {
@@ -52,11 +53,12 @@ public class DetailController {
 
 	@Autowired
 	BucketDAO busketDao;
+	
 	@Autowired
 	CustomerDAO customerDao;
 
 	@Autowired
-	private TeacherService teacherService;
+	private ReviewService reviewService;
 
 	@RequestMapping("/detail")
 	public String detail(Model model, ClassBean cBean) {
@@ -86,12 +88,12 @@ public class DetailController {
 
 		return "classDetail";
 	}
-	
+
 	@RequestMapping("/detailProc")
 	public String detailProc(Model model, ClassBean cBean) {
 		ClassBean selBean = classDao.selectClass(cBean);
 		model.addAttribute("ClassBean", selBean);
-		
+
 		return "applicationsuccess";
 	}
 
@@ -111,6 +113,28 @@ public class DetailController {
 		}
 
 		return 0;
+	}
+
+	@RequestMapping("/realDetailProc")
+	@ResponseBody
+	public Map<String, Object> realDetailProc(ReviewBean rBean) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 실패");
+
+		try {
+			// 게시글 통합조회(댓글 목록까지 조회)
+			resMap = reviewService.selectDetailInfo(rBean);
+
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
 	}
 
 	@RequestMapping("/updateBusket")
@@ -197,7 +221,7 @@ public class DetailController {
 
 		return resMap;
 	}
-	
+
 	/** 클래스 가져오깅 */
 	@RequestMapping("/selectClass")
 	@ResponseBody
@@ -283,10 +307,10 @@ public class DetailController {
 
 	}
 
-/** 수업에 신청한 학생리스트 뿌려주깅 **/
+	/** 수업에 신청한 학생리스트 뿌려주깅 **/
 	@RequestMapping("/selectStudyMember")
 	@ResponseBody
-	public Map<String, Object> selectStudyMember(PurchaseBean bean,  Model model) {
+	public Map<String, Object> selectStudyMember(PurchaseBean bean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
@@ -298,23 +322,24 @@ public class DetailController {
 
 			bean.setPurchaseSort("0");
 			List<CustomerBean> list = customerDao.selectStudyMember(bean);
-			
+
 			resMap.put("customerBean", bean);
 			resMap.put("CustomerList", list);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
+
 	}
+
 	/** 수업에 듣는 학생리스트 뿌려주깅 **/
 	@RequestMapping("/selectStudyMember2")
 	@ResponseBody
-	public Map<String, Object> selectStudyMember2(PurchaseBean bean,  Model model) {
+	public Map<String, Object> selectStudyMember2(PurchaseBean bean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
@@ -323,44 +348,43 @@ public class DetailController {
 			// int totRecord = memberService.selectMemberListTotalCount();
 			// 페이징 계산
 			// pagingBean.calcPage(totRecord);
-			
+
 			bean.setPurchaseSort("1");
 			List<CustomerBean> list = customerDao.selectStudyMember(bean);
-			
+
 			resMap.put("customerBean", bean);
 			resMap.put("CustomerList", list);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return resMap;
-		
-	}
 
+		return resMap;
+
+	}
 
 	@RequestMapping("/updateClass")
 	@ResponseBody
 	public Map<String, Object> updateClass(ClassBean bean) {
-		
+
 		Map<String, Object> resMap = new HashMap<String, Object>();
-		
+
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
 
 		try {
-			
+
 			ClassBean cBean = new ClassBean();
 			cBean = classDao.selectClass(bean);
 			cBean.setStudyCheck("1");
-			
+
 			int res = classDao.updateClass(cBean);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -368,28 +392,27 @@ public class DetailController {
 		return resMap;
 
 	}
-	
 
 	@RequestMapping("/calcelClass")
 	@ResponseBody
 	public Map<String, Object> calcelClass(ClassBean bean) {
-		
+
 		Map<String, Object> resMap = new HashMap<String, Object>();
-		
+
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
 
 		try {
-			
+
 			ClassBean cBean = new ClassBean();
 			cBean = classDao.selectClass(bean);
 			cBean.setStudyCheck("0");
-			
+
 			int res = classDao.updateClass(cBean);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

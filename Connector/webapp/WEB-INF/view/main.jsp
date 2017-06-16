@@ -104,16 +104,17 @@
 			<div class="pick_box">
 
 				<!--  클래스 시간 별로 8개를 출력한다. -->
-				<c:forEach var="classBean" items="${classList}" varStatus="status"
-					begin="0" end="8">
-
+			<c:forEach var="classBean" items="${mainPhoto}" varStatus="status" begin="0" end="8">
+					
 					<div class="card hovercard"
 						OnClick="location.href='/detail.do?studyId=${classBean.studyId}'">
-						<div class="cardheader"
-							style="background-image: url('../resources/images/image.jpg')"></div>
+						
+						 <div class="cardheader"
+							style="background-image: url('${classBean.studyPhoto}')"></div>
 						<div class="avatar">
-							<img alt="" src="/resources/images/img.jpg">
-						</div>
+							<img alt="" src="${classBean.teacherPhoto}">
+						</div> 
+						
 						<div class="info">
 							<div class="title">${classBean.studyName}</div>
 							<div class="desc">${classBean.studyPrice}</div>
@@ -121,7 +122,7 @@
 							<div class="desc">${classBean.studyEndDate}</div>
 						</div>
 					</div>
-				</c:forEach>
+				  </c:forEach> 
 			</div>
 		</div>
 
