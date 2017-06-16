@@ -59,7 +59,10 @@ public class MainController {
 	}
 
 	@RequestMapping("/application")
-	public String application(Locale locale, Model model) {
+	public String application(ClassBean cBean, Model model) {
+		
+		ClassBean classBean = classDao.selectClass(cBean);
+		model.addAttribute("classBean",classBean);
 		return "application";
 	}
 

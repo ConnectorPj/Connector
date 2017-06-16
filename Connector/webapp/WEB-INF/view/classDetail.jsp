@@ -25,6 +25,9 @@
 
 </head>
 <body>
+
+<input type="hidden" id="loginId" value="${sessionScope.memberLoginBean}">
+
 	<div id="mobileButton">
 			<button id="actionBtnMobile" class="actionBtnMobile""> 참여 신청하기 </button>
 			<a id="bookingMobile" class="bookingMobile" >찜하기</a>
@@ -203,7 +206,20 @@
 			
 			function joinFunc(){
 				if (confirm("참가 신청 하시겠습니까?")) {
-					location.href="payment.do?studyId="+$("#studyId").val();
+					
+		                    
+		                    if($("#loginId").val() != ""){
+		                        
+		                    location.href="application.do?studyId="+$("#studyId").val();
+		                        
+		                        
+		                    }else{
+		                        
+		                    location.href="login.do?studyId="+$("#studyId").val();
+		                        
+		                    }
+		               
+
 				}
 			}
 			

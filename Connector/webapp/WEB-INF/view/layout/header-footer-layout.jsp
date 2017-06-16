@@ -534,7 +534,7 @@ span.buttonText {
 							<c:otherwise>
 
 								<c:if test="${sessionScope.code eq 'T'}">
-									<li style="width: 150px;"><a href="personalInfoTeacher.do">
+									<li style="width: 200px;"><a href="personalInfoTeacher.do">
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
@@ -544,7 +544,7 @@ span.buttonText {
 
 
 								<c:if test="${sessionScope.code eq 'C' }">
-									<li style="width: 150px;"><a href="personalInfoCustomer.do">
+									<li style="width: 200px;"><a href="personalInfoCustomer.do">
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
