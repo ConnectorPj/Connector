@@ -63,7 +63,7 @@
                 
                 <div class="section3">
                     <div class="section3_sub1">
-                       <p class="titleSection">It's gonna be fun!<br/>Let's study together!</p>
+                       <p class="titleSection2">It's gonna be fun!<br/>Let's study together!</p>
                         	<button class="btn_study"
                         	style="padding: 10%" onclick="location.href='/search.do'">스터디 찾기</button>
                         <h5>참여 가능한 스터디 리스트로 이동합니다.</h5>

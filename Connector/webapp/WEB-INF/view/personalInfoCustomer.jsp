@@ -205,13 +205,13 @@
 								<tr>
 									<td class="table_att">휴대폰 번호</td>
 									<td class="table_att2"><input id="customerCellphone" name="customerCellphone"
-										type="text"
+										type="text" class= "inputPersonalInfo"
 										value="${sessionScope.memberLoginBean.customerCellphone}" /></td>
 								</tr>
 								<tr>
 									<td class="table_att">소개</td>
-									<td class="table_att2"><textarea id="customerProfile" name="customerProfile"
-											cols="50" rows="10" style="resize: none;">${sessionScope.memberLoginBean.customerProfile}</textarea></td>
+									<td class="table_att2"><textarea id="customerProfile" name="customerProfile" class="inputPersonalInfo"
+											cols="50" rows="10" style="resize: none; height: 300px;">${sessionScope.memberLoginBean.customerProfile}</textarea></td>
 								</tr>
 								<tr>
 									<td></td>

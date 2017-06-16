@@ -9,7 +9,9 @@
 	margin: 50px auto 0;
 	min-height: 800px;
 }
-
+.imgLike{
+	width: 40px;
+}
 .sub_nav:after {
 	content: "";
 	display: block;
@@ -343,7 +345,7 @@
 
 .reviewBtn{
 	
-	width: 50px;
+	width: 70x;
 	height: 20px;
 	line-height: 20px;
 	background-color: #2c3d46;
@@ -353,6 +355,14 @@
 	font-size: 0.5em;
 }
 
+.inputPersonalInfo{
+	border:1px solid #aaa;
+	border-radius: 5px;
+	height: 40px;
+	padding: 5px;
+	
+	
+}
 
 
 /* The Modal (background) */

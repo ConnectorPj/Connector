@@ -47,7 +47,6 @@
 		                str += "<td>" + classBean.studyName + "</td>";
 		                str += "<td>" + classBean.studyProgramLanguage + "</td>";
 		                str += "<td>" + classBean.teacherName + "</td>";
-		                str += "<td>" + classBean.studyLocation + "</td>";
 		                str += "<td><button type='button' onclick='openModal("+'"'
 		                	+ classBean.studyId +'"'
 		                    + ");' class='reviewBtn'>후기쓰기</button></td>";
@@ -115,7 +114,6 @@
 		                str += "<td>" + classBean.studyName + "</td>";
 		                str += "<td>" + classBean.studyProgramLanguage + "</td>";
 		                str += "<td>" + classBean.teacherName + "</td>";
-		                str += "<td>" + classBean.studyLocation + "</td>";
 		                str += "<td>대기중</td>";
 		                str += "</tr>";
 					});
@@ -229,7 +227,6 @@
 		                str += "<td>" + classBean.studyName + "</td>";
 		                str += "<td>" + classBean.studyProgramLanguage + "</td>";
 		                str += "<td>" + classBean.teacherName + "</td>";
-		                str += "<td>" + classBean.studyLocation + "</td>";
 		                str += "<td><button type='button' onclick='openModal("+'"'
 		                	+ classBean.studyId +'"'
 		                    + ");' class='reviewBtn'>후기쓰기</button></td>";
@@ -298,7 +295,6 @@
 		                str += "<td>" + classBean.studyName + "</td>";
 		                str += "<td>" + classBean.studyProgramLanguage + "</td>";
 		                str += "<td>" + classBean.teacherName + "</td>";
-		                str += "<td>" + classBean.studyLocation + "</td>";
 		                str += "<td>대기중</td>";
 		                str += "</tr>";
 					});
@@ -388,7 +384,6 @@
                         		<col width="10%">
                         		<col width="10%">
                         		<col width="10%">
-                        		<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -396,7 +391,6 @@
                           			<th>스터디 이름</th>
                            			<th>언어</th>
                            			<th>강사</th>
-                           			<th>장소</th>
                            			<th>후기쓰기</th>
 								</tr>
 							</thead>
@@ -421,7 +415,6 @@
                         		<col width="10%">
                         		<col width="10%">
                         		<col width="10%">
-                        		<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -429,7 +422,6 @@
                           			<th>스터디 이름</th>
                            			<th>언어</th>
                            			<th>강사</th>
-                           			<th>장소</th>
                            			<th>후기쓰기</th>
 								</tr>
 							</thead>
@@ -522,7 +514,7 @@
 							document.getElementById("teacherId").value = cBean.teacherId;
 							document.getElementById("teacherName").value = cBean.teacherName;
 							document.getElementById("studyProgramLanguage").value = cBean.studyProgramLanguage;
-							document.getElementById("studyResult").textContent=cBean.studyName+"강사님의스터디에 대한 평가를 해주세요!";
+							document.getElementById("studyResult").textContent=cBean.teacherName+"강사님의스터디에 대한 평가를 해주세요!";
 							
 						} else {
 						}

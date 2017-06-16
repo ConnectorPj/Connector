@@ -525,34 +525,36 @@ span.buttonText {
 
 					<li><a href="#">카테고리</a>
 						<ul class="menu_list">
-							<li class="submenu"><a href="#">웹개발</a>
-								<ul class="menu_sublist">
-									<li><a href="#"> html </a></li>
-									<li><a href="#"> jsp </a></li>
-									<li><a href="#"> JavaScript </a></li>
-									<li><a href="#"> Spring </a></li>
-									<li><a href="#"> php </a></li>
-								</ul></li>
-							<li class="submenu"><a href="#">모바일개발</a>
-								<ul class="menu_sublist">
-									<li><a href="#"> 안드로이드 </a></li>
-									<li><a href="#">iOS </a></li>
-								</ul></li>
+							<li class="submenu"><a href="/search.do?StudyProgressName=1">웹개발</a>
+<!-- 								<ul class="menu_sublist"> -->
+<!-- 									<li><a href="#"> html </a></li> -->
+<!-- 									<li><a href="#"> jsp </a></li> -->
+<!-- 									<li><a href="#"> JavaScript </a></li> -->
+<!-- 									<li><a href="#"> Spring </a></li> -->
+<!-- 									<li><a href="#"> php </a></li> -->
+<!-- 								</ul></li> -->
+							<li class="submenu"><a href="/search.do?StudyProgressName=2">모바일개발</a>
+<!-- 								<ul class="menu_sublist"> -->
+<!-- 									<li><a href="#"> 안드로이드 </a></li> -->
+<!-- 									<li><a href="#">iOS </a></li> -->
+<!-- 								</ul></li> -->
 
-							<li class="submenu"><a href="#">시스템개발</a>
+							<li class="submenu"><a href="/search.do?StudyProgressName=3">시스템개발</a>
 
-								<ul class="menu_sublist">
-									<li><a href="#">java </a></li>
-									<li><a href="#">C</a></li>
-									<li><a href="#">C++</a></li>
-									<li><a href="#">C#</a></li>
-								</ul></li>
-							<li class="submenu"><a href="#">IoT</a>
-								<ul class="menu_sublist">
-									<li><a href="#"> 아두이노 </a></li>
-									<li><a href="#">라즈베리파이 </a></li>
+<!-- 								<ul class="menu_sublist"> -->
+<!-- 									<li><a href="#">java </a></li> -->
+<!-- 									<li><a href="#">C</a></li> -->
+<!-- 									<li><a href="#">C++</a></li> -->
+<!-- 									<li><a href="#">C#</a></li> -->
+<!-- 								</ul> -->
+								</li>
+							<li class="submenu"><a href="/search.do?StudyProgressName=4">IoT</a>
+<!-- 								<ul class="menu_sublist"> -->
+<!-- 									<li><a href="#"> 아두이노 </a></li> -->
+<!-- 									<li><a href="#">라즈베리파이 </a></li> -->
 
-								</ul></li>
+<!-- 								</ul> -->
+								</li>
 						</ul></li>
 					<li><a href="realreview.do">리얼후기</a></li>
 
@@ -745,20 +747,19 @@ span.buttonText {
 					<div>
 						<img style="width: 100px; margin: 10px auto;"
 							src="/resources/images/footer_company.png"><br /> <a
-							href="#"><p>서비스 안내</p></a>
+							href="/studyIntro.do"><p>서비스 안내</p></a>
 					</div>
 
 					<div>
 						<img style="width: 100px; margin: 10px auto;"
 							src="/resources/images/footer_support.png"><br /> <a
-							href="#"><p>리더로 지원</p></a> <a href="#"><p>스터디 신청</p></a>
+							href="/leaderIntro.do"><p>리더로 지원</p></a> <a href="/search.do"><p>스터디 신청</p></a>
 
 					</div>
 
 					<div>
 						<img style="width: 100px; margin: 10px auto;"
-							src="/resources/images/footer_customer.png"><br /> <a
-							href="#"><p>자주묻는 질문</p></a> <a href="#"><p>1 : 1 문의</p></a>
+							src="/resources/images/footer_customer.png"><br /> <p onclick="alert('서비스 준비 중입니다.')">자주묻는 질문</p> 
 					</div>
 
 				</div>
@@ -800,25 +801,7 @@ span.buttonText {
 			modalJoin.style.display = "none";
 
 		}
-		// 		var modalLogin = document.getElementById("myLoginModal");
-
-		// 		// Get the button that opens the modal
-		// 		var btnLogin = document.getElementById("loginLink");
-
-		// 		// Get the <span> element that closes the modal
-		// 		var spanLogin = document.getElementsByClassName("closeLogin")[0];
-
-		// 		// When the user clicks on the button, open the modal 
-		// 		btnLogin.onclick = function() {
-		// 			modalLogin.style.display = "block";
-		// 		}
-
-		// 		// When the user clicks on <span> (x), close the modal
-		// 		spanLogin.onclick = function() {
-		// 			modalLogin.style.display = "none";
-		// 		}
-
-		// When the user clicks anywhere outside of the modal, close it
+		
 		window.onclick = function(event) {
 			if (event.target == modalLogin) {
 				modalLogin.style.display = "none";

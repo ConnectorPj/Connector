@@ -212,14 +212,14 @@
 								</tr>
 								<tr>
 									<td class="table_att">휴대폰 번호</td>
-									<td class="table_att2"><input id="teacherCellphone" name="teacherCellphone"
+									<td class="table_att2"><input id="teacherCellphone" name="teacherCellphone" class="inputPersonalInfo"
 										type="text"
 										value="${sessionScope.memberLoginBean.teacherCellphone}" /></td>
 								</tr>
 								<tr>
 									<td class="table_att">소개</td>
-									<td class="table_att2"><textarea id="teacherInfo" name="teacherInfo"
-											cols="50" rows="10" style="resize: none;">${sessionScope.memberLoginBean.teacherInfo}</textarea></td>
+									<td class="table_att2"><textarea id="teacherInfo" name="teacherInfo" class="inputPersonalInfo"
+											cols="50" rows="10" style="resize: none; height: 300px;">${sessionScope.memberLoginBean.teacherInfo}</textarea></td>
 								</tr>
 								<tr>
 									<td></td>
