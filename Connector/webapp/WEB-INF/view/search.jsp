@@ -16,6 +16,44 @@
 <link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
 <style>
+.page {
+color:
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.page ul:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.page ul {
+	display: inline-block;
+	list-style: none;
+}
+
+.page ul li {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+}
+
+.page ul li a {
+	display: block;
+}
+
+.page ul li a:hover {
+	color: #2c3d46;
+}
+
+.page ul li a.on {
+	background-color: #2c3d46;
+	color: #fff;
+}
+
 .wrap {
 	position: absolute;
 	left: 0;
@@ -129,6 +167,10 @@
 	src="//apis.daum.net/maps/maps3.js?apikey=c50d46bc6244185fdb36b57523e93fb4&libraries=services,clusterer"></script>
 <script>
 
+	var totalCount = 0;
+	var currentNum = 0;
+	var groupNum = 0;
+
 	var overlay = null;
 	var Map_position = '당산동';
 	var positions = []; // 마커의 위치
@@ -171,7 +213,6 @@
 
 
 	// 한번에 보여줄 bean의 갯수
-	var showPagingCount = 6;
 	$(document).ready(function() {
 		var mapContainer = document.getElementById('test2'), // 지도를 표시할 div
 			mapOption = {
@@ -188,17 +229,6 @@
 			minLevel : 10 // 클러스터 할 최소 지도 레벨 
 		});
 
-		/* function Paging(index){
-			var total =  (index+1) * showPagingCount ;
-			// 왼쪽 컨텐츠 내용 보여줌
-			if( total > showLeftContents.length){
-				total = showLeftContents.length;
-			}
-			
-			for (var i = index*showPagingCount, len = total ; i < len; i++) {
-				$("#memberListBody").append(showLeftContents[i]);
-			}
-		} */
 
 		$.ajax({
 			type : "post",
@@ -238,7 +268,7 @@
 							changeCategory();
 						}
 					});
-					
+
 					if (window.innerWidth < 769) {
 						mobileView();
 					}
@@ -421,13 +451,36 @@
 			}
 
 			showMarkers();
-
-			for (var i = 0, len = showLeftContents.length; i < len; i++) {
-				$("#memberListBody").append(showLeftContents[i]);
-			}
-
+			//여기
 			// 총 갯수 구하기
 			$("#totalCount").text(showLeftContents.length);
+
+			totalCount = showLeftContents.length;
+			currentNum = 0;
+			groupNum = totalCount / 10 + 1;
+			
+			var until = (currentNum+1) * 10
+			if( until > totalCount){
+				until = totalCount;
+			}
+			for (var i = (currentNum * 10) , len = until; i < len; i++) {
+			
+				$("#memberListBody").append(showLeftContents[i]);
+			}
+			var str2 = "";
+
+			str2 += "<ul>";
+			str2 += "<li><a href='#' onclick='paging(this);' id='first'>처음 </a></li>";
+			
+			for (var i = 1; i <= groupNum; i++) {
+				str2 += "<li><a href='#' onclick='paging(this);' id='"
+					+ i + "'>" + i + "</a></li>";
+			}
+			
+			str2 += "<li><a href='#' onclick='paging(this);' id='last'> 끝 </a></li>";
+			str2 += "</ul>";
+
+			$("#page").html(str2);
 
 		}
 
@@ -582,6 +635,34 @@
 
 
 	}); //end of ready function
+	function paging(click) {
+		
+		$("#memberListBody").text("");
+		var id = click.id;
+		
+		if(click.id == "first"){
+			id = 1;
+		}
+		if(click.id == "last"){
+			id = Math.ceil(showLeftContents.length / 10)
+		}
+		
+		totalCount = showLeftContents.length;
+		currentNum = (id - 1);
+		groupNum = totalCount / 10 + 1;
+		
+		var until = (currentNum+1) * 10
+		if( until > totalCount){
+			until = totalCount;
+		}
+		for (var i = (currentNum * 10) , len = until; i < len; i++) {
+		
+			$("#memberListBody").append(showLeftContents[i]);
+		}
+
+
+
+	}
 
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	function closeOverlay() {
@@ -593,7 +674,7 @@
 			$("#bigCategorySelect").val("0");
 			mobileView();
 		}
-		if(window.innerWidth > 769){
+		if (window.innerWidth > 769) {
 			isMobile = 1;
 		}
 	});
@@ -649,7 +730,7 @@
 
 <body>
 	<div class="total">
-		<div id="test1" >
+		<div id="test1">
 			<div class="search">
 				<form id="searchForm">
 					<div class="searchPlace">
@@ -689,6 +770,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 검색 결과 : <span id="totalCount"></span>
 				개
 			</div>
+
 			<br>
 			<!-- PICK -->
 			<div class="pick">
@@ -697,16 +779,12 @@
 				</div>
 			</div>
 
-			<%-- <div class="pagingDiv" style="margin-left : 40%;">
-				<ul class="pagination">
-				 <c:forEach var="i" begin="1" end="${count}" >
-   					 <li><a OnClick="paging(i)">${i}</a></li>	  	
-    			</c:forEach>
-  				</ul>
-			</div> --%>
+			<div id="page" class="page"></div>
 
 		</div>
-		<div id="test2" ></div>
+		<div id="test2"></div>
+
+
 	</div>
 </body>
 </html>
