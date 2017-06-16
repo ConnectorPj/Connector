@@ -441,9 +441,51 @@ span.buttonText {
 	var onSuccess = function(user) {
 		// user에 구글로 로그인한 사용자가 들어옴.
 		// getBasicProfile() 메소드로 .getName(), getEmail() 등 접근 가능
+		
 		var profile = user.getBasicProfile();
-		alert(profile.getName());
-		console.log('Singed in as ' + user.getBasicProfile().getName());
+		
+		var Id = profile.getEmail();
+		var name = profile.getName();
+		var pw = profile.getId();
+		
+		$.ajax({
+			type : "post",
+			url : "/loginByGoogle.do",
+			data : {
+				customerId : Id,
+				customerPw : pw,
+				customerName : name
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					
+					//android 호출
+					try {
+						var cusId = $("#customerIdM").val();
+						window.JSInterface.updateAndToken(cusId);
+					} catch (e) {
+						console.log(e);
+					}
+
+					//로그인 성공
+					location.replace("/main.do");
+					return;
+				} else {
+					alert("로그인을 실패하였습니다.");
+				}
+				
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr
+
+				+ ", status : " + status + ", error : " + error);
+			}
+		});
+		
+		
+		
 	}
 	// 로그인 실패시
 	var onFailure = function(error) {

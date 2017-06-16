@@ -40,10 +40,10 @@ public class CustomerController {
 	// 파일 업로드 저장경로
 	@Value("#{config['file.upload.path']}")
 	private String FILE_UPLOAD_PATH;
-	
+
 	@Value("#{config['admin.id']}")
 	private String adminId;
-	
+
 	@Value("#{config['admin.pw']}")
 	private String adminPw;
 
@@ -64,21 +64,21 @@ public class CustomerController {
 
 	@Autowired
 	private ClassDAO classDao;
-	
+
 	@Autowired
 	PurchaseDAO purchaseDao;
 
 	@RequestMapping("/join")
 	public String join(ClassBean bean, Model model) {
-		
-		
+
+
 		ClassBean cbean = classDao.selectClass(bean);
 		model.addAttribute(cbean);
 		return "join";
 	}
-	
-	
-	
+
+
+
 	/** 학생 회원가입 처리를 한다. **/
 	@RequestMapping("/insertCustomerProc")
 	@ResponseBody
@@ -88,13 +88,13 @@ public class CustomerController {
 
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원가입에 실패 하였습니다.");
-		
-		
+
+
 		// DB insert
 		try {
 			TeacherBean tBean = new TeacherBean();
 			tBean.setTeacherId(customerBean.getCustomerId());
-			
+
 			tBean = teacherService.selectTeacher(tBean);
 			if(tBean == null){
 				int res = customerService.insertCustomer(customerBean);
@@ -128,9 +128,9 @@ public class CustomerController {
 		try {
 			CustomerBean cusBean = new CustomerBean();
 			cusBean.setCustomerId(teacherBean.getTeacherId());
-			
+
 			cusBean = customerService.selectCustomer(cusBean);
-			
+
 			if(cusBean == null){
 				teacherBean.setTeacherCheck("0");
 				int res = teacherService.insertTeacher(teacherBean);
@@ -154,11 +154,43 @@ public class CustomerController {
 
 	@RequestMapping("/login")
 	public String login(ClassBean bean, Model model) {
-		
-		
+
+
 		ClassBean cbean = classDao.selectClass(bean);
 		model.addAttribute(cbean);
 		return "login";
+	}
+
+	/** 회원로그인 처리 */
+	@RequestMapping("/loginByGoogle")
+	@ResponseBody
+	public Map<String, Object> loginByGoogle(CustomerBean bean, HttpServletRequest req) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		// 로그인 실패
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put("mBean", bean);
+		
+		try{
+			customerService.insertCustomer(bean);
+		}catch(Exception e){
+			System.out.println("이미 회원가입이 되어 있음 !");
+		}
+
+		try {
+			CustomerBean customerBean = customerService.selectCustomer(bean);
+			if (customerBean != null && customerBean.getCustomerId().equals(bean.getCustomerId())) {
+				// 로그인 성공 - 세션에 저장
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, customerBean);
+				resMap.put(Constants.RESULT, Constants.RESULT_OK);
+				req.getSession().setAttribute(Constants.RESULT_CODE, "C");
+				return resMap;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
 	}
 
 	/** 회원로그인 처리 */
@@ -169,10 +201,10 @@ public class CustomerController {
 		// 로그인 실패
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put("mBean", bean);
-		
+
 		// 운영자 로그인
 		if(bean.getCustomerId().equals(adminId) && bean.getCustomerPw().equals(adminPw)){
-			
+
 			req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, bean);
 			req.getSession().setAttribute(Constants.RESULT_CODE, "A");
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
@@ -251,22 +283,22 @@ public class CustomerController {
 
 		req.getSession().invalidate();
 
-		 return "redirect:/main.do";
+		return "redirect:/main.do";
 	}
-	
+
 	@RequestMapping("/applicationProc")
 	public String applicationProc(ClassBean classBean, CustomerBean cusBean) {
 		System.out.println(classBean.getStudyId());
 		System.out.println(cusBean.getCustomerId());
-		
+
 		PurchaseBean purBean = new PurchaseBean();
 		purBean.setStudyId(classBean.getStudyId());
 		purBean.setCustomerId(cusBean.getCustomerId());
 		// 기본값 0 
 		purBean.setPurchaseSort("0");
-		
+
 		purchaseDao.insertPurchase(purBean);
-		
+
 		return "applicationSuccess";
 	}
 
@@ -396,7 +428,7 @@ public class CustomerController {
 				PhotoBean classPhoto = new PhotoBean();
 				classPhoto.setMemberId(ClassBean.getStudyId());
 				classPhoto.setPhotoSort("2");
-				
+
 				try {
 					photoDao.deletePhoto(classPhoto);
 				} catch (Exception e) {
@@ -411,7 +443,7 @@ public class CustomerController {
 			}
 
 		} // end if
-			// db 처리
+		// db 처리
 
 		return "applicationSuccess";
 	}
@@ -569,7 +601,7 @@ public class CustomerController {
 			}
 
 		}
-		  return "redirect:/main.do";
+		return "redirect:/main.do";
 	}
 
 	@RequestMapping("photoSendAjax")
@@ -596,7 +628,7 @@ public class CustomerController {
 		return resMap;
 	}
 
-	
+
 	/** 수업결제 내역 개인별 수업정보 **/
 	@RequestMapping("/selectCustomerPurchaseList")
 	@ResponseBody
@@ -604,9 +636,9 @@ public class CustomerController {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		
+
 		try {
-			
+
 			// 전체 회원 리스트 갯수 조회
 			int totRecord = classDao.selectCustomerPurchaseListTotal(pBean);
 			// 페이징 계산
@@ -634,28 +666,28 @@ public class CustomerController {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
-		
+
 		try {
-			
+
 			// 전체 회원 리스트 갯수 조회
 			int totRecord = classDao.selectCustomerPurchaseUncheckListTotal(pBean);
 			// 페이징 계산
 			paBean.calcPage(totRecord);
-			
+
 			List<ClassBean> list = classDao.selectCustomerPurchaseUncheckList(pBean, paBean);
-			
+
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
 			resMap.put("pBean", paBean);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
+
 	}
 
 
@@ -706,32 +738,32 @@ public class CustomerController {
 	}
 
 
-/**수업 신청 수락하기 */
-@RequestMapping("/updateStudyMember")
+	/**수업 신청 수락하기 */
+	@RequestMapping("/updateStudyMember")
 	@ResponseBody
 	public Map<String, Object> updateStudyMember(PurchaseBean bean){
-		
+
 		Map<String, Object> resMap = new HashMap<String, Object>();
-		
+
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "업데이트 실패");
-		
+
 		try {
-//			
-//			PurchaseBean pBean = new PurchaseBean();
-//			pBean = purchaseDao.selectPurchase(bean);
+			//			
+			//			PurchaseBean pBean = new PurchaseBean();
+			//			pBean = purchaseDao.selectPurchase(bean);
 			bean.setPurchaseSort("1");
-			
+
 			int res = purchaseDao.updateStudyMember(bean);
-			
+
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "업데이트 성공");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resMap;
-		
+
 	}
 }
