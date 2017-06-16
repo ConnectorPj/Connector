@@ -300,8 +300,8 @@ $(function() {
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li> >
-							<li>관리자</li>>
+							<li>홈</li> 
+							<li>관리자</li>
 							<li>스터디 목록</li>
 						</ul>
 					</div>

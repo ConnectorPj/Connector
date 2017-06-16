@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 	var aaa = 1;
-
+	
 	function movePre() {
 		if (aaa > 1) {
 			var offset = $("#div" + (aaa - 1)).offset().top - 100;
@@ -39,6 +39,79 @@
 			aaa++;
 		}
 	}
+	
+	function checkInsert() {
+		
+		var proChk = document.getElementsByName("studyProgramLanguage"); // 체크박스객체를 담는다
+	    var str = "";		
+		for (var i = 0; i < proChk.length; i++) {
+			if (proChk[i].checked == true) {
+				str += proChk[i].value;
+			}
+		}
+		if(str == ""){
+			alert("프로그램 언어 종류를 선택해 주세요.");
+			return;
+		}
+		
+		// 스터디 대상 체크 확인
+		var chk = document.getElementsByName("studyJob"); // 체크박스객체를 담는다
+	    str = "";		
+		for (var i = 0; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				str+=chk[i].value;
+			}
+		}
+		if(str == ""){
+			alert("스터디 대상을 지정해 주세요. ");
+			return;
+		}
+
+		
+		// 스터디 이름 체크
+		if($("#studyName").val() == ""){
+			alert("스터디 이름을 정해 주세요.");
+			return;
+		}
+		
+		// 스터디 금액 체크
+		if($("#studyPrice").val() == ""){
+			alert("스터디 금액을 정해 주세요.");
+			return;
+		}
+		
+		var stChk = document.getElementsByName("studyWeek"); // 체크박스객체를 담는다
+	    str = "";		
+		for (var i = 0; i < stChk.length; i++) {
+			if (stChk[i].checked == true) {
+				str += stChk[i].value;
+			}
+		}
+		if(str == ""){
+			alert("스터디 요일을 정해 주세요.");
+			return;
+		}
+		
+		//시작 날짜, 종료 날짜 체크 확인
+		if ($("#startDate").val() == "") {
+			alert("시작 날짜를 정해 주세요.");
+			return;
+		}
+		if ($("#endtDate").val() == "") {
+			alert("스터디 종료 날짜를 정해 주세요.");
+			return;
+		}
+		
+		// 장소 체크 확인
+		if ($("#result").val() == "") {
+			alert("스터디 장소를 선택해 주세요.");
+			return;
+		}
+
+		insertClass();
+	}
+
+	
 </script>
 
 <style>
@@ -193,7 +266,7 @@
 			<br /> <br />
 			<h3>스터디 이름을 설정해주세요.</h3>
 			<div class="subdiv">
-				<input type="text" class="inputStyle" name="studyName">
+				<input type="text" class="inputStyle" id="studyName" name="studyName">
 			</div>
 			<hr>
 
@@ -427,7 +500,7 @@
 
 		<div style="text-align: center;">
 			<button class="button1" style="width: 200px;"
-				onclick="insertClass(); return false;">
+				onclick="checkInsert(); return false;">
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 
 			</button>
@@ -474,7 +547,7 @@
 				var message = SelectLatlng.getLat() + ','
 						+ SelectLatlng.getLng();
 				var resultDiv = document.getElementById('resultMessage');
-				resultDiv.innerHTML = message;
+				resultDiv.innerHTML = "장소가 선택 되었습니다.";
 				$("#result").val(message);
 			}
 		});
@@ -555,7 +628,7 @@
 									+ latlng.getLng();
 							var resultDiv = document
 									.getElementById('resultMessage');
-							resultDiv.innerHTML = message;
+							resultDiv.innerHTML ="장소가 선택 되었습니다.";
 							$("#result").val(message);
 						}
 

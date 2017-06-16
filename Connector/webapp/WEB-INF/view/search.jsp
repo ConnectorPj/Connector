@@ -649,7 +649,7 @@
 
 <body>
 	<div class="total">
-		<div id="test1">
+		<div id="test1" >
 			<div class="search">
 				<form id="searchForm">
 					<div class="searchPlace">
@@ -706,7 +706,7 @@
 			</div> --%>
 
 		</div>
-		<div id="test2"></div>
+		<div id="test2" ></div>
 	</div>
 </body>
 </html>
