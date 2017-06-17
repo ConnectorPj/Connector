@@ -228,12 +228,13 @@
 		study_id
 		IN
 		(SELECT study_id
-
 		FROM
 		bucket_study
 		WHERE
-		customer_id=#{customerId})
+		customer_id=#{bucketBean.customerId})
 		order by study_regdate DESC
+		LIMIT #{pagingBean.startRow},
+		#{pagingBean.endRow}
 	</select>
 
 	<!--수업 결제내역 조회 -->

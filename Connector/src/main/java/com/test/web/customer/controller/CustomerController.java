@@ -23,6 +23,7 @@ import com.test.web.common.bean.BucketBean;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.bean.TeacherBean;
@@ -689,29 +690,34 @@ public class CustomerController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return resMap;
-		
 	}
-
 
 	/** 수업결제 내역 개인별 찜목록 **/
 	@RequestMapping("/selectBucketClassAjax")
 	@ResponseBody
-	public Map<String, Object> selectBucketClassAjax(ClassBean bean, Model model, BucketBean bBean) {
+	public Map<String, Object> selectBucketClassAjax(ClassBean bean, PagingBean pagingBean, Model model,
+			BucketBean bBean) {
+
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 실패 하였습니다.");
 
 		try {
+			// 전체 회원 리스트 갯수 조회
+			int totRecord = bucketDao.selectBucketTotal(bBean);
+			// 페이징 계산
+			pagingBean.calcPage(totRecord);
 
-			List<ClassBean> list = classDao.selectBucketClassList(bBean);
+			List<ClassBean> list = classDao.selectBucketClassList(bBean, pagingBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
+			resMap.put("pBean", pagingBean);
 
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "결제 내역 조회에 성공 하였습니다.");
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

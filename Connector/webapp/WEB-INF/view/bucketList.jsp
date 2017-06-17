@@ -22,8 +22,6 @@
 function delBucket(studyId) {
 	
 	if( confirm("선택하신 수업을 찜목록에서 삭제 하시겠습니까?") ) {
-
-		
 		
 		$.ajax({
 			type: "post",
@@ -31,7 +29,6 @@ function delBucket(studyId) {
 			data: { 
 				customerId: "${sessionScope.memberLoginBean.customerId}",
 				studyId : studyId
-			
 			},
 			dataType: "json",
 			success: function(data) {
@@ -50,7 +47,6 @@ function delBucket(studyId) {
 						+ status + ", error : " + error);      
 			}
 		});
-	
 	}
 };
 
@@ -70,8 +66,9 @@ $(function() {
 			if (data.result == "ok") {
 				var num = 1;
 				//리스트 출력
+				var str = "";
+				var str2 = "";
 				$.each(data.ClassList, function(i, classBean) {
-					var str = "";
 					str += "<tr>";
 					str += "<td>" + num++ + "</td>";
 					str += "<td>" + classBean.studyName + "</td>";
@@ -79,16 +76,44 @@ $(function() {
 					str += "<td>" + classBean.teacherName + "</td>";
 					str += "<td>" + classBean.studyLocation + "</td>";
 					str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket(" 
-						+ classBean.studyId + ")></td>";
+						+ '"'+ classBean.studyId +'"'+ ")></td>";
 					str += "</tr>";
 
-					$("#memberListBody").append(str);
 				});
+					$("#memberListBody").append(str);
+					
+					// 페이징
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
 
-			} else {
-				alert(data.resultMsg);
-			}
-		},
+					$("#page").html(str2);
+				} else {
+					alert(data.resultMsg);
+				}
+			},
 		error : function(xhr, status, error) {
 			console.log(xhr);
 			alert("error\nxhr : " + xhr + ", status : " + status
@@ -98,7 +123,76 @@ $(function() {
 });
 	</script>
 
+<script type="text/javascript">
+	function paging(click) {
+		$.ajax({
+			type : "POST",
+			url : "/selectBucketClassAjax.do",
+			data : {
+				customerId : "${sessionScope.memberLoginBean.customerId}",
+				pageNo : click.id
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(data.ClassList, function(i, classBean) {
+					str += "<tr>";
+					str += "<td>" + num++ + "</td>";
+					str += "<td>" + classBean.studyName + "</td>";
+					str += "<td>" + classBean.studyLanguage + "</td>";
+					str += "<td>" + classBean.teacherName + "</td>";
+					str += "<td>" + classBean.studyLocation + "</td>";
+					str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket(" 
+						+ '"'+ classBean.studyId +'"'+ ")></td>";
+					str += "</tr>";
 
+				});
+					$("#memberListBody").html(str);
+
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
+					}
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
+	};
+</script>
 
 
 </head>
@@ -154,15 +248,7 @@ $(function() {
 						</table>
 					</div>
 
-
-					<div class="page">
-						<ul>
-							<li><a href="#" class="on">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-						</ul>
+					<div id="page" class="page">
 					</div>
 				</div>
 			</div>

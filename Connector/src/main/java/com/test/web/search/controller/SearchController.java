@@ -43,7 +43,7 @@ public class SearchController {
 		model.addAttribute("ccBean",ccBean);
 		model.addAttribute("classList", classList);
 		model.addAttribute("mainPhoto", photoList);
-
+		model.addAttribute("cBean",cBean);
 
 		return "/search";
 	}

@@ -4,10 +4,10 @@
 <mapper namespace="com.test.web.common.dao.BucketDAO">
 
     <sql id="bucketColumns">
-		bucket_no		AS bucketNo,
+		bucket_no AS bucketNo,
 		customer_id	AS customerId,
-		study_id			AS studyId,
-		bucket_date 	AS bucketDate
+		study_id AS studyId,
+		bucket_date AS bucketDate
 	</sql>
 
 	<!-- 회원정보 1건 조회 -->
@@ -19,6 +19,8 @@
 			bucket_study
 		WHERE
 			customer_id = #{customerId}
+			AND
+			study_id = #{studyId}
 	</select>
 
 	<!-- 회원정보 List 조회 -->
@@ -39,7 +41,7 @@
 		VALUES
 		(
 			#{customerId},
-			#{study_id}
+			#{studyId}
 		)
 	</insert>
 
@@ -50,6 +52,8 @@
 			study_id = #{studyId}
 		WHERE
 			customer_id = #{customerId}
+			AND
+			study_id = #{studyId}
 	</update>
 
 	<!-- 찜목록 정보 삭제 -->
@@ -61,6 +65,16 @@
 		AND
 			study_id = #{studyId}
 	</delete>
-    
+	
+    <!--수업 찜내역 -->
+	<select id="selectBucketTotal" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		bucket_study
+		WHERE
+		customer_id=#{customerId}
+		
+	</select>
 
 </mapper>

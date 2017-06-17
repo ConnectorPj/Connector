@@ -5,6 +5,7 @@ import java.util.List;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.TeacherBean;
 

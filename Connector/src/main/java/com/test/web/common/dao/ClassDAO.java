@@ -55,7 +55,7 @@ public interface ClassDAO {
 	public int selectCustomerPurchaseUncheckListTotal(PurchaseBean purBean);
 
 	/** 개인별 찜목록 조회 */
-	public List<ClassBean> selectBucketClassList(BucketBean bean);
+	public List<ClassBean> selectBucketClassList(@Param("bucketBean") BucketBean bean, @Param("pagingBean") PagingBean pBean);
 
 	/** studyList와 teacherId 매핑하여 사진 경로 가져오기 **/
 	public ClassBean selectTeacherPhotoList(@Param("classBean") ClassBean bean) throws Exception;

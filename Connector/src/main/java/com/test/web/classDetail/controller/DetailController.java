@@ -149,6 +149,7 @@ public class DetailController {
 
 		try {
 			BucketBean sBean = busketDao.selectBucket(bBean);
+			
 			if (sBean == null) {
 				busketDao.insertBucket(bBean);
 			} else {

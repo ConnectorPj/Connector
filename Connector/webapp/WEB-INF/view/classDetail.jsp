@@ -32,8 +32,7 @@
 	var isReviewLoadingFirst = true;
 
 	$(function() {
-		$
-				.ajax({
+		$.ajax({
 					type : "post",
 					url : "/realDetailProc.do",
 					dataType : "json",
@@ -45,8 +44,7 @@
 
 						if (data.result == "ok") {
 							//리뷰 리스트 출력
-							$
-									.each(
+							$.each(
 											data.detailList,
 											function(i, rBean) {
 
@@ -134,8 +132,7 @@
 
 		isReviewLoading = true;
 
-		$
-				.ajax({
+		$.ajax({
 					type : "post",
 					url : "/realDetailProc.do",
 					data : {
@@ -148,8 +145,7 @@
 
 						if (data.result == "ok") {
 							//리뷰 리스트 출력
-							$
-									.each(
+							$.each(
 											data.detailList,
 											function(i, rBean) {
 

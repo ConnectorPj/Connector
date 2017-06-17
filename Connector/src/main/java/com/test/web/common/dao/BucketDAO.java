@@ -16,4 +16,5 @@ public interface BucketDAO {
 
 	public int deleteBucket(BucketBean bean) throws Exception;
 	
+	public int selectBucketTotal(BucketBean bean);
 }

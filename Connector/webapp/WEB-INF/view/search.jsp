@@ -400,7 +400,7 @@
 
 										$.each(data.mainPhoto, function(i,
 												ccBean) {
-											showData(cBean);
+											showData(ccBean);
 										});
 
 										initiate();

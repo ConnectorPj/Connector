@@ -1,12 +1,12 @@
 package com.test.web.common.bean;
 
-public class PagingBean extends CommonBean {
+public class PagingBean10 extends CommonBean {
 
 	/** 한페이지당 보여지는 레코드의 갯수 **/
-	public static final int COUNT_PER_RECORD = 5;
+	public static final int COUNT_PER_RECORD = 10;
 	
 	/** 페이징 그룹당 보여지는 페이지의 갯수 **/
-	public static final int COUNT_PER_PAGE_GROUP = 5;
+	public static final int COUNT_PER_PAGE_GROUP = 10;
 	
 	/** 요청 페이지 번호 **/
 	private int pageNo;
