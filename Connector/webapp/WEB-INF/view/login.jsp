@@ -62,7 +62,7 @@
 										}
 
 										//로그인 성공
-										location.href = "payment.do?studyId="+ $("#studyId").val();
+										location.href = "application.do?studyId="+ $("#studyId").val();
 										return;
 									} else {
 										alert("로그인을 실패하였습니다.");

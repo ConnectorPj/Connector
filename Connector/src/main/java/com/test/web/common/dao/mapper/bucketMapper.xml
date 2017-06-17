@@ -6,7 +6,7 @@
     <sql id="bucketColumns">
 		bucket_no		AS bucketNo,
 		customer_id	AS customerId,
-		study_id			AS teacherPw,
+		study_id			AS studyId,
 		bucket_date 	AS bucketDate
 	</sql>
 

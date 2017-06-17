@@ -516,7 +516,7 @@ span.buttonText {
 			<div class="menu_box head_font">
 				<ul class="menu" style="margin: 0;">
 
-					<li><a href="#">카테고리</a>
+					<li><a href="/search.do">카테고리</a>
 						<ul class="menu_list">
 							<li class="submenu"><a href="/search.do?StudyProgressName=1">웹개발</a>
 								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> html </a></li> -->
@@ -633,7 +633,11 @@ span.buttonText {
 						<span class="icon"></span> <span class="buttonText">Google</span>
 					</div>
 					<!-- 네이버 로그인 API -->
-					<div id="naver_id_login"></div>
+					<div class="naver_login_custom">
+						<img src="/resources/images/naver_login.png"
+							onclick="document.getElementById('naver_id_login_anchor').click();">
+					</div>
+					<div id="naver_id_login" style="display: none;"></div>
 					<!--  2017.05.26 네이버 로그인 추가 - 정홍의 -->
 					<script type="text/javascript">
 						var naver_id_login = new naver_id_login(
@@ -667,7 +671,7 @@ span.buttonText {
 						<div id="naver_id_login"></div>
 						<h6 style="text-align: center;">
 							<small> ────────── </small>또&nbsp;&nbsp;는<small>
-								 ──────────  </small>
+								────────── </small>
 						</h6>
 						<form id="customerForm">
 							<input type="text" class="inputLogin" placeholder="이름 입력"
