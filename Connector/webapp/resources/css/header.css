@@ -395,3 +395,53 @@ html {
 	height: 100%;
 	
 }
+
+
+
+.menu_box .menu .menu_log {
+	display: none;
+}
+
+@media (max-width: 900px) {
+	.menu_box .menu .menu_log {
+		display: inline-block;
+	}
+	
+	.menu_box ul li ul.menu_log2 {
+		position: absolute;
+		left: 150px;
+		z-index: 99;
+		width: 150px;
+		background-color: #fff;
+		display: none;
+	}
+	
+	.menu_box ul li li {
+		width: 150px;
+		height: 50px;
+		line-height: 50px;
+		list-style: none;
+	}
+	
+	.menu_box ul li:hover ul.menu_log2 {
+		display: block;
+		box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
+		margin-left: 230px;
+	}
+	
+	.menu_box ul li li:hover {
+		color: #fff;
+	}
+	
+	.menu_box ul li li .menu_log {
+		display: block;
+		padding: 0 20px;
+		color: #333;
+		text-decoration: none;
+	}
+	
+	.menu .menu_reg {
+		display: none;
+	}
+	
+}

@@ -539,6 +539,46 @@ span.buttonText {
 						</ul></li>
 					<li><a href="realreview.do">리얼후기</a></li>
 
+					<li class="menu_log"><a href="#">Login Menu</a>
+						<ul class="menu_log2">
+							<c:choose>
+							<c:when test="${sessionScope.memberLoginBean==null}">
+								<li onclick="openLoginModal();" style="cursor:pointer">로그인</li>
+								<li onclick="openJoinModal();"style="cursor:pointer" >회원가입</li>
+								<li style="width: 150px;"><a href="leaderIntro.do">리더로
+										시작하기</a></li>
+							</c:when>
+							<c:otherwise>
+
+								<c:if test="${sessionScope.code eq 'T'}">
+									<li><a href="personalInfoTeacher.do">
+											프로필 관리</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+
+								</c:if>
+
+
+								<c:if test="${sessionScope.code eq 'C' }">
+									<li><a href="personalInfoCustomer.do">
+											프로필 관리</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+								</c:if>
+								
+								<!-- 관리자가 로그인 했다면 -->
+								<c:if test="${sessionScope.code eq 'A' }">
+									<li style="width: 150px;"><a href="adminPage.do">
+											관리자님이 로그인중입니다.</a></li>
+									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+									<input type="hidden" value="g" id="loginCheck">
+								</c:if>
+								
+							</c:otherwise>
+						</c:choose>
+						</ul>
+					</li>
+
 				</ul>
 
 			</div>
