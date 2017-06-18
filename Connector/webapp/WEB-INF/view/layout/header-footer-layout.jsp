@@ -506,7 +506,7 @@ span.buttonText {
 
 
 	<!-- 공통 헤더 부분 시작.  -->
-	<header style="height: 71px;">
+	<header>
 		<div class="head">
 			<h1 class="logo">
 				<a href="/main.do"><img src="/resources/images/logowork4.png"
@@ -643,11 +643,6 @@ span.buttonText {
 							for="leaders">리더</label>
 					</div>
 
-
-
-
-
-
 					<input type="email" class="inputLogin" id="customerIdM"
 						placeholder="이메일을 입력하세요"> <input type="password"
 						class="inputLogin" id="customerPwM" placeholder="암호">
@@ -694,8 +689,9 @@ span.buttonText {
 							onclick="secondApp();">
 							<span class="icon"></span> <span class="buttonText">Google</span>
 						</div>
+						<!-- 안 보임  -->
 						<!-- 네이버 로그인 API -->
-						<div id="naver_id_login"></div>
+					<!-- 	<div id="naver_id_login"></div> -->
 						<h6 style="text-align: center;">
 							<small> ────────── </small>또&nbsp;&nbsp;는<small>
 								────────── </small>
