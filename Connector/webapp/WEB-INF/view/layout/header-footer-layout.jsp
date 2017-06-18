@@ -668,7 +668,7 @@ span.buttonText {
 					<!--  2017.05.26 네이버 로그인 추가 - 정홍의 -->
 					<script type="text/javascript">
 						var naver_id_login = new naver_id_login(
-								"FIZpO6PTmY_KCqzmdq8c",
+								"2cItRRVeC_dIOBAqHJDX",
 								"http://jhu1993.cafe24.com/naver_callback.jsp");
 						var state = naver_id_login.getUniqState();
 						naver_id_login.setButton("white", 2, 40);
