@@ -682,10 +682,10 @@ span.buttonText {
 					<script type="text/javascript">
 						var naver_id_login = new naver_id_login(
 								"FIZpO6PTmY_KCqzmdq8c",
-								"http://localhost:8181/naver_callback.jsp");
+								"http://jhu1993.cafe24.com/naver_callback.jsp");
 						var state = naver_id_login.getUniqState();
 						naver_id_login.setButton("white", 2, 40);
-						naver_id_login.setDomain("http://localhost:8181");
+						naver_id_login.setDomain("http://jhu1993.cafe24.com/main.do");
 						naver_id_login.setState(state);
 						naver_id_login.setPopup();
 						naver_id_login.init_naver_id_login();
