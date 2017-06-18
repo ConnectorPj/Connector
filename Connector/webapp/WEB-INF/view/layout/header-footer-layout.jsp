@@ -27,7 +27,7 @@ header, section, footer {
 
 header {
 	border-bottom: 1px solid #ddd;
-	height: 70px;
+	height: 71px;
 	position: fixed;
 	z-index: 99;
 	background-color: #fff;
@@ -52,9 +52,10 @@ header .head h1 {
 }
 
 header .head h1 img {
-	padding: 10px;
+	/* position:absolute; */
 	z-index: 99;
 	height: 70px;
+	padding: 10px;
 }
 
 /* 구글 버튼*/
@@ -509,7 +510,9 @@ span.buttonText {
 		<div class="head">
 			<h1 class="logo">
 				<a href="/main.do"><img src="/resources/images/logowork4.png"
-					alt="로고" /></a>
+					alt="로고"class="large_logo" /></a> <a href="/main.do"><img class="small_logo"
+					src="/resources/images/small_logo.png" alt="로고"
+					 /></a>
 			</h1>
 
 
@@ -519,66 +522,50 @@ span.buttonText {
 					<li><a href="/search.do">카테고리</a>
 						<ul class="menu_list">
 							<li class="submenu"><a href="/search.do?StudyProgressName=1">웹개발</a>
-								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> html </a></li> -->
-								<!-- 									<li><a href="#"> jsp </a></li> --> <!-- 									<li><a href="#"> JavaScript </a></li> -->
-								<!-- 									<li><a href="#"> Spring </a></li> --> <!-- 									<li><a href="#"> php </a></li> -->
-								<!-- 								</ul></li> -->
 							<li class="submenu"><a href="/search.do?StudyProgressName=2">모바일개발</a>
-								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> 안드로이드 </a></li> -->
-								<!-- 									<li><a href="#">iOS </a></li> --> <!-- 								</ul></li> -->
 							<li class="submenu"><a href="/search.do?StudyProgressName=3">시스템개발</a>
 
-								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#">java </a></li> -->
-								<!-- 									<li><a href="#">C</a></li> --> <!-- 									<li><a href="#">C++</a></li> -->
-								<!-- 									<li><a href="#">C#</a></li> --> <!-- 								</ul> -->
 							</li>
 							<li class="submenu"><a href="/search.do?StudyProgressName=4">IoT</a>
-								<!-- 								<ul class="menu_sublist"> --> <!-- 									<li><a href="#"> 아두이노 </a></li> -->
-								<!-- 									<li><a href="#">라즈베리파이 </a></li> --> <!-- 								</ul> -->
 							</li>
 						</ul></li>
 					<li><a href="realreview.do">리얼후기</a></li>
-
 					<li class="menu_log"><a href="#">Login Menu</a>
 						<ul class="menu_log2">
 							<c:choose>
-							<c:when test="${sessionScope.memberLoginBean==null}">
-								<li onclick="openLoginModal();" style="cursor:pointer">로그인</li>
-								<li onclick="openJoinModal();"style="cursor:pointer" >회원가입</li>
-								<li style="width: 150px;"><a href="leaderIntro.do">리더로
-										시작하기</a></li>
-							</c:when>
-							<c:otherwise>
+								<c:when test="${sessionScope.memberLoginBean==null}">
+									<li onclick="openLoginModal();" style="cursor: pointer">로그인</li>
+									<li onclick="openJoinModal();" style="cursor: pointer">회원가입</li>
+									<li style="width: 150px;"><a href="leaderIntro.do">리더로
+											시작하기</a></li>
+								</c:when>
+								<c:otherwise>
 
-								<c:if test="${sessionScope.code eq 'T'}">
-									<li><a href="personalInfoTeacher.do">
-											프로필 관리</a></li>
-									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
-									<input type="hidden" value="g" id="loginCheck">
+									<c:if test="${sessionScope.code eq 'T'}">
+										<li><a href="personalInfoTeacher.do"> 프로필 관리</a></li>
+										<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+										<input type="hidden" value="g" id="loginCheck">
 
-								</c:if>
+									</c:if>
 
 
-								<c:if test="${sessionScope.code eq 'C' }">
-									<li><a href="personalInfoCustomer.do">
-											프로필 관리</a></li>
-									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
-									<input type="hidden" value="g" id="loginCheck">
-								</c:if>
-								
-								<!-- 관리자가 로그인 했다면 -->
-								<c:if test="${sessionScope.code eq 'A' }">
-									<li style="width: 150px;"><a href="adminPage.do">
-											관리자님이 로그인중입니다.</a></li>
-									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
-									<input type="hidden" value="g" id="loginCheck">
-								</c:if>
-								
-							</c:otherwise>
-						</c:choose>
-						</ul>
-					</li>
+									<c:if test="${sessionScope.code eq 'C' }">
+										<li><a href="personalInfoCustomer.do"> 프로필 관리</a></li>
+										<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+										<input type="hidden" value="g" id="loginCheck">
+									</c:if>
 
+									<!-- 관리자가 로그인 했다면 -->
+									<c:if test="${sessionScope.code eq 'A' }">
+										<li style="width: 150px;"><a href="adminPage.do">
+												관리자님이 로그인중입니다.</a></li>
+										<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
+										<input type="hidden" value="g" id="loginCheck">
+									</c:if>
+
+								</c:otherwise>
+							</c:choose>
+						</ul></li>
 				</ul>
 
 			</div>

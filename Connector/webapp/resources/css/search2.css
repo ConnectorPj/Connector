@@ -114,7 +114,8 @@ div .card:hover {
 
 @media screen and (max-width: 766px) {
 	.searchPlace {
-		width: 0px; height : 0px;
+		width: 0px;
+		height: 0px;
 		visibility: hidden;
 		height: 0px;
 	}
@@ -144,4 +145,12 @@ div .card:hover {
 		margin-bottom: 20px;
 		background-color: rgba(214, 224, 226, 0.2);
 	}
+	
+	.head, .footerCss {
+		display: none;
+	}
+	header{
+	height: 0px;}
+	.total{
+	margin-top:10px;}
 }
