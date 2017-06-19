@@ -77,10 +77,24 @@ public class MainController {
 	}
 
 	@RequestMapping("/application")
-	public String application(ClassBean cBean, Model model) {
+	public String application(ClassBean cBean, PhotoBean photoBean, Model model) {
 		
 		ClassBean classBean = classDao.selectClass(cBean);
 		model.addAttribute("classBean",classBean);
+		
+		photoBean = new PhotoBean();
+		photoBean.setMemberId(cBean.getStudyId());
+		
+		PhotoBean poBean = photoDao.selectPhoto(photoBean);
+
+		if (poBean == null) {
+			poBean = new PhotoBean();
+			poBean.setPhotoFileName("/resources/images/noImage.png");
+		}
+		
+		model.addAttribute("photoBean", poBean);
+		
+		
 		return "application";
 	}
 
