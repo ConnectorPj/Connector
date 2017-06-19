@@ -17,71 +17,77 @@
 <title>수업 진행 내역</title>
 
 <script type="text/javascript">
+	function delBucket(studyId) {
 
+		if (confirm("선택하신 수업을 찜목록에서 삭제 하시겠습니까?")) {
 
-function delBucket(studyId) {
-	
-	if( confirm("선택하신 수업을 찜목록에서 삭제 하시겠습니까?") ) {
-		
-		$.ajax({
-			type: "post",
-			url: "/deleteBucket.do",
-			data: { 
-				customerId: "${sessionScope.memberLoginBean.customerId}",
-				studyId : studyId
-			},
-			dataType: "json",
-			success: function(data) {
-				console.log(data);
-				
-				if(data.result == "ok") {
-					location.reload(); //새로고침
-				} else {
-					alert(data.resultMsg);
+			$.ajax({
+				type : "post",
+				url : "/deleteBucket.do",
+				data : {
+					customerId : "${sessionScope.memberLoginBean.customerId}",
+					studyId : studyId
+				},
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+
+					if (data.result == "ok") {
+						location.reload(); //새로고침
+					} else {
+						alert(data.resultMsg);
+					}
+
+				},
+				error : function(xhr, status, error) {
+					console.log(xhr);
+					alert("error\nxhr : " + xhr + ", status : " + status
+							+ ", error : " + error);
 				}
-				
+			});
+		}
+	};
+
+	$(function() {
+
+		$.ajax({
+			type : "post",
+			url : "/selectBucketClassAjax.do",
+			dataType : "json",
+			data : {
+				customerId : "${sessionScope.memberLoginBean.customerId}"
 			},
-			error: function(xhr, status, error) {
-				console.log(xhr);
-				alert("error\nxhr : " + xhr + ", status : " 
-						+ status + ", error : " + error);      
-			}
-		});
-	}
-};
+			success : function(data) {
+				console.log(data);
 
+				if (data.result == "ok") {
+					var num = 1;
+					//리스트 출력
+					var str = "";
+					var str2 = "";
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyLanguage
+									+ "</td>";
+							str += "<td>"
+									+ classBean.teacherName
+									+ "</td>";
+							str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket("
+									+ '"'
+									+ classBean.studyId
+									+ '"' + ")></td>";
+							str += "</tr>";
 
-$(function() {
-
-	$.ajax({
-		type : "post",
-		url : "/selectBucketClassAjax.do",
-		dataType : "json",
-		data : {
-			customerId : "${sessionScope.memberLoginBean.customerId}"
-		},
-		success : function(data) {
-			console.log(data);
-
-			if (data.result == "ok") {
-				var num = 1;
-				//리스트 출력
-				var str = "";
-				var str2 = "";
-				$.each(data.ClassList, function(i, classBean) {
-					str += "<tr>";
-					str += "<td>" + num++ + "</td>";
-					str += "<td>" + classBean.studyName + "</td>";
-					str += "<td>" + classBean.studyLanguage + "</td>";
-					str += "<td>" + classBean.teacherName + "</td>";
-					str += "<td>" + classBean.studyLocation + "</td>";
-					str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket(" 
-						+ '"'+ classBean.studyId +'"'+ ")></td>";
-					str += "</tr>";
-
-				});
+						});
 					$("#memberListBody").append(str);
-					
+
 					// 페이징
 					var pBean = data.pBean;
 					str2 += "<ul>";
@@ -114,14 +120,14 @@ $(function() {
 					alert(data.resultMsg);
 				}
 			},
-		error : function(xhr, status, error) {
-			console.log(xhr);
-			alert("error\nxhr : " + xhr + ", status : " + status
-					+ ", error : " + error);
-		}
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
 	});
-});
-	</script>
+</script>
 
 <script type="text/javascript">
 	function paging(click) {

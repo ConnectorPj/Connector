@@ -21,302 +21,296 @@
 <script type="text/javascript">
 	$(function() {
 
-		$
-				.ajax({
-					type : "post",
-					url : "/selectClassAjax.do",
-					dataType : "json",
-					data : {
-						teacherId : "${sessionScope.memberLoginBean.teacherId}"
-					},
-					success : function(data) {
-						console.log(data);
+		$.ajax({
+			type : "post",
+			url : "/selectClassAjax.do",
+			dataType : "json",
+			data : {
+				teacherId : "${sessionScope.memberLoginBean.teacherId}"
+			},
+			success : function(data) {
+				console.log(data);
 
-						if (data.result == "ok") {
-							var num = 1;
-							//리스트 출력
-							var str = "";
-							var str2 = "";
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyId
-														+ "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-												str += "<td>"
-														+ classBean.studyProgramLanguage
-														+ "</td>";
-												str += "<td><button type='button' class ='reviewBtn' onclick='openMemberModal("
-														+ '"'
-														+ classBean.studyId
-														+ '"'
-														+ ");'>신청자 보기</button></td>";
-												str += "</tr>";
+				if (data.result == "ok") {
+					var num = 1;
+					//리스트 출력
+					var str = "";
+					var str2 = "";
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyId
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyProgramLanguage
+									+ "</td>";
+							str += "<td><button type='button' class ='reviewBtn' onclick='openMemberModal("
+									+ '"'
+									+ classBean.studyId
+									+ '"'
+									+ ");'>신청자 보기</button></td>";
+							str += "</tr>";
 
-											});
-							$("#memberListBody").append(str);
+						});
+					$("#memberListBody").append(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> 이전 </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> 다음 </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page").html(str2);
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> 이전 </a></li>";
 					}
-				});
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> 다음 </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
 	});
 	$(function() {
 
-		$
-				.ajax({
-					type : "post",
-					url : "/selectClassAjax2.do",
+		$.ajax({
+			type : "post",
+			url : "/selectClassAjax2.do",
 
-					dataType : "json",
-					data : {
-						teacherId : "${sessionScope.memberLoginBean.teacherId}"
-					},
-					success : function(data) {
-						console.log(data);
+			dataType : "json",
+			data : {
+				teacherId : "${sessionScope.memberLoginBean.teacherId}"
+			},
+			success : function(data) {
+				console.log(data);
 
-						if (data.result == "ok") {
-							var num = 1;
-							//리스트 출력
-							var str = "";
-							var str2 = "";
-							$.each(data.ClassList, function(i, classBean) {
-								str += "<tr>";
-								str += "<td>" + num++ + "</td>";
-								str += "<td>" + classBean.studyId + "</td>";
-								str += "<td>" + classBean.studyName + "</td>";
-								str += "<td>" + classBean.studyProgramLanguage
-										+ "</td>";
-								str += "<td>대기중</td>";
-								str += "</tr>";
-							});
-							$("#memberListBody2").append(str);
+				if (data.result == "ok") {
+					var num = 1;
+					//리스트 출력
+					var str = "";
+					var str2 = "";
+					$.each(data.ClassList, function(i, classBean) {
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + classBean.studyId + "</td>";
+						str += "<td>" + classBean.studyName + "</td>";
+						str += "<td>" + classBean.studyProgramLanguage
+								+ "</td>";
+						str += "<td>대기중</td>";
+						str += "</tr>";
+					});
+					$("#memberListBody2").append(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging2(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging2(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page2").html(str2);
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				});
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging2(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page2").html(str2);
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
 	});
 </script>
 
 <script type="text/javascript">
 	function paging(click) {
-		$
-				.ajax({
-					type : "POST",
-					url : "/selectClassAjax.do",
-					data : {
-						pageNo : click.id,
-					},
-					datatype : "json",
-					success : function(data) {
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyId
-														+ "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-												str += "<td>"
-														+ classBean.studyProgramLanguage
-														+ "</td>";
-												str += "<td><button type='button' class ='reviewBtn' onclick='openMemberModal("
-														+ '"'
-														+ classBean.studyId
-														+ '"'
-														+ ");'>신청자 보기</button></td>";
-												str += "</tr>";
+		$.ajax({
+			type : "POST",
+			url : "/selectClassAjax.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyId
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyProgramLanguage
+									+ "</td>";
+							str += "<td><button type='button' class ='reviewBtn' onclick='openMemberModal("
+									+ '"'
+									+ classBean.studyId
+									+ '"'
+									+ ");'>신청자 보기</button></td>";
+							str += "</tr>";
 
-											});
-							$("#memberListBody").html(str);
+						});
+					$("#memberListBody").html(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page").html(str2);
-
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				}); // end of ajax 모달화면뿌리기 
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
 	};
 
 	function paging2(click) {
-		$
-				.ajax({
-					type : "POST",
-					url : "/selectClassAjax2.do",
-					data : {
-						pageNo : click.id,
-					},
-					datatype : "json",
-					success : function(data) {
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$.each(data.ClassList, function(i, classBean) {
-								str += "<tr>";
-								str += "<td>" + num++ + "</td>";
-								str += "<td>" + classBean.studyId + "</td>";
-								str += "<td>" + classBean.studyName + "</td>";
-								str += "<td>" + classBean.studyProgramLanguage
-										+ "</td>";
-								str += "<td>대기중</td>";
-								str += "</tr>";
-							});
-							$("#memberListBody2").html(str);
+		$.ajax({
+			type : "POST",
+			url : "/selectClassAjax2.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(data.ClassList, function(i, classBean) {
+						str += "<tr>";
+						str += "<td>" + num++ + "</td>";
+						str += "<td>" + classBean.studyId + "</td>";
+						str += "<td>" + classBean.studyName + "</td>";
+						str += "<td>" + classBean.studyProgramLanguage
+								+ "</td>";
+						str += "<td>대기중</td>";
+						str += "</tr>";
+					});
+					$("#memberListBody2").html(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging2(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging2(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page2").html(str2);
-
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				}); // end of ajax 모달화면뿌리기 
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging2(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page2").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
 	};
 </script>
 
@@ -330,6 +324,16 @@
 			<!-- 서브 네비 -->
 			<div class="sub_nav">
 				<div class="sub_menu">
+					<ul>
+						<li><a href="personalInfoTeacher.do">개인정보</a></li>
+						<li><a href="classlist.do" class="on">수업 진행 내역</a></li>
+						<c:if test="${sessionScope.memberLoginBean.teacherCheck eq '1' }">
+							<li><a href="registerstudy.do">스터디 등록하기</a></li>
+						</c:if>
+					</ul>
+				</div>
+				
+				<div class="sub_menu2">
 					<ul>
 						<li><a href="personalInfoTeacher.do">개인정보</a></li>
 						<li><a href="classlist.do" class="on">수업 진행 내역</a></li>
@@ -460,62 +464,60 @@
 			var studyId = bean;
 			$(function() {
 
-				$
-						.ajax({
-							type : "post",
-							url : "/selectStudyMember.do",
-							dataType : "json",
-							data : {
-								studyId : studyId
-							},
-							success : function(data) {
-								console.log(data);
+				$.ajax({
+					type : "post",
+					url : "/selectStudyMember.do",
+					dataType : "json",
+					data : {
+						studyId : studyId
+					},
+					success : function(data) {
+						console.log(data);
 
-								if (data.result == "ok") {
-									$("#studyMemberList").empty();
-									var num = 1;
-									//리스트 출력
-									$
-											.each(
-													data.CustomerList,
-													function(i, customerBean) {
-														var str = "";
-														str += "<tr>";
-														str += "<td>" + num++
-																+ "</td>";
-														str += "<td>"
-																+ customerBean.customerName
-																+ "</td>";
-														str += "<td>"
-																+ customerBean.customerGender
-																+ "</td>";
+						if (data.result == "ok") {
+							$("#studyMemberList").empty();
+							var num = 1;
+							//리스트 출력
+							$.each(
+								data.CustomerList,
+								function(i, customerBean) {
+									var str = "";
+									str += "<tr>";
+									str += "<td>" + num++
+											+ "</td>";
+									str += "<td>"
+											+ customerBean.customerName
+											+ "</td>";
+									str += "<td>"
+											+ customerBean.customerGender
+											+ "</td>";
 
-														str += "<td><button type='button' class='reviewBtn' onclick='insertStudyMember("
-																+ '"'
-																+ customerBean.customerId
-																+ '"'
-																+ ","
-																+ '"'
-																+ studyId
-																+ '"'
-																+ ");'>수락하기</button></td>";
+									str += "<td><button type='button' class='reviewBtn' onclick='insertStudyMember("
+											+ '"'
+											+ customerBean.customerId
+											+ '"'
+											+ ","
+											+ '"'
+											+ studyId
+											+ '"'
+											+ ");'>수락하기</button></td>";
 
-														str += "</tr>";
+									str += "</tr>";
 
-														$("#studyMemberList")
-																.append(str);
-													});
+									$("#studyMemberList")
+											.append(str);
+								});
 
-								} else {
-									alert(data.resultMsg);
-								}
-							},
-							error : function(xhr, status, error) {
-								console.log(xhr);
-								alert("error\nxhr : " + xhr + ", status : "
-										+ status + ", error : " + error);
-							}
-						});
+						} else {
+							alert(data.resultMsg);
+						}
+					},
+					error : function(xhr, status, error) {
+						console.log(xhr);
+						alert("error\nxhr : " + xhr + ", status : "
+								+ status + ", error : " + error);
+					}
+				});
 			});
 			$(function() {
 
