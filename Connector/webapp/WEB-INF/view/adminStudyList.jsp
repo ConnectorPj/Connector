@@ -10,8 +10,6 @@
 <!-- bootstrap.css -->
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
-<link type="text/css" href="/resources/css/payorderStyle.css"
-	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
 <title>수업 진행 내역</title>
@@ -20,302 +18,294 @@
 	$(function() {
 
 		//등록된 수업
-		$
-				.ajax({
-					type : "post",
-					url : "/selectAdminClassListAjax.do",
-					data : {
-					//pageNo : "${param.pageNo}"
-					},
-					dataType : "json",
-					success : function(data) {
-						console.log(data);
+		$.ajax({
+			type : "post",
+			url : "/selectAdminClassListAjax.do",
+			data : {
+			//pageNo : "${param.pageNo}"
+			},
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
 
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-														str += "<td>"
-															+ classBean.teacherName
-															+ "</td>";
-												str += "<td><a href='adminRegClass.do?studyId="
-														+ classBean.studyId
-														+ "'><input type='button'class='reviewBtn' value='상세보기'/></a></td>";
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+									str += "<td>"
+										+ classBean.teacherName
+										+ "</td>";
+							str += "<td><a href='adminRegClass.do?studyId="
+									+ classBean.studyId
+									+ "'><input type='button'class='reviewBtn' value='상세보기'/></a></td>";
 
-												str += "</tr>";
-											});
-							$("#memberListBody").append(str);
+							str += "</tr>";
+						});
+					$("#memberListBody").append(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page").html(str2);
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				});
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
 	});
 	$(function() {
-		$
-				.ajax({
-					type : "post",
-					url : "/selectAdminClassListAjax2.do",
-					dataType : "json",
-					success : function(data) {
-						console.log(data);
+		$.ajax({
+			type : "post",
+			url : "/selectAdminClassListAjax2.do",
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
 
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-														str += "<td>"
-															+ classBean.teacherName
-															+ "</td>";
-												str += "<td><a href='adminRegClass.do?studyId="
-														+ classBean.studyId
-														+ "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+									str += "<td>"
+										+ classBean.teacherName
+										+ "</td>";
+							str += "<td><a href='adminRegClass.do?studyId="
+									+ classBean.studyId
+									+ "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
 
-												str += "</tr>";
-											});
-							$("#memberListBody2").append(str);
+							str += "</tr>";
+						});
+					$("#memberListBody2").append(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging2(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging2(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page2").html(str2);
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				});
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging2(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page2").html(str2);
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
 	});
 </script>
 <script type="text/javascript">
 	function paging(click) {
-		$
-				.ajax({
-					type : "POST",
-					url : "/selectAdminClassListAjax.do",
-					data : {
-						pageNo : click.id,
-					},
-					datatype : "json",
-					success : function(data) {
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-														str += "<td>"
-															+ classBean.teacherName
-															+ "</td>";
-												str += "<td><a href='adminRegClass.do?studyId="
-														+ classBean.studyId
-														+ "'><input type='button'class='reviewBtn' value='상세보기'/></a></td>";
+		$.ajax({
+			type : "POST",
+			url : "/selectAdminClassListAjax.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(
+							data.ClassList,
+							function(i, classBean) {
+								str += "<tr>";
+								str += "<td>" + num++ + "</td>";
+								str += "<td>"
+										+ classBean.studyName
+										+ "</td>";
+										str += "<td>"
+											+ classBean.teacherName
+											+ "</td>";
+								str += "<td><a href='adminRegClass.do?studyId="
+										+ classBean.studyId
+										+ "'><input type='button'class='reviewBtn' value='상세보기'/></a></td>";
 
-												str += "</tr>";
-											});
-							$("#memberListBody").html(str);
+								str += "</tr>";
+							});
+					$("#memberListBody").html(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page").html(str2);
-
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				}); // end of ajax 모달화면뿌리기 
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
 	};
 
 	function paging2(click) {
-		$
-				.ajax({
-					type : "POST",
-					url : "/selectAdminClassListAjax2.do",
-					data : {
-						pageNo : click.id,
-					},
-					datatype : "json",
-					success : function(data) {
-						if (data.result == "ok") {
-							var num = 1;
-							var str = "";
-							var str2 = "";
-							//리스트 출력
-							$
-									.each(
-											data.ClassList,
-											function(i, classBean) {
-												str += "<tr>";
-												str += "<td>" + num++ + "</td>";
-												str += "<td>"
-														+ classBean.studyName
-														+ "</td>";
-												str += "<td>"
-														+ classBean.teacherName
-														+ "</td>";
-												str += "<td><a href='adminRegClass.do?studyId="
-														+ classBean.studyId
-														+ "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
+		$.ajax({
+			type : "POST",
+			url : "/selectAdminClassListAjax2.do",
+			data : {
+				pageNo : click.id,
+			},
+			datatype : "json",
+			success : function(data) {
+				if (data.result == "ok") {
+					var num = 1;
+					var str = "";
+					var str2 = "";
+					//리스트 출력
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+							str += "<td>"
+									+ classBean.teacherName
+									+ "</td>";
+							str += "<td><a href='adminRegClass.do?studyId="
+									+ classBean.studyId
+									+ "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
 
-												str += "</tr>";
-											});
-							$("#memberListBody2").html(str);
+							str += "</tr>";
+						});
+					$("#memberListBody2").html(str);
 
-							var pBean = data.pBean;
-							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
-							if (pBean.groupNo > 1) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageStartNo - 1)
-										+ "'> < </a></li>";
-							}
-							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
-								if (pBean.pageNo != i) {
-									str2 += "<li><a href='#' onclick='paging2(this);' id='"
-											+ i + "'>" + i + "</a></li>";
-								} else {
-									str2 += "<li><a class='on'>" + i
-											+ "</a></li>";
-								}
-							}
-							if (pBean.groupNo < pBean.totalGroupCount) {
-								str2 += "<li><a href='#' onclick='paging2(this);' id='"
-										+ (pBean.pageEndNo + 1)
-										+ "'> > </a></li>";
-							}
-							str2 += "<li><a href='#' onclick='paging2(this);' id='"
-									+ pBean.totalPageCount + "'> >> </a></li>";
-							str2 += "</ul>";
-
-							$("#page2").html(str2);
-
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+					var pBean = data.pBean;
+					str2 += "<ul>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
+					if (pBean.groupNo > 1) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageStartNo - 1)
+								+ "'> < </a></li>";
 					}
-				}); // end of ajax 모달화면뿌리기 
+					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
+						if (pBean.pageNo != i) {
+							str2 += "<li><a href='#' onclick='paging2(this);' id='"
+									+ i + "'>" + i + "</a></li>";
+						} else {
+							str2 += "<li><a class='on'>" + i
+									+ "</a></li>";
+						}
+					}
+					if (pBean.groupNo < pBean.totalGroupCount) {
+						str2 += "<li><a href='#' onclick='paging2(this);' id='"
+								+ (pBean.pageEndNo + 1)
+								+ "'> > </a></li>";
+					}
+					str2 += "<li><a href='#' onclick='paging2(this);' id='"
+							+ pBean.totalPageCount + "'> >> </a></li>";
+					str2 += "</ul>";
+
+					$("#page2").html(str2);
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		}); // end of ajax 모달화면뿌리기 
 	};
 </script>
 
@@ -374,7 +364,6 @@
 					<div id="page" class="page"></div>
 				</div>
 
-
 				<!-- 서브 내용 -->
 				<div class="sub_content">
 					<div class="notice_table">
@@ -397,7 +386,6 @@
 							</tbody>
 						</table>
 					</div>
-
 
 					<div id="page2" class="page2"></div>
 				</div>

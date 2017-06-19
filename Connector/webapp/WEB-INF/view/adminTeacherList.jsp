@@ -12,8 +12,6 @@
 <!-- bootstrap.css -->
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
-<link type="text/css" href="/resources/css/payorderStyle.css"
-	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
 <title>수업 진행 내역</title>

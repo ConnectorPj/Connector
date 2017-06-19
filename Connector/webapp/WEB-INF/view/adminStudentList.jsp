@@ -11,8 +11,6 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
-<link type="text/css" href="/resources/css/payorderStyle.css"
-	rel="stylesheet">
 <head>
 <title>수업 진행 내역</title>
 <script type="text/javascript">

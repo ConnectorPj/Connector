@@ -5,8 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
-
 <!DOCTYPE html >
 <html>
 
@@ -142,11 +140,21 @@
 			<!-- 서브 네비 -->
 			<div class="sub_nav">
 				<div class="sub_menu">
-						<ul>
+					<ul>
 						<li><a href="personalInfoTeacher.do" class="on">개인정보</a></li>
 						<li><a href="classlist.do">수업 진행 내역</a></li>
 						<c:if test="${sessionScope.memberLoginBean.teacherCheck eq '1' }">
-						<li><a href="registerstudy.do">스터디 등록하기</a></li>
+							<li><a href="registerstudy.do">스터디 등록하기</a></li>
+						</c:if>
+					</ul>
+				</div>
+				
+				<div class="sub_menu2">
+					<ul>
+						<li><a href="personalInfoTeacher.do" class="on">개인정보</a></li>
+						<li><a href="classlist.do">수업 진행 내역</a></li>
+						<c:if test="${sessionScope.memberLoginBean.teacherCheck eq '1' }">
+							<li><a href="registerstudy.do">스터디 등록하기</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -219,7 +227,7 @@
 								<tr>
 									<td class="table_att">소개</td>
 									<td class="table_att2"><textarea id="teacherInfo" name="teacherInfo" class="inputPersonalInfo"
-											cols="50" rows="10" style="resize: none; height: 300px;">${sessionScope.memberLoginBean.teacherInfo}</textarea></td>
+											cols="50" rows="10" style="resize: none; height: 85%; width:80%;">${sessionScope.memberLoginBean.teacherInfo}</textarea></td>
 								</tr>
 								<tr>
 									<td></td>

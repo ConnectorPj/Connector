@@ -139,20 +139,29 @@ $(function() {
 					var str = "";
 					var str2 = "";
 					//리스트 출력
-					$.each(data.ClassList, function(i, classBean) {
-					str += "<tr>";
-					str += "<td>" + num++ + "</td>";
-					str += "<td>" + classBean.studyName + "</td>";
-					str += "<td>" + classBean.studyLanguage + "</td>";
-					str += "<td>" + classBean.teacherName + "</td>";
-					str += "<td>" + classBean.studyLocation + "</td>";
-					str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket(" 
-						+ '"'+ classBean.studyId +'"'+ ")></td>";
-					str += "</tr>";
-
-				});
+					$.each(
+						data.ClassList,
+						function(i, classBean) {
+							str += "<tr>";
+							str += "<td>" + num++ + "</td>";
+							str += "<td>"
+									+ classBean.studyName
+									+ "</td>";
+							str += "<td>"
+									+ classBean.studyLanguage
+									+ "</td>";
+							str += "<td>"
+									+ classBean.teacherName
+									+ "</td>";
+							str += "<td><img src='/resources/images/like.png' class='imgLike' onclick=delBucket("
+									+ '"'
+									+ classBean.studyId
+									+ '"' + ")></td>";
+							str += "</tr>";
+	
+						});
 					$("#memberListBody").html(str);
-
+	
 					var pBean = data.pBean;
 					str2 += "<ul>";
 					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
@@ -178,9 +187,9 @@ $(function() {
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
 							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
-
+	
 					$("#page").html(str2);
-
+	
 				} else {
 					alert(data.resultMsg);
 				}
@@ -205,15 +214,23 @@ $(function() {
 			<div class="sub_nav">
 				<div class="sub_menu">
 					<ul>
-							<li><a href="personalInfoCustomer.do">개인정보</a></li>
-						<li><a href="payorder.do" >마이 클래스</a></li>
-						<li><a href="bucketList.do"class="on">마이 찜목록</a></li>
+						<li><a href="personalInfoCustomer.do">개인정보</a></li>
+						<li><a href="payorder.do">마이 클래스</a></li>
+						<li><a href="bucketList.do" class="on">마이 찜목록</a></li>
+					</ul>
+				</div>
+
+				<div class="sub_menu2">
+					<ul>
+						<li><a href="personalInfoCustomer.do">개인정보</a></li>
+						<li><a href="payorder.do">마이 클래스</a></li>
+						<li><a href="bucketList.do" class="on">마이 찜목록</a></li>
 					</ul>
 				</div>
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
-							<li>홈</li>> 
+							<li>홈</li>>
 							<li>마이 찜목록</li>
 						</ul>
 					</div>
@@ -230,7 +247,6 @@ $(function() {
 								<col width="10%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -238,7 +254,6 @@ $(function() {
 									<th>스터디 이름</th>
 									<th>언어</th>
 									<th>강사</th>
-									<th>장소</th>
 									<th>좋아요취소</th>
 								</tr>
 							</thead>
@@ -248,8 +263,7 @@ $(function() {
 						</table>
 					</div>
 
-					<div id="page" class="page">
-					</div>
+					<div id="page" class="page"></div>
 				</div>
 			</div>
 		</div>

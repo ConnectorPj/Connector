@@ -142,6 +142,15 @@
 						<li><a href="bucketList.do">마이 찜목록</a></li>
 					</ul>
 				</div>
+				
+				<div class="sub_menu2">
+					<ul>
+						<li><a href="personalInfoCustomer.do" class="on">개인정보</a></li>
+						<li><a href="payorder.do" >마이 클래스</a></li>
+						<li><a href="bucketList.do">마이 찜목록</a></li>
+					</ul>
+				</div>
+				
 				<div class="sub_title">
 					<div class="rout">
 						<ul>
@@ -211,7 +220,7 @@
 								<tr>
 									<td class="table_att">소개</td>
 									<td class="table_att2"><textarea id="customerProfile" name="customerProfile" class="inputPersonalInfo"
-											cols="50" rows="10" style="resize: none; height: 300px;">${sessionScope.memberLoginBean.customerProfile}</textarea></td>
+											cols="50" rows="10" style="resize: none; height: 85%; width:80%;">${sessionScope.memberLoginBean.customerProfile}</textarea></td>
 								</tr>
 								<tr>
 									<td></td>
