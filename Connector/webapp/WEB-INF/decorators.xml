@@ -6,7 +6,7 @@
 	<!-- 예외 URL 패턴 -->
 	<excludes>
 		<pattern>*error*</pattern>
-		<pattern>*naver*</pattern>
+		<pattern>*naver_callback*</pattern>
 	</excludes>
 
 	<!-- 적용 레이아웃  -->

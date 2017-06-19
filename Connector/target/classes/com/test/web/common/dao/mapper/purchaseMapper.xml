@@ -15,6 +15,8 @@
 	    SELECT
 	    	purchase_no AS purchadeNo, 
         	customer_id AS customerId,
+        	customer_content AS customerContent,
+        	customer_cellphone AS customerCellPhone,
 	    	study_id AS studyId, 
 	    	purchase_date AS purchaseDate,
 	    	purchase_sort AS purchaseSort 
@@ -29,6 +31,8 @@
 		SELECT
 			purchase_no AS purchadeNo, 
    	 	    customer_id AS customerId,
+   	 	    customer_content AS customerContent,
+   	 	    customer_cellphone AS customerCellPhone,
 		    study_id AS studyId, 
 		    purchase_date AS purchaseDate,
 		    purchase_sort AS purchaseSort 
@@ -45,6 +49,8 @@
         INSERT INTO purchase_study
 		(
 		  customer_id,
+		  customer_cellphone,
+        customer_content,
 		  study_id,
 		  purchase_sort
 		
@@ -52,6 +58,8 @@
 		VALUES
 		(
 		  #{customerId}, 
+		  #{customerCellPhone},
+		  #{customerContent},
  		  #{studyId},
 		  #{purchaseSort}
 		)

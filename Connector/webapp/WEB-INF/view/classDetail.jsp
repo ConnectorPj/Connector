@@ -33,95 +33,129 @@
 
 	$(function() {
 		$.ajax({
-					type : "post",
-					url : "/realDetailProc.do",
-					dataType : "json",
-					data : {
-						studyId : $("#studyId").val()
-					},
-					success : function(data) {
-						console.log(data);
+			type : "post",
+			url : "/realDetailProc.do",
+			dataType : "json",
+			data : {
+				studyId : $("#studyId").val()
+			},
+			success : function(data) {
+				console.log(data);
 
-						if (data.result == "ok") {
-							//리뷰 리스트 출력
-							$.each(
-											data.detailList,
-											function(i, rBean) {
+				if (data.result == "ok") {
+					//리뷰 리스트 출력
+					$.each(
+						data.detailList,
+						function(i, rBean) {
 
-												if (rBean.customerPicture == null) {
-													rBean.customerPicture = "/resources/images/userIcon.png";
-												}
-
-												if (rBean.teacherPicture == null) {
-													rBean.teacherPicture = "/resources/images/userIcon.png";
-												}
-
-												var str = "";
-												str += '<ul class="detailList">';
-												str += '<li class="review">';
-												str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
-												str += '<div class="reviewContentWrap">';
-												str += '<div class="writerName">'
-														+ rBean.customerName
-														+ '<span class="writtenAt">'
-														+ rBean.reviewRegdate
-														+ '</span></div>';
-												str += '<ul class="score">';
-
-												for (var j = 1; j <= 5; j++) {
-
-													if (j <= rBean.reviewRating) {
-														str += '<li class="star"><img src="/resources/images/staron.png"></li>';
-
-													} else {
-														str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
-													}
-												}
-
-												str += '</ul>';
-												str += '<div class="reviewContent"><span class="reviewLevel">'
-														+ rBean.studyProgramlanguage
-														+ '</span>';
-												str += '<span>'
-														+ rBean.reviewContent
-														+ '</span></div>';
-												str += '</div>';
-												str += '</li>';
-												str += '</ul>';
-												str += '<hr>';
-
-												$("#realReviewInfo")
-														.append(str);
-											});
-
-							//더 보기 버튼에 대한 처리
-							reviewListTotCount = data.detailListAll.length;
-							reviewStartRow = data.detailList.length;
-
-							if (data.detailListAll.length > data.detailList.length) {
-								//리뷰 더보기 버튼 화면에 표시
-								$("#moreReviewList").show();
-
-							} else {
-								$("#moreReviewList").hide();
+							if (rBean.customerPicture == null) {
+								rBean.customerPicture = "/resources/images/userIcon.png";
 							}
 
-						} else {
-							alert(data.resultMsg);
-						}
-					},
-					error : function(xhr, status, error) {
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
-					}
-				});
+							if (rBean.teacherPicture == null) {
+								rBean.teacherPicture = "/resources/images/userIcon.png";
+							}
 
+							var str = "";
+							str += '<ul class="detailList">';
+							str += '<li class="review">';
+							str += '<div class="writerPhoto"><img src="' + rBean.customerPicture + '"></div>';
+							str += '<div class="reviewContentWrap">';
+							str += '<div class="writerName">'
+								+ rBean.customerName
+								+ '<span class="writtenAt">'
+								+ rBean.reviewRegdate
+								+ '</span></div>';
+							str += '<ul class="score">';
+
+							for (var j = 1; j <= 5; j++) {
+
+								if (j <= rBean.reviewRating) {
+									str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+
+								} else {
+									str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+								}
+							}
+
+							str += '</ul>';
+							str += '<div class="reviewContent"><span class="reviewLevel">'
+								+ rBean.studyProgramlanguage
+								+ '</span>';
+							str += '<span>'
+								+ rBean.reviewContent
+								+ '</span></div>';
+							str += '</div>';
+							str += '</li>';
+							str += '</ul>';
+							str += '<hr>';
+
+							$("#realReviewInfo")
+								.append(str);
+						});
+
+					//더 보기 버튼에 대한 처리
+					reviewListTotCount = data.detailListAll.length;
+					reviewStartRow = data.detailList.length;
+
+					if (data.detailListAll.length > data.detailList.length) {
+						//리뷰 더보기 버튼 화면에 표시
+						$("#moreReviewList").show();
+
+					} else {
+						$("#moreReviewList").hide();
+					}
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+			}
+		});
+
+		$.ajax({
+			type : "post",
+			url : "/buskcetProc.do",
+			dataType : "json",
+			data : {
+				studyId : $("#studyId").val(),
+				customerId : $("#memberId").val()
+			},
+			success : function(data) {
+				console.log(data);
+
+				if (data.result == "ok") {
+					//리뷰 리스트 출력
+					var bBean = data.bBean;
+					if(bBean == "null"){
+					}else{
+						$("#booking").text("찜취소");
+						$("#booking").css("background-color",
+							"#2c3d46");
+						cond = 2;
+						return;
+					}
+
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+			}
+		});
+		
 	});
+
 
 	//다음 리뷰 리스트를 표시한다.
 	function showNextReviewList() {
-
 		if (reviewListTotCount <= reviewStartRow && isReviewLoading) {
 			return;
 		}
@@ -133,93 +167,94 @@
 		isReviewLoading = true;
 
 		$.ajax({
-					type : "post",
-					url : "/realDetailProc.do",
-					data : {
-						studyId : $("#studyId").val(),
-						startRow : reviewStartRow
-					},
-					dataType : "json",
-					success : function(data) {
-						printLog(data);
+			type : "post",
+			url : "/realDetailProc.do",
+			data : {
+				studyId : $("#studyId").val(),
+				startRow : reviewStartRow
+			},
+			dataType : "json",
+			success : function(data) {
+				printLog(data);
 
-						if (data.result == "ok") {
-							//리뷰 리스트 출력
-							$.each(
-											data.detailList,
-											function(i, rBean) {
+				if (data.result == "ok") {
+					//리뷰 리스트 출력
+					$.each(
+						data.detailList,
+						function(i, rBean) {
 
-												if (rBean.customerPicture == null) {
-													rBean.customerPicture = "/resources/images/userIcon.png";
-												}
-
-												if (rBean.teacherPicture == null) {
-													rBean.teacherPicture = "/resources/images/userIcon.png";
-												}
-
-												var str = "";
-												str += '<ul class="detailList">';
-												str += '<li class="review">';
-												str += '<div class="writerPhoto"><img src="'+ rBean.customerPicture +'"></div>';
-												str += '<div class="reviewContentWrap">';
-												str += '<div class="writerName">'
-														+ rBean.customerName
-														+ '<span class="writtenAt">'
-														+ rBean.reviewRegdate
-														+ '</span></div>';
-												str += '<ul class="score">';
-
-												for (var j = 1; j <= 5; j++) {
-
-													if (j <= rBean.reviewRating) {
-														str += '<li class="star"><img src="/resources/images/staron.png"></li>';
-
-													} else {
-														str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
-													}
-												}
-
-												str += '</ul>';
-												str += '<div class="reviewContent"><span class="reviewLevel">'
-														+ rBean.studyProgramlanguage
-														+ '</span>';
-												str += '<span>'
-														+ rBean.reviewContent
-														+ '</span></div>';
-												str += '</div>';
-												str += '</li>';
-												str += '</ul>';
-												str += '<hr>';
-
-												$("#realReviewInfo")
-														.append(str);
-											});
-
-							//더보기 버튼에 대한 처리
-							reviewStartRow += data.detailList.length * 1;
-
-							if (reviewListTotCount > reviewStartRow) {
-								//리뷰 더보기 버튼 화면에 표시
-								$("#moreReviewList").show();
-
-							} else {
-								$("#moreReviewList").hide();
+							if (rBean.customerPicture == null) {
+								rBean.customerPicture = "/resources/images/userIcon.png";
 							}
 
-						} else {
-							alert(data.resultMsg);
-						}
+							if (rBean.teacherPicture == null) {
+								rBean.teacherPicture = "/resources/images/userIcon.png";
+							}
 
-						isReviewLoading = false;
-					},
-					error : function(xhr, status, error) {
-						isReviewLoading = false;
-						console.log(xhr);
-						alert("error\nxhr : " + xhr + ", status : " + status
-								+ ", error : " + error);
+							var str = "";
+							str += '<ul class="detailList">';
+							str += '<li class="review">';
+							str += '<div class="writerPhoto"><img src="' + rBean.customerPicture + '"></div>';
+							str += '<div class="reviewContentWrap">';
+							str += '<div class="writerName">'
+								+ rBean.customerName
+								+ '<span class="writtenAt">'
+								+ rBean.reviewRegdate
+								+ '</span></div>';
+							str += '<ul class="score">';
+
+							for (var j = 1; j <= 5; j++) {
+
+								if (j <= rBean.reviewRating) {
+									str += '<li class="star"><img src="/resources/images/staron.png"></li>';
+
+								} else {
+									str += '<li class="star"><img src="/resources/images/staroff.png"></li>';
+								}
+							}
+
+							str += '</ul>';
+							str += '<div class="reviewContent"><span class="reviewLevel">'
+								+ rBean.studyProgramlanguage
+								+ '</span>';
+							str += '<span>'
+								+ rBean.reviewContent
+								+ '</span></div>';
+							str += '</div>';
+							str += '</li>';
+							str += '</ul>';
+							str += '<hr>';
+
+							$("#realReviewInfo")
+								.append(str);
+						});
+
+					//더보기 버튼에 대한 처리
+					reviewStartRow += data.detailList.length * 1;
+
+					if (reviewListTotCount > reviewStartRow) {
+						//리뷰 더보기 버튼 화면에 표시
+						$("#moreReviewList").show();
+
+					} else {
+						$("#moreReviewList").hide();
 					}
-				});
-	};
+
+				} else {
+					alert(data.resultMsg);
+				}
+
+				isReviewLoading = false;
+			},
+			error : function(xhr, status, error) {
+				isReviewLoading = false;
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+					+ ", error : " + error);
+			}
+		});
+	}
+	;
 </script>
 </head>
 <body>
@@ -230,7 +265,7 @@
 	<div id="mobileButton">
 		<button id="actionBtnMobile" class="actionBtnMobile">참여 신청하기
 		</button>
-		<button id="bookingMobile" class="bookingMobile"> 찜하기 </button>
+		<button id="bookingMobile" class="bookingMobile">찜하기</button>
 	</div>
 	<div id="classWrap">
 		<div id="class">
@@ -289,42 +324,42 @@
 
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					mapOption = {
-						center : new daum.maps.LatLng($("#Alt").val(),
+						mapOption = {
+							center : new daum.maps.LatLng($("#Alt").val(),
 								$("#Att").val()), // 지도의 중심좌표
-						level : 3
-					// 지도의 확대 레벨
-					};
-
+							level : 3
+						// 지도의 확대 레벨
+						};
+				
 					var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
+				
 					// 마커를 표시할 위치입니다 
 					var position = new daum.maps.LatLng($("#Alt").val(), $(
-							"#Att").val());
-
+						"#Att").val());
+				
 					// 마커를 생성합니다
 					var marker = new daum.maps.Marker({
 						position : position
 					});
-
+				
 					// 마커를 지도에 표시합니다.
 					marker.setMap(map);
-
+				
 					// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 					var iwContent = '<div style="padding:5px;">스터디 위치 입니다.</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
+				
 					// 인포윈도우를 생성합니다
 					var infowindow = new daum.maps.InfoWindow({
 						content : iwContent
 					});
-
+				
 					// 마커에 마우스오버 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseover',
-							function() {
-								// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-								infowindow.open(map, marker);
-							});
-
+						function() {
+							// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+							infowindow.open(map, marker);
+						});
+				
 					// 마커에 마우스아웃 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseout', function() {
 						// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -388,34 +423,33 @@
 
 			<script type="text/javascript">
 				var cond = 1;
-
+			
 				function joinFunc() {
 					if (confirm("참가 신청 하시겠습니까?")) {
-
+			
 						if ($("#loginId").val() != "") {
-
+			
 							location.href = "application.do?studyId="
-									+ $("#studyId").val();
-
+							+ $("#studyId").val();
+			
 						} else {
-
+			
 							location.href = "login.do?studyId="
-									+ $("#studyId").val();
-
+							+ $("#studyId").val();
+			
 						}
-
+			
 					}
 				}
-
+			
 				$("#actionBtn").click(function() {
 					joinFunc();
 				});
 				$("#actionBtnMobile").click(function() {
 					joinFunc();
 				});
-
+			
 				function book() {
-
 					if (cond == 1) {
 						$.ajax({
 							type : "post",
@@ -429,21 +463,21 @@
 								if (data.result == "ok") {
 									$("#booking").text("찜취소");
 									$("#booking").css("background-color",
-											"#2c3d46");
+										"#2c3d46");
 									cond = 2;
 									return;
 								} else {
 									alert("찜 목록에 실패 하였습니다.");
 								}
-
+			
 							},
 							error : function(xhr, status, error) {
 								console.log(xhr);
 								alert("error\nxhr : " + xhr + ", status : "
-										+ status + ", error : " + error);
+									+ status + ", error : " + error);
 							}
 						});
-
+			
 					} else {
 						$.ajax({
 							type : "post",
@@ -457,7 +491,7 @@
 								if (data.result == "ok") {
 									$("#booking").text("찜하기");
 									$("#booking").css("background-color",
-											"white");
+										"white");
 									cond = 1;
 									return;
 								} else {
@@ -467,13 +501,13 @@
 							error : function(xhr, status, error) {
 								console.log(xhr);
 								alert("error\nxhr : " + xhr + ", status : "
-										+ status + ", error : " + error);
+									+ status + ", error : " + error);
 							}
 						});
 					}
-
+			
 				}
-
+			
 				$("#booking").click(function() {
 					book();
 				});

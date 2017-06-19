@@ -136,6 +136,36 @@ public class DetailController {
 
 		return resMap;
 	}
+	
+
+	@RequestMapping("/buskcetProc")
+	@ResponseBody
+	public Map<String, Object> buskcetProc(BucketBean bBean) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 실패");
+
+		try {
+			// 게시글 통합조회(댓글 목록까지 조회)
+			
+			bBean = busketDao.selectBucket(bBean);
+			// 찜하지 않은 컨텐트
+			if(bBean == null){
+				resMap.put("bBean","null");
+			}else{ // 이미 찜한 컨텐트
+				resMap.put("bBean", bBean);
+			}
+
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+	}
 
 	@RequestMapping("/updateBusket")
 	@ResponseBody
