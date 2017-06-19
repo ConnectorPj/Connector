@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.test.web.common.bean.BucketBean;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PurchaseBean;
 
 public interface ClassDAO {
@@ -55,7 +56,7 @@ public interface ClassDAO {
 	public int selectCustomerPurchaseUncheckListTotal(PurchaseBean purBean);
 
 	/** 개인별 찜목록 조회 */
-	public List<ClassBean> selectBucketClassList(@Param("bucketBean") BucketBean bean, @Param("pagingBean") PagingBean pBean);
+	public List<ClassBean> selectBucketClassList(@Param("bucketBean") BucketBean bean, @Param("pagingBean") PagingBean10 pBean);
 
 	/** studyList와 teacherId 매핑하여 사진 경로 가져오기 **/
 	public ClassBean selectTeacherPhotoList(@Param("classBean") ClassBean bean) throws Exception;

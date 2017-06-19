@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.test.web.common.bean.CustomerBean;
-import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PurchaseBean;
 
 public interface CustomerDAO {
@@ -15,7 +15,7 @@ public interface CustomerDAO {
 	/** 회원정보를 조회해서 리스트로 가져온다. **/
 	public List<CustomerBean> selectCustomerList(
 			@Param("customerBean") CustomerBean bean,
-			@Param("pagingBean") PagingBean pBean);
+			@Param("pagingBean") PagingBean10 pBean);
 
 	public int insertCustomer(CustomerBean bean);
 

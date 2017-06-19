@@ -43,6 +43,6 @@ public interface TeacherService {
 	public int selectClassListTotalCount(ClassBean bean, PagingBean pBean);
 
 	/** 전체 Class 데이터 갯수를 가져온다. **/
-	public int selectCustomerListTotalCount(CustomerBean bean, PagingBean pBean);
+	public int selectCustomerListTotalCount(CustomerBean bean, PagingBean10 pBean);
 
 }

@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.test.web.common.Constants;
 import com.test.web.common.bean.CustomerBean;
-import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.dao.CustomerDAO;
@@ -30,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean pBean) throws Exception {
+	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean10 pBean) throws Exception {
 		return customerDao.selectCustomerList(bean, pBean);
 	}
 

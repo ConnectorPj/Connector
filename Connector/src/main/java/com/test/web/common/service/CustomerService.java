@@ -3,7 +3,7 @@
 import java.util.List;
 
 import com.test.web.common.bean.CustomerBean;
-import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.PurchaseBean;
 
@@ -13,7 +13,7 @@ public interface CustomerService {
 	public CustomerBean selectCustomer(CustomerBean bean) throws Exception;
 
 	/** 회원정보를 조회해서 리스트로 가져온다. **/
-	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean pBean) throws Exception;
+	public List<CustomerBean> selectCustomerList(CustomerBean bean, PagingBean10 pBean) throws Exception;
 
 	/** 개인별 구매 내역 조회 */
 	public List<CustomerBean> selectStudyMember(PurchaseBean pBean) throws Exception;

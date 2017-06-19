@@ -10,6 +10,7 @@ import com.test.web.common.Constants;
 import com.test.web.common.bean.ClassBean;
 import com.test.web.common.bean.CustomerBean;
 import com.test.web.common.bean.PagingBean;
+import com.test.web.common.bean.PagingBean10;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.ClassDAO;
@@ -118,7 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public int selectCustomerListTotalCount(CustomerBean bean, PagingBean pBean) {
+	public int selectCustomerListTotalCount(CustomerBean bean, PagingBean10 pBean) {
 		return customerDao.selectCustomerListTotalCount();
 	}
 

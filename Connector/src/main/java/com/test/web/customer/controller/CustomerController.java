@@ -491,10 +491,11 @@ public class CustomerController {
 		return "studyIntro";
 	}
 
+
 	/** 회원정보 리스트 AJAX **/
 	@RequestMapping("/selectCustomerListAjax")
 	@ResponseBody
-	public Map<String, Object> selectCustomerListAjax(CustomerBean bean, PagingBean pagingBean, Model model) {
+	public Map<String, Object> selectCustomerListAjax(CustomerBean bean, PagingBean10 pagingBean, Model model) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "회원 리스트 조회에 실패 하였습니다.");
@@ -502,9 +503,9 @@ public class CustomerController {
 		try {
 			// 전체 회원 리스트 갯수 조회
 			int totRecord = teacherService.selectCustomerListTotalCount(bean, pagingBean);
+			
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
-
 			List<CustomerBean> list = customerService.selectCustomerList(bean, pagingBean);
 
 			resMap.put("customerBean", bean);
@@ -696,7 +697,7 @@ public class CustomerController {
 	/** 수업결제 내역 개인별 찜목록 **/
 	@RequestMapping("/selectBucketClassAjax")
 	@ResponseBody
-	public Map<String, Object> selectBucketClassAjax(ClassBean bean, PagingBean pagingBean, Model model,
+	public Map<String, Object> selectBucketClassAjax(ClassBean bean, PagingBean10 pagingBean, Model model,
 			BucketBean bBean) {
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -725,6 +726,7 @@ public class CustomerController {
 		return resMap;
 
 	}
+
 
 	/* 찜목록 삭제 */
 	@RequestMapping("/deleteBucket")
