@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -406,8 +406,8 @@
 				${ClassBean.studyName} </label>
 			<div class="sideWrap">
 				<ul class="sideSchedule">
-					<li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						<span id="choiceText" class="choiceText">${diff}주</span> </label>
+					<li class="sideSchedulWrap"><div class="sideSchedulChoice"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						<span id="choiceText" class="choiceText">${diff}주</span> </div>
 						<div class="titleLevel">
 							<div class="levelText1">분야명</div>
 							<div id="levelText" class="levelText2">
