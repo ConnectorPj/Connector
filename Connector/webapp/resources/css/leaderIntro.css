@@ -104,7 +104,7 @@ html, body {
 .to {
 	width: 100%;
 	height: 400px;
-	background-image: url("/resources/images/leader.jpg");
+	background-image: url("/resources/images/leaderIntro.jpg");
 	background-size: cover;
 }
 
@@ -234,7 +234,7 @@ html, body {
 	margin: 7% auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 30%;
+	width: 300px;
 	height: auto;
 }
 /* The Close Button */

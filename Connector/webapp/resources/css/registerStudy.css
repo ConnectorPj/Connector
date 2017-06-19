@@ -52,11 +52,12 @@ select.studyAmount {
 	font-size: 15px;
 	width: 120px;
 	height: 40px;
-	background-color: #fff;
+	border: 1px solid #eee; background-color : #fff;
 	margin: 10px;
 	line-height: 25px;
 	border-radius: 0px;
-	line-height: 25px
+	line-height: 25px;
+	background-color: #fff;
 }
 
 .btn.active {
@@ -650,17 +651,16 @@ ul, li {
 }
 
 #registerStudyForm #Date #startDate {
-	width: 50%;
+	width: 45%;
 	flex: 1;
 	margin: auto 10%;
 }
 
 #registerStudyForm #Date #endtDate {
-	width: 50%;
+	width:45%;
 	flex: 1;
 	margin: auto 10%;
 }
-
 
 @media ( max-width : 800px) {
 	#registerStudyForm #Date {
@@ -679,6 +679,37 @@ ul, li {
 	.subTimediv {
 		display: block;
 	}
+	.moveBtnDiv {
+		width: 50px;
+		position: fixed;
+		right: 10px;
+		bottom: 10px;
+		z-index: 99;
+		display: block;
+	}
+	.button1 {
+		margin: 10px 2px 0;
+		width: 40px;
+		height: 40px;
+		border: 0px;
+		border-radius: 5px;
+		background-color: #eee;
+		color: #2c3d46;
+		font-size: 15px;
+	}
+	
+	#registerStudyForm #Date #startDate {
+	width: 45%;
+	flex: 1;
+	margin: 0;
+}
+
+#registerStudyForm #Date #endtDate {
+	width:45%;
+	flex: 1;
+		margin: 0;
+	
+}
 }
 
 @media screen and ( max-width : 500px ) {

@@ -43,7 +43,7 @@
                         정식 멤버 승인을 받으면 결제가 완료됩니다</p>
                     </div>
                     <div class="section1_sub2">
-                        <img src="/resources/images/img.jpg" alt="aaa"/>
+                        <img src="/resources/images/intro.jpg" alt="aaa"/>
                     </div>
                 </div>
                 
@@ -51,7 +51,7 @@
                     
                 <div class="section2">
                 <div class="section2_sub1">
-                      <img src="/resources/images/img.jpg" alt="aaa"/>
+                      <img src="/resources/images/intro.jpg" alt="intro"/>
                 </div>
                     <div class="section2_sub2">
                          <p class="titleSection">다양한 언어를 배워보세요.</p>
@@ -69,7 +69,7 @@
                         <h5>참여 가능한 스터디 리스트로 이동합니다.</h5>
                     </div>
                     <div class="section3_sub2">
-                        <img src="/resources/images/img.jpg" alt="aaa"/>
+                        <img src="/resources/images/intro.jpg" alt="intro0"/>
                     </div>
                 </div>
             

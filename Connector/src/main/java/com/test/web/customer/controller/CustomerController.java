@@ -450,7 +450,7 @@ public class CustomerController {
 		} // end if
 			// db 처리
 
-		return "applicationSuccess";
+		return "redirect:/registersuccess.do";
 	}
 
 	@RequestMapping("/applicationsuccess")

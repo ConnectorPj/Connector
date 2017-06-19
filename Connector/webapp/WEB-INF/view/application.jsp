@@ -24,7 +24,7 @@
 		<div style="display: block;">
 <form id="purchaseForm">
 					<input type="hidden" name="studyId" value="${classBean.studyId}">
-					<input type="hidden" name="customerId" value="${sessionScope.memberLoginBean.customerId}">
+					<input type="hidden" name="customerId" id="customerId">
 			<div class="detail">
 				<div class="detail-col1">
 					<img
@@ -102,12 +102,15 @@
 
 		</div>
 	</section>
+
 	<script type="text/javascript">
 	function insertPurchase(){
 	var purchaseForm = document.getElementById("purchaseForm");
 	purchaseForm.action = "/applicationProc.do";
 	purchaseForm.method = "post";
 
+	var customerId = $("#memberId").val();
+	document.getElementById("customerId").value = customerId;
 	purchaseForm.submit();
 	}
 	</script>

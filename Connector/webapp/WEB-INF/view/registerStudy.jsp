@@ -156,19 +156,19 @@
                <h3>WEB</h3>
                <br />
                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default"> <input type="checkbox"
+                  <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="htmlcheckbox" value="HTML">
                      #&nbsp;HTML
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="jspcheckbox" value="JSP">
                      #&nbsp;JSP
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="jscheckbox" value="JAVASCRIPT">
                      #&nbsp;JAVA SCRIPT
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="springcheckbox" value="SPRING">
                      #&nbsp;SPRING
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="phpcheckbox" value="PHP">
                      #&nbsp;PHP
                   </label>
@@ -179,16 +179,16 @@
                <h3>SYSTEM</h3>
                <br />
                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default"> <input type="checkbox"
+                  <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="javacheckbox" value="JAVA">
                      #&nbsp;자바
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="ccheckbox" value="C">
                      #&nbsp;C
-                  </label><label class="btn btn-default"> <input type="checkbox"
+                  </label><label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="cscheckbox" value="C#">
                      #&nbsp;C#
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="cppcheckbox" value="C++">
                      #&nbsp;C++
                   </label>
@@ -199,10 +199,10 @@
                <h3>MOBILE</h3>
                <br />
                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default"> <input type="checkbox"
+                  <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="androidcheckbox" value="ANDROID">
                      #&nbsp;안드로이드
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="ioscheckbox" value="IOS">
                      #&nbsp;iOS
                   </label>
@@ -212,10 +212,10 @@
                <h3>IoT</h3>
                <br />
                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default"> <input type="checkbox"
+                  <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="aduinocheckbox" value="아두이노">
                      #&nbsp;아두이노
-                  </label> <label class="btn btn-default"> <input type="checkbox"
+                  </label> <label class="btn "> <input type="checkbox"
                      name="studyProgramLanguage" id="rasberrycheckbox" value="라즈베리파이">
                      #&nbsp;라즈베리파이
                   </label>
@@ -239,19 +239,19 @@
 
             <div class="btn-group" data-toggle="buttons">
 
-               <label class="btn btn-default"> <input type="checkbox"
+               <label class="btn "> <input type="checkbox"
                   name="studyJob" id="elements" value="초등학생" " /> 초등학생
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="middle" value="중학생"> 중학생
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="high" value="고등학생"> 고등학생
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="prepare" value="입시생"> 입시생
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="colleage" value="대학생"> 대학생
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="adult" value="일반인"> 일반인
-               </label> <label class="btn btn-default"> <input type="checkbox"
+               </label> <label class="btn"> <input type="checkbox"
                   name="studyJob" id="worker" value="직장인"> 직장인
                </label>
             </div>
@@ -303,22 +303,22 @@
          <br />
          <div class="subTimediv">
             <div class="btn-group" data-toggle="buttons">
-               <label class="btn btn-default" style="width: 40px;"> <input
+               <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="monday" value="월"> 월
-               </label> <label class="btn btn-default" style="width: 40px;"> <input
+               </label> <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="tuesday" value="화"> 화
-               </label><label class="btn btn-default" style="width: 40px;"> <input
+               </label><label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="Wednesday" value="수">
                   수
-               </label> <label class="btn btn-default" style="width: 40px;"> <input
+               </label> <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="thursday" value="목">
                   목
-               </label> <label class="btn btn-default" style="width: 40px;"> <input
+               </label> <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id=friday value="금"> 금
-               </label> <label class="btn btn-default" style="width: 40px;"> <input
+               </label> <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="saturday" value="토">
                   토
-               </label> <label class="btn btn-default" style="width: 40px;"> <input
+               </label> <label class="btn" style="width: 40px;"> <input
                   type="checkbox" name="studyWeek" id="sunday" value="일"> 일
                </label>
 
@@ -397,16 +397,14 @@
          <h2>수업 시작 날짜와 종료 날짜를 입력해 주세요.</h2>
          <div style="display: inline-block; margin: 100px auto 0; width:100%;">
             <input id="startDate" name="studyStartDate" type="date" class="date"
-               style="float: left; margin-right: 50px;"> <input
+               style="float: left;"> ~ <input
                id="endtDate" name="studyEndDate" type="date" class="date"
-               style="margin-left: 50px;">
+              >
          </div>
          
          
          <div style="text-align:center; inline-block; margin: 10px auto 50px;">
             <div style="display: inline-block; margin: 0 auto 50px;">
-               <span style=" margin-right: 100px;">시작 날짜</span> <span
-                  style="margin-left: 100px;">종료 날짜</span>
             </div>
          </div>
       </div>

@@ -94,53 +94,54 @@
 			$('#inputJoinName').attr('placeholder', '이름을 입력하지 않으셨습니다.');
 			return;
 		}
-		
+
 		else if ($("#inputJoinEmail").val() == null
 				|| $("#inputJoinEmail").val() == "" || !checkinputJoinEmail()) {
 			document.getElementById("inputJoinEmail").focus();
 			$('#inputJoinEmail').attr('placeholder', '메일을 올바르게 작성해주세요.');
 			return;
 		}
-		
+
 		else if ($("#inputJoinpassword").val() == null
-				|| $("#inputJoinpassword").val() == "" || !checkinputJoinpasswordconfirm()) {
+				|| $("#inputJoinpassword").val() == ""
+				|| !checkinputJoinpasswordconfirm()) {
 			document.getElementById("inputJoinpassword").focus();
 			$('#inputJoinpassword').attr('placeholder', '비밀번호을 입력하지 않으셨습니다.');
 			return;
 		}
-		
+
 		else if ($("#inputJoinCareer").val() == null
 				|| $("#inputJoinCareer").val() == "") {
 			document.getElementById("inputJoinCareer").focus();
 			$('#inputJoinCareer').attr('placeholder', '경력을 입력하세요.');
 			return;
 		}
-		
+
 		else if ($("#inputJoinRegistration").val() == null
 				|| $("#inputJoinRegistration").val() == "") {
 			document.getElementById("inputJoinRegistration").focus();
-			$('#inputJoinRegistration').attr('placeholder', '주민등록번호 앞자리를 입력하세요.');
+			$('#inputJoinRegistration').attr('placeholder',
+					'주민등록번호 앞자리를 입력하세요.');
 			return;
 		}
-		
+
 		else if ($("#inputJoinPhone").val() == null
 				|| $("#inputJoinPhone").val() == "") {
 			document.getElementById("inputJoinPhone").focus();
 			$('#inputJoinPhone').attr('placeholder', '핸드폰 번호를  입력하세요.');
 			return;
 		}
-		
+
 		else if ($(":input:radio[id='inputGender']:checked").val() != "F"
 				&& $(":input:radio[id='inputGender2']:checked").val() != "M") {
 			alert("성별을 선택해주세요.");
 			return;
 		}
-		
+
 		else if ($(":input:radio[id='agreeJSP2']:checked").val() != "1") {
 			alert("개인정보 활용 제공에 동의해주세요.");
 			return;
 		}
-		
 
 		else {
 
@@ -199,7 +200,7 @@
 				</div>
 
 				<div class="about">
-				
+
 					<div class="about_fi">
 						<article>
 							<div class="about_img">
@@ -211,7 +212,7 @@
 							</p>
 						</article>
 					</div>
-					
+
 					<div class="about_se">
 						<article>
 							<div class="about_img2">
@@ -224,7 +225,7 @@
 							</p>
 						</article>
 					</div>
-					
+
 					<div class="about_sa">
 						<article>
 							<div class="about_img3">
@@ -236,7 +237,7 @@
 							</p>
 						</article>
 					</div>
-					
+
 				</div>
 
 
@@ -249,16 +250,19 @@
 					</div>
 					<div class="sec-leader-img2">
 						<h3 style="text-align: center">리더와 함께하는 코:넥터</h3>
-						<h4 >
-							먼저 리더 지원서를 확인 및 작성해 주세요.<br />개설 가능한 지역 및 시간대에 대해<br>
-							7일 이내로 안내를 드리겠습니다!<br /> <br />7일 이후에도 메일이 오지 않는다면<br />
-							ABCDEFG@gmail.com으로 연락주세요.
+						<h4>
+							먼저 리더 지원서를 확인 및 작성해 주세요.<br />개설 가능한 지역 및 시간대에 대해<br> 7일
+							이내로 안내를 드리겠습니다!<br /> <br />7일 이후에도 메일이 오지 않는다면<br />
+							developer.connector@gmail.com 으로 연락주세요.
 						</h4>
 					</div>
 				</div>
-		
-<br/>
-<br/><br/><br/><br/><br/>
+
+				<br /> <br />
+				<br />
+				<br />
+				<br />
+				<br />
 
 				<div class="sec-leader2">
 					<div class="sec-leader2-img1">
@@ -289,11 +293,11 @@
 				<!-- 네이버 로그인 API -->
 				<div id="naver_id_login"></div>
 				<h6 style="text-align: center;">
-					<small> ──────────────── </small>또&nbsp;&nbsp;는<small>
-						──────────────── </small>
+					<small> ─────────── </small>또&nbsp;&nbsp;는<small>
+						─────────── </small>
 				</h6>
 				<form id="teacherFormJSP">
-					<div>
+					<div style="text-align: center;">
 						<input type="text" class="form-control" name="teacherName"
 							id="inputJoinName" placeholder="이름" /><br /> <input
 							type="email" class="form-control" name="teacherId"
@@ -316,16 +320,14 @@
 							style="font-size: 0.4em; color: #aaa;"></p>
 
 						<input type="text" class="form-control" name="teacherCareer"
-							id="inputJoinCareer" placeholder="경력" /><br />
-							
-						<input type="text" class="form-control" name="teacherBirthnum"
-							id="inputJoinRegistration" placeholder="주민등록번호 앞자리" /><br />
-							
-						<input type="text" class="form-control" name="teacherCellphone"
-							id="inputJoinPhone" placeholder="핸드폰번호" /><br />
-							
-						<input type="radio" id="inputGender" name="teacherGender" value="F">여자 &nbsp;&nbsp;&nbsp;
-						<input type="radio" id="inputGender2" name="teacherGender" value="M">남자
+							id="inputJoinCareer" placeholder="경력" /><br /> <input
+							type="text" class="form-control" name="teacherBirthnum"
+							id="inputJoinRegistration" placeholder="주민등록번호 앞자리" /><br /> <input
+							type="text" class="form-control" name="teacherCellphone"
+							id="inputJoinPhone" placeholder="핸드폰번호" /><br /> <input
+							type="radio" id="inputGender" name="teacherGender" value="F">여자
+						&nbsp;&nbsp;&nbsp; <input type="radio" id="inputGender2"
+							name="teacherGender" value="M">남자
 					</div>
 
 

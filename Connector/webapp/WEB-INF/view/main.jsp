@@ -30,15 +30,15 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<a href="#"><span class="first-slide visual01"></span></a>
+					<a href="/studyIntro.do"><span class="first-slide visual01"></span></a>
 				</div>
 
 				<div class="item">
-					<a href="#"><span class="first-slide visual02"></span></a>
+					<a href="/studyIntro.do"><span class="first-slide visual02"></span></a>
 				</div>
 
 				<div class="item">
-					<a href="#"><span class="first-slide visual03"></span></a>
+					<a href="/studyIntro.do"><span class="first-slide visual03"></span></a>
 				</div>
 			</div>
 

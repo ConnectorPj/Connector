@@ -62,7 +62,7 @@ section .main_visual .visual03 {
 	width: 100%;
 	display: block;
 	height: 700px;
-	background: url(../images/main7.png) no-repeat center center;
+	background: url(../images/cover2.png) no-repeat center center;
 	background-size: cover;
 }
 

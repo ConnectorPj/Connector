@@ -42,7 +42,7 @@ html,body {
 	margin-top: 7%;
 	text-align: left;
 	display: flex;
-	background-image: url("/resources/images/leader.jpg");
+	background-image: url("/resources/images/leaderIntro.jpg");
 	color: #ffffff;
 }
 
@@ -58,9 +58,9 @@ html,body {
 	font-size: 2em;
 }
 
-.introSection img {
-	width: auto;
-}
+/* .introSection img { */
+/* 	width: auto; */
+/* } */
 
 .section1 {
 	width: 100%;
@@ -110,7 +110,7 @@ html,body {
 	flex: 1;
 }
 
-.section2 .section2_sub2 img {
+.section2 .section2_sub1 img {
 	width: 100%;
 }
 
