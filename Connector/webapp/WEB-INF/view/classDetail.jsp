@@ -62,10 +62,10 @@
 							str += '<div class="writerPhoto"><img src="' + rBean.customerPicture + '"></div>';
 							str += '<div class="reviewContentWrap">';
 							str += '<div class="writerName">'
-								+ rBean.customerName
-								+ '<span class="writtenAt">'
-								+ rBean.reviewRegdate
-								+ '</span></div>';
+									+ rBean.customerName
+									+ '<span class="writtenAt">'
+									+ rBean.reviewRegdate
+									+ '</span></div>';
 							str += '<ul class="score">';
 
 							for (var j = 1; j <= 5; j++) {
@@ -80,18 +80,18 @@
 
 							str += '</ul>';
 							str += '<div class="reviewContent"><span class="reviewLevel">'
-								+ rBean.studyProgramlanguage
-								+ '</span>';
+									+ rBean.studyProgramlanguage
+									+ '</span>';
 							str += '<span>'
-								+ rBean.reviewContent
-								+ '</span></div>';
+									+ rBean.reviewContent
+									+ '</span></div>';
 							str += '</div>';
 							str += '</li>';
 							str += '</ul>';
 							str += '<hr>';
 
 							$("#realReviewInfo")
-								.append(str);
+									.append(str);
 						});
 
 					//더 보기 버튼에 대한 처리
@@ -113,7 +113,7 @@
 			error : function(xhr, status, error) {
 				console.log(xhr);
 				alert("error\nxhr : " + xhr + ", status : " + status
-					+ ", error : " + error);
+						+ ", error : " + error);
 			}
 		});
 
@@ -131,11 +131,12 @@
 				if (data.result == "ok") {
 					//리뷰 리스트 출력
 					var bBean = data.bBean;
-					if(bBean == "null"){
-					}else{
+					if (bBean == "null") {
+					} else {
 						$("#booking").text("찜취소");
-						$("#booking").css("background-color",
-							"#2c3d46");
+						$("#booking").css("background-color", "#2c3d46");
+						$("#booking").css("color", "white");
+
 						cond = 2;
 						return;
 					}
@@ -147,12 +148,11 @@
 			error : function(xhr, status, error) {
 				console.log(xhr);
 				alert("error\nxhr : " + xhr + ", status : " + status
-					+ ", error : " + error);
+						+ ", error : " + error);
 			}
 		});
-		
-	});
 
+	});
 
 	//다음 리뷰 리스트를 표시한다.
 	function showNextReviewList() {
@@ -197,10 +197,10 @@
 							str += '<div class="writerPhoto"><img src="' + rBean.customerPicture + '"></div>';
 							str += '<div class="reviewContentWrap">';
 							str += '<div class="writerName">'
-								+ rBean.customerName
-								+ '<span class="writtenAt">'
-								+ rBean.reviewRegdate
-								+ '</span></div>';
+									+ rBean.customerName
+									+ '<span class="writtenAt">'
+									+ rBean.reviewRegdate
+									+ '</span></div>';
 							str += '<ul class="score">';
 
 							for (var j = 1; j <= 5; j++) {
@@ -215,18 +215,18 @@
 
 							str += '</ul>';
 							str += '<div class="reviewContent"><span class="reviewLevel">'
-								+ rBean.studyProgramlanguage
-								+ '</span>';
+									+ rBean.studyProgramlanguage
+									+ '</span>';
 							str += '<span>'
-								+ rBean.reviewContent
-								+ '</span></div>';
+									+ rBean.reviewContent
+									+ '</span></div>';
 							str += '</div>';
 							str += '</li>';
 							str += '</ul>';
 							str += '<hr>';
 
 							$("#realReviewInfo")
-								.append(str);
+									.append(str);
 						});
 
 					//더보기 버튼에 대한 처리
@@ -250,11 +250,10 @@
 				isReviewLoading = false;
 				console.log(xhr);
 				alert("error\nxhr : " + xhr + ", status : " + status
-					+ ", error : " + error);
+						+ ", error : " + error);
 			}
 		});
-	}
-	;
+	};
 </script>
 </head>
 <body>
@@ -265,7 +264,8 @@
 	<div id="mobileButton">
 		<button id="actionBtnMobile" class="actionBtnMobile">참여 신청하기
 		</button>
-		<button id="bookingMobile" class="bookingMobile">찜하기</button>
+		<button id="bookingMobile" class="bookingMobile"
+			style="background: lightgrey;">찜하기</button>
 	</div>
 	<div id="classWrap">
 		<div id="class">
@@ -285,7 +285,8 @@
 			<div id="studyintro">
 				<div id="studyTitle" class="studyTitle">스터디 소개</div>
 				<div id="StudyContent" class="StudyContent">
-					<pre>${ClassBean.studyInfo}</pre></div>
+					<pre>${ClassBean.studyInfo}</pre>
+				</div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
@@ -293,7 +294,8 @@
 			<div id="studyRefer">
 				<div id="studyTitle" class="studyTitle">참고 사항</div>
 				<div id="StudyContent" class="StudyContent">
-					<pre>${ClassBean.studyReference}</pre></div>
+					<pre>${ClassBean.studyReference}</pre>
+				</div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
@@ -307,8 +309,7 @@
 							<td class="fee">가격 : ${ClassBean.studyPrice}</td>
 						</tr>
 						<tr>
-							<td id="schedule" class="schedule">일정 :
-								${diff}주</td>
+							<td id="schedule" class="schedule">일정 : ${diff}주</td>
 							<td id="time" class="time">시간 : ${ClassBean.studyStartTime}
 								~ ${ClassBean.studyEndTime}</td>
 						</tr>
@@ -323,42 +324,42 @@
 
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-							center : new daum.maps.LatLng($("#Alt").val(),
+					mapOption = {
+						center : new daum.maps.LatLng($("#Alt").val(),
 								$("#Att").val()), // 지도의 중심좌표
-							level : 3
-						// 지도의 확대 레벨
-						};
-				
+						level : 3
+					// 지도의 확대 레벨
+					};
+
 					var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				
+
 					// 마커를 표시할 위치입니다 
 					var position = new daum.maps.LatLng($("#Alt").val(), $(
-						"#Att").val());
-				
+							"#Att").val());
+
 					// 마커를 생성합니다
 					var marker = new daum.maps.Marker({
 						position : position
 					});
-				
+
 					// 마커를 지도에 표시합니다.
 					marker.setMap(map);
-				
+
 					// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
 					var iwContent = '<div style="padding:5px;">스터디 위치 입니다.</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				
+
 					// 인포윈도우를 생성합니다
 					var infowindow = new daum.maps.InfoWindow({
 						content : iwContent
 					});
-				
+
 					// 마커에 마우스오버 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseover',
-						function() {
-							// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-							infowindow.open(map, marker);
-						});
-				
+							function() {
+								// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+								infowindow.open(map, marker);
+							});
+
 					// 마커에 마우스아웃 이벤트를 등록합니다
 					daum.maps.event.addListener(marker, 'mouseout', function() {
 						// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -378,7 +379,8 @@
 					리더 소개 <img class="profile" src="${tPhotoBean.photoFileName}">
 				</div>
 				<div id="leaderContent" class="leaderContent">
-					<pre>${ClassBean.studyInfo} </pre></div>
+					<pre>${ClassBean.studyInfo} </pre>
+				</div>
 			</div>
 			<br>
 			<hr />
@@ -404,8 +406,8 @@
 				${ClassBean.studyName} </label>
 			<div class="sideWrap">
 				<ul class="sideSchedule">
-					<li class="sideSchedulWrap"><div class="sideSchedulChoice"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						<span id="choiceText" class="choiceText">${diff}주</span></div>
+					<li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						<span id="choiceText" class="choiceText">${diff}주</span> </label>
 						<div class="titleLevel">
 							<div class="levelText1">분야명</div>
 							<div id="levelText" class="levelText2">
@@ -418,36 +420,29 @@
 				</div>
 			</div>
 			<button id="actionBtn" class="actionBtn">참여 신청하기</button>
-			<button id="booking" class="booking">찜하기</button>
+			<button id="booking" class="booking" style="background: lightgrey;">찜하기</button>
 
 			<script type="text/javascript">
 				var cond = 1;
-			
+
 				function joinFunc() {
 					if (confirm("참가 신청 하시겠습니까?")) {
-			
+
 						if ($("#loginId").val() != "") {
-			
-							location.href = "application.do?studyId="
-							+ $("#studyId").val();
-			
+							location.href = "application.do?studyId=" + $("#studyId").val();
 						} else {
-			
-							location.href = "login.do?studyId="
-							+ $("#studyId").val();
-			
+							location.href = "login.do?studyId=" + $("#studyId").val();
 						}
-			
 					}
 				}
-			
+
 				$("#actionBtn").click(function() {
 					joinFunc();
 				});
 				$("#actionBtnMobile").click(function() {
 					joinFunc();
 				});
-			
+
 				function book() {
 					if (cond == 1) {
 						$.ajax({
@@ -461,22 +456,22 @@
 							success : function(data) {
 								if (data.result == "ok") {
 									$("#booking").text("찜취소");
-									$("#booking").css("background-color",
-										"#2c3d46");
+									$("#booking").css("background-color", "#2c3d46");
+									$("#booking").css("color", "white");
 									cond = 2;
 									return;
 								} else {
 									alert("찜 목록에 실패 하였습니다.");
 								}
-			
+
 							},
 							error : function(xhr, status, error) {
 								console.log(xhr);
 								alert("error\nxhr : " + xhr + ", status : "
-									+ status + ", error : " + error);
+										+ status + ", error : " + error);
 							}
 						});
-			
+
 					} else {
 						$.ajax({
 							type : "post",
@@ -490,7 +485,8 @@
 								if (data.result == "ok") {
 									$("#booking").text("찜하기");
 									$("#booking").css("background-color",
-										"white");
+											"lightgrey");
+									$("#booking").css("color", "#2c3d46");
 									cond = 1;
 									return;
 								} else {
@@ -500,13 +496,12 @@
 							error : function(xhr, status, error) {
 								console.log(xhr);
 								alert("error\nxhr : " + xhr + ", status : "
-									+ status + ", error : " + error);
+										+ status + ", error : " + error);
 							}
 						});
 					}
-			
 				}
-			
+
 				$("#booking").click(function() {
 					book();
 				});
