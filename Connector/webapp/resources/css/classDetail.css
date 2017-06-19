@@ -41,6 +41,14 @@
 	margin: 0;
 }
 
+.sideSchedulWrap {
+	display: flex;
+}
+
+.sideSchedulChoice {
+	flex: 1;
+}
+
 .choiceBtn {
 	display: none;
 	outline: 0;
@@ -97,7 +105,7 @@
 	text-align: center;
 	background: #2c3d46;
 	line-height: normal;
-	float: right;
+	flex: 1;
 }
 
 .levelText1 {
