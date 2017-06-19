@@ -3,6 +3,7 @@
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -397,6 +398,11 @@ public class CustomerController {
 	public String registerstudy() {
 		return "registerStudy";
 	}
+	
+	 public static String toNumFormat(int num) {
+		  DecimalFormat df = new DecimalFormat("#,###");
+		  return df.format(num);
+	}
 
 	@RequestMapping("/registerstudyProc")
 	public String registerstudyProc(ClassBean ClassBean, @RequestParam("file1") MultipartFile file1) {
@@ -404,7 +410,10 @@ public class CustomerController {
 		ClassBean.setStudyCheck("0");
 		ClassBean.setStudyId(ClassBean.getTeacherId() + "-" + System.nanoTime());
 		classDao.insertClass(ClassBean);
-
+		
+		ClassBean.setStudyPrice(toNumFormat( Integer.parseInt(ClassBean.getStudyPrice())) );
+		
+		
 		// 파일 이미지 처리
 		if (!file1.getOriginalFilename().equals("")) {
 			try {

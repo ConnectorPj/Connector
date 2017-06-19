@@ -285,7 +285,7 @@
 			<div id="studyintro">
 				<div id="studyTitle" class="studyTitle">스터디 소개</div>
 				<div id="StudyContent" class="StudyContent">
-					${ClassBean.studyInfo}</div>
+					<pre>${ClassBean.studyInfo}</pre></div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
@@ -293,7 +293,7 @@
 			<div id="studyRefer">
 				<div id="studyTitle" class="studyTitle">참고 사항</div>
 				<div id="StudyContent" class="StudyContent">
-					${ClassBean.studyReference}</div>
+					<pre>${ClassBean.studyReference}</pre></div>
 				<hr />
 			</div>
 			<!-- end of studyintro -->
@@ -306,10 +306,9 @@
 							<td id="num" class="num">인원 : ${ClassBean.studyAmount}</td>
 							<td class="fee">가격 : ${ClassBean.studyPrice}</td>
 						</tr>
-
 						<tr>
 							<td id="schedule" class="schedule">일정 :
-								${ClassBean.studyStartDate} ~ ${ClassBean.studyEndDate}</td>
+								${diff}주</td>
 							<td id="time" class="time">시간 : ${ClassBean.studyStartTime}
 								~ ${ClassBean.studyEndTime}</td>
 						</tr>
@@ -379,7 +378,7 @@
 					리더 소개 <img class="profile" src="${tPhotoBean.photoFileName}">
 				</div>
 				<div id="leaderContent" class="leaderContent">
-					${ClassBean.studyInfo}</div>
+					<pre>${ClassBean.studyInfo} </pre></div>
 			</div>
 			<br>
 			<hr />
