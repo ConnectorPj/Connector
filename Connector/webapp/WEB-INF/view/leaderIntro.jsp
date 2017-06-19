@@ -246,7 +246,7 @@
 
 				<div class="sec-leader">
 					<div class="sec-leader-img1">
-						<img src="/resources/images/leader4.png" alt="service04" />
+						<img src="/resources/images/leader4.jpg" />
 					</div>
 					<div class="sec-leader-img2">
 						<h3 style="text-align: center">리더와 함께하는 코:넥터</h3>
@@ -271,7 +271,7 @@
 						<button class="btn_study3" id="btn3">APPLY NOW</button>
 					</div>
 					<div class="sec-leader2-img2">
-						<img src="/resources/images/leader5.png" alt="sercive05" />
+						<img src="/resources/images/leader6.jpg" alt="sercive05" />
 					</div>
 				</div>
 			</div>
