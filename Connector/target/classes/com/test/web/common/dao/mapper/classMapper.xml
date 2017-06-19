@@ -39,6 +39,8 @@
 		<include refid="classColumns" />
 		FROM
 		study
+		WHERE
+		study_check="1"
 		order by study_regdate DESC;
 	</select>
 

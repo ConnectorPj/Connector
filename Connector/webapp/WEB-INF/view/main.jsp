@@ -104,7 +104,7 @@
 			<div class="pick_box">
 
 				<!--  클래스 시간 별로 8개를 출력한다. -->
-			<c:forEach var="classBean" items="${mainPhoto}" varStatus="status" begin="0" end="8">
+			<c:forEach var="classBean" items="${mainPhoto}" varStatus="status" begin="0" end="7">
 					
 					<div class="card hovercard"
 						OnClick="location.href='/detail.do?studyId=${classBean.studyId}'">
