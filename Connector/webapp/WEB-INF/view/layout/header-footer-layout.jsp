@@ -105,6 +105,23 @@ span.buttonText {
 }
 </style>
 
+ <!-- 채팅 부분을 공통헤더-푸터에 장착. main -> 웹소켓 부분 주석 -->
+  <!-- tawk.to 06.20 정홍의 --> 
+        <!--Start of Tawk.to Script-->
+            <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/5949086e50fd5105d0c81ebc/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+            </script>
+    <!--End of Tawk.to Script-->
+
+
 
 <!-- 2017. 05. 22 작성자 : 정홍의 -->
 <!-- 구글 로그인 필수 js파일 -->

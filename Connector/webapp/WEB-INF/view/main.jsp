@@ -150,9 +150,10 @@
 				placeholder="궁금한게 있나요? 언제든지 물어봐 주세요.[Enter]">
 			<!-- 				<span class="chatAfter_span"> 채팅을 시작해 보세요!</span> -->
 		</div>
-
+		
+		<!-- 06.20 cafe24.com 에서 포트를 막았기 때문기 tawk.to로 교체 -->
 		<!-- CHATTING -->
-		<div class="chatBefore" id="chatBefore">
+		<!-- <div class="chatBefore" id="chatBefore">
 			<span class="chatText"> &nbsp;&nbsp;채팅을 시작해 보세요!&nbsp;&nbsp;</span>
 		</div>
 
@@ -232,7 +233,7 @@
 				document.getElementById("chatBefore").style.visibility = "visible";
 				document.getElementById("loginAfter").style.visibility = "hidden";
 			}
-		</script>
+		</script> -->
 	</section>
 </body>
 </html>
