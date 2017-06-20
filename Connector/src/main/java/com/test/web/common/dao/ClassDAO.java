@@ -31,11 +31,26 @@ public interface ClassDAO {
 	public List<ClassBean> selectClassListAllunChecked(@Param("classBean") ClassBean bean,
 			@Param("pagingBean") PagingBean pBean) throws Exception;
 
+/** 회원정보 전체 리스트를 가져온다.(check=1) classList에서 사용 **/
+	public List<ClassBean> selectClassListAll2(@Param("classBean") ClassBean bean, @Param("pagingBean") PagingBean pBean)
+			throws Exception;
+
+	/** 회원정보 전체 리스트를 가져온다.(check=0) classList에서 사용 **/
+	public List<ClassBean> selectClassListAllunChecked2(@Param("classBean") ClassBean bean,
+			@Param("pagingBean") PagingBean pBean) throws Exception;
+
+
 	/** 회원정보 전체 리스트 갯수를 가져온다.(check=1) **/
 	public int selectClassListTotalCount();
 
 	/** 회원정보 전체 리스트 갯수를 가져온다.(check=0) **/
 	public int selectClassUnCheckedListTotalCount();
+
+/** 회원정보 전체 리스트 갯수를 가져온다.(check=1)classList에서 사용 **/
+	public int selectClassListTotalCount2(@Param("classBean") ClassBean bean);
+
+	/** 회원정보 전체 리스트 갯수를 가져온다.(check=0)classList에서 사용 **/
+	public int selectClassUnCheckedListTotalCount2(@Param("classBean") ClassBean bean);
 
 	public List<ClassBean> selectConClassList(ClassBean bean);
 

@@ -284,13 +284,13 @@ public class DetailController {
 
 		try {
 			// 전체 회원 리스트 갯수 조회
-			int totRecord = classDao.selectClassListTotalCount();
+			int totRecord = classDao.selectClassListTotalCount2(bean);
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
 
 			// bean.setStudyCheck("1");
 
-			List<ClassBean> list = classDao.selectClassListAll(bean, pagingBean);
+			List<ClassBean> list = classDao.selectClassListAll2(bean, pagingBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
@@ -318,11 +318,11 @@ public class DetailController {
 			// bean.setStudyCheck("0");
 
 			// 전체 회원 리스트 갯수 조회
-			int totRecord = classDao.selectClassUnCheckedListTotalCount();
+			int totRecord = classDao.selectClassUnCheckedListTotalCount2(bean);
 			// 페이징 계산
 			pagingBean.calcPage(totRecord);
 
-			List<ClassBean> list = classDao.selectClassListAllunChecked(bean, pagingBean);
+			List<ClassBean> list = classDao.selectClassListAllunChecked2(bean, pagingBean);
 
 			resMap.put("classBean", bean);
 			resMap.put("ClassList", list);
