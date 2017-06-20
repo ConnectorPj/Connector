@@ -153,6 +153,22 @@
 		});
 
 	});
+	
+	//윈도우 스크롤의 마지막을 감지하는 이벤트
+	$(window).scroll(function() { 
+		var scrollTop = $(window).scrollTop();
+		var docHeight = $(document).height();
+		var winHeight = $(window).height();
+		
+		printLog("scrollTop: " + scrollTop 
+				+ ", docHeight: " + docHeight
+				+ ", winHeight: " + winHeight);
+		
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 20)
+		{ 
+			showNextReviewList(currentProgressname);
+		}
+	});
 
 	//다음 리뷰 리스트를 표시한다.
 	function showNextReviewList() {
