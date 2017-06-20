@@ -74,7 +74,7 @@
 									+ classBean.studyName
 									+ "</td>";
 							str += "<td>"
-									+ classBean.studyLanguage
+									+ classBean.studyProgramLanguage
 									+ "</td>";
 							str += "<td>"
 									+ classBean.teacherName

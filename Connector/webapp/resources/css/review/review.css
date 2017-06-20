@@ -10,6 +10,11 @@ body {
 	margin-left: 20px;
 }
 
+.detailList {
+	list-style: none;
+	margin-left: 20px;
+}
+
 .review {
 	display: flex;
 }
