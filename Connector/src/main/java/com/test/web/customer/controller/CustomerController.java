@@ -163,7 +163,7 @@ public class CustomerController {
 		return "login";
 	}
 
-	/** 회원로그인 처리 */
+	/** 회원로그인 처리(구글) */
 	@RequestMapping("/loginByGoogle")
 	@ResponseBody
 	public Map<String, Object> loginByGoogle(CustomerBean bean, HttpServletRequest req) {
@@ -192,6 +192,38 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 
+		return resMap;
+	}
+	
+	/** 회원로그인 처리(네이버) */
+	@RequestMapping("/loginByNaver")
+	@ResponseBody
+	public Map<String, Object> loginByNaver(CustomerBean bean, HttpServletRequest req) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		// 로그인 실패
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put("mBean", bean);
+		
+		try{
+			customerService.insertCustomer(bean);
+		}catch(Exception e){
+			System.out.println("이미 회원가입이 되어 있음 !");
+		}
+		
+		try {
+			CustomerBean customerBean = customerService.selectCustomer(bean);
+			if (customerBean != null && customerBean.getCustomerId().equals(bean.getCustomerId())) {
+				// 로그인 성공 - 세션에 저장
+				req.getSession().setAttribute(Constants.MEMBER_LOGIN_BEAN, customerBean);
+				resMap.put(Constants.RESULT, Constants.RESULT_OK);
+				req.getSession().setAttribute(Constants.RESULT_CODE, "C");
+				return resMap;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return resMap;
 	}
 

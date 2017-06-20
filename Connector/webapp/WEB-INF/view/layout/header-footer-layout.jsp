@@ -686,6 +686,7 @@ span.buttonText {
 						naver_id_login.setButton("white", 2, 40);
 						naver_id_login.setDomain("http://jhu1993.cafe24.com/main.do");
 						naver_id_login.setState(state);
+						// 네이버 로그인을 팝업창으로 띄움.
 						naver_id_login.setPopup();
 						naver_id_login.init_naver_id_login();
 					</script>
