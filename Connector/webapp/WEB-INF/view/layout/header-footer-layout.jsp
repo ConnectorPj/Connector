@@ -506,7 +506,7 @@ span.buttonText {
 
 
 	<!-- 공통 헤더 부분 시작.  -->
-	<header style="height: 71px;">
+	<header>
 		<div class="head">
 			<h1 class="logo">
 				<a href="/main.do"><img src="/resources/images/logowork4.png"
