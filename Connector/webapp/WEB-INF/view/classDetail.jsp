@@ -30,6 +30,7 @@
 	var isReviewLoading = false;
 	var currentProgressname = "";
 	var isReviewLoadingFirst = true;
+	var isScrollLoading = true;
 
 	$(function() {
 		$.ajax({
@@ -164,9 +165,10 @@
 				+ ", docHeight: " + docHeight
 				+ ", winHeight: " + winHeight);
 		
-		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 20)
+		if (($(window).scrollTop() >= $(document).height() - $(window).height() - 20) && isScrollLoading)
 		{ 
-			showNextReviewList(currentProgressname);
+			showNextReviewList();
+			isScrollLoading = false;
 		}
 	});
 
@@ -261,6 +263,7 @@
 				}
 
 				isReviewLoading = false;
+				isScrollLoading = true;
 			},
 			error : function(xhr, status, error) {
 				isReviewLoading = false;

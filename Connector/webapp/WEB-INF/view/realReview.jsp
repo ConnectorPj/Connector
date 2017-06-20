@@ -29,6 +29,7 @@ var reviewStartRow = 0;
 var isReviewLoading = false;
 var currentProgressname = "";
 var isReviewLoadingFirst = true;
+var isScrollLoading = true;
 
 $(function() {
 	
@@ -143,9 +144,10 @@ $(function() {
 				+ ", docHeight: " + docHeight
 				+ ", winHeight: " + winHeight);
 		
-		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 20)
+		if (($(window).scrollTop() >= $(document).height() - $(window).height() - 20) && isScrollLoading)
 		{ 
-			showNextReviewList(currentProgressname);
+			showNextReviewList();
+			isScrollLoading = false;
 		}
 	});
 });
@@ -340,6 +342,7 @@ function showNextReviewList() {
 			}
 			
 			isReviewLoading = false;
+			isScrollLoading = true;
 		},
 		error: function(xhr, status, error) {
 			isReviewLoading = false;
