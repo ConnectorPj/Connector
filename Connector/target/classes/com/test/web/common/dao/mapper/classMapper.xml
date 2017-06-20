@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.web.common.dao.ClassDAO">
@@ -71,6 +71,55 @@
 		#{pagingBean.startRow},
 		#{pagingBean.endRow}
 	</select>
+<!-- Class List(check=1) 조회(Classlist.do에서 사용) -->
+	<select id="selectClassListAll2" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		teacher_id = #{classBean.teacherId} and
+		study_check="1"
+		order by study_regdate DESC
+		LIMIT
+		#{pagingBean.startRow},
+		#{pagingBean.endRow}
+	</select>
+
+	<!-- Class List(check=0) 조회(Classlist.do에서 사용) -->
+	<select id="selectClassListAllunChecked2" resultType="classBean">
+		SELECT
+		<include refid="classColumns" />
+		FROM
+		study
+		WHERE
+		teacher_id = #{classBean.teacherId} and
+		study_check="0"
+		order by study_regdate DESC
+		LIMIT
+		#{pagingBean.startRow},
+		#{pagingBean.endRow}
+	</select>
+
+<!-- 회원정보 리스트 전체 갯수 조회 (등록된 리스트) -->
+	<select id="selectClassListTotalCount2" resultType="int"
+		parameterType="pagingBean">
+		SELECT COUNT(*)
+		FROM study
+		WHERE
+		teacher_id = #{classBean.teacherId} and
+		study_check="1"
+	</select>
+
+	<!-- 회원정보 리스트 전체 갯수 조회 (대기중인 리스트) -->
+	<select id="selectClassUnCheckedListTotalCount2" resultType="int"
+		parameterType="pagingBean">
+		SELECT COUNT(*)
+		FROM study
+		WHERE
+		teacher_id = #{classBean.teacherId} and
+		study_check="0"
+	</select>
 
 	<!-- 카테 고리상 조회 -->
 	<select id="selectConClassList" resultType="classBean"
@@ -80,6 +129,8 @@
 		FROM
 		study
 		WHERE
+		study_check="1"
+		AND
 		study_progressName = #{studyProgressName}
 		order by
 		study_regdate DESC;

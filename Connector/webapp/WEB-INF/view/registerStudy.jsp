@@ -148,15 +148,15 @@
 
 			<div id="css_tabs">
 				<!-- 라디오 버튼 -->
-				<input id="tab1" type="radio" name="studyProgressName" value="WEB"
+				<input id="tab1" type="radio" name="studyProgressName" value="웹개발"
 					checked /> <input id="tab2" type="radio" name="studyProgressName"
-					value="SYSTEM" /> <input id="tab3" type="radio"
-					name="studyProgressName" value="MOBILE" /> <input id="tab4"
-					type="radio" name="studyProgressName" value="IOT" />
+					value="시스템개발" /> <input id="tab3" type="radio"
+					name="studyProgressName" value="모바일개발" /> <input id="tab4"
+					type="radio" name="studyProgressName" value="IoT" />
 				<!-- 라벨 : 화면에 표시되는 탭 제목 -->
-				<label for="tab1" id="categoryLabel">WEB</label> <label for="tab2"
-					id="categoryLabel">SYSTEM</label> <label for="tab3"
-					id="categoryLabel">MOBILE</label> <label for="tab4"
+				<label for="tab1" id="categoryLabel">웹개발</label> <label for="tab2"
+					id="categoryLabel">시스템개발</label> <label for="tab3"
+					id="categoryLabel">모바일개발</label> <label for="tab4"
 					id="categoryLabel">IoT</label>
 
 				<!-- 탭 내용 : 탭 제목을 선택했을 때 표시되는 본문 -->

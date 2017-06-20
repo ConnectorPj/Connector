@@ -130,10 +130,10 @@ public class SearchController {
 		// str = 4 , iot
 
 		if ( cBean.getStudyProgressName().equals("0")){ cBean.setStudyProgressName("0");}
-		if ( cBean.getStudyProgressName().equals("1")){ cBean.setStudyProgressName("WEB");}
-		if ( cBean.getStudyProgressName().equals("2")){ cBean.setStudyProgressName("MOBILE");}
-		if ( cBean.getStudyProgressName().equals("3")){ cBean.setStudyProgressName("SYSTEM");}
-		if ( cBean.getStudyProgressName().equals("4")){ cBean.setStudyProgressName("IOT");}
+		if ( cBean.getStudyProgressName().equals("1")){ cBean.setStudyProgressName("웹개발");}
+		if ( cBean.getStudyProgressName().equals("2")){ cBean.setStudyProgressName("모바일개발");}
+		if ( cBean.getStudyProgressName().equals("3")){ cBean.setStudyProgressName("시스템개발");}
+		if ( cBean.getStudyProgressName().equals("4")){ cBean.setStudyProgressName("IoT");}
 
 		if(cBean.getStudyProgressName().equals("0") ){
 			try {
