@@ -80,6 +80,8 @@
 		FROM
 		study
 		WHERE
+		study_check="1"
+		AND
 		study_progressName = #{studyProgressName}
 		order by
 		study_regdate DESC;
