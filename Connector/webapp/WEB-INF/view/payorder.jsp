@@ -56,11 +56,11 @@
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -74,10 +74,10 @@
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'>>> </a></li>";
 					str2 += "</ul>";
 
 					$("#page").html(str2);
@@ -128,11 +128,11 @@
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
-					str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+					str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
 					if (pBean.groupNo > 1) {
 						str2 += "<li><a href='#' onclick='paging2(this);' id='"
 								+ (pBean.pageStartNo - 1)
-								+ "'> 이전 </a></li>";
+								+ "'> < </a></li>";
 					}
 					for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 						if (pBean.pageNo != i) {
@@ -146,10 +146,10 @@
 					if (pBean.groupNo < pBean.totalGroupCount) {
 						str2 += "<li><a href='#' onclick='paging2(this);' id='"
 								+ (pBean.pageEndNo + 1)
-								+ "'> 다음 </a></li>";
+								+ "'> > </a></li>";
 					}
 					str2 += "<li><a href='#' onclick='paging2(this);' id='"
-							+ pBean.totalPageCount + "'> 끝 </a></li>";
+							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
 					$("#page2").html(str2);
@@ -203,7 +203,7 @@
 
 			},
 			error : function() {
-				alert("리뷰 작성에 성공하였습니다");
+				alert("리뷰 작성 성공");
 			}
 		});
 
@@ -253,11 +253,11 @@
 
 							var pBean = data.pBean;
 							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging(this);' id='1'>처음 </a></li>";
+							str2 += "<li><a href='#' onclick='paging(this);' id='1'><< </a></li>";
 							if (pBean.groupNo > 1) {
 								str2 += "<li><a href='#' onclick='paging(this);' id='"
 										+ (pBean.pageStartNo - 1)
-										+ "'> 이전 </a></li>";
+										+ "'> < </a></li>";
 							}
 							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 								if (pBean.pageNo != i) {
@@ -271,10 +271,10 @@
 							if (pBean.groupNo < pBean.totalGroupCount) {
 								str2 += "<li><a href='#' onclick='paging(this);' id='"
 										+ (pBean.pageEndNo + 1)
-										+ "'> 다음 </a></li>";
+										+ "'> > </a></li>";
 							}
 							str2 += "<li><a href='#' onclick='paging(this);' id='"
-									+ pBean.totalPageCount + "'> 끝 </a></li>";
+									+ pBean.totalPageCount + "'> >> </a></li>";
 							str2 += "</ul>";
 
 							$("#page").html(str2);
@@ -329,11 +329,11 @@
 
 							var pBean = data.pBean;
 							str2 += "<ul>";
-							str2 += "<li><a href='#' onclick='paging2(this);' id='1'>처음 </a></li>";
+							str2 += "<li><a href='#' onclick='paging2(this);' id='1'><< </a></li>";
 							if (pBean.groupNo > 1) {
 								str2 += "<li><a href='#' onclick='paging2(this);' id='"
 										+ (pBean.pageStartNo - 1)
-										+ "'> 이전 </a></li>";
+										+ "'> < </a></li>";
 							}
 							for (var i = pBean.pageStartNo; i <= pBean.pageEndNo; i++) {
 								if (pBean.pageNo != i) {
@@ -347,10 +347,10 @@
 							if (pBean.groupNo < pBean.totalGroupCount) {
 								str2 += "<li><a href='#' onclick='paging2(this);' id='"
 										+ (pBean.pageEndNo + 1)
-										+ "'> 다음 </a></li>";
+										+ "'> > </a></li>";
 							}
 							str2 += "<li><a href='#' onclick='paging2(this);' id='"
-									+ pBean.totalPageCount + "'> 끝 </a></li>";
+									+ pBean.totalPageCount + "'> >> </a></li>";
 							str2 += "</ul>";
 
 							$("#page2").html(str2);

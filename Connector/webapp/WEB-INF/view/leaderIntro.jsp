@@ -334,7 +334,7 @@
 
 				</form>
 				<h6 style="text-align: center;">
-					<small>더코세의 이용약관과 개인정보 보호정책에 동의합니다.&nbsp;&nbsp;&nbsp;<input
+					<small>코:넥터의 이용약관과 개인정보 보호정책에 동의합니다.&nbsp;&nbsp;&nbsp;<input
 						type="radio" name="cho" id="agreeJSP2" value="1" /></small>
 				</h6>
 

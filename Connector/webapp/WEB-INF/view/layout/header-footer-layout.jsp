@@ -721,7 +721,7 @@ span.buttonText {
 							<button type="button" class="button button-orange"
 								onclick="insertCustomer();return false;">가입완료</button>
 							<h6>
-								이미 더카니의 코딩세상의 회원이십니까&nbsp;&nbsp; <a
+								이미 코:넥터의 회원이십니까&nbsp;&nbsp; <a
 									onclick="closeJoinModal(); openLoginModal();">로그인</a>
 							</h6>
 						</form>
