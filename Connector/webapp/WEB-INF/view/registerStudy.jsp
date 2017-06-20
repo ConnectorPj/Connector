@@ -116,7 +116,7 @@
 		if ($("#result").val() == "") {
 			alert("스터디 장소를 선택해 주세요.");
 			return;
-		}
+		} 
 
 		insertClass();
 	}
@@ -148,10 +148,10 @@
 
 			<div id="css_tabs">
 				<!-- 라디오 버튼 -->
-				<input id="tab1" type="radio" name="studyProgressName" value="웹개발"
+				<input id="tab1" type="radio" name="studyProgressName" value="WEB"
 					checked /> <input id="tab2" type="radio" name="studyProgressName"
-					value="시스템개발" /> <input id="tab3" type="radio"
-					name="studyProgressName" value="모바일개발" /> <input id="tab4"
+					value="SYSTEM" /> <input id="tab3" type="radio"
+					name="studyProgressName" value="MOBILE" /> <input id="tab4"
 					type="radio" name="studyProgressName" value="IOT" />
 				<!-- 라벨 : 화면에 표시되는 탭 제목 -->
 				<label for="tab1" id="categoryLabel">WEB</label> <label for="tab2"
