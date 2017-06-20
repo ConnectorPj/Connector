@@ -189,10 +189,15 @@ public class MainController {
 		return "redirect:/adminTeacherList.do";
 	}
 
-	@RequestMapping("/errorpage")
-	public String error404() {
-		return "errorpage";
-	}
+	@RequestMapping(value = "/error404", method = RequestMethod.GET)
+	   public String error404(HttpServletResponse res, Model model) {
+	      
+	      res.setStatus(HttpServletResponse.SC_OK);
+	      
+	      model.addAttribute("contents","error/error404");
+	      return "/errorpage";
+
+	   }
 
 	@RequestMapping("/adminRegTeacher")
 	public String adminRegTeacher() {
