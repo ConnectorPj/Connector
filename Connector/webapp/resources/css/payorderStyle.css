@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+﻿@CHARSET "UTF-8";
 
 .sub_wrap {
 	width: 100%;
@@ -313,10 +313,8 @@
 }
 
 .profilePhoto img {
-	width: 30%;
-	height: 30%; 
-	border-radius : 50%;
-	margin-top: 3%;
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
 }
 
@@ -512,7 +510,10 @@ label:hover:before {
 	border: 0;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:370px) {
+	.profile_text {
+		display: none;
+	}
 	.page {
 		width: 100%;
 		text-align: center;
@@ -533,18 +534,230 @@ label:hover:before {
 	}
 	.subdiv {
 		text-align: center;
-		width: 74%;
-		margin: -6% 20%;
+		width: 80%;
+		margin: 1% 3%;
 	}
 	.profilePhoto img {
-		width: 30%;
+		width: 100px;
+		height: 100px;
 		border-radius: 50%;
-		margin-top: 3%;
+		margin: 8% 30%;
 	}
-	.profile_text {
+	.info_form {
+		border: 1px solid #ddd;
+		width: 100%;
+		height: 550px;
+		margin-left: 0;
+		margin-bottom: 30px;
+	}
+	.profile_title {
+		font-size: 16px;
+		padding-bottom: 10px;
+		margin-left: 0;
+	}
+	.profile_form {
+		border: 1px solid #ddd;
+		width: 100%;
+		height: 200px;
+		margin-left: 0;
+		margin-bottom: 30px;
+	}
+	.sub_title {
+		width: 100%;
+		float: none;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #ddd;
+		margin-right: 30%;
+	}
+	.sub_title .rout {
+		width: 30%;
+		float: left;
+		text-align: center;
+	}
+	.sub_nav {
+		width: 100%;
+		margin: 0;
+		min-height: 800px;
+	}
+	.sub_content {
+		width: 100%;
 		float: right;
-		margin: -16% -1% 0px 3%;
-		width: 70%;
+		margin-right: 0;
+		padding: 30px 10px;
+	}
+	.sub_menu {
+		display: none;
+	}
+	.sub_menu2 {
+		display: block;
+		padding: 0;
+	}
+	.sub_menu2 h3 {
+		font-size: 24px;
+		color: #454545;
+		font-weight: 600;
+		line-height: 1.60em;
+	}
+	.sub_menu2 ul {
+		list-style: none;
+		width: 100%;
+	}
+	.sub_menu2 ul li {
+		width: 100%;
+		border-bottom: 1px solid #ddd;
+	}
+	.sub_menu2 ul li a {
+		display: block;
+		line-height: 45px;
+		padding: 0 6%;
+	}
+	.sub_menu2 ul li a:hover {
+		background-color: #f2f2f2;
+		color: #666
+	}
+	.sub_menu2 ul li a.on {
+		background-color: #f2f2f2;
+		color: #666
+	}
+}
+
+@media screen and (min-width:370px) and (max-width:600px) {
+	.page {
+		width: 100%;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.page2 {
+		width: 100%;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.notice_table {
+		width: 100%;
+		margin-left: 10%;
+	}
+	.profilePhoto {
+		flex: 1;
+		margin: 0;
+	}
+	.subdiv {
+		text-align: center;
+		width: 65%;
+		margin: -6% 25%;
+	}
+	.profilePhoto img {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		margin: 3%;
+	}
+	.info_form {
+		border: 1px solid #ddd;
+		width: 100%;
+		height: 550px;
+		margin-left: 0;
+		margin-bottom: 30px;
+	}
+	.profile_title {
+		font-size: 16px;
+		padding-bottom: 10px;
+		margin-left: 0;
+	}
+	.profile_form {
+		border: 1px solid #ddd;
+		width: 100%;
+		height: 150px;
+		margin-left: 0;
+		margin-bottom: 30px;
+	}
+	.sub_title {
+		width: 100%;
+		float: none;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #ddd;
+		margin-right: 30%;
+	}
+	.sub_title .rout {
+		width: 30%;
+		float: left;
+		text-align: center;
+	}
+	.sub_nav {
+		width: 100%;
+		margin: 0;
+		min-height: 800px;
+	}
+	.sub_content {
+		width: 100%;
+		float: right;
+		margin-right: 0;
+		padding: 30px 10px;
+	}
+	.sub_menu {
+		display: none;
+	}
+	.sub_menu2 {
+		display: block;
+		padding: 0;
+	}
+	.sub_menu2 h3 {
+		font-size: 24px;
+		color: #454545;
+		font-weight: 600;
+		line-height: 1.60em;
+	}
+	.sub_menu2 ul {
+		list-style: none;
+		width: 100%;
+	}
+	.sub_menu2 ul li {
+		width: 100%;
+		border-bottom: 1px solid #ddd;
+	}
+	.sub_menu2 ul li a {
+		display: block;
+		line-height: 45px;
+		padding: 0 6%;
+	}
+	.sub_menu2 ul li a:hover {
+		background-color: #f2f2f2;
+		color: #666
+	}
+	.sub_menu2 ul li a.on {
+		background-color: #f2f2f2;
+		color: #666
+	}
+}
+
+@media screen and (min-width:600px) and (max-width:1250px) {
+	.page {
+		width: 100%;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.page2 {
+		width: 100%;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.notice_table {
+		width: 100%;
+		margin-left: 10%;
+	}
+	.profilePhoto {
+		flex: 1;
+		margin: 0;
+	}
+	.subdiv {
+		text-align: center;
+		width: 50%;
+		margin: -9% 27%;
+	}
+	.profilePhoto img {
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		margin: 3%;
 	}
 	.info_form {
 		border: 1px solid #ddd;
