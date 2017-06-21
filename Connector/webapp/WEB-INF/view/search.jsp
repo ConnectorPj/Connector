@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -473,7 +473,9 @@
 							contents.push(content);
 							leftContents.push(content1);
 						}
-
+						// 마커를 눌렀을 때 CustomLay를 한번만 호출하기 위한 boolean 값
+						var cont = false;
+						
 						function initiate() {
 							clusterer = new daum.maps.MarkerClusterer({
 								map : map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
@@ -487,7 +489,7 @@
 							$("#memberListBody").text("");
 
 							var mapBounds = map.getBounds();
-							var lb = new daum.maps.LatLngBounds(mapBounds
+							lb = new daum.maps.LatLngBounds(mapBounds
 									.getSouthWest(), mapBounds.getNorthEast());
 							for (var i = 0, len = positions.length; i < len; i++) {
 								//화면의 위치에 포함 되어 있다면
@@ -578,64 +580,36 @@
 
 							// 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
 							marker.normalImage = normalImage;
-							// 마커에 mouseover 이벤트를 등록합니다
-							daum.maps.event.addListener(marker, 'mouseover',
-									function() {
-
-										// 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
-										// 마커의 이미지를 오버 이미지로 변경합니다
-										if (!selectedMarker
-												|| selectedMarker !== marker) {
-											/* marker.setImage(overImage); */
-										}
-									});
-
-							// 마커에 mouseout 이벤트를 등록합니다
-							daum.maps.event.addListener(marker, 'mouseout',
-									function() {
-
-										// 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
-										// 마커의 이미지를 기본 이미지로 변경합니다
-										if (!selectedMarker
-												|| selectedMarker !== marker) {
-											/* marker.setImage(normalImage); */
-										}
-									});
-
+							
 							// 마커에 click 이벤트를 등록합니다
 							daum.maps.event.addListener(marker, 'click',
 									function() {
 
-										// 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-										// 마커의 이미지를 클릭 이미지로 변경합니다
-										if (!selectedMarker
-												|| selectedMarker !== marker) {
-
-											// 클릭된 마커 객체가 null이 아니면
-											// 클릭된 마커의 이미지를 기본 이미지로 변경하고
-											/* !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage); */
-										}
-
 										// 지도 중심을 부드럽게 이동시킵니다
 										// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+										
 										map.panTo(position);
+										if(cont == true){
+											if (overlay != null) {
+												overlay.setMap(null);
+											}
 
-										if (overlay != null) {
-											overlay.setMap(null);
+											// 마커 위에 커스텀오버레이를 표시합니다
+											// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+											overlay = new daum.maps.CustomOverlay({
+												content : showContents[i],
+												map : map,
+												position : position
+											});
+											//커스텀 모달 띄우기
+											overlay.setMap(map);
+
+											// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+											selectedMarker = marker;
+											cont = false;
+										}else{
+											cont = true;
 										}
-
-										// 마커 위에 커스텀오버레이를 표시합니다
-										// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-										overlay = new daum.maps.CustomOverlay({
-											content : showContents[i],
-											map : map,
-											position : position
-										});
-										//커스텀 모달 띄우기
-										overlay.setMap(map);
-
-										// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-										selectedMarker = marker;
 
 									});
 							// MakrerImage 객체를 생성하여 반환하는 함수입니다
@@ -683,14 +657,6 @@
 							Map_position = $("#Map_Position").val();
 							changePosition();
 						});
-						/* $("#Map_Position").keypress(function(e) {
-							 var key = e.which || e.keyCode;
-							    if (key === 13) { // 13 is enter
-							    	Map_position = $("#Map_Position").val();
-							    	alert("1");
-									changePosition();
-							    }
-						}); */
 
 					}); //end of ready function
 	function paging(click) {
