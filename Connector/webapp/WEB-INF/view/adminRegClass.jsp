@@ -200,7 +200,7 @@ function calcelClass(studyId) {
 
 			<div id="leaderintro">
 				<div id="leaderTitle" class="leaderTitle">
-					리더 소개 <img class="profile">
+					리더 소개 <img class="profile" src="${tPhotoBean.photoFileName}">
 				</div>
 				<div id="leaderContent" class="leaderContent">
 					<pre>${ClassBean.studyInfo}</pre></div>

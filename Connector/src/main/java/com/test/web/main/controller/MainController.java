@@ -47,25 +47,24 @@ public class MainController {
 	@RequestMapping("/main")
 	public String main(Model model) {
 		List<ClassBean> classList = classDao.selectClassList();
-		List<ClassBean> photoList =new ArrayList<>();
-		
+		List<ClassBean> photoList = new ArrayList<>();
 
-		ClassBean cBean = new ClassBean() ;
-		
+		ClassBean cBean = new ClassBean();
+
 		Iterator<ClassBean> itor = classList.iterator();
-		
+
 		while (itor.hasNext()) {
 			cBean = itor.next();
 			try {
 				cBean = classDao.selectTeacherPhotoList(cBean);
 				photoList.add(cBean);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		model.addAttribute("mainPhoto", photoList);
-		
+
 		return "main";
 	}
 
@@ -81,31 +80,30 @@ public class MainController {
 
 	@RequestMapping("/application")
 	public String application(ClassBean cBean, PhotoBean photoBean, Model model) {
-		
+
 		ClassBean classBean = classDao.selectClass(cBean);
-		model.addAttribute("classBean",classBean);
-		
+		model.addAttribute("classBean", classBean);
+
 		photoBean = new PhotoBean();
 		photoBean.setMemberId(cBean.getStudyId());
-		
+
 		PhotoBean poBean = photoDao.selectPhoto(photoBean);
 
 		if (poBean == null) {
 			poBean = new PhotoBean();
 			poBean.setPhotoFileName("/resources/images/noImage.png");
 		}
-		
+
 		model.addAttribute("photoBean", poBean);
-		
-		
+
 		return "application";
 	}
 
 	@RequestMapping("/payment")
 	public String payment(Model model, ClassBean cBean) {
 		ClassBean classBean = classDao.selectClass(cBean);
-		model.addAttribute("classBean",classBean);
-		
+		model.addAttribute("classBean", classBean);
+
 		return "payment";
 	}
 
@@ -113,8 +111,6 @@ public class MainController {
 	public String busketList(Locale locale, Model model) {
 		return "bucketList";
 	}
-
-
 
 	@RequestMapping("/selectTeacher")
 	public String selectMember(TeacherBean teacherBean, Model model) {
@@ -193,14 +189,14 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/error404", method = RequestMethod.GET)
-	   public String error404(HttpServletResponse res, Model model) {
-	      
-	      res.setStatus(HttpServletResponse.SC_OK);
-	      
-	      model.addAttribute("contents","error/error404");
-	      return "/errorpage";
+	public String error404(HttpServletResponse res, Model model) {
 
-	   }
+		res.setStatus(HttpServletResponse.SC_OK);
+
+		model.addAttribute("contents", "error/error404");
+		return "/errorpage";
+
+	}
 
 	@RequestMapping("/adminRegTeacher")
 	public String adminRegTeacher() {
@@ -220,6 +216,20 @@ public class MainController {
 		String location[] = cBean.getStudyLocation().split(",");
 		model.addAttribute("Alt", location[0]);
 		model.addAttribute("Att", location[1]);
+
+		// photoBean 생성
+		PhotoBean photoBean = new PhotoBean();
+		photoBean.setMemberId(cBean.getStudyId());
+		photoBean.setPhotoSort("2");
+		photoBean = photoDao.selectPhoto(photoBean);
+		model.addAttribute("photoBean", photoBean);
+
+		// teacher photo 생성
+		PhotoBean tPhotoBean = new PhotoBean();
+		tPhotoBean.setMemberId(cBean.getTeacherId());
+		tPhotoBean.setPhotoSort("1");
+		tPhotoBean = photoDao.selectPhoto(tPhotoBean);
+		model.addAttribute("tPhotoBean", tPhotoBean);
 
 		model.addAttribute("ClassBean", cBean);
 

@@ -14,42 +14,6 @@
 <link href="/resources/css/search.css" rel="stylesheet" type="text/css" />
 <link href="/resources/css/search2.css" rel="stylesheet" type="text/css" />
 <style>
-.page {
-	color: width: 100%;
-	text-align: center;
-	margin-top: 20px;
-}
-
-.page ul:after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-.page ul {
-	display: inline-block;
-	list-style: none;
-}
-
-.page ul li {
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	float: left;
-}
-
-.page ul li a {
-	display: block;
-}
-
-.page ul li a:hover {
-	color: #2c3d46;
-}
-
-.page ul li a.on {
-	background-color: #2c3d46;
-	color: #fff;
-}
 
 .wrap {
 	position: absolute;
