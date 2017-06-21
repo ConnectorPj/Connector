@@ -258,11 +258,7 @@
 					</div>
 				</div>
 
-				<br /> <br />
-				<br />
-				<br />
-				<br />
-				<br />
+				<br /> <br /> <br /> <br /> <br /> <br />
 
 				<div class="sec-leader2">
 					<div class="sec-leader2-img1">
@@ -348,6 +344,7 @@
 	<!-- Login Modal Script -->
 	<script type="text/javascript">
 		// Get the modal
+
 		var modalJoin2 = document.getElementById("myJoinModal2");
 
 		// Get the button that opens the modal
@@ -359,10 +356,21 @@
 
 		// When the user clicks on the button, open the modal 
 		btnJoin2.onclick = function() {
-			modalJoin2.style.display = "block";
+
+			if ($("#loginName").val() != undefined) {
+				alert("로그아웃 후 이용해주세요.");
+			} else {
+				modalJoin2.style.display = "block";
+			}
 		}
 		btnJoin3.onclick = function() {
-			modalJoin2.style.display = "block";
+			if ($("#loginName").val() != undefined) {
+				alert("로그아웃 후 이용해주세요.");
+
+			} else {
+				modalJoin2.style.display = "block";
+
+			}
 		}
 
 		// When the user clicks on <span> (x), close the modal
