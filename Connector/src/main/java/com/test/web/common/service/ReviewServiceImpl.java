@@ -73,10 +73,9 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (NullPointerException e) {
 			System.out.println("사진이 없는 계정");
 		}
-		// 강사 사진 넣기(Realreview안에)
-		photoBean.setMemberId(rBean.getTeacherId());
 
 		try {
+			photoBean.setMemberId(rBean.getTeacherId());
 			photoBean = photoDAO.selectPhoto(photoBean);
 			rBean.setTeacherPicture(photoBean.getPhotoFileName());
 		} catch (NullPointerException e) {

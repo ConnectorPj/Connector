@@ -177,7 +177,10 @@
 		var studyId = document.getElementById("studyId").value;
 		var studyProgramLanguage = document
 				.getElementById("studyProgramLanguage").value;
-
+		if(reviewRating < 1 || reviewContent.length <= 0) {
+			alert("리뷰를 등록해주세요");
+			return false
+		}
 		formData.append("reviewRating", reviewRating);
 		formData.append("reviewContent", reviewContent);
 		formData.append("teacherName", teacherName);
@@ -212,8 +215,7 @@
 
 <script type="text/javascript">
 	function paging(click) {
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					url : "/selectCustomerPurchaseList.do",
 					data : {
@@ -227,8 +229,7 @@
 							var str = "";
 							var str2 = "";
 							//리스트 출력
-							$
-									.each(
+							$.each(
 											data.ClassList,
 											function(i, classBean) {
 												str += "<tr>";
@@ -292,8 +293,7 @@
 	};
 
 	function paging2(click) {
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					url : "/selectCustomerPurchaseList2.do",
 					data : {
@@ -307,8 +307,7 @@
 							var str = "";
 							var str2 = "";
 							//리스트 출력
-							$
-									.each(
+							$.each(
 											data.ClassList,
 											function(i, classBean) {
 												str += "<tr>";
@@ -504,8 +503,7 @@
 							</div>
 							<br />
 							<div>
-								<button class="btnReview" onclick="btnReviewWrite()">리뷰
-									쓰기</button>
+								<input class="btnReview" type='submit' onclick="return btnReviewWrite()" value="리뷰쓰기" />
 							</div>
 							<br /> <br /> <input type="hidden" id="reviewRating"
 								name="reviewRating" /> <input type="hidden" id="teacherId"
@@ -533,8 +531,7 @@
 
 			$(function() {
 
-				$
-						.ajax({
+				$.ajax({
 							type : "post",
 							url : "/selectClass.do",
 							dataType : "json",
@@ -549,8 +546,7 @@
 									document.getElementById("studyId").value = cBean.studyId;
 									document.getElementById("teacherId").value = cBean.teacherId;
 									document.getElementById("teacherName").value = cBean.teacherName;
-									document
-											.getElementById("studyProgramLanguage").value = cBean.studyProgramLanguage;
+									document.getElementById("studyProgramLanguage").value = cBean.studyProgramLanguage;
 									document.getElementById("studyResult").textContent = cBean.teacherName
 											+ "강사님의스터디에 대한 평가를 해주세요!";
 
