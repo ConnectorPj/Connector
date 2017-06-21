@@ -176,7 +176,6 @@ public class CustomerController {
 		try{
 			customerService.insertCustomer(bean);
 		}catch(Exception e){
-			System.out.println("이미 회원가입이 되어 있음 !");
 		}
 
 		try {
@@ -208,7 +207,6 @@ public class CustomerController {
 		try{
 			customerService.insertCustomer(bean);
 		}catch(Exception e){
-			System.out.println("이미 회원가입이 되어 있음 !");
 		}
 		
 		try {
@@ -270,8 +268,6 @@ public class CustomerController {
 		// 로그인 실패
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put("mBean", bean);
-		System.out.println(bean.getTeacherId());
-		System.out.println(bean.getTeacherPw());
 
 		try {
 			TeacherBean teacherBean = teacherService.selectTeacher(bean);
@@ -322,12 +318,6 @@ public class CustomerController {
 	
 	@RequestMapping("/applicationProc")
 	public String applicationProc(PurchaseBean pBean) {
-		
-		System.out.println(pBean.getCustomerCellPhone());
-		System.out.println(pBean.getCustomerId());
-		System.out.println(pBean.getStudyId());
-		System.out.println(pBean.getCustomerContent());
-		
 		
 		// 기본값 0 
 		pBean.setPurchaseSort("0");
@@ -389,7 +379,6 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 
-		System.out.println(res);
 
 		return "/main";
 
@@ -441,9 +430,10 @@ public class CustomerController {
 		// DB insert
 		ClassBean.setStudyCheck("0");
 		ClassBean.setStudyId(ClassBean.getTeacherId() + "-" + System.nanoTime());
+		ClassBean.setStudyPrice(toNumFormat( Integer.parseInt(ClassBean.getStudyPrice())) );
+
 		classDao.insertClass(ClassBean);
 		
-		ClassBean.setStudyPrice(toNumFormat( Integer.parseInt(ClassBean.getStudyPrice())) );
 		
 		
 		// 파일 이미지 처리
@@ -459,7 +449,6 @@ public class CustomerController {
 				// 파일이름 생성
 				String fileName = ClassBean.getStudyId() + "";
 				String fileExt = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
-				System.out.println(fileName + fileExt);
 
 				String fullFilePath = saveDir.getPath() + File.separator + fileName + fileExt;
 
@@ -570,7 +559,6 @@ public class CustomerController {
 		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
 		resMap.put(Constants.RESULT_MSG, "게시글 작성 실패");
 
-		System.out.println("filename: " + file1.getOriginalFilename());
 
 		// 파일 이미지 처리
 		if (!file1.getOriginalFilename().equals("")) {
@@ -592,7 +580,6 @@ public class CustomerController {
 				// 파일이름 생성
 				String fileName = cBean.getCustomerId() + file1.getOriginalFilename() + "";
 				String fileExt = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
-				System.out.println(fileName + fileExt);
 
 				String fullFilePath = saveDir.getPath() + File.separator + fileName + fileExt;
 
