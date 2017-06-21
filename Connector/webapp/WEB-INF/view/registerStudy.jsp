@@ -6,7 +6,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Co:nnector-수업 등록</title>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="/resources/css/registerStudy.css" rel="stylesheet"

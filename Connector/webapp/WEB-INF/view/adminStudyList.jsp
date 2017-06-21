@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
-<title>수업 진행 내역</title>
+<title>Co:nnector-관리자</title>
 
 <script type="text/javascript">
 	$(function() {
@@ -46,7 +46,7 @@
 										+ "</td>";
 							str += "<td><a href='adminRegClass.do?studyId="
 									+ classBean.studyId
-									+ "'><input type='button'class='reviewBtn' value='상세보기'/></a></td>";
+									+ "'><input type='button' class='reviewBtn' value='상세보기'/></a></td>";
 
 							str += "</tr>";
 						});
@@ -116,7 +116,7 @@
 										+ "</td>";
 							str += "<td><a href='adminRegClass.do?studyId="
 									+ classBean.studyId
-									+ "'><input type='button'class='reviewBtn' value='등록하기'/></a></td>";
+									+ "'><input type='button' class='reviewBtn' value='등록하기'/></a></td>";
 
 							str += "</tr>";
 						});

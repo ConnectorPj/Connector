@@ -19,7 +19,7 @@
 
 <!-- bootstrap.js -->
 <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.js"></script>
-<title>applicationSuccess</title>
+<title>Co:nnector-수업 신청 성공</title>
 </head>
 <body>
 

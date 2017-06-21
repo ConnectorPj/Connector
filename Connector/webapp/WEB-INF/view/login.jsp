@@ -11,7 +11,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Insert title here</title>
+<title>Co:nnector-login</title>
 
 
 <style type="text/css">

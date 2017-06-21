@@ -16,7 +16,7 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/payorderStyle.css"
 	rel="stylesheet">
-<title>수업 진행 내역</title>
+<title>Co:nnector-개인정보</title>
 
 <script type="text/javascript">
 	$(function() {
@@ -487,6 +487,9 @@
 											+ "</td>";
 									str += "<td>"
 											+ customerBean.customerName
+											+ "</td>";
+									str += "<td>"
+											+ customerBean.customerId
 											+ "</td>";
 									str += "<td>"
 											+ customerBean.customerGender

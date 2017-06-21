@@ -30,7 +30,7 @@
 
 
 <head>
-<title>관리자 페이지</title>
+<title>Co:nnector-관리자</title>
 
 </head>
 <body>

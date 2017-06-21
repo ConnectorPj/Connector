@@ -14,7 +14,7 @@
 <link type="text/css" href="/resources/css/applicationStyle.css"
 	rel="stylesheet" />
 
-<title>application</title>
+<title>Co:nnector-스터디신청</title>
 
 </head>
 <body>

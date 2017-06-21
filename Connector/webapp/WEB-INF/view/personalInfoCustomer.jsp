@@ -10,14 +10,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link type="text/css"
-	href="/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
 <link type="text/css" href="/resources/css/mainStyle.css"
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/payorderStyle.css"
 	rel="stylesheet">
 <head>
-<title>개인정보</title>
+<title>Co:nnector-개인정보</title>
 <script>
 	$(function() {
 		$.ajax({

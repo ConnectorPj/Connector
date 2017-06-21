@@ -12,7 +12,7 @@
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
 <head>
-<title>수업 진행 내역</title>
+<title>Co:nnector-관리자</title>
 <script type="text/javascript">
 //회원정보 삭제
 function delCustomer(customerId) {

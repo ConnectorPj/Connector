@@ -20,7 +20,7 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/payorderStyle.css"
 	rel="stylesheet">
-<title>수업 결제 내역</title>
+<title>Co:nnector-개인정보</title>
 
 
 <script type="text/javascript">

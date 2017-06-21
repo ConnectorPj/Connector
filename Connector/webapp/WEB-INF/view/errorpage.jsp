@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/resources/css/errorPage.css">
-<title>Error404</title>
+<title>Co:nnector-Error404</title>
 </head>
 <body>
 	<div id="clouds">
