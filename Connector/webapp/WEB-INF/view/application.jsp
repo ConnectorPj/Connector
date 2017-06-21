@@ -63,7 +63,7 @@
 
 						<textarea class="inputContent" rows="3" placeholder="내용을 입력해주세요."
 							style="resize: none; margin: 20px 0 20px;"
-							name="customerCellPhone" required="required"></textarea>
+							name="customerCellPhone" id="customerCellPhone" required="required"></textarea>
 					</div>
 
 				</div>
@@ -97,14 +97,27 @@
 					</div>
 				</div>
 				<button class="submitBtn" style="margin-top: 70px;" id="actionBtn"
-					onclick="insertPurchase();">신청하기</button>
+					onclick="checkInsertApplication();">신청하기</button>
 			</div>
 
 		</div>
 	</section>
 
 	<script type="text/javascript">
+	
+	function checkInsertApplication(){
+		
+		if ($("#customerCellPhone").val() == "") {
+			alert("휴대폰 번호를 입력하세요!");
+			return;
+		}
+		insertPurchase();
+		
+	}
 		function insertPurchase() {
+			
+			
+			
 			var purchaseForm = document.getElementById("purchaseForm");
 			purchaseForm.action = "/applicationProc.do";
 			purchaseForm.method = "post";
