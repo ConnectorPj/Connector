@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html >
 <html>
@@ -154,7 +154,7 @@
 									+ classBean.studyName
 									+ "</td>";
 							str += "<td>"
-									+ classBean.studyLanguage
+									+ classBean.studyProgramLanguage
 									+ "</td>";
 							str += "<td>"
 									+ classBean.teacherName
