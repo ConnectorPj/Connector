@@ -46,14 +46,15 @@ public class AndroidController {
    @Autowired
    private ClassDAO classDAO;
 
-   @RequestMapping("/androidProfile")
+   @RequestMapping("/androidLogin")
    @ResponseBody
-   public Map<String, Object> androidProfile(HttpServletRequest request) {
+   public Map<String, Object> androidLogin(HttpServletRequest request) {
       
       System.out.println(request.getParameter("user"));
       CustomerBean customerBean = new CustomerBean();
       PhotoBean photoBean = new PhotoBean();
       customerBean.setCustomerId(request.getParameter("userId"));
+      customerBean.setCustomerPw(request.getParameter("userPw"));
       photoBean.setMemberId(request.getParameter("userId"));
       System.out.println(request.getParameter("userId"));
       
@@ -65,21 +66,60 @@ public class AndroidController {
          teacherBean.setTeacherId(request.getParameter("userId"));
          teacherBean = teacherDAO.selectTeacher(teacherBean);
          
+         result.put("userId", teacherBean.getTeacherId());
          result.put("userName",teacherBean.getTeacherName());
          result.put("userCellphone",teacherBean.getTeacherCellphone());
          result.put("userProfile",teacherBean.getTeacherInfo());
          result.put("userGender",teacherBean.getTeacherGender());
          
       }else{
+    	  result.put("userId", customerBean.getCustomerId());
          result.put("userName",customerBean.getCustomerName());
          result.put("userCellphone",customerBean.getCustomerCellphone());
          result.put("userProfile",customerBean.getCustomerProfile());
          result.put("userGender",customerBean.getCustomerGender());
       }
-      
-      result.put("photoFileName",photoBean.getPhotoFileName());
+      if(photoBean != null)
+    	  result.put("photoFileName",photoBean.getPhotoFileName());
       
       return result;
+   }
+   @RequestMapping("/androidProfile")
+   @ResponseBody
+   public Map<String, Object> androidProfile(HttpServletRequest request) {
+	   
+	   System.out.println(request.getParameter("user"));
+	   CustomerBean customerBean = new CustomerBean();
+	   PhotoBean photoBean = new PhotoBean();
+	   customerBean.setCustomerId(request.getParameter("userId"));
+	   photoBean.setMemberId(request.getParameter("userId"));
+	   System.out.println(request.getParameter("userId"));
+	   
+	   photoBean = photoDAO.selectPhoto(photoBean);
+	   customerBean = customerDAO.selectCustomer(customerBean);
+	   Map<String, Object> result = new HashMap<>();
+	   if(customerBean == null) {
+		   TeacherBean teacherBean = new TeacherBean();
+		   teacherBean.setTeacherId(request.getParameter("userId"));
+		   teacherBean = teacherDAO.selectTeacher(teacherBean);
+		   
+		   result.put("userId", teacherBean.getTeacherId());
+		   result.put("userName",teacherBean.getTeacherName());
+		   result.put("userCellphone",teacherBean.getTeacherCellphone());
+		   result.put("userProfile",teacherBean.getTeacherInfo());
+		   result.put("userGender",teacherBean.getTeacherGender());
+		   
+	   }else{
+		   result.put("userId", customerBean.getCustomerId());
+		   result.put("userName",customerBean.getCustomerName());
+		   result.put("userCellphone",customerBean.getCustomerCellphone());
+		   result.put("userProfile",customerBean.getCustomerProfile());
+		   result.put("userGender",customerBean.getCustomerGender());
+	   }
+	   if(photoBean != null)
+		   result.put("photoFileName",photoBean.getPhotoFileName());
+	   
+	   return result;
    }
    
 }
