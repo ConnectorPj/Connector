@@ -146,11 +146,4 @@ div .card:hover {
 		background-color: rgba(214, 224, 226, 0.2);
 	}
 	
-	.head, .footerCss {
-		display: none;
-	}
-	header{
-	height: 0px;}
-	.total{
-	margin-top:10px;}
 }
