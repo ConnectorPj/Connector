@@ -50,7 +50,7 @@
 
 							str += "</tr>";
 						});
-					$("#memberListBody").append(str);
+					$("#memberListBody2").append(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
@@ -78,7 +78,7 @@
 							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
-					$("#page").html(str2);
+					$("#page2").html(str2);
 				} else {
 					alert(data.resultMsg);
 				}
@@ -120,7 +120,7 @@
 
 							str += "</tr>";
 						});
-					$("#memberListBody2").append(str);
+					$("#memberListBody").append(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
@@ -148,7 +148,7 @@
 							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
-					$("#page2").html(str2);
+					$("#page").html(str2);
 				} else {
 					alert(data.resultMsg);
 				}
@@ -193,7 +193,7 @@
 
 								str += "</tr>";
 							});
-					$("#memberListBody").html(str);
+					$("#memberListBody2").html(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
@@ -221,7 +221,7 @@
 							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
-					$("#page").html(str2);
+					$("#page2").html(str2);
 
 				} else {
 					alert(data.resultMsg);
@@ -266,7 +266,7 @@
 
 							str += "</tr>";
 						});
-					$("#memberListBody2").html(str);
+					$("#memberListBody").html(str);
 
 					var pBean = data.pBean;
 					str2 += "<ul>";
@@ -294,7 +294,7 @@
 							+ pBean.totalPageCount + "'> >> </a></li>";
 					str2 += "</ul>";
 
-					$("#page2").html(str2);
+					$("#page").html(str2);
 
 				} else {
 					alert(data.resultMsg);
@@ -339,6 +339,7 @@
 
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록할 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>
@@ -366,6 +367,7 @@
 
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록된 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>

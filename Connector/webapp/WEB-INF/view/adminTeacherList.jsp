@@ -14,7 +14,11 @@
 	rel="stylesheet">
 <link type="text/css" href="/resources/css/adminPageCss.css"
 	rel="stylesheet">
+
 <title>수업 진행 내역</title>
+<style>
+
+</style>
 
 <script type="text/javascript">
 
@@ -345,6 +349,7 @@ $(function() {
 
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록된 강사목록</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>
@@ -372,6 +377,7 @@ $(function() {
 				
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록할 강사목록</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>

@@ -354,6 +354,7 @@
 
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록된 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>
@@ -384,6 +385,7 @@
 
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>대기중 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>

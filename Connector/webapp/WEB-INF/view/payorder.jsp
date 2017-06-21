@@ -407,9 +407,10 @@
 				</div>
 
 
-
+				
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>등록된 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>
@@ -438,9 +439,10 @@
 
 				</div>
 
-
+				
 				<!-- 서브 내용 -->
 				<div class="sub_content">
+				<h4>신청한 클래스</h4>
 					<div class="notice_table">
 						<table>
 							<colgroup>
