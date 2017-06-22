@@ -7,7 +7,7 @@
 *{-webkit-text-size-adjust:none;  box-sizing:border-box}
 
 ::selection {color:#fff; background:#000}
-html, body{font-family:'Noto Sans KR', sans-serif, dotum, '돋움', gulim, '굴림', Arial, AppleGothic, verdana, helvetica; font-size:14px; letter-spacing:-0.05em;height:100%; }line-height:1.6; font-weight:400; color:#333; margin:0; overflow-x:hidden; !important;}
+html, body{font-family:'Noto Sans KR', sans-serif, dotum, '돋움', gulim, '굴림', Arial, AppleGothic, verdana, helvetica; font-size:14px; letter-spacing:-0.05em; line-height:1.6; font-weight:400;height:100%; color:#333; margin:0; overflow-x:hidden; !important;}
 a		    {color:#333333; text-decoration:none;}
 a:link      {color:#333333; text-decoration:none;transition:all .3s ease}
 a:visited   {color:#333333; text-decoration:none}
