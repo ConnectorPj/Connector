@@ -32,6 +32,7 @@ import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
 import com.test.web.common.dao.PhotoDAO;
+import com.test.web.common.dao.PurchaseDAO;
 import com.test.web.common.dao.ReviewDAO;
 import com.test.web.common.dao.TeacherDAO;
 import com.test.web.common.service.ReviewService;
@@ -56,6 +57,9 @@ public class DetailController {
 	
 	@Autowired
 	CustomerDAO customerDao;
+	
+	@Autowired
+	PurchaseDAO purchaseDao;
 
 	@Autowired
 	private ReviewService reviewService;
@@ -64,7 +68,7 @@ public class DetailController {
 	public String detail(Model model, ClassBean cBean) {
 		ClassBean selBean = classDao.selectClass(cBean);
 		model.addAttribute("ClassBean", selBean);
-
+		
 		String location[] = selBean.getStudyLocation().split(",");
 		model.addAttribute("Alt", location[0]);
 		model.addAttribute("Att", location[1]);
@@ -127,6 +131,42 @@ public class DetailController {
 			// 게시글 통합조회(댓글 목록까지 조회)
 			resMap = reviewService.selectDetailInfo(rBean);
 
+			resMap.put(Constants.RESULT, Constants.RESULT_OK);
+			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resMap;
+	}
+	
+	// 인원수 체크 Controller
+	@RequestMapping("/amountChk")
+	@ResponseBody
+	public Map<String, Object> amountChk(ClassBean cBean) {
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put(Constants.RESULT, Constants.RESULT_FAIL);
+		resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 실패");
+		ClassBean selBean = classDao.selectClass(cBean);
+		
+		try {
+			String str [] = selBean.getStudyAmount().split(" ");
+			int maxMount = Integer.parseInt(str[0]);
+			
+			PurchaseBean pBean = new PurchaseBean();
+			pBean.setStudyId(selBean.getStudyId());
+			pBean.setPurchaseSort("1");
+			
+			List<PurchaseBean> pList = purchaseDao.selectPurchaseListByCheck(pBean);
+			int currentMount = pList.size();
+			System.out.println(currentMount);
+			System.out.println("abc");
+			if(currentMount >= maxMount){ // 인원수가 다 찼다면 
+				resMap.put("countChk","1");
+			}else{
+				resMap.put("countChk","0");
+			}
 			resMap.put(Constants.RESULT, Constants.RESULT_OK);
 			resMap.put(Constants.RESULT_MSG, "게시글 상세보기 조회 성공");
 

@@ -117,7 +117,40 @@
 						+ ", error : " + error);
 			}
 		});
+		
+		// 수업 신청하기 Ajax
+		$.ajax({
+			type : "post",
+			url : "/amountChk.do",
+			dataType : "json",
+			data : {
+				studyId : $("#studyId").val(),
+			},
+			success : function(data) {
+				console.log(data);
 
+				if (data.result == "ok") {
+					//리뷰 리스트 출력
+					var check = data.countChk;
+					if(check=="1"){
+						$("#actionBtn").text("신청이 마감 되었습니다.");
+						$("#actionBtn").css("background-color", "#2c3d46");
+						$("#actionBtn").css("color", "white");
+						mountCond = 1;
+					}
+					
+				} else {
+					alert(data.resultMsg);
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log(xhr);
+				alert("error\nxhr : " + xhr + ", status : " + status
+						+ ", error : " + error);
+			}
+		});
+
+		// 찜하기 Check 처리 Ajax
 		$.ajax({
 			type : "post",
 			url : "/buskcetProc.do",
@@ -443,6 +476,7 @@
 
 			<script type="text/javascript">
 				var cond = 1;
+				var mountCond = 0;
 
 				function joinFunc() {
 					if (confirm("참가 신청 하시겠습니까?")) {
@@ -456,10 +490,18 @@
 				}
 
 				$("#actionBtn").click(function() {
-					joinFunc();
+					if(mountCond == 1){
+						alert("수업 인원이 다 찼습니다.");
+					}else{
+						joinFunc();						
+					}
 				});
 				$("#actionBtnMobile").click(function() {
-					joinFunc();
+					if(mountCond == 1){
+						alert("수업 인원이 다 찼습니다.");
+					}else{
+						joinFunc();						
+					}
 				});
 
 				function book() {
