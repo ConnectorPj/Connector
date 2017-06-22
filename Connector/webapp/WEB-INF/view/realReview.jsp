@@ -18,7 +18,10 @@
 <link href="/resources/css/review/review.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<style>
+body {
+   height: auto;
+}</style> 
 <script type="text/javascript">
 
 //전역 변수

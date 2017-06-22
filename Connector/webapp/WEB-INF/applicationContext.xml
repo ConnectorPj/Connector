@@ -87,16 +87,21 @@
 	<mvc:interceptor>
 	<mvc:mapping path="/**"/>
 
-	<mvc:exclude-mapping path="/*main*" />
-	<mvc:exclude-mapping path="/*detail*" />
-	<mvc:exclude-mapping path="/*realreview*" />
-	<mvc:exclude-mapping path="/*error*" />
-	<mvc:exclude-mapping path="/*join*" />
-	<mvc:exclude-mapping path="/*login*" />
-	<mvc:exclude-mapping path="/*search*" />
-	<mvc:exclude-mapping path="/*studyIntro*" />
-	<mvc:exclude-mapping path="/*leaderIntro*" />
-
+  <mvc:exclude-mapping path="/*main*" />
+   <mvc:exclude-mapping path="/*detail*" />
+   <mvc:exclude-mapping path="/*real*" />
+   <mvc:exclude-mapping path="/*error*" />
+   <mvc:exclude-mapping path="/*join*" />
+   <mvc:exclude-mapping path="/*login*" />
+   <mvc:exclude-mapping path="/*search*" />
+   <mvc:exclude-mapping path="/*studyIntro*" />
+   <mvc:exclude-mapping path="/*leaderIntro*" />
+   <mvc:exclude-mapping path="/*android*" />
+   <mvc:exclude-mapping path="/*amountChk*" />
+   <mvc:exclude-mapping path="/*buskcetProc*" />
+   <mvc:exclude-mapping path="/*updateBusket*" />
+   
+   
 	<bean class="com.test.web.common.SessionInterceptor" />
 
 	</mvc:interceptor>
