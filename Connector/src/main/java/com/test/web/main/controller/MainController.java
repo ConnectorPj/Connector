@@ -200,6 +200,15 @@ public class MainController {
 		return "/errorpage";
 
 	}
+	@RequestMapping(value = "/error500", method = RequestMethod.GET)
+	public String error500(HttpServletResponse res, Model model) {
+		
+		res.setStatus(HttpServletResponse.SC_OK);
+		
+		model.addAttribute("contents", "error/error500");
+		return "/errorpage2";
+		
+	}
 
 	@RequestMapping("/adminRegTeacher")
 	public String adminRegTeacher() {
