@@ -215,10 +215,8 @@ function calcelClass(studyId) {
 				${ClassBean.studyName} </label>
 			<div class="sideWrap">
 				<ul class="sideSchedule">
-					<li><input type="radio" class="choiceBtn" value="N"> <label
-						for="choiceBtn"> <span class="mock-radio"></span> <span
-							id="choiceText" class="choiceText">${diff}주</span>
-					</label>
+					<li class="sideSchedulWrap"><div class="sideSchedulChoice"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						<span id="choiceText" class="choiceText">${diff}주</span> </div>
 						<div class="titleLevel">
 							<div class="levelText1">분야명</div>
 							<div id="levelText" class="levelText2">
