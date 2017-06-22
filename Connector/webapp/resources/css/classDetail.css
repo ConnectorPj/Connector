@@ -312,7 +312,8 @@
 }
 
 #leaderintro {
-	height: 170px;
+	height:auto;
+	margin-bottom: 100px;
 }
 
 .leaderTitle {
