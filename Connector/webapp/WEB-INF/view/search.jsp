@@ -468,7 +468,11 @@
 
 					totalCount = showLeftContents.length;
 					currentNum = 0;
-					groupNum = totalCount / 10 + 1;
+					if(totalCount % 10 == 0){
+						groupNum = totalCount / 10;
+					}else{
+						groupNum = totalCount / 10 + 1;
+					}
 
 					var until = (currentNum + 1) * 10
 					if (until > totalCount) {
@@ -547,7 +551,6 @@
 
 							// 지도 중심을 부드럽게 이동시킵니다
 							// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-									
 							map.panTo(position);
 							if (overlay != null) {
 								overlay.setMap(null);

@@ -208,6 +208,24 @@ public class MainController {
 		return "adminPage";
 	}
 
+	int dayCal(String str, String str1) {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date beginDate = formatter.parse(str);
+			Date endDate = formatter.parse(str1);
+
+			long diff = endDate.getTime() - beginDate.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+
+			return (int) diffDays / 7;
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 	@RequestMapping("/adminRegClass")
 	public String adminRegClass(Model model, ClassBean cBean) {
 
@@ -216,6 +234,10 @@ public class MainController {
 		String location[] = cBean.getStudyLocation().split(",");
 		model.addAttribute("Alt", location[0]);
 		model.addAttribute("Att", location[1]);
+
+		int diff = dayCal(cBean.getStudyStartDate(), cBean.getStudyEndDate());
+		model.addAttribute("diff", diff);
+
 
 		// photoBean 생성
 		PhotoBean photoBean = new PhotoBean();
