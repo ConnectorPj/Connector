@@ -10,6 +10,8 @@ import com.test.web.common.bean.TeacherBean;
 public interface TeacherDAO {
 
 	public TeacherBean selectTeacher(TeacherBean bean);
+	
+	public TeacherBean selectTeacher2(TeacherBean bean);
 
 	public List<TeacherBean> selectTeacherList(@Param("teacherBean") TeacherBean bean,
 			@Param("pagingBean") PagingBean pBean);
@@ -27,7 +29,7 @@ public interface TeacherDAO {
 
 	public int teacherCheckId(TeacherBean bean);
 
-	/** 회원정보 전체 리스트 갯수를 가져온다. **/
+	/** �쉶�썝�젙蹂� �쟾泥� 由ъ뒪�듃 媛��닔瑜� 媛��졇�삩�떎. **/
 	public int selectTeacherListTotalCount();
 
 	public int selectTeacherListTotalCountCheck();

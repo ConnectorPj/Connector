@@ -28,6 +28,17 @@
 			AND teacher_pw=PASSWORD(#{teacherPw})
 		</if>
 	</select>
+	
+	<!-- 회원정보 1건 조회 -->
+	<select id="selectTeacher2" resultType="teacherBean"
+		parameterType="teacherBean">
+		SELECT
+		<include refid="teacherColumns" />
+		FROM
+		teacher
+		WHERE
+		teacher_id = #{teacherId}
+	</select>
 
 	<!-- 회원정보 List 조회 (check=0)-->
 	<select id="selectTeacherList" resultType="teacherBean">

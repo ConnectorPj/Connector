@@ -431,7 +431,7 @@
 					리더 소개 <img class="profile" src="${tPhotoBean.photoFileName}">
 				</div>
 				<div id="leaderContent" class="leaderContent">
-					<pre>${ClassBean.studyInfo} </pre>
+					<pre>${teacherBean.teacherInfo} </pre>
 				</div>
 			</div>
 			<br>

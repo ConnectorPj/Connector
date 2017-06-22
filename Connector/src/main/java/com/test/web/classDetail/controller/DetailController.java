@@ -28,6 +28,7 @@ import com.test.web.common.bean.PagingBean;
 import com.test.web.common.bean.PhotoBean;
 import com.test.web.common.bean.PurchaseBean;
 import com.test.web.common.bean.ReviewBean;
+import com.test.web.common.bean.TeacherBean;
 import com.test.web.common.dao.BucketDAO;
 import com.test.web.common.dao.ClassDAO;
 import com.test.web.common.dao.CustomerDAO;
@@ -89,6 +90,14 @@ public class DetailController {
 		tPhotoBean.setPhotoSort("1");
 		tPhotoBean = photoDao.selectPhoto(tPhotoBean);
 		model.addAttribute("tPhotoBean", tPhotoBean);
+		
+		// teacherBean Select
+		TeacherBean tBean = new TeacherBean();
+		tBean.setTeacherId(selBean.getTeacherId());
+		tBean = teacherDao.selectTeacher2(tBean);
+		System.out.println("abcd");
+		model.addAttribute("teacherBean", tBean);
+		
 
 		return "classDetail";
 	}

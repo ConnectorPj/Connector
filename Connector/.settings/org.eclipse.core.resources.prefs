@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/test/web/Websocket/Controller/WebSocketController.java=UTF-8
 encoding//src/main/java/com/test/web/classDetail/controller/DetailController.java=UTF-8
+encoding//src/main/java/com/test/web/common/dao/TeacherDAO.java=UTF-8
 encoding//src/main/java/com/test/web/search/controller/SearchController.java=UTF-8
