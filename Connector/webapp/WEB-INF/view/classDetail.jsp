@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -480,8 +480,14 @@
 
 				function joinFunc() {
 					if (confirm("참가 신청 하시겠습니까?")) {
-
+						
 						if ($("#loginId").val() != "") {
+							
+							if($("#memberId").val() == undefined){
+								alert("리더는 강의 신청할 수 없습니다.");
+								return;
+							}
+							
 							location.href = "application.do?studyId=" + $("#studyId").val();
 						} else {
 							location.href = "login.do?studyId=" + $("#studyId").val();

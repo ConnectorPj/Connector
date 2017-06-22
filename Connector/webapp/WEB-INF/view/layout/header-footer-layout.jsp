@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+﻿<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 
@@ -562,6 +562,7 @@ span.buttonText {
 										<li><a href="personalInfoTeacher.do"> 프로필 관리</a></li>
 										<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 										<input type="hidden" value="g" id="loginCheck">
+										<input type="hidden" value="${sessionScope.memberLoginBean.teacherName}" id="loginName">
 
 									</c:if>
 
@@ -570,6 +571,8 @@ span.buttonText {
 										<li><a href="personalInfoCustomer.do"> 프로필 관리</a></li>
 										<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 										<input type="hidden" value="g" id="loginCheck">
+										<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
+										<input type="hidden" value="${sessionScope.memberLoginBean.customerId}" id="memberId">
 									</c:if>
 
 									<!-- 관리자가 로그인 했다면 -->
@@ -607,9 +610,7 @@ span.buttonText {
 											${sessionScope.memberLoginBean.teacherName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
-									<input type="hidden"
-										value="${sessionScope.memberLoginBean.teacherName}"
-										id="loginName">
+									<input type="hidden"value="${sessionScope.memberLoginBean.teacherName}" id="loginName">
 
 								</c:if>
 
@@ -620,12 +621,8 @@ span.buttonText {
 											${sessionScope.memberLoginBean.customerName}님이 로그인중입니다.</a></li>
 									<li><a id="logout" href="/logout.do"> 로그아웃</a></li>
 									<input type="hidden" value="g" id="loginCheck">
-									<input type="hidden"
-										value="${sessionScope.memberLoginBean.customerName}"
-										id="loginName">
-									<input type="hidden"
-										value="${sessionScope.memberLoginBean.customerId}"
-										id="memberId">
+									<input type="hidden" value="${sessionScope.memberLoginBean.customerName}" id="loginName">
+									<input type="hidden" value="${sessionScope.memberLoginBean.customerId}" id="memberId">
 								</c:if>
 
 								<!-- 관리자가 로그인 했다면 -->
