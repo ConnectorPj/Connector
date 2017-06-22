@@ -84,7 +84,6 @@
 	word-break: break-all;
 	word-wrap: break-word;
 	background-color: #f5f5f5;
-	border: 1px solid #ccc;
 	border-radius: 4px;
 	overflow: auto;
     white-space: pre-line;
@@ -105,7 +104,6 @@
 	word-break: break-all;
 	word-wrap: break-word;
 	background-color: #f5f5f5;
-	border: 1px solid #ccc;
 	border-radius: 4px;
 	background-color: white;
 }
@@ -314,7 +312,7 @@
 }
 
 #leaderintro {
-	height: 30%;
+	height: 170px;
 }
 
 .leaderTitle {

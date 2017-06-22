@@ -528,7 +528,7 @@
 									cond = 2;
 									return;
 								} else {
-									alert("찜 목록에 실패 하였습니다.");
+									alert("찜 목록 추가에 실패 하였습니다.\n 로그인이 필요한 기능입니다.");
 								}
 
 							},
@@ -557,7 +557,7 @@
 									cond = 1;
 									return;
 								} else {
-									alert("찜 목록에 실패 하였습니다.");
+									alert("찜 목록 삭제가 실패 하였습니다.");
 								}
 							},
 							error : function(xhr, status, error) {
