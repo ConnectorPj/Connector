@@ -100,6 +100,7 @@
    <mvc:exclude-mapping path="/*amountChk*" />
    <mvc:exclude-mapping path="/*buskcetProc*" />
    <mvc:exclude-mapping path="/*updateBusket*" />
+   <mvc:exclude-mapping path="/*insert*" />
    
    
 	<bean class="com.test.web.common.SessionInterceptor" />
